@@ -43,6 +43,7 @@ final class ViewController: UIViewController {
         style()
         setLayout()
         print("git test")
+        print("another test")
     }
 }
 
