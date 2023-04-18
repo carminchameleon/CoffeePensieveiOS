@@ -122,7 +122,7 @@ extension ViewController {
     
     @objc func moveToSignUp(){
         let firstVC = StartPointViewController()
-        firstVC.modalPresentationStyle = .fullScreen
+        firstVC.modalPresentationStyle = .currentContext
         present(firstVC, animated: true)
 
 

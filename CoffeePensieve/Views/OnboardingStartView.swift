@@ -2,20 +2,19 @@
 //  OnboardingStartView.swift
 //  CoffeePensieve
 //
-//  Created by Eunji Hwang on 2023/04/12.
+//  Created by Eunji Hwang on 2023/04/14.
 //
 
 import UIKit
 
 class OnboardingStartView: UIView {
-    
-    
-    private var pageViewController: UIPageViewController?
+
+    var pageViewController: UIPageViewController?
+
     var pages = [UIViewController]()
     private var initialPage = 0
-    let pageControl = UIPageControl()
     
-    private lazy var appNameLabel: UILabel = {
+    let appNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Coffee \n Pensieve"
         label.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
@@ -25,7 +24,7 @@ class OnboardingStartView: UIView {
         return label
     }()
     
-    private var startButton: UIButton = {
+    let startButton: UIButton = {
         let button = UIButton(type:.custom)
         button.setTitle("Get Started", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -34,67 +33,43 @@ class OnboardingStartView: UIView {
         button.clipsToBounds = true
         button.layer.cornerRadius = 6
         button.isEnabled = true
-        //        button.addTarget(self, action: #selector(moveToSignUp), for: .touchUpInside)
         return button
     }()
     
-    private func style() {
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.currentPageIndicatorTintColor = UIColor.primaryColor200
-        pageControl.pageIndicatorTintColor = UIColor.primaryColor100
-        pageControl.numberOfPages = pages.count
-        pageControl.currentPage = initialPage
-    }
+    let pageControl = UIPageControl()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUp()
         addViews()
-        setConstraints()
-    }
-    
-    
-    private func setUp() {
-        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        pageViewController?.dataSource = self
-        pageViewController?.delegate = self
-        
-        //인디케이터 부분 눌렸을 때
-        pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
-        
-        
-        // MARK: - ENUM 으로 만들어 넣을 것
-        let firstPage = OnboardingViewController(imageName: "Cloud 1", mainText: "Make Your Coffee Tracker", subText: "how many cups of coffee do you drink a day? \n What made you need a coffee? \n Keep your coffee moment.")
-        let secondPage = OnboardingViewController(imageName: "Cloud 3", mainText: "Check Your Feeling And Mood", subText: "How are you really doing? \n Even while drinking coffee, \nlook back on your feeling and mood.")
-        let thirdPage = OnboardingViewController(imageName: "Cloud 4", mainText: "Anytime, Anywhere", subText: "Whether it's a cafe, an office, or a home.\n When you get a coffee,\n Always I’m here.")
-        
-        pages.append(firstPage)
-        pages.append(secondPage)
-        pages.append(thirdPage)
-        
-        // 처음으로 보여질 페이지를 선택, 배열이지만 단 하나만 보내야 함.
-        pageViewController?.setViewControllers([pages[initialPage]], direction: .forward, animated: true)
-        addChild(pageViewController!)
-        addSubview(pageViewController!.view)
-        pageViewController?.didMove(toParent: self)
+        makeUI()
+        setUp()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
+    
     func addViews() {
-        [appNameLabel, pageControl, startButton].forEach { addSubview($0) }
+        self.addSubview(appNameLabel)
+        self.addSubview(pageControl)
+        self.addSubview(startButton)
     }
     
-    private func setConstraints() {
-        appNameLabel.translatesAutoresizingMaskIntoConstraints = false
+    func makeUI(){
+        self.backgroundColor = .white
+        pageControl.currentPageIndicatorTintColor = UIColor.primaryColor200
+        pageControl.pageIndicatorTintColor = UIColor.primaryColor100
+
         pageControl.translatesAutoresizingMaskIntoConstraints = false
+        appNameLabel.translatesAutoresizingMaskIntoConstraints = false
         startButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            appNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
-            appNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            appNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 12),
+            appNameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -108,16 +83,44 @@ class OnboardingStartView: UIView {
             startButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             startButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
             startButton.heightAnchor.constraint(equalToConstant: 48)
-            
         ])
     }
     
     
-    
-    
-}
-// MARK: - 페이지 뷰 컨트롤러에서 컨텐츠 뷰 컨트롤러를 반환하는 함수
 
+    private func setUp() {
+        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+
+        pageViewController?.dataSource = self
+        pageViewController?.delegate = self
+
+        // MARK: - ENUM 으로 만들어 넣을 것
+        let firstPage = OnboardingViewController(imageName: "Cloud 1", mainText: "Make Your Coffee Tracker", subText: "how many cups of coffee do you drink a day? \n What made you need a coffee? \n Keep your coffee moment.")
+        let secondPage = OnboardingViewController(imageName: "Cloud 3", mainText: "Check Your Feeling And Mood", subText: "How are you really doing? \n Even while drinking coffee, \nlook back on your feeling and mood.")
+        let thirdPage = OnboardingViewController(imageName: "Cloud 4", mainText: "Anytime, Anywhere", subText: "Whether it's a cafe, an office, or a home.\n When you get a coffee,\n Always I’m here.")
+
+        pages.append(firstPage)
+        pages.append(secondPage)
+        pages.append(thirdPage)
+
+        // 처음으로 보여질 페이지를 선택, 배열이지만 단 하나만 보내야 함.
+        pageViewController?.setViewControllers([pages[initialPage]], direction: .forward, animated: true)
+//        addChild(pageViewController!)
+        addSubview(pageViewController!.view)
+//        pageViewController?.didMove(toParent: self)
+    }
+    
+    private func configurePageControl() {
+        pageControl.numberOfPages = pages.count
+        pageControl.currentPage = initialPage
+    }
+    
+    
+
+}
+
+
+// MARK: - 페이지 뷰 컨트롤러에서 컨텐츠 뷰 컨트롤러를 반환하는 함수
 extension OnboardingStartView: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
@@ -140,9 +143,8 @@ extension OnboardingStartView: UIPageViewControllerDataSource {
             return pages[currentIndex + 1]  // go previous
         }
     }
-
+    
 }
-
 // MARK: - 페이지 이동에 따라 인디케이터 표시
 extension OnboardingStartView: UIPageViewControllerDelegate {
     
@@ -154,8 +156,3 @@ extension OnboardingStartView: UIPageViewControllerDelegate {
         pageControl.currentPage = currentIndex
     }
 }
-
-
-
-
-    
