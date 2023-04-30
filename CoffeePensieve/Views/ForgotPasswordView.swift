@@ -78,7 +78,7 @@ class ForgotPasswordView: UIView {
     // MARK: - 다음 동작 버튼
     let continueButton: UIButton = {
         let button = UIButton(type:.custom)
-        button.setTitle("Continue", for: .normal)
+        button.setTitle("Submit", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.setTitleColor(UIColor.primaryColor300, for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
@@ -144,7 +144,6 @@ class ForgotPasswordView: UIView {
             emailTextField.leadingAnchor.constraint(equalTo: emailTextFieldView.leadingAnchor, constant: 12),
             emailTextField.trailingAnchor.constraint(equalTo: emailTextFieldView.trailingAnchor, constant: -12),
         ])
-        
         
         emailTextFieldView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

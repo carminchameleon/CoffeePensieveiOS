@@ -5,12 +5,10 @@
 //  Created by Eunji Hwang on 2023/04/08.
 //
 
-/**
- 키보드 활성화 시 전체 움직임 추가
- 아이콘 비율 조정
- */
 
 import UIKit
+import Firebase
+
 class SignUpViewController: UIViewController {
         
     let signUpView = SignUpView()
@@ -61,21 +59,24 @@ class SignUpViewController: UIViewController {
     }
     
     
-    // MARK: - 뒤로 돌아가기
+    // MARK: - 뒤로 돌아가기 : StartingPointViewController
     @objc private func backButtonTapped() {
         dismiss(animated: true)
     }
     
     // MARK: - TODO : 다음 작업
     @objc private func signUpButtonTapped() {
-        // TODO 기존에 있는 회원인지 아닌지 확인 필요
-        // 다음 단계로 넘어가게 할 것인지 아닌지 체크
+        guard let email = signUpView.emailTextField.text else { return }
+        guard let password = signUpView.passwordTextField.text else { return }
         
-        let firstProfileVC = FirstProfileGreetingViewController()
-        firstProfileVC.modalPresentationStyle = .fullScreen
-        firstProfileVC.modalTransitionStyle = .crossDissolve
-        present(firstProfileVC, animated: true)
-        
+        // 프로필 입력 작업으로 넘어가게 하기
+        let profileVC = FirstProfileGreetingViewController()
+        profileVC.email = email
+        profileVC.password = password
+        profileVC.modalPresentationStyle = .fullScreen
+        profileVC.modalTransitionStyle = .crossDissolve
+        present(profileVC, animated: true)
+
     }
 
     // MARK: - TODO : Refactoring 공통 함수 부분으로 옮겨 놓을 것

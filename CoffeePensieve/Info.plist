@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.1003489424477-nj909g1q14nag2pu9p7c17u57kjj8v9i</string>
+			</array>
+		</dict>
+		<dict/>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-ExtraBold</string>

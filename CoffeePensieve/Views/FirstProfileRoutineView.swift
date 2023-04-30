@@ -182,12 +182,12 @@ class FirstProfileRoutineView: UIView {
         picker.tintColor = .primaryColor500
         picker.locale = Locale(identifier: "en_US")
         
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        if let date = dateFormatter.date(from: "17:00") {
-            picker.date = date
-        }
+//
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "HH:mm"
+//        if let date = dateFormatter.date(from: "17:00") {
+//            picker.date = date
+//        }
         return picker
     }()
 

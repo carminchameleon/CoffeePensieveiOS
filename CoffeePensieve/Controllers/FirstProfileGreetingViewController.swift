@@ -10,6 +10,8 @@ import UIKit
 class FirstProfileGreetingViewController: UIViewController {
 
     let greetingView = FirstProfileGreetingView()
+    var email:String = ""
+    var password: String = ""
     
     override func loadView() {
         view = greetingView
@@ -26,9 +28,11 @@ class FirstProfileGreetingViewController: UIViewController {
     
     
     @objc func nextButtonTapped() {
-        let firstVC = FirstProfileRoutineViewController()
-        firstVC.modalPresentationStyle = .fullScreen
-        present(firstVC, animated: true)
+        let routineVC = FirstProfileRoutineViewController()
+        routineVC.email = email
+        routineVC.password = password
+        routineVC.modalPresentationStyle = .fullScreen
+        present(routineVC, animated: true)
     }
 
 }

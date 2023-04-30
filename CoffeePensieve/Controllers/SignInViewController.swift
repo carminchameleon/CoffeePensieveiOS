@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 // 구현 리스트
 // 커서 활성화 -> textfield 클릭시 디자인 (0)
@@ -18,6 +19,7 @@ import UIKit
 class SignInViewController: UIViewController {
     
     let signInView = SignInView()
+    let networkManager = AuthNetworkManager.shared
     
     override func loadView() {
         view = signInView
@@ -30,7 +32,6 @@ class SignInViewController: UIViewController {
     
     func addTargets() {
         signInView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchDown)
-        signInView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchDown)
         signInView.emailTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         signInView.passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         signInView.signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchDown)
@@ -49,19 +50,26 @@ class SignInViewController: UIViewController {
     }
     
     @objc private func signInButtonTapped() {
-        let id = signInView.emailTextField.text!
-        let password = signInView.passwordTextField.text!
-        print("id: \(id), password: \(password)")
-        // 경고를 어떻게 할 것인지 고민 필요할 것 같음.
-        // 알림창 띄울 것
+        guard let email = signInView.emailTextField.text else { return }
+        guard let password = signInView.passwordTextField.text else { return }
+        
+        networkManager.signIn(email: email, password: password) { [weak self] error in
+            guard let strongSelf = self else { return }
+
+            let alert = UIAlertController(title: "Please try again...", message: "The email and password you entered did not match our records. Please double-check and try again", preferredStyle: .alert)
+            let tryAgain = UIAlertAction(title: "Try again", style: .default)
+            
+            alert.addAction(tryAgain)
+            strongSelf.initTextField()
+            strongSelf.present(alert, animated: true, completion: nil)
+        }
     }
     
-    // MARK: - 회원가입 버튼
-    // 네비게이션 적용 해야 할 것
-    @objc private func signUpButtonTapped() {
-        let signUpVC = SignUpViewController()
-        signUpVC.modalPresentationStyle = .fullScreen
-        present(signUpVC, animated: true)
+    
+    func initTextField() {
+        signInView.emailTextField.text = ""
+        signInView.passwordTextField.text = ""
+        signInView.emailTextField.becomeFirstResponder()
     }
     
     
@@ -71,12 +79,10 @@ class SignInViewController: UIViewController {
         
         // 이메일의 경우 이메일 형식에 맞아야 함
         if isValidEmail(email) && password != "" {
-            print("통과")
             signInView.signInButton.isEnabled = true
             signInView.signInButton.setTitleColor(UIColor.primaryColor500, for: .normal)
 
         } else {
-            print("탈락")
             signInView.signInButton.isEnabled = false
             signInView.signInButton.setTitleColor(UIColor.primaryColor300, for: .normal)
         }

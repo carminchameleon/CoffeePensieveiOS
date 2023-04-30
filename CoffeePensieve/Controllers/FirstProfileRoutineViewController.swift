@@ -10,11 +10,16 @@ import UIKit
 class FirstProfileRoutineViewController: UIViewController {
 
     let routineView = FirstProfileRoutineView()
-    let name = ""
-    var morningTime = ""
-    var nightTime = ""
-    var limitTime = ""
+    let networkManager = AuthNetworkManager.shared
+    
+    var name = ""
+    var limitTime = "17:00"
     var cups = 3
+    var morningTime = "7:00"
+    var nightTime = "22:00"
+    var email = ""
+    var password = ""
+    
     
     override func loadView() {
         view = routineView
@@ -30,9 +35,19 @@ class FirstProfileRoutineViewController: UIViewController {
     func setUp() {
         routineView.cupCountLabel.text = String(cups)
         routineView.cupStepper.value = Double(cups)
+        initTimePicker(time: morningTime, picker: routineView.morningTimePicker)
+        initTimePicker(time: nightTime, picker: routineView.nightTimePicker)
+        initTimePicker(time: limitTime, picker: routineView.limitTimePicker)
         routineView.nameTextField.becomeFirstResponder()
     }
     
+    func initTimePicker(time: String, picker: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        if let date = dateFormatter.date(from: time) {
+            picker.date = date
+        }
+    }
     
     func addTargets() {
         routineView.morningTimePicker.addTarget(self, action: #selector(morningTimePickerValueChanged), for: .valueChanged)
@@ -50,6 +65,7 @@ class FirstProfileRoutineViewController: UIViewController {
     
     @objc func morningTimePickerValueChanged() {
         morningTime = getTimeString(date: routineView.morningTimePicker.date)
+        print(morningTime)
     }
     
     @objc func nightTimePickerValueChanged() {
@@ -68,54 +84,41 @@ class FirstProfileRoutineViewController: UIViewController {
     
     @objc func nameValueChanged(_ sender: UITextField) {
 
-        guard let name = sender.text else { return }
-        if name.count > 0 {
-            print("pass")
+        guard let userName = sender.text else { return }
+        if userName.count > 0 {
             routineView.submitButton.isEnabled = true
             routineView.submitButton.setImageTintColor(.primaryColor500)
         } else {
             routineView.submitButton.isEnabled = false
             routineView.submitButton.setImageTintColor(.primaryColor200)
         }
-
-        
-        if name.count > 20 {
+        self.name = userName
+        if userName.count > 20 {
             routineView.nameTextField.resignFirstResponder()
         }
+     
     }
     
     @objc func submitButtonTapped() {
         
-        let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-        activityIndicator.color = .primaryColor500
-        // Place the activity indicator on the center of your current screen
-        activityIndicator.center = routineView.center
-
-        // In most cases this will be set to true, so the indicator hides when it stops spinning
-        activityIndicator.hidesWhenStopped = true
-
-        // Start the activity indicator and place it onto your view
-        activityIndicator.startAnimating()
-        routineView.addSubview(activityIndicator)
-
-
-        // Do something here, for example fetch the data from API
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
-            activityIndicator.stopAnimating()
-                        
-            let completeVC = FirstProfileCompleteViewController()
-            completeVC.modalPresentationStyle = .fullScreen
-            self.present(completeVC, animated: true)
+        networkManager.signUp(email: email, password: password, name: name, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, cups: cups) { error in
+            let alert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
+            let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
+                self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+            }
+            alert.addAction(tryAgain)
+            self.present(alert, animated: true, completion: nil)
             
         }
-
-        // Finally after the job above is done, stop the activity indicator
-//        activityIndicator.stopAnimating()
-        // DispatchQueue.main.async {self.myActivityIndicator.stopAnimating()}
     }
+
+    // 시간설정 절대적으로 바꿔줌
+    // 오후 1시 -> 13:00
+    // 오전 1시 -> 01:00
     func getTimeString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "HH:mm"
         let timeString = dateFormatter.string(from: date)
         return timeString
     }

@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ForgotPasswordViewController: UIViewController {
     var forgotPasswordView = ForgotPasswordView()
+    let networkManager = AuthNetworkManager.shared
     
     override func loadView() {
         view = forgotPasswordView
@@ -26,29 +28,32 @@ class ForgotPasswordViewController: UIViewController {
         forgotPasswordView.emailTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
     }
 
-    // MARK: - 뒤로 돌아가기
     @objc private func backButtonTapped() {
         dismiss(animated: true)
     }
     
-    // 서버로 전송, 성공시 다음 단계로 화면 이동
-    // 실패시 이메일이 없음 혹은 안내 멘트에 따라서 알려주기
-    // 전송 횟수 정해놓을 것 (어뷰징 방지) -> 어떻게 할 수 있을까...?
-    
-    // MARK: - 비밀번호 코드 전송 화면으로 이동
-    // 유효한 이메일인지 확인
-    // 백에서 이메일 코드 생성 -> 전송 후 알려줌
-    // 
     @objc private func continueButtonTapped() {
         guard let email = forgotPasswordView.emailTextField.text else { return }
-        
-        let resetVC = ResetPasswordViewController()
-        resetVC.modalPresentationStyle = .currentContext
-        resetVC.userEmail = email
-        present(resetVC, animated: true)
-        
-        
-        
+        networkManager.forgotPassword(email: email) {[weak self] result in
+            guard let strongSelf = self else { return }
+
+            switch result {
+            case .success(let successMessage):
+                let successAlert = UIAlertController(title: successMessage, message: "You will recieve a password reset email shortly", preferredStyle: .alert)
+                let okayAction = UIAlertAction(title: "Okay", style: .default) { action in
+                    strongSelf.dismiss(animated: true)
+                }
+                successAlert.addAction(okayAction)
+                strongSelf.present(successAlert, animated: true, completion: nil)
+            case .failure(let error):
+                let failAlert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
+               let okayAction = UIAlertAction(title: "Okay", style: .default) {action in
+                   strongSelf.dismiss(animated: true)
+               }
+               failAlert.addAction(okayAction)
+               strongSelf.present(failAlert, animated: true, completion: nil)
+            }
+        }
     }
     
     @objc private func textFieldEditingChanged() {
@@ -58,7 +63,6 @@ class ForgotPasswordViewController: UIViewController {
             forgotPasswordView.emailTextField.rightViewMode = .always
         }
 
-        // 이메일 검증 원래 되어야 함 (나중에 풀 것)
         if isValidEmail(email) {
             forgotPasswordView.emailTextField.setupRightSideImage(imageViewName: "checkmark.circle.fill", passed: true)
             forgotPasswordView.continueButton.isEnabled = true
