@@ -44,4 +44,10 @@ extension UIColor {
     static var grayColor500 = UIColor.init(red: 94/255, green: 113/255, blue: 141/255, alpha: 1)
     static var grayColor600 = UIColor.init(red: 69/255, green: 84/255, blue: 104/255, alpha: 1)
     static var grayColor700 = UIColor.init(red: 136/255, green: 151/255, blue: 174/255, alpha: 1)
+    
+    
+    static var blueGradient100 = UIColor.init(red: 90/255, green: 182/255, blue: 221/255, alpha: 1)
+    static var blueGradient200 = UIColor.init(red: 38/255, green: 92/255, blue: 157/255, alpha: 1)
+    static var blueGradient300 = UIColor.init(red: 63/255, green: 141/255, blue: 188/255, alpha: 1)
+
 }

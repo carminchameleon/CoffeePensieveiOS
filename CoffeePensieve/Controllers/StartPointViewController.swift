@@ -24,7 +24,6 @@ class StartPointViewController: UIViewController {
         super.viewDidLoad()
         addTargets()
         if isFirst {
-            print("Starting point view did load")
             let welcomeVC = WelcomeViewController()
             welcomeVC.modalPresentationStyle = .fullScreen
             present(welcomeVC, animated: false)
@@ -41,14 +40,12 @@ class StartPointViewController: UIViewController {
   
     
     @objc func loginButtonTapped() {
-    print("login button Tapped")
     let logInVC = SignInViewController()
         logInVC.modalPresentationStyle = .fullScreen
         present(logInVC, animated: true)
     }
 
     @objc func emailButtonTapped() {
-        print("email button tapped")
         let signUpVC = SignUpViewController()
         signUpVC.modalPresentationStyle = .fullScreen
         present(signUpVC, animated: true)
@@ -57,7 +54,6 @@ class StartPointViewController: UIViewController {
     @objc func googleButtonTapped() {
         // 파이어베이스에 대한 clientID 받기
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-        print("Fire base Client Id : \(clientID)")
         
         
         // Create Google Sign In configuration object.
@@ -66,16 +62,16 @@ class StartPointViewController: UIViewController {
 
         // Start the sign in flow!
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
-          
-            if let error = error {
-                print("Google Sign In Error -", error.localizedDescription)
-                let alert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
-                let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
-                    self.dismiss(animated: true)
-                }
-                alert.addAction(tryAgain)
-                self.present(alert, animated: true, completion: nil)
-            }
+//
+//            if let error = error {
+////                print("Google Sign In Error -", error.localizedDescription)
+////                let alert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
+////                let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
+////                    self.dismiss(animated: true)
+////                }
+////                alert.addAction(tryAgain)
+////                self.present(alert, animated: true, completion: nil)
+//            }
 
         // 유저, userToken 받기
           guard let user = result?.user, let idToken = user.idToken?.tokenString else {

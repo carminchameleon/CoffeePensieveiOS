@@ -69,11 +69,6 @@ class ResetPasswordViewController: UIViewController {
     @objc private func continueButtonTapped() {
         guard let code = resetPasswordView.codeTextField.text else { return }
         guard let newPassword = resetPasswordView.passwordTextField.text else { return }
-        // 세가지 가지고 서버에 보내기
-        // email
-        // digitCode
-        // newPassword
-        print(code, newPassword)
         let successVC = ResetPasswordSuccessViewController()
         successVC.modalPresentationStyle = .fullScreen
         present(successVC, animated: true)

@@ -115,7 +115,7 @@ class SignInView: UIView {
         button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
         button.clipsToBounds = true
         button.layer.cornerRadius = 6
-        button.isEnabled = true
+        button.isEnabled = false
         return button
     }()
     

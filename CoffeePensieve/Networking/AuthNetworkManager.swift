@@ -7,8 +7,17 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestoreSwift
+
+//MARK: - 네트워크에서 발생할 수 있는 에러 정의
+enum NetworkError: Error {
+    case uidError
+    case databaseError
+    case dataError
+}
 
 final class AuthNetworkManager {
+    
     static let shared = AuthNetworkManager()
     private init() {}
     
@@ -29,7 +38,7 @@ final class AuthNetworkManager {
         }
     }
     
-    // MARK: - user profile upload to DB
+    // MARK: - user profile upload to DB ( 생성 하는 것 )
     func uploadUserProfile(uid: String, email: String, name: String, morningTime: String, nightTime: String, limitTime: String, cups: Int) {
         let userData: [String: Any] = [
             Constant.FStore.emailField: email,
@@ -40,9 +49,7 @@ final class AuthNetworkManager {
             Constant.FStore.nightTimeField: nightTime,
             Constant.FStore.limitTimeField: limitTime,
             
-            Constant.FStore.morningReminderField: true,
-            Constant.FStore.nightReminderField: true,
-            Constant.FStore.limitReminderField: true,
+            Constant.FStore.reminderField: true
         ]
         
         db.collection(Constant.FStore.userCollection).document(uid).setData(userData){ error in
@@ -51,8 +58,6 @@ final class AuthNetworkManager {
             }
         }
     }
-    
-    
     
     // MARK: - sign iin
     func signIn(email: String, password: String, onError: @escaping (_ error: Error) -> Void) {
@@ -74,52 +79,132 @@ final class AuthNetworkManager {
         }
     }
     
-    enum NetworkError: Error {
-        case uidError
-        case databaseError
-        case dataError
-    }
     
     typealias ProfileCompletion = (Result<UserProfile, NetworkError>) -> Void
     // MARK: - get user profile
     func getUserProfile(completion: @escaping ProfileCompletion) {
         // 유저 uid
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+            print("There's no uid, so can't bring user id from userDefualts")
             completion(.failure(.uidError))
             return
         }
         let userId = uid as! String
         let docRef = db.collection(Constant.FStore.userCollection).document(userId)
-   
-//        docRef.getDocument { document, error in
-//            guard let document = document, document.exists else {
-//                completion(.failure(.databaseError))
-//                return
-//            }
-//            guard let data = document.data() else {
-//                completion(.failure(.dataError))
-//                return
-//            }
-            
-            //
-//            let email = data[Constant.FStore.emailField ] as? String
-//            let name = data[Constant.FStore.nameField] as? String
-//            let cups = data[Constant.FStore.cupsField] as? Int
-//
-//            var morningTime = data[Constant.FStore.morningTimeField] as? String
-//            var nightTime = data[Constant.FStore.nightTimeField] as? String
-//            var limitTime = data[Constant.FStore.limitTimeField] as? String
-//
-//            var morningReminder = data[Constant.FStore.morningReminderField] as? Bool
-//            var nightReminder = data[Constant.FStore.nightReminderField] as? Bool
-//            var limitReminder = data[Constant.FStore.limitReminderField] as? Bool
-//
-//
-//            let user = UserProfile(name: name, cups: cups, email: email, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, morningReminder: morningReminder, nightReminder: nightReminder, limitReminder: limitReminder)
-//            completion(.success(user))
+        docRef.getDocument(as: UserProfile.self) { result in
+            switch result {
+            case .success(let userProfile):
+                completion(.success(userProfile))
+            case .failure(let error):
+                print("Erorr to get user profile -", error.localizedDescription)
+                completion(.failure(.dataError))
+            }
         }
-        
+    }
+    
+
+    // MARK: - update user preference
+    // update 성공 -> 유저 데이터 업데이트 해줘야 함 - 다른 곳에서 사용하기 때문에
+    func updateUserPreference(data: UserPreference, completion: @escaping ProfileCompletion) {
+        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+            print("There's no uid, so can't bring user id from userDefualts")
+            completion(.failure(.uidError))
+            return
+        }
+        let userId = uid as! String
+        let docRef = db.collection(Constant.FStore.userCollection).document(userId)
+        docRef.updateData([
+            Constant.FStore.cupsField: data.cups,
+            Constant.FStore.morningTimeField: data.morningTime,
+            Constant.FStore.nightTimeField: data.nightTime,
+            Constant.FStore.limitTimeField: data.limitTime,
+            Constant.FStore.reminderField: data.reminder
+        ]) { err in
+            if let err = err {
+                completion(.failure(.databaseError))
+                print("Error updating document: \(err)")
+            } else {
+                docRef.getDocument(as: UserProfile.self) { result in
+                    switch result {
+                    case .success(let userProfile):
+                        completion(.success(userProfile))
+                    case .failure:
+                        break
+                    }
+                }
+            }
+            
+        }
+    }
 
     
+    // MARK: - update user preference
+    // update 성공 -> 유저 데이터 업데이트 해줘야 함 - 다른 곳에서 사용하기 때문에
+    func updateUserProfile(name: String, completion: @escaping ProfileCompletion) {
+        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+            print("There's no uid, so can't bring user id from userDefualts")
+            completion(.failure(.uidError))
+            return
+        }
+        let userId = uid as! String
+        let docRef = db.collection(Constant.FStore.userCollection).document(userId)
+        docRef.updateData([
+            Constant.FStore.nameField: name,
+        ]) { err in
+            if let err = err {
+                completion(.failure(.databaseError))
+                print("Error updating document: \(err)")
+            } else {
+                self.getUserProfileFromRef(docRef: docRef) { userProfile in
+                    completion(.success(userProfile))
+                }
+//                docRef.getDocument(as: UserProfile.self) { result in
+//                    switch result {
+//                    case .success(let userProfile):
+//                        completion(.success(userProfile))
+//                    case .failure:
+//                        break
+//                    }
+//                }
+            }
+            
+        }
+    }
     
+    func getUserProfileFromRef(docRef: DocumentReference, onSuccess: @escaping ((UserProfile) -> Void)) {
+        docRef.getDocument(as: UserProfile.self) { result in
+            switch result {
+            case .success(let userProfile):
+                onSuccess(userProfile)
+            case .failure:
+                break
+            }
+        }
+    }
+    
+    typealias CommitNumberCompletion = (Result<Int, NetworkError>) -> Void
+    func getNumberOfCommits(completion: @escaping CommitNumberCompletion) {
+        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+            print("There's no uid, so can't bring user id from userDefualts")
+            completion(.failure(.uidError))
+            return
+        }
+        let userId = uid as! String
+        let query = db.collection(Constant.FStore.commitCollection).whereField("uid", isEqualTo: userId)
+        let countQuery = query.count
+        
+        Task {
+            do {
+                let snapshot = try await countQuery.getAggregation(source: .server)
+                let count = Int(truncating: snapshot.count)
+                completion(.success(count))
+            } catch {
+                completion(.failure(.databaseError))
+                print("Can't load users commit count",error.localizedDescription);
+            }
+        }
+    }
+    
+    
+
 }

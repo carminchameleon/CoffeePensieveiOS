@@ -27,7 +27,7 @@ class AppController {
     
     func show(in window: UIWindow?) {
         self.window = window
-        window?.backgroundColor = .systemBlue
+        window?.backgroundColor = .white
         window?.makeKeyAndVisible()
         
         checkLoginStatus()
@@ -51,18 +51,23 @@ class AppController {
     private func moveMain() {
         // 탭바컨트롤러의 생성
         let tabBarVC = UITabBarController()
+        tabBarVC.tabBar.layer.borderWidth = 0.50
+        tabBarVC.tabBar.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        tabBarVC.tabBar.clipsToBounds = true
+
         // 첫번째 화면은 네비게이션컨트롤러로 만들기 (기본루트뷰 설정)
         let commitVC = UINavigationController(rootViewController: CommitViewController())
-        let trackerVC = TrackerViewController()
-        let profileVC = ProfileViewController()
+        let trackerVC = UINavigationController(rootViewController: TrackerViewController())
+        let profileVC = UINavigationController(rootViewController: ProfileViewController())
 
+        
         // 탭바 이름들 설정
         commitVC.title = "Coffee"
-        trackerVC.title = "Activity"
-        profileVC.title = "Profile"
+        trackerVC.title = "Tracker"
+        profileVC.title = "Setting"
 
         // 탭바로 사용하기 위한 뷰 컨트롤러들 설정
-        tabBarVC.setViewControllers([commitVC, trackerVC, profileVC], animated: false)
+        tabBarVC.setViewControllers([commitVC, trackerVC, profileVC], animated: true)
         tabBarVC.modalPresentationStyle = .fullScreen
         tabBarVC.tabBar.backgroundColor = .white
 
@@ -71,8 +76,10 @@ class AppController {
         items[0].image = UIImage(systemName: "cup.and.saucer.fill")
         items[1].image = UIImage(systemName: "chart.bar.doc.horizontal")
         items[2].image = UIImage(systemName: "person.crop.circle.fill")
-
+        
+        
         // 기본루트뷰를 탭바컨트롤러로 설정⭐️⭐️⭐️
+        
         rootViewController = tabBarVC
     }
     
@@ -85,3 +92,6 @@ class AppController {
 extension Notification.Name {
     static let authSatateDidChange = NSNotification.Name("authStateDidChange")
 }
+
+
+

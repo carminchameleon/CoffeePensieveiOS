@@ -25,11 +25,11 @@ class OnboardingView: UIView {
         let onboardingImage = UIImage(named: imageName)
         let imageView = UIImageView(image: onboardingImage!)
         imageView.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
-        imageView.contentMode =  .scaleToFill
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
     
-    var mainTitle : UILabel = {
+    let mainTitle : UILabel = {
         let label = UILabel()
         label.text = "Create an account to \n make your coffee tracker"
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
@@ -40,7 +40,7 @@ class OnboardingView: UIView {
     }()
 
     
-    var subTitle : UILabel = {
+    let subTitle : UILabel = {
         let label = UILabel()
         label.text = "how many cups of coffee do you drink a day? \n What made you need a coffee? \n Keep your coffee moment."
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)

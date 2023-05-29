@@ -64,16 +64,15 @@ class FirstProfileRoutineViewController: UIViewController {
     }
     
     @objc func morningTimePickerValueChanged() {
-        morningTime = getTimeString(date: routineView.morningTimePicker.date)
-        print(morningTime)
+        morningTime = Common.getTimeToString(date: routineView.morningTimePicker.date)
     }
     
     @objc func nightTimePickerValueChanged() {
-        nightTime = getTimeString(date:routineView.nightTimePicker.date)
+        nightTime = Common.getTimeToString(date: routineView.nightTimePicker.date)
     }
     
     @objc func limitPickerValueChanged() {
-        limitTime = getTimeString(date: routineView.limitTimePicker.date)
+        limitTime = Common.getTimeToString(date: routineView.limitTimePicker.date)
     }
     
     @objc func stepperValueChanged(_ sender: UIStepper) {
@@ -83,7 +82,10 @@ class FirstProfileRoutineViewController: UIViewController {
     }
     
     @objc func nameValueChanged(_ sender: UITextField) {
-
+        if sender.text?.first == " " {
+            sender.text = ""
+               return
+       }
         guard let userName = sender.text else { return }
         if userName.count > 0 {
             routineView.submitButton.isEnabled = true
@@ -112,16 +114,6 @@ class FirstProfileRoutineViewController: UIViewController {
         }
     }
 
-    // 시간설정 절대적으로 바꿔줌
-    // 오후 1시 -> 13:00
-    // 오전 1시 -> 01:00
-    func getTimeString(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .short
-        dateFormatter.dateFormat = "HH:mm"
-        let timeString = dateFormatter.string(from: date)
-        return timeString
-    }
-    
+
     
 }

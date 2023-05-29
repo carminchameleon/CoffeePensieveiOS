@@ -1,0 +1,87 @@
+//
+//  PreferenceTimeTableViewCell.swift
+//  CoffeePensieve
+//
+//  Created by Eunji Hwang on 2023/05/26.
+//
+
+import UIKit
+
+class PreferenceTimeTableViewCell: UITableViewCell {
+    
+    var model: PreferenceCell? = nil {
+        didSet {
+            guard let model = model else { return }
+            iconView.image = UIImage(systemName: model.icon)
+            menuLabel.text = model.title
+            timeLabel.text = Common.getDetailStringTime(time: model.data)
+        }
+    }
+    
+    let iconView: UIImageView = {
+        let image = UIImage(systemName: "questionmark.circle")
+        let imageView = UIImageView(image: image)
+        imageView.tintColor = .primaryColor200
+        return imageView
+    }()
+    
+    let menuLabel: UILabel = {
+        let label = UILabel()
+        label.font = FontStyle.callOut
+        label.textAlignment = .left
+        label.textColor = .black
+        return label
+    }()
+    
+    
+    let timeLabel: UILabel = {
+        let label = UILabel()
+        label.font = FontStyle.callOut
+        label.text = "11:00"
+        label.textAlignment = .right
+        label.textColor = .black
+        return label
+    }()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        self.addSubview(menuLabel)
+        self.addSubview(iconView)
+        self.addSubview(timeLabel)
+        setConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setConstraints() {
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            iconView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            iconView.heightAnchor.constraint(equalToConstant: 25),
+            iconView.widthAnchor.constraint(equalToConstant: 25),
+        ])
+        
+        
+        menuLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            menuLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            menuLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 12),
+            menuLabel.heightAnchor.constraint(equalToConstant: 30),
+            menuLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
+
+        ])
+        
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            timeLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            timeLabel.leadingAnchor.constraint(equalTo: trailingAnchor, constant: -200),
+            timeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            timeLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+            
+        ])
+    }
+    
+}

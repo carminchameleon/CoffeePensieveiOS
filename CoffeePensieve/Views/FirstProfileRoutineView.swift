@@ -138,8 +138,6 @@ class FirstProfileRoutineView: UIView {
         stepper.maximumValue = 10
         stepper.minimumValue = 1
         stepper.stepValue = 1
-//        stepper.layer.borderColor = #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
-//        stepper.layer.borderWidth = 1
         stepper.autorepeat = true
         return stepper
     }()
@@ -163,8 +161,6 @@ class FirstProfileRoutineView: UIView {
         return st
     }()
     
-    
-    
     let limitTimeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .light)
@@ -182,12 +178,6 @@ class FirstProfileRoutineView: UIView {
         picker.tintColor = .primaryColor500
         picker.locale = Locale(identifier: "en_US")
         
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "HH:mm"
-//        if let date = dateFormatter.date(from: "17:00") {
-//            picker.date = date
-//        }
         return picker
     }()
 
@@ -310,7 +300,7 @@ class FirstProfileRoutineView: UIView {
   
     
     
-    // MARK: - 뒤로가기 버튼
+    // MARK: - 저장
     lazy var submitButton: UIButton = {
         let button = UIButton(type:.custom)
         let iconImage = UIImage(systemName: "chevron.forward.circle")
@@ -408,13 +398,7 @@ class FirstProfileRoutineView: UIView {
             submitButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
             submitButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-//
-//        addSubview(spinner)
-//        spinner.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            spinner.centerYAnchor.constraint(equalTo: centerYAnchor),
-//        ])
+
     }
     
 

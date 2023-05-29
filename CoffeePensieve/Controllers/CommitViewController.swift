@@ -10,51 +10,138 @@ import Firebase
 
 class CommitViewController: UIViewController {
     
-    let networkManager = AuthNetworkManager.shared    
-    var isLoggedIn = false
-
-    lazy var label: UILabel = {
-        var label = UILabel()
-        label.font = FontStyle.largeTitle
-        label.text = "Large Title"
-        return label
-    }()
-    // MARK: - 로그아웃 버튼 (임시 구현
-    lazy var logoutButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setTitle("Large Title", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.tintColor = .white
-        button.titleLabel?.font = FontStyle.largeTitle
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 6
-        button.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
-        return button
-    }()
+    let dataManager = DataManager.shared
+    let networkManager = AuthNetworkManager.shared
+    
+    var userData: UserProfile?
+    let commitView = CommitMainView()
+    var count: Int?
+    var todayCount = 0
+    var greeting = ""
+    
+    override func loadView() {
+        view = commitView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeUI()
+        addTargets()
+        getGreeting()
     }
     
-    func makeUI() {
-        logoutButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(logoutButton)
-        NSLayoutConstraint.activate([
-            logoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            logoutButton.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoutButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            logoutButton.heightAnchor.constraint(equalToConstant: 80)
-        ])
+    override func viewWillAppear(_ animated: Bool) {
+        fetchCommitData()
+        fetchUserData()
+
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = false
+        
+    }
+    func addTargets() {
+        commitView.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
     }
     
-    @objc func logoutButtonTapped() {
-        let firebaseAuth = Auth.auth()
-        do {
-           try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-           print("Error signing out: %@", signOutError)
+    func getGreeting() {
+        
+        let nowDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH"
+        let date = dateFormatter.string(from: nowDate)// 현재 시간의 Date를 format에 맞춰 string으로 반환
+        let currentTime = Int(date)!
+        
+        switch currentTime {
+        case 0...12 :
+            greeting = "Good morning \n"
+        case 12...17 :
+            greeting = "Good afternoon \n"
+        default:
+            greeting = "Good evening \n"
+        }
+        
+        commitView.greetingLabel.text = greeting
+    }
+
+    
+    func fetchUserData() {
+        dataManager.getUserProfileFromAPI {[weak self] result in
+            guard let weakSelf = self else { return }
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    weakSelf.updateName()
+                }
+            case .failure:
+                // 프로파일 얻어오기 실패했을 때 -> 소셜 로그인 할때 구현할 것
+            break
+            }
         }
     }
+    
+    
+    func fetchCommitData() {
+        dataManager.getCommitCountFromAPI {[weak self] result in
+            guard let weakSelf = self else { return }
+            switch result {
+            case .success(let number):
+                weakSelf.count = number
+                DispatchQueue.main.async {
+                    weakSelf.updateCommitCount()
+                }
+            case .failure:
+            break
+            }
+        }
+        
+        dataManager.fetchTodayCommits {[weak self] result in
+            guard let weakSelf = self else { return }
+            switch result {
+            case .success:
+                weakSelf.todayCount = weakSelf.dataManager.getNumberOfTodayCommit()
+                DispatchQueue.main.async {
+                    weakSelf.updateImage()
+                }
+            case .failure:
+                print("Error")
+            }
+        }
+    }
+    func updateName(){
+        guard let userProfile = dataManager.getUserData() else { return }
+        let name = userProfile.name
+        let greetingSentence = "\(greeting) \(name)"
+        commitView.greetingLabel.text = greetingSentence
+    }
+    
+    func updateImage() {
+        switch todayCount {
+        case 0:
+            commitView.imageView.image = UIImage(named: "Memory-0")
+        case 1:
+            commitView.imageView.image = UIImage(named: "Memory-1")
+        case 2:
+            commitView.imageView.image = UIImage(named: "Memory-2")
+        case 3:
+            commitView.imageView.image = UIImage(named: "Memory-3")
+        default:
+            commitView.imageView.image = UIImage(named: "Memory-4")
+        }
+        
+    }
+    func updateCommitCount() {
+        let ordinalFormatter = NumberFormatter()
+        ordinalFormatter.numberStyle = .ordinal
+        ordinalFormatter.locale = Locale(identifier: "en")
+        guard let count = self.count else { return }
+        guard let formattedNumber = ordinalFormatter.string(from: NSNumber(value: count + 1)) else { return }
+    
+        let sentence = "Would you like to add your \(formattedNumber) memory?"
+        commitView.suggestionLabel.text = sentence
+    }
+    
+    @objc func addButtonTapped() {
+        let coffeeVC = CommitCoffeeViewController()
+        navigationController?.pushViewController(coffeeVC, animated: true)
+    }
+    
+    
 }

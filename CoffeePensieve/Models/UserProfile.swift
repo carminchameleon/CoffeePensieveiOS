@@ -11,16 +11,21 @@ import FirebaseFirestoreSwift
 
 // 데이터 받아오는 유저 프로필
 struct UserProfile: Codable {
-    var name: String?
-    var cups: Int?
-    var email: String?
+    @DocumentID var id: String?
+    var name: String
+    var cups: Int
+    var email: String
     
-    var morningTime: String?
-    var nightTime: String?
-    var limitTime: String?
-    
-    var morningReminder: Bool?
-    var nightReminder: Bool?
-    var limitReminder: Bool?
+    var morningTime: String
+    var nightTime: String
+    var limitTime: String
+    var reminder: Bool
 }
 
+struct UserPreference {
+    let cups: Int
+    let morningTime: String
+    let nightTime: String
+    let limitTime: String
+    let reminder: Bool
+}
