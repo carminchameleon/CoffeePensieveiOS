@@ -35,8 +35,8 @@ class CommitViewController: UIViewController {
 
         self.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.tabBar.isHidden = false
-        
     }
+    
     func addTargets() {
         commitView.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
     }
@@ -77,6 +77,7 @@ class CommitViewController: UIViewController {
         }
     }
     
+
     
     func fetchCommitData() {
         dataManager.getCommitCountFromAPI {[weak self] result in
@@ -113,20 +114,25 @@ class CommitViewController: UIViewController {
     }
     
     func updateImage() {
+        var memoryNumber = 0
         switch todayCount {
         case 0:
-            commitView.imageView.image = UIImage(named: "Memory-0")
+            memoryNumber = 0
         case 1:
-            commitView.imageView.image = UIImage(named: "Memory-1")
+            memoryNumber = 1
         case 2:
-            commitView.imageView.image = UIImage(named: "Memory-2")
+            memoryNumber = 2
         case 3:
-            commitView.imageView.image = UIImage(named: "Memory-3")
+            memoryNumber = 3
         default:
-            commitView.imageView.image = UIImage(named: "Memory-4")
+            memoryNumber = 4
         }
         
+        UIView.transition(with: commitView.imageView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.commitView.imageView.image = UIImage(named: "Memory-\(memoryNumber)")
+        }, completion: nil)
     }
+    
     func updateCommitCount() {
         let ordinalFormatter = NumberFormatter()
         ordinalFormatter.numberStyle = .ordinal

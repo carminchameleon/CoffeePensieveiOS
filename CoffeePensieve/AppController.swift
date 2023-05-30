@@ -54,6 +54,7 @@ class AppController {
         tabBarVC.tabBar.layer.borderWidth = 0.50
         tabBarVC.tabBar.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         tabBarVC.tabBar.clipsToBounds = true
+        
 
         // 첫번째 화면은 네비게이션컨트롤러로 만들기 (기본루트뷰 설정)
         let commitVC = UINavigationController(rootViewController: CommitViewController())

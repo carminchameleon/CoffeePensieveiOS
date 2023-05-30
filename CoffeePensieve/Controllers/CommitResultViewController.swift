@@ -27,38 +27,14 @@ class CommitResultViewController: UIViewController {
         setUI()
     }
    
+    override func viewWillLayoutSubviews() {
+        resultView.setGradient3Color(color1: .blueGradient100, color2: .blueGradient200, color3: .blueGradient300)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        setDrinkLayout()
-        setMoodLayout()
     }
-    
-    func setDrinkLayout() {
-        let width = self.resultView.drinkContainer.frame.width
-        guard let text = resultView.coffeeLabel.text else { return }
-        let image: CGFloat = 40
-        let spacing: CGFloat = 8
-        let font = FontStyle.callOut
-        let size = (text as NSString).size(withAttributes: [.font: font])
-        let stackViewWidth = image + spacing + size.width
-        let margin = (width - stackViewWidth) / 2
-        resultView.drinkLabelStackView.leadingAnchor.constraint(equalTo: resultView.drinkContainer.leadingAnchor, constant: margin).isActive = true
- 
-    }
-    
-    func setMoodLayout() {
-        let width = self.resultView.moodContainer.frame.width
-        guard let text = resultView.moodLabel.text else { return }
-        let image: CGFloat = 40
-        let spacing: CGFloat = 8
-        let font = FontStyle.callOut
-        let size = (text as NSString).size(withAttributes: [.font: font])
-        let stackViewWidth = image + spacing + size.width
-        let margin = (width - stackViewWidth) / 2
-        resultView.moodLabelStackView.widthAnchor.constraint(equalToConstant: stackViewWidth).isActive = true
-        resultView.moodLabelStackView.leadingAnchor.constraint(equalTo: resultView.moodContainer.leadingAnchor, constant: margin).isActive = true
-    }
-    
+
     func setUI() {
         resultView.backgroundColor = .white
         navigationItem.title = "Summary"
@@ -79,20 +55,37 @@ class CommitResultViewController: UIViewController {
         dateFormatter.locale = Locale(identifier: "En") // 사용자 지정 로케일 설정 (한국어)
         dateFormatter.dateFormat = "EEEE, MMMM d 'at' h:mm a"
         let dateString = dateFormatter.string(from: createdAt)
-        resultView.dateLabel.text = dateString
+        resultView.createdAtLabel.text = dateString
     }
-    
     
     func updateMemoData() {
+        let width = resultView.frame.width - 48
+        
         if memo.isEmpty {
-            resultView.memoMenuTitle.isHidden = true
-            resultView.memoView.isHidden = true
-            resultView.memoMenuTitle.heightAnchor.constraint(equalToConstant: 0).isActive = true
-            resultView.memoView.heightAnchor.constraint(equalToConstant: 0).isActive = true
-        } else {
+            resultView.detailTitle.isHidden = true
+            return
+        }
+
+        let font =  UIFont.italicSystemFont(ofSize: 17)
+        let height =  Common.heightForView(text: memo, font: font, width: width)
+        if height > 500 {
+            resultView.addSubview(resultView.memoView)
+            resultView.memoView.translatesAutoresizingMaskIntoConstraints = false
             resultView.memoView.text = memo
+            NSLayoutConstraint.activate([
+                resultView.memoView.topAnchor.constraint(equalTo: resultView.detailTitle.bottomAnchor, constant: 12),
+                resultView.memoView.leadingAnchor.constraint(equalTo: resultView.leadingAnchor, constant: 24),
+                resultView.memoView.trailingAnchor.constraint(equalTo: resultView.trailingAnchor, constant: -24),
+                resultView.memoView.bottomAnchor.constraint(equalTo: resultView.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+        ])
+        } else {
+            resultView.detailView.text = memo
+            resultView.addSubview(resultView.detailView)
+            resultView.detailView.topAnchor.constraint(equalTo: resultView.detailTitle.bottomAnchor, constant: 12).isActive = true
+
         }
     }
+
     func updateDrinkData() {
         // drink
         let drinkList = dataManager.getDrinkListFromAPI()
@@ -102,7 +95,7 @@ class CommitResultViewController: UIViewController {
             let drink = selectedDrink[0]
             resultView.coffeeImage.image = UIImage(named: drink.image)
             let tempMode = drink.isIced ? "🧊ICED" : "🔥HOT"
-            resultView.coffeeLabel.text = "\(tempMode) / \(drink.name)"
+            resultView.drinkLabel.text = "\(tempMode) / \(drink.name)"
         }
     }
     

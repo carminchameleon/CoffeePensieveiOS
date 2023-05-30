@@ -101,7 +101,6 @@ extension RecordListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedItem = allCommitList[indexPath.row]
         let docketVC = DocketViewController(commit: selectedItem)
-//        navigationController?.present(docketVC, animated: true)
                 navigationController?.pushViewController(docketVC, animated: true)
     }
     

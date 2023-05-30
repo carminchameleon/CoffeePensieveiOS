@@ -14,7 +14,7 @@ class DocketView: UIView {
         label.text = ""
         label.font = FontStyle.subhead
         label.textAlignment = .center
-        label.textColor = .white
+        label.textColor = .primaryColor25
         return label
     }()
     
@@ -63,6 +63,7 @@ class DocketView: UIView {
     let moodTitle: UILabel = {
         let label = UILabel()
         label.text = "Feeling"
+        label.font = FontStyle.subhead
         label.textColor = .white
         label.textAlignment = .left
         return label
@@ -95,18 +96,35 @@ class DocketView: UIView {
     
     let detailTitle: UILabel = {
         let label = UILabel()
-        label.text = "Detail"
+        label.text = "Memo"
         label.font = FontStyle.subhead
-
         label.textColor = .white
         label.textAlignment = .left
         return label
     }()
     
     
+    let memoView: UITextView = {
+        let textView = UITextView()
+        textView.contentInsetAdjustmentBehavior = .automatic
+        textView.textAlignment = NSTextAlignment.natural
+        textView.font =  UIFont.italicSystemFont(ofSize: 17)
+        textView.isSelectable = true
+        textView.isEditable = false
+        textView.dataDetectorTypes = UIDataDetectorTypes.link
+        textView.layer.cornerRadius = 12
+        textView.backgroundColor = UIColor.init(red: 0/255, green: 17/255, blue: 74/255, alpha: 0.1)
+        textView.textColor = .white
+        textView.autocorrectionType = UITextAutocorrectionType.no
+        textView.spellCheckingType = UITextSpellCheckingType.no
+        textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        return textView
+    }()
+
+    
     let detailView: UILabel = {
       let label = UILabel()
-      label.font = FontStyle.callOut
+        label.font = UIFont.italicSystemFont(ofSize: 17)
       label.numberOfLines = 0
         label.textColor = .white
       label.textAlignment = .left
@@ -118,7 +136,7 @@ class DocketView: UIView {
     let tagTitle: UILabel = {
         let label = UILabel()
         label.text = "Tag"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.font = FontStyle.subhead
         label.textColor = .white
         label.textAlignment = .left
         return label
@@ -127,7 +145,7 @@ class DocketView: UIView {
     let tags: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
-        label.textColor = .white
+        label.textColor = .primaryColor25
         label.textAlignment = .left
         return label
     }()
@@ -150,7 +168,7 @@ class DocketView: UIView {
         createdAtLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            createdAtLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 18),
+            createdAtLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 12),
             createdAtLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             createdAtLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
@@ -197,26 +215,10 @@ class DocketView: UIView {
         ])
      
         
-        addSubview(detailTitle)
-        detailTitle.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            detailTitle.topAnchor.constraint(equalTo: moodStack.bottomAnchor, constant: 20),
-            detailTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-            detailTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-        ])
-        
-        addSubview(detailView)
-        detailView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            detailView.topAnchor.constraint(equalTo: detailTitle.bottomAnchor, constant: 12),
-            detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-            detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-        ])
-        
-        
         addSubview(tagTitle)
         tagTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            tagTitle.topAnchor.constraint(equalTo: moodStack.bottomAnchor, constant: 12),
             tagTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             tagTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
@@ -228,10 +230,23 @@ class DocketView: UIView {
             tags.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             tags.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
-       
+        
+        addSubview(detailTitle)
+        detailTitle.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            detailTitle.topAnchor.constraint(equalTo: tags.bottomAnchor, constant: 20),
+            detailTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            detailTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+        ])
+        
+        addSubview(detailView)
+        detailView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+        ])
+           
     }
-    
-
     
 }
 

@@ -9,171 +9,171 @@ import UIKit
 
 class CommitResultView: UIView {
 
-    lazy var dateLabel: UILabel = {
+    
+    let createdAtLabel: UILabel = {
         let label = UILabel()
-        label.text = "Tues, January 12 at 12:25 PM"
-        label.font = FontStyle.footnote
-        label.textColor = .black
+        label.text = ""
+        label.font = FontStyle.subhead
         label.textAlignment = .center
+        label.textColor = .primaryColor25
         return label
     }()
     
     lazy var firstLine: UIView = {
         let lineView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 1))
-        lineView.backgroundColor = .black
+        lineView.backgroundColor = .white
         return lineView
     }()
-    
+
     lazy var secondLine: UIView = {
         let lineView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 1))
-        lineView.backgroundColor = .black
+        lineView.backgroundColor = .white
         return lineView
     }()
-    
+
     lazy var userInfoLabel: UILabel = {
         let label = UILabel()
         label.text = "Your Coffee Memory"
         label.font = FontStyle.headline
-        label.textColor = .black
+        label.textColor = .white
         label.textAlignment = .center
         label.addSubview(firstLine)
         label.addSubview(secondLine)
-       
         return label
     }()
     
-    lazy var coffeeMenuTitle: UILabel = {
+    
+    let coffeeLabel: UILabel = {
         let label = UILabel()
         label.text = "Coffee"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        label.textColor = .black
+        label.font = FontStyle.subhead
+        label.textColor = .white
         label.textAlignment = .left
         return label
     }()
-
-    lazy var coffeeImage: UIImageView = {
+    
+    let coffeeImage: UIImageView = {
          let view = UIImageView()
          view.image = UIImage(named: "Drink_Americano")
-         view.frame = CGRect(x: 0, y: 0, width: 40, height: 56)
+         view.frame = CGRect(x: 0, y: 0, width: 100, height: 140)
          view.contentMode = .scaleToFill
          view.layer.cornerRadius = 10 // 이미지 뷰 모서리를 둥글게 만듭니다.
          view.layer.shadowColor = UIColor.black.cgColor // 그림자 색상을 검은색으로 설정합니다.
          view.layer.shadowOpacity = 0.5 // 그림자 투명도를 0.5로 설정합니다.
          view.layer.shadowOffset = CGSize(width: 0, height: 3) // 그림자의 위치를 조정합니다.
          view.layer.shadowRadius = 1 // 그림자의 크기를 설정합니다.
-         view.layer.zPosition = -1
         return view
     }()
     
-    lazy var coffeeLabel : UILabel = {
+    let drinkLabel : UILabel = {
         let label = UILabel()
-        label.text = "🔥ICED / LATTE"
+        label.text = "🔥HOT / AMERICANO"
         label.font = FontStyle.callOut
-        label.textColor = .black
+        label.textColor = .white
         label.textAlignment = .left
         return label
     }()
     
-    lazy var drinkLabelStackView: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [coffeeImage, coffeeLabel])
+    lazy var drinkStack: UIStackView = {
+        let st = UIStackView(arrangedSubviews: [coffeeImage, drinkLabel ])
         st.spacing = 8
-        st.axis = .horizontal
-        st.alignment = .fill
+        st.axis = .vertical
+        st.alignment = .center
         st.distribution = .fill
         return st
     }()
     
-    lazy var drinkContainer: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 17
-        view.layer.borderWidth = 1
-        view.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        return view
-    }()
-
     
-    lazy var moodMenuTitle: UILabel = {
+    let moodTitle: UILabel = {
         let label = UILabel()
-        label.text = "Mood"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        label.textColor = .black
+        label.text = "Feeling"
+        label.font = FontStyle.subhead
+        label.textColor = .white
         label.textAlignment = .left
         return label
     }()
-
-    lazy var moodImage : UILabel = {
+    
+    let moodImage : UILabel = {
         let label = UILabel()
         label.text = "🥳"
-        label.font = FontStyle.largeTitle
-        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 80)
         label.textAlignment = .center
         return label
     }()
     
     let moodLabel : UILabel = {
         let label = UILabel()
-        label.text = "HAPPY"
         label.font = FontStyle.callOut
-        label.textColor = .black
+        label.textColor = .white
         label.textAlignment = .left
         return label
     }()
     
-    lazy var moodLabelStackView: UIStackView = {
+    lazy var moodStack: UIStackView = {
         let st = UIStackView(arrangedSubviews: [moodImage, moodLabel])
         st.spacing = 8
-        st.axis = .horizontal
-        st.alignment = .fill
+        st.axis = .vertical
+        st.alignment = .center
         st.distribution = .fill
         return st
     }()
     
-    lazy var moodContainer: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 17
-        view.layer.borderWidth = 1
-        view.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        return view
-    }()
-    
-    lazy var memoMenuTitle: UILabel = {
+    let detailTitle: UILabel = {
         let label = UILabel()
         label.text = "Memo"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        label.textColor = .black
-        label.textAlignment = .left
-        return label
-    }()
-  
-    let memoView: UILabel = {
-        let label = UILabel()
-        label.text = "I had sushi with my coworker Simon. We treid a new place and it was amazing...! I will go there next week again!"
-        label.font = FontStyle.callOut
-        label.numberOfLines = 0
-        label.textColor = .black
+        label.font = FontStyle.subhead
+        label.textColor = .white
         label.textAlignment = .left
         return label
     }()
     
-    lazy var tagMenuTitle: UILabel = {
+    
+    let memoView: UITextView = {
+        let textView = UITextView()
+        textView.contentInsetAdjustmentBehavior = .automatic
+        textView.textAlignment = NSTextAlignment.natural
+        textView.font =  UIFont.italicSystemFont(ofSize: 17)
+        textView.isSelectable = true
+        textView.isEditable = false
+        textView.dataDetectorTypes = UIDataDetectorTypes.link
+        textView.layer.cornerRadius = 12
+        textView.backgroundColor = UIColor.init(red: 0/255, green: 17/255, blue: 74/255, alpha: 0.1)
+        textView.textColor = .white
+        textView.autocorrectionType = UITextAutocorrectionType.no
+        textView.spellCheckingType = UITextSpellCheckingType.no
+        textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        return textView
+    }()
+
+    
+    let detailView: UILabel = {
+      let label = UILabel()
+        label.font = UIFont.italicSystemFont(ofSize: 17)
+      label.numberOfLines = 0
+        label.textColor = .white
+      label.textAlignment = .left
+      return label
+    }()
+
+    
+    
+    let tagTitle: UILabel = {
         let label = UILabel()
         label.text = "Tag"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        label.textColor = .black
+        label.font = FontStyle.subhead
+        label.textColor = .white
         label.textAlignment = .left
         return label
     }()
     
-    lazy var tags: UILabel = {
+    let tags: UILabel = {
         let label = UILabel()
-        label.text = "#Morning #Concentrate"
-        label.font = FontStyle.callOut
-        label.textColor = .primaryColor500
+        label.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        label.textColor = .primaryColor25
         label.textAlignment = .left
         return label
     }()
+    
     
     
     override init(frame: CGRect) {
@@ -185,132 +185,124 @@ class CommitResultView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+
+    
     func makeUI() {
-        addSubview(dateLabel)
-        addSubview(drinkContainer)
-        addSubview(userInfoLabel)
-        addSubview(coffeeMenuTitle)
-        addSubview(coffeeImage)
-        addSubview(drinkLabelStackView)
-        addSubview(drinkContainer)
-        addSubview(moodMenuTitle)
-        addSubview(moodLabelStackView)
-        addSubview(moodContainer)
-        addSubview(memoMenuTitle)
-        addSubview(memoView)
-        addSubview(tagMenuTitle)
-        addSubview(tags)
+        addSubview(createdAtLabel)
+        createdAtLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 24),
-            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            dateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            createdAtLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 12),
+            createdAtLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            createdAtLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
         
-        userInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+         addSubview(userInfoLabel)
+                 userInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+                 NSLayoutConstraint.activate([
+                     userInfoLabel.topAnchor.constraint(equalTo: createdAtLabel.bottomAnchor, constant: 4),
+                     userInfoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+                     userInfoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+                     userInfoLabel.heightAnchor.constraint(equalToConstant: 64)
+                 ])
+
+         addSubview(firstLine)
+         firstLine.translatesAutoresizingMaskIntoConstraints = false
+                 NSLayoutConstraint.activate([
+                     firstLine.topAnchor.constraint(equalTo: userInfoLabel.topAnchor, constant: 1),
+                     firstLine.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor, constant: 0),
+                     firstLine.trailingAnchor.constraint(equalTo: userInfoLabel.trailingAnchor, constant: 0),
+                     firstLine.heightAnchor.constraint(equalToConstant: 1)
+                 ])
+
+         addSubview(secondLine)
+
+                 secondLine.translatesAutoresizingMaskIntoConstraints = false
+                 NSLayoutConstraint.activate([
+                     secondLine.topAnchor.constraint(equalTo: userInfoLabel.bottomAnchor, constant: 1),
+                     secondLine.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor, constant: 0),
+                     secondLine.trailingAnchor.constraint(equalTo: userInfoLabel.trailingAnchor, constant: 0),
+                     secondLine.heightAnchor.constraint(equalToConstant: 1)
+                 ])
+        
+        addSubview(coffeeLabel)
+        coffeeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            userInfoLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 4),
-            userInfoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            userInfoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-            userInfoLabel.heightAnchor.constraint(equalToConstant: 64)
+            coffeeLabel.topAnchor.constraint(equalTo: userInfoLabel.bottomAnchor, constant: 20),
+            coffeeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            coffeeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        firstLine.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(drinkStack)
+        drinkStack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            firstLine.topAnchor.constraint(equalTo: userInfoLabel.topAnchor, constant: 1),
-            firstLine.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor, constant: 0),
-            firstLine.trailingAnchor.constraint(equalTo: userInfoLabel.trailingAnchor, constant: 0),
-            firstLine.heightAnchor.constraint(equalToConstant: 1)
-        ])
-        
-        secondLine.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            secondLine.topAnchor.constraint(equalTo: userInfoLabel.bottomAnchor, constant: 1),
-            secondLine.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor, constant: 0),
-            secondLine.trailingAnchor.constraint(equalTo: userInfoLabel.trailingAnchor, constant: 0),
-            secondLine.heightAnchor.constraint(equalToConstant: 1)
-        ])
-        
-        coffeeMenuTitle.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            coffeeMenuTitle.topAnchor.constraint(equalTo: userInfoLabel.bottomAnchor, constant: 24),
-            coffeeMenuTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            coffeeMenuTitle.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-        ])
-        
-        drinkContainer.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            drinkContainer.topAnchor.constraint(equalTo: coffeeMenuTitle.bottomAnchor, constant: 4),
-            drinkContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            drinkContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-            drinkContainer.heightAnchor.constraint(equalToConstant: 80)
-        ])
-        
-        drinkLabelStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            drinkLabelStackView.heightAnchor.constraint(equalToConstant: 56),
-            drinkLabelStackView.widthAnchor.constraint(equalToConstant: 240),
-            drinkLabelStackView.topAnchor.constraint(equalTo: drinkContainer.topAnchor, constant: 10),
+            drinkStack.topAnchor.constraint(equalTo: coffeeLabel.bottomAnchor, constant: 12),
+            drinkStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            drinkStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+            drinkStack.heightAnchor.constraint(equalToConstant: 140)
         ])
         
         coffeeImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            coffeeImage.widthAnchor.constraint(equalToConstant: 40),
-            coffeeImage.heightAnchor.constraint(equalToConstant: 56),
+            coffeeImage.widthAnchor.constraint(equalToConstant: 70),
+            coffeeImage.heightAnchor.constraint(equalToConstant: 100),
         ])
         
-        moodMenuTitle.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(moodTitle)
+        moodTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            moodMenuTitle.topAnchor.constraint(equalTo: drinkContainer.bottomAnchor, constant: 24),
-            moodMenuTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            moodMenuTitle.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            moodTitle.topAnchor.constraint(equalTo: drinkStack.bottomAnchor, constant: 20),
+            moodTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            moodTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        
-        moodLabelStackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(moodStack)
+        moodStack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            moodLabelStackView.heightAnchor.constraint(equalToConstant: 56),
-            moodLabelStackView.topAnchor.constraint(equalTo: moodContainer.topAnchor, constant: 10),
+            moodStack.topAnchor.constraint(equalTo: moodTitle.bottomAnchor, constant: 12),
+            moodStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            moodStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+            moodStack.heightAnchor.constraint(equalToConstant: 115)
         ])
+     
         
         
-        moodContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        addSubview(tagTitle)
+        tagTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            moodContainer.topAnchor.constraint(equalTo: moodMenuTitle.bottomAnchor, constant: 4),
-            moodContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            moodContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-            moodContainer.heightAnchor.constraint(equalToConstant: 80)
+            tagTitle.topAnchor.constraint(equalTo: moodStack.bottomAnchor, constant: 12),
+            tagTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            tagTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        memoMenuTitle.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            memoMenuTitle.topAnchor.constraint(equalTo: moodContainer.bottomAnchor, constant: 24),
-            memoMenuTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            memoMenuTitle.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-        ])
-        
-        memoView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            memoView.topAnchor.constraint(equalTo: memoMenuTitle.bottomAnchor, constant: 4),
-            memoView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            memoView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-        ])
-        
-        tagMenuTitle.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tagMenuTitle.topAnchor.constraint(equalTo: memoView.bottomAnchor, constant: 24),
-            tagMenuTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            tagMenuTitle.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-        ])
-        
+        addSubview(tags)
         tags.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tags.topAnchor.constraint(equalTo: tagMenuTitle.bottomAnchor, constant: 2),
-            tags.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            tags.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-            tags.heightAnchor.constraint(equalToConstant: 40)
+            tags.topAnchor.constraint(equalTo: tagTitle.bottomAnchor, constant: 12),
+            tags.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            tags.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+        ])
+        
+        
+        addSubview(detailTitle)
+        detailTitle.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            detailTitle.topAnchor.constraint(equalTo: tags.bottomAnchor, constant: 20),
+            detailTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            detailTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+        ])
+        
+        addSubview(detailView)
+        detailView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
     }
+    
+
 }

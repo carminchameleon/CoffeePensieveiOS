@@ -16,12 +16,12 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Montserrat-ExtraBold</string>
-		<string>Montserrat-SemiBold</string>
-		<string>Montserrat-ExtraLight</string>
-		<string>Montserrat-Regular</string>
-		<string>Montserrat-Bold</string>
-		<string>Montserrat-Medium</string>
+		<string>Montserrat-ExtraBold.otf</string>
+		<string>Montserrat-SemiBold.otf</string>
+		<string>Montserrat-ExtraLight.otf</string>
+		<string>Montserrat-Regular.otf</string>
+		<string>Montserrat-Bold.otf</string>
+		<string>Montserrat-Medium.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

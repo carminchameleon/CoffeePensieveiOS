@@ -57,7 +57,6 @@ class CommitTagView: UIView {
         textView.layer.borderColor = #colorLiteral(red: 0.1058823529, green: 0.3019607843, blue: 1, alpha: 1)
         textView.font = FontStyle.body
         textView.isSelectable = true
-        textView.isEditable = false
         textView.dataDetectorTypes = UIDataDetectorTypes.link
         textView.layer.cornerRadius = 12
         textView.text = "add a note..."

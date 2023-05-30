@@ -69,16 +69,30 @@ class DocketViewController: UIViewController {
     
     func updateDetail() {
         guard let memo = commit?.memo else { return }
+        let width = docketView.frame.width - 48
+        
         if memo.isEmpty {
             docketView.detailTitle.isHidden = true
-            docketView.detailView.isHidden = true
-            docketView.tagTitle.topAnchor.constraint(equalTo: docketView.detailView.bottomAnchor, constant: 0).isActive = true
-            docketView.detailTitle.heightAnchor.constraint(equalToConstant: 0).isActive = true
-            docketView.detailView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+            return
+        }
+
+        let font =  UIFont.italicSystemFont(ofSize: 17)
+        let height =  Common.heightForView(text: memo, font: font, width: width)
+        if height > 500 {
+            docketView.addSubview(docketView.memoView)
+            docketView.memoView.translatesAutoresizingMaskIntoConstraints = false
+            docketView.memoView.text = memo
+            NSLayoutConstraint.activate([
+                docketView.memoView.topAnchor.constraint(equalTo: docketView.detailTitle.bottomAnchor, constant: 12),
+                docketView.memoView.leadingAnchor.constraint(equalTo: docketView.leadingAnchor, constant: 24),
+                docketView.memoView.trailingAnchor.constraint(equalTo: docketView.trailingAnchor, constant: -24),
+                docketView.memoView.bottomAnchor.constraint(equalTo: docketView.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+        ])
         } else {
             docketView.detailView.text = memo
-            docketView.tagTitle.topAnchor.constraint(equalTo: docketView.detailView.bottomAnchor, constant: 20).isActive = true
-            docketView.detailTitle.topAnchor.constraint(equalTo: docketView.moodStack.bottomAnchor, constant: 20).isActive = true
+            docketView.addSubview(docketView.detailView)
+            docketView.detailView.topAnchor.constraint(equalTo: docketView.detailTitle.bottomAnchor, constant: 12).isActive = true
+
         }
     }
     
