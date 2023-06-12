@@ -7,20 +7,22 @@
 
 import UIKit
 import Firebase
+import SafariServices
 
 class ProfileViewController: UIViewController {
 
     let dataManager = DataManager.shared
     
     let menuList = [
-                    ProfileMenu(type:Menu.profile, title: "Profile", icon: "face.smiling"),
+                    ProfileMenu(type:Menu.profile, title: "Account", icon: "person.crop.circle"),
                     ProfileMenu(type:Menu.preference, title: "Preference", icon: "gear.circle"),
-                    ProfileMenu(type:Menu.rate, title: "Rate App", icon: "hand.thumbsup"),
                     ProfileMenu(type:Menu.support, title: "Help & Support", icon: "questionmark.circle"),
                     ProfileMenu(type:Menu.term, title: "Terms of Service", icon: "doc.plaintext"),
                     ProfileMenu(type:Menu.policy, title: "Privacy Policy", icon: "lock.shield"),
-                    ProfileMenu(type:Menu.about, title: "About", icon: "lizard"),
-                    ProfileMenu(type:Menu.logout, title: "Log out", icon: "door.sliding.right.hand.open")
+                    ProfileMenu(type:Menu.about, title: "About", icon: "face.smiling"),
+                    ProfileMenu(type:Menu.delete, title: "Delete Account", icon: "hand.raised.fingers.spread"),
+                    ProfileMenu(type:Menu.logout, title: "Log out", icon: "door.sliding.right.hand.open"),
+
     ]
     
     let tableView: UITableView = {
@@ -97,8 +99,8 @@ class ProfileViewController: UIViewController {
     }
 
     func profileTapped() {
-        let nickNameVC = NickNameViewController()
-        self.navigationController?.pushViewController(nickNameVC, animated: true)
+        let accountVC = AccountSettingViewController()
+        self.navigationController?.pushViewController(accountVC, animated: true)
     }
 
     func preferenceTapped() {
@@ -106,20 +108,31 @@ class ProfileViewController: UIViewController {
         self.navigationController?.pushViewController(preferenceVC, animated: true)
     }
     
-    func rateAppTapped() {
+    func deleteAccountTapped() {
+        let deleteVC = AccountDeleteViewController()
+        self.navigationController?.pushViewController(deleteVC, animated: true)
     }
-
+    
     func helpSupportTapped() {
+        showSafariView(url: Constant.Web.help)
     }
 
     func termOfServiceTapped() {
+        showSafariView(url: Constant.Web.terms)
     }
 
     func privacyPolicyTapped() {
+        showSafariView(url: Constant.Web.policy)
     }
 
     func aboutTapped() {
-        
+        showSafariView(url: Constant.Web.about)
+    }
+    
+    func showSafariView(url: String) {
+        let newsUrl = NSURL(string: url)
+        let newsSafariView: SFSafariViewController = SFSafariViewController(url: newsUrl! as URL)
+        self.present(newsSafariView, animated: true, completion: nil)
     }
     
     func logOutTapped(){
@@ -155,10 +168,10 @@ extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {
             self.profileTapped()
         case .preference:
             self.preferenceTapped()
-        case .rate:
-            self.rateAppTapped()
+        case .delete:
+            self.deleteAccountTapped()
         case .support:
-            print("helpSupportTapped")
+            self.helpSupportTapped()
         case .term:
             self.termOfServiceTapped()
         case .policy:

@@ -13,9 +13,9 @@ class FirstProfileGreetingView: UIView {
     
     private lazy var mainTitleLabel: UILabel = {
         var label = UILabel()
-        label.text = "Hi!\n Welcome to Coffee Pensieve!"
+        label.text = "Hi! Nice to meet you.\n Welcome to Coffee Pensieve!"
         label.fadeTransition(0.4)
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.font = FontStyle.title3
         label.textColor = .black
         label.numberOfLines = 2
         label.textAlignment = .center
@@ -76,18 +76,18 @@ class FirstProfileGreetingView: UIView {
         
         
         NSLayoutConstraint.activate([
-            mainTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 120),
+            mainTitleLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -120),
             mainTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             mainTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            mainTitleLabel.heightAnchor.constraint(equalToConstant: 50)
+            mainTitleLabel.heightAnchor.constraint(equalToConstant: 120)
         ])
         
         
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 400),
-            imageView.topAnchor.constraint(equalTo: mainTitleLabel.bottomAnchor, constant: 40),
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 400)
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
         ])
         
         NSLayoutConstraint.activate([

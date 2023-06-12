@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Firebase
 
 class FirstProfileRoutineViewController: UIViewController {
 
     let routineView = FirstProfileRoutineView()
     let networkManager = AuthNetworkManager.shared
-    
+    let notiCenter = DataManager.sharedNotiCenter
+
     var name = ""
     var limitTime = "17:00"
     var cups = 3
@@ -19,7 +21,8 @@ class FirstProfileRoutineViewController: UIViewController {
     var nightTime = "22:00"
     var email = ""
     var password = ""
-    
+    var reminder = true
+    var isSocial = false
     
     override func loadView() {
         view = routineView
@@ -29,6 +32,7 @@ class FirstProfileRoutineViewController: UIViewController {
         super.viewDidLoad()
         setUp()
         addTargets()
+        checkNotificationStatus()
     }
     
     
@@ -48,6 +52,14 @@ class FirstProfileRoutineViewController: UIViewController {
             picker.date = date
         }
     }
+
+    func checkNotificationStatus() {
+        notiCenter.getNotificationSettings { (settings) in
+            self.reminder = settings.authorizationStatus == .authorized
+       }
+    }
+    
+    
     
     func addTargets() {
         routineView.morningTimePicker.addTarget(self, action: #selector(morningTimePickerValueChanged), for: .valueChanged)
@@ -98,20 +110,62 @@ class FirstProfileRoutineViewController: UIViewController {
         if userName.count > 20 {
             routineView.nameTextField.resignFirstResponder()
         }
-     
     }
     
     @objc func submitButtonTapped() {
-        
-        networkManager.signUp(email: email, password: password, name: name, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, cups: cups) { error in
-            let alert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
-            let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
-                self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+        let userData = SignUpForm(email: email, password: password, name: name, cups: cups, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, reminder: reminder)
+        self.routineView.submitButton.isEnabled = false
+        if isSocial {
+            guard let currentUser = Auth.auth().currentUser else {
+                self.showErrorAlert()
+                return
             }
-            alert.addAction(tryAgain)
-            self.present(alert, animated: true, completion: nil)
+            guard let userEmail = currentUser.email else {
+                self.showErrorAlert()
+                return
+            }
+            let uid = currentUser.uid
             
+            let socialForm = UploadForm(uid: uid, email: userEmail, name: name, cups: cups, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, reminder: reminder)
+            networkManager.uploadUserProfile(userData: socialForm) { error in
+
+                let alert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
+                let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
+                    self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+                }
+                alert.addAction(tryAgain)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            let completeVC = FirstProfileCompleteViewController()
+            self.navigationController?.pushViewController(completeVC, animated: true)
+        } else {
+            networkManager.signUp(userData) { error in
+
+                let alert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
+                let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
+                    self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+                }
+                alert.addAction(tryAgain)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
         }
+        
+        if reminder {
+            Common.setNotification(type: .morning, timeString: morningTime)
+            Common.setNotification(type: .night, timeString: nightTime)
+            Common.setNotification(type: .limit, timeString: limitTime)
+        }
+    }
+    
+    func showErrorAlert() {
+        let alert = UIAlertController(title: "Sorry", message: "Failed to make your profile. If this error continues to occur, please contact the administrator.", preferredStyle: .alert)
+        let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
+            self.networkManager.signOut()
+        }
+        alert.addAction(tryAgain)
+        self.present(alert, animated: true, completion: nil)
     }
 
 

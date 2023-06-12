@@ -17,6 +17,15 @@ class FirstProfileCompleteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addTarget()
+    }
+    
+    func addTarget() {
+        completeView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func nextButtonTapped() {
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
 }

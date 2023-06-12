@@ -27,7 +27,7 @@ class TrackerRecordTableViewCell: UITableViewCell {
 
     let numberLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
+        label.text = "?"
         label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         label.textAlignment = .center
         return label

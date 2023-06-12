@@ -8,7 +8,7 @@
 import UIKit
 
 // 세가지의 용도로 쓰일 것임
-enum PreferenceTime {
+enum PreferenceTime: String {
     case morning
     case night
     case limit

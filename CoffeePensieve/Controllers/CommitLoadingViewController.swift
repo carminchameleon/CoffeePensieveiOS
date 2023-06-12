@@ -18,6 +18,7 @@ class CommitLoadingViewController: UIViewController {
     var tags: [Int]?
     var memo: String = ""
 
+    
     var imageView: UIImageView = {
         let imageName = "Memory-2"
         let loadingImage = UIImage(named: imageName)
@@ -25,6 +26,16 @@ class CommitLoadingViewController: UIViewController {
         imageView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
         imageView.contentMode =  .scaleToFill
         return imageView
+    }()
+    
+    var cheeringLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.italicSystemFont(ofSize: 14)
+        label.textColor = .grayColor500
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.text = Common.getGreetingSentenceByTime()
+        return label
     }()
     
     var loadingLabel: UILabel = {
@@ -49,14 +60,32 @@ class CommitLoadingViewController: UIViewController {
     
     func uploadData() {
 
-        // 값이 없다면 빈값으로 가는게 아니라 기본 값으로
+        let todayCount = dataManager.getNumberOfTodayCommit()
+        var memoryNumber = 0
+        switch todayCount {
+        case 0:
+            memoryNumber = 0
+        case 1:
+            memoryNumber = 1
+        case 2:
+            memoryNumber = 2
+        case 3:
+            memoryNumber = 3
+        default:
+            memoryNumber = 4
+        }
+        
+        UIView.transition( with: self.imageView, duration: 1, options: .transitionCrossDissolve, animations: {
+            self.imageView.image = UIImage(named: "Memory-\(memoryNumber)")
+        }, completion: nil)
+        
         dataManager.uploadDrinkCommit(drinkId: selectedDrink!, moodId: selectedMood!, tagIds: selectedTags, memo: memo) {[weak self] result in
             guard let strongSelf = self else { return }
-            
+
             switch result {
             case .success(let time):
                 strongSelf.moveToResultView(time)
-                
+
             case .failure(let error):
                 var errorMessage = "Failed to upload data. If the problem repeats, please contact us."
                 switch error {
@@ -67,7 +96,7 @@ class CommitLoadingViewController: UIViewController {
                 case .dataError:
                     break
                 }
-                
+
                 let failAlert = UIAlertController(title: "Please try again", message: errorMessage, preferredStyle: .alert)
                 let okayAction = UIAlertAction(title: "Okay", style: .default) {action in
                     strongSelf.navigationController?.popToRootViewController(animated: true)
@@ -80,8 +109,7 @@ class CommitLoadingViewController: UIViewController {
 
     
     func moveToResultView(_ time: Date) {
-    
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.5) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             let resultVC = CommitResultViewController()
             resultVC.drinkId = self.selectedDrink!
             resultVC.tagIds = self.selectedTags
@@ -90,7 +118,6 @@ class CommitLoadingViewController: UIViewController {
             resultVC.createdAt = time
             self.navigationController?.pushViewController(resultVC, animated: true)            
         }
-        
     }
     
     func fadeInAnimation() {
@@ -106,13 +133,12 @@ class CommitLoadingViewController: UIViewController {
         self.loadingLabel.alpha = 0
         navigationItem.setHidesBackButton(true, animated: true)
         
-        
         view.backgroundColor = .white
         view.addSubview(imageView)
         view.addSubview(loadingLabel)
+        view.addSubview(cheeringLabel)
        
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 400),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -120,14 +146,20 @@ class CommitLoadingViewController: UIViewController {
             imageView.heightAnchor.constraint(equalToConstant: 400)
         ])
         
-        
         loadingLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             loadingLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -60),
             loadingLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             loadingLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
             loadingLabel.heightAnchor.constraint(equalToConstant: 60)
-
+        ])
+        
+        cheeringLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cheeringLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            cheeringLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
+            cheeringLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
+            cheeringLabel.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 

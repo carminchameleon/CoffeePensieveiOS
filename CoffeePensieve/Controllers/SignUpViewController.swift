@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SafariServices
 
 class SignUpViewController: UIViewController {
         
@@ -27,6 +28,14 @@ class SignUpViewController: UIViewController {
         signUpView.emailTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         signUpView.passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         signUpView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        
+        let tapGestureForTerms = UITapGestureRecognizer(target: self, action: #selector(termsLabelTapped))
+        let tapGestureForPolicy = UITapGestureRecognizer(target: self, action: #selector(policyLabelTapped))
+
+        signUpView.infoLabel.isUserInteractionEnabled = true
+        signUpView.infoLabel.addGestureRecognizer(tapGestureForTerms)
+        signUpView.policyLabel.isUserInteractionEnabled = true
+        signUpView.policyLabel.addGestureRecognizer(tapGestureForPolicy)        
     }
     
     
@@ -95,6 +104,22 @@ class SignUpViewController: UIViewController {
         let passwordRegEx = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*#?&]{8,}$"
         let passwordPred = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
         return passwordPred.evaluate(with: password)
+    }
+    
+    
+    @objc func termsLabelTapped() {
+        showSafariView(url: Constant.Web.terms)
+    }
+    
+    @objc func policyLabelTapped() {
+        showSafariView(url: Constant.Web.policy)
+
+    }
+    
+    func showSafariView(url: String) {
+        let newsUrl = NSURL(string: url)
+        let newsSafariView: SFSafariViewController = SFSafariViewController(url: newsUrl! as URL)
+        self.present(newsSafariView, animated: true, completion: nil)
     }
 }
 

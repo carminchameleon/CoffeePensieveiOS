@@ -22,7 +22,32 @@ struct UserProfile: Codable {
     var reminder: Bool
 }
 
+
 struct UserPreference {
+    let cups: Int
+    let morningTime: String
+    let nightTime: String
+    let limitTime: String
+    let reminder: Bool
+}
+
+struct SignUpForm {
+    let email: String
+    let password: String
+    let name: String
+
+    let cups: Int
+    let morningTime: String
+    let nightTime: String
+    let limitTime: String
+    let reminder: Bool
+}
+
+struct UploadForm {
+    let uid: String
+    let email: String
+    let name: String
+    
     let cups: Int
     let morningTime: String
     let nightTime: String

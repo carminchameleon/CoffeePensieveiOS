@@ -40,8 +40,6 @@ class CommitMoodView: UIView {
     let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        
-        
         return cv
         
     }()

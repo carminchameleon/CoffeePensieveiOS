@@ -145,7 +145,7 @@ class DocketView: UIView {
     let tags: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
-        label.textColor = .primaryColor25
+        label.textColor = .primaryColor100
         label.textAlignment = .left
         return label
     }()

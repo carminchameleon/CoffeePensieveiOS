@@ -21,9 +21,12 @@ class DocketViewController: UIViewController {
     
     var commit: CommitDetail?
     
+    override func viewWillAppear(_ animated: Bool) {
+        setNavigationBar()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationBar()
+//        setNavigationBar()
         updateCommitData()
         updateDetail()
     }
@@ -32,6 +35,13 @@ class DocketViewController: UIViewController {
         docketView.setGradient3Color(color1: .blueGradient100, color2: .blueGradient200, color3: .blueGradient300)
     }
         
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.tintColor = .primaryColor500
+    }
+    
+    
     func setNavigationBar() {        
         navigationItem.title = "Memory"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -106,6 +116,34 @@ class DocketViewController: UIViewController {
     }
     
     @objc func deleteButtonTapped() {
+        let alert = UIAlertController(title: "Are You Sure?", message: "Deleting this memory will remove it from your coffee pensieve", preferredStyle: .alert)
+        let okay = UIAlertAction(title: "Delete It", style: .destructive) { action in
+            self.deleteData()
+        }
         
+        let cancel = UIAlertAction(title: "Keep It", style: .cancel)
+        alert.addAction(cancel)
+        alert.addAction(okay)
+        self.present(alert, animated: true, completion: nil)
+        }
+        
+        
+        func deleteData() {
+            guard let commit = self.commit else { return }
+            let id = commit.id
+            self.dataManager.deleteCommit(id: id) {[weak self] result in
+                guard let strongSelf = self else { return }
+                switch result {
+                case .success:
+                    strongSelf.navigationController?.popViewController(animated: true)
+                case .failure:
+                    let alert = UIAlertController(title: "Sorry", message: "Failed to delete your memory from pensive", preferredStyle: .alert)
+                let okay = UIAlertAction(title: "Okay", style: .default) { action in
+                        strongSelf.navigationController?.popViewController(animated: true)
+                    }
+                    alert.addAction(okay)
+                    strongSelf.present(alert, animated: true, completion: nil)
+                }
+        }
     }
 }

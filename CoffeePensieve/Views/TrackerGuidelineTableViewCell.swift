@@ -40,7 +40,8 @@ class TrackerGuidelineTableViewCell: UITableViewCell {
             let components = calendar.dateComponents([.hour, .minute], from: today, to: limitDate)
             let hours = components.hour ?? 0
             let minutes = components.minute ?? 0
-            let isTimeOver = hours < 0
+            
+            let isTimeOver = hours <= 0 && minutes <= 0
 
             currentCupNumber.text = "\(limitCups) Cups - \(todayCups) Cups"
             if isCupOver {
@@ -73,10 +74,20 @@ class TrackerGuidelineTableViewCell: UITableViewCell {
         return label
     }()
     
+    
+    let currentCupTitle: UILabel = {
+        let label = UILabel()
+        label.text = "Cup Limit - You had"
+        label.font = FontStyle.footnote
+        label.textColor = .grayColor300
+        label.textAlignment = .left
+        return label
+    }()
+    
     let currentCupNumber: UILabel = {
         let label = UILabel()
         label.text = "0 Cups - 0 Cups"
-        label.font = FontStyle.callOut
+        label.font = FontStyle.headline
         label.textColor = .black
         label.textAlignment = .left
         return label
@@ -85,7 +96,7 @@ class TrackerGuidelineTableViewCell: UITableViewCell {
     let leftCupNumber: UILabel = {
         let label = UILabel()
         label.text = "0 Cups Left"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.font = UIFont.italicSystemFont(ofSize: 16)
         label.textColor = .primaryColor300
         label.textAlignment = .left
         return label
@@ -102,8 +113,18 @@ class TrackerGuidelineTableViewCell: UITableViewCell {
     let timeTitle: UILabel = {
         let label = UILabel()
         label.text = "Time Limit"
-        label.font = FontStyle.headline
-        label.textColor = .black
+        label.font = FontStyle.subhead
+        label.textColor = .gray
+        label.textAlignment = .left
+        return label
+    }()
+    
+    
+    let currentTimeTitle: UILabel = {
+        let label = UILabel()
+        label.text = "Time Limit - Now"
+        label.font = FontStyle.footnote
+        label.textColor = .grayColor300
         label.textAlignment = .left
         return label
     }()
@@ -111,7 +132,7 @@ class TrackerGuidelineTableViewCell: UITableViewCell {
     let currentTimeNumber: UILabel = {
         let label = UILabel()
         label.text = "1:30 AM - 1:30 PM"
-        label.font = FontStyle.callOut
+        label.font = FontStyle.headline
         label.textColor = .black
         label.textAlignment = .left
         return label
@@ -120,7 +141,7 @@ class TrackerGuidelineTableViewCell: UITableViewCell {
     let leftTimeNumber: UILabel = {
         let label = UILabel()
         label.text = "0 hours Left"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.font = UIFont.italicSystemFont(ofSize: 16)
         label.textColor = .primaryColor300
         label.textAlignment = .left
         return label
@@ -136,7 +157,7 @@ class TrackerGuidelineTableViewCell: UITableViewCell {
     
     
     lazy var stackView: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [cupStackView, timeStackView])
+        let st = UIStackView(arrangedSubviews: [currentCupTitle, cupStackView, currentTimeTitle, timeStackView])
         st.axis = .vertical
         st.spacing = 0
         st.alignment = .fill

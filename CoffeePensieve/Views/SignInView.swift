@@ -15,9 +15,9 @@ class SignInView: UIView {
     lazy var backButton: UIButton = {
         let button = UIButton(type:.custom)
         let iconImage = UIImage(systemName: "chevron.backward.circle")
-        let resizedImage = iconImage?.resized(toWidth: 32) // 아이콘 사이즈 설정
+        let resizedImage = iconImage?.resized(toWidth: 36) // 아이콘 사이즈 설정
         button.setImage(resizedImage, for: .normal)
-        button.setImageTintColor(.grayColor400) // 아이콘 색 설정
+        button.setImageTintColor(.primaryColor500) // 아이콘 색 설정
         return button
     }()
     
@@ -85,7 +85,7 @@ class SignInView: UIView {
         tf.autocorrectionType = .no
         tf.spellCheckingType = .no
         tf.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.grayColor400])
-        tf.isSecureTextEntry =  false // 나중에 바꿔줘야함
+        tf.isSecureTextEntry =  true // 나중에 바꿔줘야함
         tf.clearsOnBeginEditing = false
         return tf
     }()
@@ -119,46 +119,6 @@ class SignInView: UIView {
         return button
     }()
     
-    
-    
-    // MARK: - 회원가입 안내 타이틀
-    lazy var googleButton: UIButton = {
-        var filled = UIButton.Configuration.filled()
-        filled.title = "Google"
-        filled.buttonSize = .medium
-        filled.image = UIImage(systemName: "g.circle")
-        filled.imagePlacement = .leading
-        filled.imagePadding = 3
-        filled.baseBackgroundColor = .primaryColor500
-        let button = UIButton(configuration: filled, primaryAction: nil)
-        button.setTitleColor(.white, for: .normal)
-        button.tintColor = .white
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 6
-        return button
-    }()
-    
-    // MARK: - 회원가입 안내 타이틀
-    lazy var appleButton: UIButton = {
-        var filled = UIButton.Configuration.filled()
-        filled.title = "Apple "
-        filled.buttonSize = .medium
-        filled.image = UIImage(systemName: "apple.logo")
-        filled.imagePlacement = .leading
-        filled.imagePadding = 3
-        filled.baseBackgroundColor = .primaryColor500
-        let button = UIButton(configuration: filled, primaryAction: nil)
-        button.setTitleColor(.white, for: .normal)
-        button.tintColor = .white
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 6
-        return button
-    }()
-    
-    
-    
     lazy var textFieldStackView: UIStackView = {
         let st = UIStackView(arrangedSubviews: [emailTextFieldView, passwordTextFieldView])
         st.spacing = 12
@@ -170,33 +130,43 @@ class SignInView: UIView {
     
     
     
-    lazy var buttonStackView: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [googleButton,appleButton])
-        st.spacing = 12
-        st.axis = .horizontal
-        st.distribution = .fillEqually
-        st.alignment = .fill
-        return st
-    }()
-    
     // MARK: - 규정 안내 타이틀 UITextView로 바꿔야함
     private lazy var infoLabel: UILabel = {
-        let text = "By tapping Continue, You agree to our Terms and \n acknowlege that you have read our Privacy Policy."
+        let text = "By tapping Continue, You agree to our Terms and"
         let termRange = NSRange(location: 38, length: 5)
-        let privacyRange =  NSRange(location: 84, length: 14)
+        
+        // NSAttributedString 생성
+        let attributedString = NSMutableAttributedString(string: text)
+        let termURL = URL(string: Constant.Web.terms)!
+
+        attributedString.addAttribute(.link, value: termURL, range: termRange)
+        
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = .black
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.attributedText = attributedString
+        return label
+    }()
+    
+    
+    // MARK: - 규정 안내 타이틀 UITextView로 바꿔야함
+    private lazy var policyLabel: UILabel = {
+        let text = "acknowlege that you have read our Privacy Policy."
+        let privacyRange =  NSRange(location: 34, length: 14)
         
         // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)
 
-        let termURL = URL(string: "https://www.apple.com")!
-        let privacyURL = URL(string: "https://www.google.com")!
+        let policyURL = URL(string: Constant.Web.policy)!
 
-        attributedString.addAttribute(.link, value: termURL, range: termRange)
-        attributedString.addAttribute(.link, value: privacyURL, range: privacyRange)
+        
+        attributedString.addAttribute(.link, value: policyURL, range: privacyRange)
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .black
-        label.numberOfLines = 2
+        label.numberOfLines = 1
         label.textAlignment = .center
         label.attributedText = attributedString
         return label
@@ -227,7 +197,7 @@ class SignInView: UIView {
         NSLayoutConstraint.activate([
             backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 28),
-            backButton.heightAnchor.constraint(equalToConstant: 30),
+            backButton.heightAnchor.constraint(equalToConstant: 36),
         ])
         
         addSubview(signInLabel)
@@ -287,15 +257,6 @@ class SignInView: UIView {
             signInButton.heightAnchor.constraint(equalToConstant: buttonHeight)
         ])
         
-        
-        addSubview(buttonStackView)
-        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            buttonStackView.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 12),
-            buttonStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
-            buttonStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            buttonStackView.heightAnchor.constraint(equalToConstant: 44)
-        ])
     }
 }
 

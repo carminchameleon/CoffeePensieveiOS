@@ -8,6 +8,14 @@
 import UIKit
 
 struct Constant {
+    
+    struct Web {
+        static let about = "https://www.coffeepensieve.com/story"
+        static let terms = "https://www.coffeepensieve.com/terms"
+        static let policy = "https://www.coffeepensieve.com/privacypolicy"
+        static let help = "https://www.coffeepensieve.com/help"
+    }
+    
     struct FStore {
         static let userCollection = "users"
         static let emailField = "email"
@@ -29,7 +37,17 @@ struct Constant {
         static let moodField = "moodId"
         static let tagListField = "tagIds"
         static let memoField = "memo"
+    }
+    
+    struct NotificatonMessage {
+        static let morningMessage = Message(greeting: "How did you sleep last night", message: "Let's start a new day with a cup of morning coffee.")
+        static let nightMessage = Message(greeting: "It's almost time to go to sleep", message: "Take a moment to reflect on your day and preserve your memories in a fancy way with Coffee Pensieve")
+        static let limitMessage = Message(greeting: "How's your day going so far", message: "Your coffee time is almost up. If you haven't had your coffee yet, now is the perfect time!")
 
+        struct Message {
+            let greeting: String
+            let message: String
+        }
     }
 }
 
@@ -79,16 +97,23 @@ enum CellId: String {
     case trackerLoadingCell
     case trackerGuideLoadingCell
     case trackerRecordLoadingCell
+    case trackerRecordEmptyCell
     
     case trackerTodayHeader
     case trackerRecordHeader
     case trackerGuideHeader
     
     case RecordListCell
+    case RecordHeaderCell
+    
+    
     case ProfileCell
+    case AccountSettingCell
     case PreferenceNameCell
     case PreferenceCupCell
     case PreferenceTimeCell
+    
+    
 }
 
-// 에러 관련 안내 메세지 작성
+// Alert Messgae

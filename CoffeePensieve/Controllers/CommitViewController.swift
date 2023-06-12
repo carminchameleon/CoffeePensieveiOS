@@ -42,7 +42,6 @@ class CommitViewController: UIViewController {
     }
     
     func getGreeting() {
-        
         let nowDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH"
@@ -71,8 +70,10 @@ class CommitViewController: UIViewController {
                     weakSelf.updateName()
                 }
             case .failure:
-                // 프로파일 얻어오기 실패했을 때 -> 소셜 로그인 할때 구현할 것
-            break
+                let profileVC = FirstProfileGreetingViewController()
+                profileVC.isSocial = true
+                weakSelf.navigationController?.pushViewController(profileVC, animated: true)
+
             }
         }
     }
@@ -88,8 +89,33 @@ class CommitViewController: UIViewController {
                 DispatchQueue.main.async {
                     weakSelf.updateCommitCount()
                 }
-            case .failure:
-            break
+            case .failure(let error):
+
+                var errorMessage = "Failed to get your commits. Please try again later"
+                switch error {
+                case .uidError:
+                    errorMessage = "Failed to get your information. Please sign in again."
+                case .databaseError:
+                    errorMessage = "Failed to link your DB. If the problem repeats, please contact us."
+                case .dataError:
+                    break
+                }
+
+                switch error {
+                case .uidError:
+                    let failAlert = UIAlertController(title: "Sorry", message: errorMessage, preferredStyle: .alert)
+                    let okayAction = UIAlertAction(title: "Okay", style: .default) {action in
+                        weakSelf.networkManager.signOut()
+                    }
+                    failAlert.addAction(okayAction)
+                    weakSelf.present(failAlert, animated: true, completion: nil)
+                default:
+                    let failAlert = UIAlertController(title: "Sorry", message: errorMessage, preferredStyle: .alert)
+                    let okayAction = UIAlertAction(title: "Okay", style: .default)
+                    failAlert.addAction(okayAction)
+                    weakSelf.present(failAlert, animated: true, completion: nil)
+                }
+
             }
         }
         

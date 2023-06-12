@@ -27,7 +27,6 @@ class PreferenceView: UIView {
         return label
     }()
 
-
     let switchButton: UISwitch = {
         let switchButton = UISwitch()
         switchButton.isOn = true

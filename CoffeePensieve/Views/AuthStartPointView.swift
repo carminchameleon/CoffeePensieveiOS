@@ -16,7 +16,7 @@ class AuthStartPointView: UIView {
     // MARK: - 앱 이름
     let appNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Coffee \n Pensieve"
+        label.text = "Coffee\nPensieve"
         label.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
         label.textColor = .black
         label.numberOfLines = 2
@@ -44,6 +44,7 @@ class AuthStartPointView: UIView {
         filled.imagePlacement = .leading
         filled.imagePadding = 3
         filled.baseBackgroundColor = .primaryColor500
+        
         let button = UIButton(configuration: filled, primaryAction: nil)
         button.setTitleColor(.white, for: .normal)
         button.tintColor = .white
@@ -53,50 +54,89 @@ class AuthStartPointView: UIView {
         return button
     }()
     
+    
     // MARK: - 회원가입 안내 타이틀
-    lazy var googleButton: GIDSignInButton = {
-        let button = GIDSignInButton()
+    lazy var googleButton: UIButton = {
+        var button = UIButton()
+        let image = UIImage(named: "GoogleIcon")?.resized(toWidth: 20)
+        button.setImage(image, for: .normal)
+        button.setTitle("  Continue with Google", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.backgroundColor = .primaryColor500
+        button.setTitleColor(.white, for: .normal)
+        button.tintColor = .white
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 6
         return button
     }()
     
+    
     // MARK: - 회원가입 안내 타이틀
-    lazy var appleButton: ASAuthorizationAppleIDButton = {
-        let button = ASAuthorizationAppleIDButton(authorizationButtonType: .continue, authorizationButtonStyle: .black)
+    lazy var appleButton: UIButton = {
+        var filled = UIButton.Configuration.filled()
+        filled.title = "Contiune with Apple "
+        filled.buttonSize = .medium
+        filled.image = UIImage(systemName: "apple.logo")
+        filled.imagePlacement = .leading
+        filled.imagePadding = 3
+        filled.baseBackgroundColor = .primaryColor500
+        
+        let button = UIButton(configuration: filled, primaryAction: nil)
+        button.setTitleColor(.white, for: .normal)
+        button.tintColor = .white
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 6
         return button
     }()
-    
+        
     lazy var stackView: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [emailButton,googleButton,appleButton])
+        let st = UIStackView(arrangedSubviews: [emailButton, googleButton, appleButton])
         st.spacing = 12
         st.axis = .vertical
         st.distribution = .fillEqually
         st.alignment = .fill
         return st
     }()
-
     
-    // MARK: - 규정 안내 타이틀 UITextView로 바꿔야함
-    private lazy var infoLabel: UILabel = {
-        let text = "By tapping Continue, You agree to our Terms and \n acknowlege that you have read our Privacy Policy."
+    lazy var infoLabel: UILabel = {
+        let text = "By tapping Continue, You agree to our Terms and"
         let termRange = NSRange(location: 38, length: 5)
-        let privacyRange =  NSRange(location: 84, length: 14)
         
         // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)
-
-        let termURL = URL(string: "https://www.apple.com")!
-        let privacyURL = URL(string: "https://www.google.com")!
+        let termURL = URL(string: Constant.Web.terms)!
 
         attributedString.addAttribute(.link, value: termURL, range: termRange)
-        attributedString.addAttribute(.link, value: privacyURL, range: privacyRange)
+        
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .black
-        label.numberOfLines = 2
+        label.numberOfLines = 1
         label.textAlignment = .center
         label.attributedText = attributedString
         return label
     }()
+    
+    
+    lazy var policyLabel: UILabel = {
+        let text = "acknowlege that you have read our Privacy Policy."
+        let privacyRange =  NSRange(location: 34, length: 14)
+        
+        // NSAttributedString 생성
+        let attributedString = NSMutableAttributedString(string: text)
+        let policyURL = URL(string: Constant.Web.policy)!
+        
+        attributedString.addAttribute(.link, value: policyURL, range: privacyRange)
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = .black
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.attributedText = attributedString
+        return label
+    }()
+    
     
     // MARK: - 로그인 버튼
     lazy var loginButton: UIButton = {
@@ -128,16 +168,19 @@ class AuthStartPointView: UIView {
         addSubview(signUpLabel)
         addSubview(stackView)
         addSubview(infoLabel)
+        addSubview(policyLabel)
+
         addSubview(loginButton)
         
         appNameLabel.translatesAutoresizingMaskIntoConstraints = false
         signUpLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        policyLabel.translatesAutoresizingMaskIntoConstraints = false
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            appNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
+            appNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
             appNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
@@ -157,6 +200,10 @@ class AuthStartPointView: UIView {
         NSLayoutConstraint.activate([
             infoLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 36),
             infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+        ])
+        NSLayoutConstraint.activate([
+            policyLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 0),
+            policyLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([

@@ -12,6 +12,7 @@ class FirstProfileGreetingViewController: UIViewController {
     let greetingView = FirstProfileGreetingView()
     var email:String = ""
     var password: String = ""
+    var isSocial = false
     
     override func loadView() {
         view = greetingView
@@ -20,6 +21,7 @@ class FirstProfileGreetingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addTargets()
+        tabBarController?.tabBar.isHidden = true
     }
     
     func addTargets(){
@@ -31,8 +33,14 @@ class FirstProfileGreetingViewController: UIViewController {
         let routineVC = FirstProfileRoutineViewController()
         routineVC.email = email
         routineVC.password = password
+        routineVC.isSocial = isSocial
         routineVC.modalPresentationStyle = .fullScreen
-        present(routineVC, animated: true)
+        
+        if isSocial {
+            navigationController?.pushViewController(routineVC, animated: true)
+        } else {
+            present(routineVC, animated: true)
+        }
     }
 
 }

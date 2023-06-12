@@ -30,14 +30,20 @@ class CommitResultViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         resultView.setGradient3Color(color1: .blueGradient100, color2: .blueGradient200, color3: .blueGradient300)
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.tintColor = .primaryColor500
     }
 
+        
     func setUI() {
         resultView.backgroundColor = .white
         navigationItem.title = "Summary"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.tintColor = .white
+
         navigationItem.setHidesBackButton(true, animated: true)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeTapped))
        

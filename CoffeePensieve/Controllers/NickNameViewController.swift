@@ -46,8 +46,8 @@ class NickNameViewController: UIViewController {
         let lineView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 1))
         lineView.backgroundColor = .black
         return lineView
-    }()
-
+    }()    
+    
     @objc func okButtonTapped() {
         dataManager.updateUserProfile(name: name) {[weak self] result in
             guard let strongSelf = self else { return }
@@ -78,7 +78,7 @@ class NickNameViewController: UIViewController {
         navigationItem.title = "Profile"
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.prefersLargeTitles = false
-        tabBarController?.tabBar.isHidden = true
+        tabBarController?.tabBar.isHidden = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(okButtonTapped))
         navigationItem.rightBarButtonItem?.isEnabled = false
     }

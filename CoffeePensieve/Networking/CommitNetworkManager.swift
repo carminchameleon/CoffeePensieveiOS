@@ -20,7 +20,8 @@ final class CommitNetworkManager {
     typealias MoodCompletion = (Result<[Mood],NetworkError>) -> Void
     typealias TagCompletion = (Result<[Tag],NetworkError>) -> Void
     typealias CommitCompletion = (Result<Void,NetworkError>) -> Void
-    
+    typealias DeleteCompletion = (Result<Void,NetworkError>) -> Void
+
     // MARK: - get coffee list
     func fetchDrinks(completion: @escaping DrinkCompletion) {
         let docRef = db.collection(Constant.FStore.drinkCollection)
@@ -93,6 +94,19 @@ final class CommitNetworkManager {
             }
         }
         completion(.success(()))
+    }
+    
+    
+    func deleteCommit(id: String, completion: @escaping DeleteCompletion ) {
+        db.collection(Constant.FStore.commitCollection).document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+                completion(.failure(.dataError))
+            } else {
+                completion(.success(()))
+                print("Document successfully removed!")
+            }
+        }
     }
 }
     

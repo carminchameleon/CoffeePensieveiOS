@@ -69,26 +69,14 @@ class CommitMainView: UIView {
         label.textColor = .grayColor500
         label.numberOfLines = 0
         label.textAlignment = .center
-        let nowDate = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH"
-        let date = dateFormatter.string(from: nowDate)// 현재 시간의 Date를 format에 맞춰 string으로 반환
-        let currentTime = Int(date)!
-        switch currentTime {
-        case 0...12 :
-            label.text = morningGreeting.randomElement()
-        case 12...17 :
-            label.text = afternoonGreeting.randomElement()
-        default:
-            label.text = eveningGreeting.randomElement()
-        }
+        label.text = Common.getGreetingSentenceByTime()
         return label
     }()
 
     let suggestionLabel: UILabel = {
         let label = UILabel()
-//        label.text = "Would you like to add your coffee memory?"
         label.font = FontStyle.callOut
+        label.text = "Would you like to add your memory?"
         label.textColor = .black
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -142,7 +130,7 @@ class CommitMainView: UIView {
         self.addSubview(cheeringLabel)
         cheeringLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cheeringLabel.topAnchor.constraint(equalTo: greetingLabel.bottomAnchor, constant: 16),
+            cheeringLabel.topAnchor.constraint(equalTo: greetingLabel.bottomAnchor, constant: 24),
             cheeringLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             cheeringLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
         ])
@@ -152,8 +140,7 @@ class CommitMainView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-         
-            imageView.topAnchor.constraint(equalTo: cheeringLabel.bottomAnchor, constant: 0),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)

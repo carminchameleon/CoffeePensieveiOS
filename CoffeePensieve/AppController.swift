@@ -8,15 +8,14 @@
 import UIKit
 import Firebase
 
-class AppController {
+final class AppController {
 
-    // 테스트용
-    let isLoggedIn = true
-    
     static let shared = AppController()
+    
     private init() {
         registerAuthStateDidChangeEvent()
     }
+    
     private var window: UIWindow?
     
     private var rootViewController: UIViewController? {
@@ -27,19 +26,20 @@ class AppController {
     
     func show(in window: UIWindow?) {
         self.window = window
-        window?.backgroundColor = .white
+        window?.backgroundColor = .systemBackground
         window?.makeKeyAndVisible()
-        
+        window?.overrideUserInterfaceStyle = .light
         checkLoginStatus()
+        
     }
     
     private func registerAuthStateDidChangeEvent() {
+        // .AuthStateDidChange : Firebase에서 연동되는 이벤트
         NotificationCenter.default.addObserver(self, selector: #selector(checkLoginStatus), name: .AuthStateDidChange, object: nil)
     }
     
     @objc private func checkLoginStatus() {
         
-    
         if let user = Auth.auth().currentUser {
             Common.setUserDefaults(user.uid, forKey: .userId)
             moveMain()
@@ -47,20 +47,24 @@ class AppController {
             moveWelcome()
         }
     }
-    
-    private func moveMain() {
-        // 탭바컨트롤러의 생성
+
+    let tabBarVC: UITabBarController = {
         let tabBarVC = UITabBarController()
+
         tabBarVC.tabBar.layer.borderWidth = 0.50
         tabBarVC.tabBar.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        tabBarVC.tabBar.tintColor = .primaryColor500
         tabBarVC.tabBar.clipsToBounds = true
-        
+        return tabBarVC
+    }()
 
+    
+
+    private func moveMain() {
         // 첫번째 화면은 네비게이션컨트롤러로 만들기 (기본루트뷰 설정)
         let commitVC = UINavigationController(rootViewController: CommitViewController())
         let trackerVC = UINavigationController(rootViewController: TrackerViewController())
         let profileVC = UINavigationController(rootViewController: ProfileViewController())
-
         
         // 탭바 이름들 설정
         commitVC.title = "Coffee"
@@ -75,24 +79,16 @@ class AppController {
         // 탭바 이미지 설정 (이미지는 애플이 제공하는 것으로 사용)
         guard let items = tabBarVC.tabBar.items else { return }
         items[0].image = UIImage(systemName: "cup.and.saucer.fill")
-        items[1].image = UIImage(systemName: "chart.bar.doc.horizontal")
+        items[1].image = UIImage(systemName: "chart.bar.fill")
         items[2].image = UIImage(systemName: "person.crop.circle.fill")
-        
-        
+                
         // 기본루트뷰를 탭바컨트롤러로 설정⭐️⭐️⭐️
-        
         rootViewController = tabBarVC
     }
-    
+
     private func moveWelcome(){
+        print("1. move Welcome")
         let startingVC = StartPointViewController()
         rootViewController = UINavigationController(rootViewController: startingVC)
     }
 }
-
-extension Notification.Name {
-    static let authSatateDidChange = NSNotification.Name("authStateDidChange")
-}
-
-
-

@@ -9,18 +9,7 @@ import UIKit
 
 class OnboardingView: UIView {
     
-    let appNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Coffee \n Pensieve"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
-        label.textColor = .black
-        label.numberOfLines = 2
-        label.textAlignment = .center
-        return label
-    }()
-    
-    
-    var imageView: UIImageView = {
+    let imageView: UIImageView = {
         let imageName = "Cloud 1"
         let onboardingImage = UIImage(named: imageName)
         let imageView = UIImageView(image: onboardingImage!)
@@ -72,6 +61,7 @@ class OnboardingView: UIView {
     
     private func makeUI() {
         backgroundColor = .primaryColor25
+
         addSubview(imageView)
         addSubview(stackView)
 
@@ -82,10 +72,11 @@ class OnboardingView: UIView {
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 200),
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),imageView.heightAnchor.constraint(equalToConstant: 300)]
         )
-        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 44),
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
+
+    
 }

@@ -9,7 +9,8 @@ import Foundation
 import Firebase
 // 모든 데이터를 관리하는 매니저
 final class DataManager {
-    
+    static let sharedNotiCenter = UNUserNotificationCenter.current()
+
     static let shared = DataManager()
     
     private init() {
@@ -130,6 +131,21 @@ final class DataManager {
             }
         }
     }
+    
+    typealias deleteCompletion = (Result<Void,NetworkError>) -> Void
+    func deleteCommit(id: String, completion: @escaping deleteCompletion ) {
+        commitManager.deleteCommit(id: id) { result in
+            switch result {
+            case .success:
+                completion(.success(()))
+            case .failure(let erorr):
+                completion(.failure(erorr))
+            }
+        }
+    }
+
+    
+    
     // MARK: - 총 commit 수
     func getCommitCountFromAPI(completion: @escaping(Result<Int,NetworkError>) -> Void) {
         authManager.getNumberOfCommits { result in
@@ -230,7 +246,6 @@ final class DataManager {
             switch result {
             case .success(let data):
                 self.allCommits = data
-                self.getTopDrinkList(commitList: data)
                 completion(.success(()))
             case .failure(let error):
                 print("Error to fetch All commits -", error.localizedDescription)
@@ -287,13 +302,14 @@ final class DataManager {
     
     // MARK: - Record Calendar 뷰
     func getMonthlyDurationCommit(start: Date, finish: Date, completion: @escaping (Result<Void,NetworkError>) -> Void) {
-        print(#function)
+        print(start, "START", finish, "FINISH")
         trackerManager.fetchDurationCommit(start: start, finish: finish) { result in
             switch result {
             case .success(let commits):
                 // 날짜별로 정렬된 데이터
                 let sortedData = self.sortCommitList(commits)
                 self.monthlySortedCommits = sortedData
+//                dump(sortedData)
                 completion(.success(()))
             case .failure:
                 completion(.failure(.dataError))
@@ -304,7 +320,6 @@ final class DataManager {
     // MARK: - 커밋 리스트가 있을 때 그걸 날짜별로 돌아가면서 정렬  [1: [commits...]]
     typealias SortedDailyCommit = [Int: [Commit]]
     func sortCommitList(_ commitList: [Commit]) -> SortedDailyCommit {
-        print("날짜별 정렬 시작")
         var sortedData: [Int: [Commit]] = [:]
         for commit in commitList {
             let calendar = Calendar.current
@@ -320,6 +335,24 @@ final class DataManager {
         }
         return sortedData
     }
+    
+    
+    typealias SortedDailyDetailedCommit = [Date: [CommitDetail]]
+    func sortDetailedCommitwithCreatedAt(_ commitList: [CommitDetail]) -> SortedDailyDetailedCommit {
+    
+        var groupedCommitDetails = [Date: [CommitDetail]]()
+        for commitDetail in commitList {
+            let date = Calendar.current.startOfDay(for: commitDetail.createdAt)
+            if var group = groupedCommitDetails[date] {
+                group.append(commitDetail)
+                groupedCommitDetails[date] = group
+            } else {
+                groupedCommitDetails[date] = [commitDetail]
+            }
+        }
+        return groupedCommitDetails
+    }
+
 
     // MARK: - 날짜별로 묶여있는 리스트를 카운팅. 몇일에 몇개의 커밋인지 계산
     func countDailyCommit(_ data: SortedDailyCommit) -> [Int: Int] {
@@ -376,7 +409,8 @@ final class DataManager {
             index = index + 1
             return DrinkRanking(ranking: index, drink: drink, number: value)
         }
-        let topDrink = drinkData[0...2]
+        let _ = drinkData[0...2]
     }
+    
     
 }

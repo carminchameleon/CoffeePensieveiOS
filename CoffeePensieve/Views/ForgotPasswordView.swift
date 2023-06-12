@@ -19,9 +19,9 @@ class ForgotPasswordView: UIView {
     lazy var backButton: UIButton = {
         let button = UIButton(type:.custom)
         let iconImage = UIImage(systemName: "chevron.backward.circle")
-        let resizedImage = iconImage?.resized(toWidth: 32) // 아이콘 사이즈 설정
+        let resizedImage = iconImage?.resized(toWidth: 36) // 아이콘 사이즈 설정
         button.setImage(resizedImage, for: .normal)
-        button.setImageTintColor(.grayColor400) // 아이콘 색 설정
+        button.setImageTintColor(.primaryColor500) // 아이콘 색 설정
         return button
     }()
     
@@ -120,7 +120,7 @@ class ForgotPasswordView: UIView {
         NSLayoutConstraint.activate([
             backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 28),
-            backButton.heightAnchor.constraint(equalToConstant: 30),
+            backButton.heightAnchor.constraint(equalToConstant: 36),
         ])
         
         mainLabel.translatesAutoresizingMaskIntoConstraints = false

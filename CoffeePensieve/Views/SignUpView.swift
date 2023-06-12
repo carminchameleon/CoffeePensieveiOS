@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignUpView: UIView {
+final class SignUpView: UIView {
 
     private let textViewHeight: CGFloat = 48
     private let buttonHeight: CGFloat = 56
@@ -48,9 +48,9 @@ class SignUpView: UIView {
     lazy var backButton: UIButton = {
         let button = UIButton(type:.custom)
         let iconImage = UIImage(systemName: "chevron.backward.circle")
-        let resizedImage = iconImage?.resized(toWidth: 32) // 아이콘 사이즈 설정
+        let resizedImage = iconImage?.resized(toWidth: 36) // 아이콘 사이즈 설정
         button.setImage(resizedImage, for: .normal)
-        button.setImageTintColor(.grayColor400) // 아이콘 색 설정
+        button.setImageTintColor(.primaryColor500) // 아이콘 색 설정
         return button
     }()
     
@@ -134,30 +134,42 @@ class SignUpView: UIView {
         button.isEnabled = true
         return button
     }()
-
     
-    // MARK: - 규정 안내 타이틀
-    private lazy var infoLabel: UILabel = {
-        let text = "By tapping Continue, You agree to our Terms and \n acknowlege that you have read our Privacy Policy."
+    lazy var infoLabel: UILabel = {
+        let text = "By tapping Continue, You agree to our Terms and"
         let termRange = NSRange(location: 38, length: 5)
-        let privacyRange =  NSRange(location: 84, length: 14)
         
         // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)
-        
-        let termURL = URL(string: "https://www.apple.com")!
-        let privacyURL = URL(string: "https://www.google.com")!
-        
+        let termURL = URL(string: Constant.Web.terms)!
+
         attributedString.addAttribute(.link, value: termURL, range: termRange)
-        attributedString.addAttribute(.link, value: privacyURL, range: privacyRange)
         
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .black
-        label.numberOfLines = 2
+        label.numberOfLines = 1
         label.textAlignment = .center
         label.attributedText = attributedString
+        return label
+    }()
+    
+    
+    lazy var policyLabel: UILabel = {
+        let text = "acknowlege that you have read our Privacy Policy."
+        let privacyRange =  NSRange(location: 34, length: 14)
         
+        // NSAttributedString 생성
+        let attributedString = NSMutableAttributedString(string: text)
+        let policyURL = URL(string: Constant.Web.policy)!
+        
+        attributedString.addAttribute(.link, value: policyURL, range: privacyRange)
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = .black
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.attributedText = attributedString
         return label
     }()
     
@@ -171,15 +183,10 @@ class SignUpView: UIView {
         return st
     }()
     
-    private lazy var containerStackView: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [signUpLabel, stackView, infoLabel])
-        st.axis = .vertical
-        return st
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUp()
+        setDelegates()
         makeUI()
     }
     
@@ -187,11 +194,10 @@ class SignUpView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUp() {
+    func setDelegates() {
         emailTextField.delegate = self
         passwordTextField.delegate = self
     }
-    
     
     // MARK: - 오토레이아웃
     private func makeUI() {
@@ -201,6 +207,7 @@ class SignUpView: UIView {
         addSubview(stackView)
         addSubview(signUpLabel)
         addSubview(infoLabel)
+        addSubview(policyLabel)
         addSubview(backButton)
         addSubview(signUpButton)
         
@@ -210,6 +217,7 @@ class SignUpView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         signUpLabel.translatesAutoresizingMaskIntoConstraints = false
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        policyLabel.translatesAutoresizingMaskIntoConstraints = false
         
         emailTextField.setupLeftSideImage(imageViewName: "envelope")
         emailTextField.setupRightSideImage(imageViewName: "xmark.circle.fill", passed: false)
@@ -222,7 +230,7 @@ class SignUpView: UIView {
         NSLayoutConstraint.activate([
             backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 28),
-            backButton.heightAnchor.constraint(equalToConstant: 30),
+            backButton.heightAnchor.constraint(equalToConstant: 36),
         ])
         
         NSLayoutConstraint.activate([
@@ -263,7 +271,12 @@ class SignUpView: UIView {
             infoLabel.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 16),
             infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
-        
+
+        NSLayoutConstraint.activate([
+            policyLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 0),
+            policyLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+        ])
+
         emailTextField.rightViewMode = .never
         passwordTextField.rightViewMode = .never
        
@@ -307,56 +320,4 @@ extension SignUpView: UITextFieldDelegate {
             return true
         }
     
-}
-
-extension UIImage {
-    func resized(toWidth width: CGFloat) -> UIImage? {
-        let canvasSize = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
-        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
-        defer { UIGraphicsEndImageContext() }
-        draw(in: CGRect(origin: .zero, size: canvasSize))
-        return UIGraphicsGetImageFromCurrentImageContext()
-    }
-}
-
-extension UIButton{
-    func setImageTintColor(_ color: UIColor) {
-        let tintedImage = self.imageView?.image?.withRenderingMode(.alwaysTemplate)
-        self.setImage(tintedImage, for: .normal)
-        self.tintColor = color
-    }
-}
-
-extension UITextField {
-    func setupLeftSideImage(imageViewName:String) {
-        // 아이콘 자체
-        let imageView = UIImageView(frame: CGRect(x:2,y:2,width:20,height: 20))
-        imageView.image = UIImage(systemName: imageViewName)
-        // 아이콘 감싸는 것
-        let imageViewContainerView = UIView(frame: CGRect(x:0, y:0, width: 32, height: 24))
-        imageViewContainerView.addSubview(imageView)
-        imageView.tintColor = #colorLiteral(red: 0.2705882353, green: 0.3294117647, blue: 0.4078431373, alpha: 1)
-        leftView = imageViewContainerView
-        leftViewMode = .always
-    }
-    
-    func setupRightSideImage(imageViewName:String, passed: Bool) {
-        // 아이콘 자체
-        let imageView = UIImageView(frame: CGRect(x:0,y:0,width:20,height: 20))
-        imageView.image = UIImage(systemName: imageViewName)
-        // 아이콘 감싸는 것
-        let imageViewContainerView = UIView(frame: CGRect(x:0, y:0, width: 20, height: 20))
-        imageViewContainerView.addSubview(imageView)
-        
-        rightView = imageViewContainerView
-        rightViewMode = .whileEditing
-        
-        if passed {
-            imageView.tintColor = UIColor.primaryColor400
-        } else {
-            imageView.tintColor = UIColor.redColor400
-        }
-    }
-    
-
 }

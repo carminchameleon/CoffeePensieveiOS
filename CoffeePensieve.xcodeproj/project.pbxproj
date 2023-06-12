@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F00B4F4D2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F4C2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift */; };
+		F00B4F4F2A29F31D00D94FF2 /* RecordEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F4E2A29F31D00D94FF2 /* RecordEmptyView.swift */; };
+		F00B4F512A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F502A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift */; };
+		F00B4F532A2C4C7F00D94FF2 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F522A2C4C7E00D94FF2 /* AccountSettingViewController.swift */; };
+		F00B4F552A2C5FE200D94FF2 /* AccountDeleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */; };
 		F00D78062A249C5800262B95 /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00D78052A249C5800262B95 /* NickNameViewController.swift */; };
 		F0129FB82A124873008BF649 /* TrackerLoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0129FB72A124872008BF649 /* TrackerLoadingTableViewCell.swift */; };
 		F01413672A1098F400A0DB99 /* GuidelineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01413662A1098F400A0DB99 /* GuidelineModel.swift */; };
@@ -90,6 +95,8 @@
 		F0D646112A233E0A00BEB4C8 /* PreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D646102A233E0A00BEB4C8 /* PreferenceView.swift */; };
 		F0D6A1D429EE1B5700D8C9C8 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D6A1D329EE1B5700D8C9C8 /* WelcomeViewController.swift */; };
 		F0D6A1D629EE326800D8C9C8 /* CommitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D6A1D529EE326800D8C9C8 /* CommitViewController.swift */; };
+		F0DF062B2A372E5B001016DF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DF062A2A372E5B001016DF /* Extensions.swift */; };
+		F0E660B82A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E660B72A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift */; };
 		F0E9AB9F2A1B83E200591161 /* RankingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E9AB9E2A1B83E200591161 /* RankingModel.swift */; };
 		F0EC729C2A08E98A00DC24D0 /* CommitResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EC729B2A08E98A00DC24D0 /* CommitResultView.swift */; };
 		F0EC72C32A0E6A1A00DC24D0 /* TrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EC72C22A0E6A1A00DC24D0 /* TrackerViewController.swift */; };
@@ -103,17 +110,19 @@
 		F0F8A89829E9606500838F35 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8A89729E9606500838F35 /* SignInViewController.swift */; };
 		F0F8A89A29E9951800838F35 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8A89929E9951800838F35 /* ForgotPasswordViewController.swift */; };
 		F0F8A89C29E9953D00838F35 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8A89B29E9953D00838F35 /* ForgotPasswordView.swift */; };
-		F0F8A89E29EA698B00838F35 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8A89D29EA698A00838F35 /* ResetPasswordView.swift */; };
-		F0F8A8A029EA69A200838F35 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8A89F29EA69A200838F35 /* ResetPasswordViewController.swift */; };
-		F0F8A8A229EAAA2F00838F35 /* ResetPasswordSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8A8A129EAAA2F00838F35 /* ResetPasswordSuccessView.swift */; };
-		F0F8A8A429EAAA8900838F35 /* ResetPasswordSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8A8A329EAAA8900838F35 /* ResetPasswordSuccessViewController.swift */; };
 		F0F8A8A629EB9CCE00838F35 /* FirstProfileGreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8A8A529EB9CCE00838F35 /* FirstProfileGreetingViewController.swift */; };
 		F0F8A8AA29EB9D6600838F35 /* FirstProfileGreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8A8A929EB9D6600838F35 /* FirstProfileGreetingView.swift */; };
 		F0F8A8AC29EBE62400838F35 /* FirstProfileRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8A8AB29EBE62400838F35 /* FirstProfileRoutineViewController.swift */; };
 		F0F8A8AE29EBE64100838F35 /* FirstProfileRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8A8AD29EBE64000838F35 /* FirstProfileRoutineView.swift */; };
+		F0FD3A792A32ADE10023B643 /* MonthlyRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FD3A782A32ADE10023B643 /* MonthlyRecordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F00B4F4C2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		F00B4F4E2A29F31D00D94FF2 /* RecordEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmptyView.swift; sourceTree = "<group>"; };
+		F00B4F502A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerGuidelineHeaderView.swift; sourceTree = "<group>"; };
+		F00B4F522A2C4C7E00D94FF2 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
+		F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeleteViewController.swift; sourceTree = "<group>"; };
 		F00D78052A249C5800262B95 /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
 		F0129FB72A124872008BF649 /* TrackerLoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerLoadingTableViewCell.swift; sourceTree = "<group>"; };
 		F01413662A1098F400A0DB99 /* GuidelineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidelineModel.swift; sourceTree = "<group>"; };
@@ -188,6 +197,8 @@
 		F0D646102A233E0A00BEB4C8 /* PreferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceView.swift; sourceTree = "<group>"; };
 		F0D6A1D329EE1B5700D8C9C8 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		F0D6A1D529EE326800D8C9C8 /* CommitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitViewController.swift; sourceTree = "<group>"; };
+		F0DF062A2A372E5B001016DF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F0E660B72A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecordEmptyTableViewCell.swift; sourceTree = "<group>"; };
 		F0E9AB9E2A1B83E200591161 /* RankingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingModel.swift; sourceTree = "<group>"; };
 		F0EC729B2A08E98A00DC24D0 /* CommitResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitResultView.swift; sourceTree = "<group>"; };
 		F0EC72C22A0E6A1A00DC24D0 /* TrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerViewController.swift; sourceTree = "<group>"; };
@@ -201,14 +212,11 @@
 		F0F8A89729E9606500838F35 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F0F8A89929E9951800838F35 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		F0F8A89B29E9953D00838F35 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
-		F0F8A89D29EA698A00838F35 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
-		F0F8A89F29EA69A200838F35 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
-		F0F8A8A129EAAA2F00838F35 /* ResetPasswordSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordSuccessView.swift; sourceTree = "<group>"; };
-		F0F8A8A329EAAA8900838F35 /* ResetPasswordSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordSuccessViewController.swift; sourceTree = "<group>"; };
 		F0F8A8A529EB9CCE00838F35 /* FirstProfileGreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileGreetingViewController.swift; sourceTree = "<group>"; };
 		F0F8A8A929EB9D6600838F35 /* FirstProfileGreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileGreetingView.swift; sourceTree = "<group>"; };
 		F0F8A8AB29EBE62400838F35 /* FirstProfileRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileRoutineViewController.swift; sourceTree = "<group>"; };
 		F0F8A8AD29EBE64000838F35 /* FirstProfileRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileRoutineView.swift; sourceTree = "<group>"; };
+		F0FD3A782A32ADE10023B643 /* MonthlyRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyRecordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +247,7 @@
 			children = (
 				F09E02E129FCE39E0008C259 /* Constants.swift */,
 				F09E02EB29FE5AC10008C259 /* Common.swift */,
+				F0DF062A2A372E5B001016DF /* Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -279,8 +288,6 @@
 				F0F8A89129E8E3DE00838F35 /* SignUpView.swift */,
 				F0F8A89529E9604D00838F35 /* SignInView.swift */,
 				F0F8A89B29E9953D00838F35 /* ForgotPasswordView.swift */,
-				F0F8A89D29EA698A00838F35 /* ResetPasswordView.swift */,
-				F0F8A8A129EAAA2F00838F35 /* ResetPasswordSuccessView.swift */,
 				F0F8A8A929EB9D6600838F35 /* FirstProfileGreetingView.swift */,
 				F0AA67E129ED388500B135CE /* FirstProfileCompleteView.swift */,
 				F0F8A8AD29EBE64000838F35 /* FirstProfileRoutineView.swift */,
@@ -297,6 +304,7 @@
 				F01413722A120C3800A0DB99 /* TrackerRecordTableViewCell.swift */,
 				F0129FB72A124872008BF649 /* TrackerLoadingTableViewCell.swift */,
 				F03E39AB2A1399810042B491 /* TrackerTodayHeaderView.swift */,
+				F00B4F502A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift */,
 				F03E39B32A14FF350042B491 /* DocketView.swift */,
 				F05011622A17666000AD0A49 /* CalendarCell.swift */,
 				F05011662A17AB5000AD0A49 /* RecordListCollectionViewCell.swift */,
@@ -306,6 +314,10 @@
 				F0D646082A20D6C500BEB4C8 /* PreferenceTimeTableViewCell.swift */,
 				F0D6460A2A21C8FF00BEB4C8 /* PreferenceCupTableViewCell.swift */,
 				F0D646102A233E0A00BEB4C8 /* PreferenceView.swift */,
+				F00B4F4C2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift */,
+				F00B4F4E2A29F31D00D94FF2 /* RecordEmptyView.swift */,
+				F0E660B72A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift */,
+				F0FD3A782A32ADE10023B643 /* MonthlyRecordView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -319,8 +331,6 @@
 				F0F6E49D29E1AC9B00C520CE /* StartPointViewController.swift */,
 				F0F8A89729E9606500838F35 /* SignInViewController.swift */,
 				F0F8A89929E9951800838F35 /* ForgotPasswordViewController.swift */,
-				F0F8A89F29EA69A200838F35 /* ResetPasswordViewController.swift */,
-				F0F8A8A329EAAA8900838F35 /* ResetPasswordSuccessViewController.swift */,
 				F0F8A8A529EB9CCE00838F35 /* FirstProfileGreetingViewController.swift */,
 				F0F8A8AB29EBE62400838F35 /* FirstProfileRoutineViewController.swift */,
 				F0AA67E329ED38A000B135CE /* FirstProfileCompleteViewController.swift */,
@@ -340,6 +350,8 @@
 				F0D6460C2A23251C00BEB4C8 /* CupModalViewController.swift */,
 				F0D6460E2A23256B00BEB4C8 /* TimeModalViewController.swift */,
 				F00D78052A249C5800262B95 /* NickNameViewController.swift */,
+				F00B4F522A2C4C7E00D94FF2 /* AccountSettingViewController.swift */,
+				F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -496,6 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0F8A8AC29EBE62400838F35 /* FirstProfileRoutineViewController.swift in Sources */,
+				F00B4F532A2C4C7F00D94FF2 /* AccountSettingViewController.swift in Sources */,
 				F05011632A17666000AD0A49 /* CalendarCell.swift in Sources */,
 				F09F61032A052403004F2462 /* CommitTagViewController.swift in Sources */,
 				F01413732A120C3800A0DB99 /* TrackerRecordTableViewCell.swift in Sources */,
@@ -504,15 +517,16 @@
 				F0D645FD2A1CE56500BEB4C8 /* ProfileViewController.swift in Sources */,
 				F0A1A13E29E15FBB000F6277 /* OnboardingViewController.swift in Sources */,
 				F0E9AB9F2A1B83E200591161 /* RankingModel.swift in Sources */,
+				F00B4F512A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift in Sources */,
 				F01413672A1098F400A0DB99 /* GuidelineModel.swift in Sources */,
-				F0F8A8A029EA69A200838F35 /* ResetPasswordViewController.swift in Sources */,
+				F0E660B82A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift in Sources */,
 				F0D6460D2A23251C00BEB4C8 /* CupModalViewController.swift in Sources */,
 				F09E02C429FA955D0008C259 /* AuthData+CoreDataClass.swift in Sources */,
 				F0129FB82A124873008BF649 /* TrackerLoadingTableViewCell.swift in Sources */,
 				F0F8A8AE29EBE64100838F35 /* FirstProfileRoutineView.swift in Sources */,
-				F0F8A8A429EAAA8900838F35 /* ResetPasswordSuccessViewController.swift in Sources */,
 				F0EC72C92A0F80E200DC24D0 /* TrackerNetworkManager.swift in Sources */,
 				F0D646052A20CC2B00BEB4C8 /* PreferenceHeaderView.swift in Sources */,
+				F00B4F4D2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift in Sources */,
 				F014136D2A11023200A0DB99 /* TrackerGuidelineTableViewCell.swift in Sources */,
 				F09F60FB2A048D18004F2462 /* CommitMoodViewController.swift in Sources */,
 				F0D6A1D629EE326800D8C9C8 /* CommitViewController.swift in Sources */,
@@ -523,7 +537,6 @@
 				F0F6E49E29E1AC9B00C520CE /* StartPointViewController.swift in Sources */,
 				F09E02E429FCE3FC0008C259 /* AuthNetworkManager.swift in Sources */,
 				F09F60FF2A049090004F2462 /* MoodModel.swift in Sources */,
-				F0F8A89E29EA698B00838F35 /* ResetPasswordView.swift in Sources */,
 				F0CC3FDE29DEA47D00BD5B51 /* AppDelegate.swift in Sources */,
 				F09E02E629FCF42D0008C259 /* UserProfile.swift in Sources */,
 				F03E39B22A14FC790042B491 /* DocketViewController.swift in Sources */,
@@ -539,18 +552,20 @@
 				F0F8A89A29E9951800838F35 /* ForgotPasswordViewController.swift in Sources */,
 				F02827732A075FF300213B94 /* CommitResultViewController.swift in Sources */,
 				F03E39B02A13AB720042B491 /* CalendarViewController.swift in Sources */,
+				F00B4F552A2C5FE200D94FF2 /* AccountDeleteViewController.swift in Sources */,
 				F09E02DA29FB93080008C259 /* AppController.swift in Sources */,
 				F0D645FF2A205BC100BEB4C8 /* ProfileTableViewCell.swift in Sources */,
 				F0AA67E229ED388500B135CE /* FirstProfileCompleteView.swift in Sources */,
 				F0EC72C32A0E6A1A00DC24D0 /* TrackerViewController.swift in Sources */,
-				F0F8A8A229EAAA2F00838F35 /* ResetPasswordSuccessView.swift in Sources */,
 				F05011652A179D2600AD0A49 /* RecordListViewController.swift in Sources */,
+				F0DF062B2A372E5B001016DF /* Extensions.swift in Sources */,
 				F0D646032A2087BB00BEB4C8 /* PreferenceTableViewCell.swift in Sources */,
 				F03E39AC2A1399810042B491 /* TrackerTodayHeaderView.swift in Sources */,
 				F028276B2A05FD1100213B94 /* CommitLoadingViewController.swift in Sources */,
 				F02827712A073BCE00213B94 /* CommitModel.swift in Sources */,
 				F0EC729C2A08E98A00DC24D0 /* CommitResultView.swift in Sources */,
 				F028276D2A0615B300213B94 /* CommitNetworkManager.swift in Sources */,
+				F00B4F4F2A29F31D00D94FF2 /* RecordEmptyView.swift in Sources */,
 				F03E39B42A14FF350042B491 /* DocketView.swift in Sources */,
 				F0F8A88E29E8D89500838F35 /* AuthStartPointView.swift in Sources */,
 				F0EC72C72A0F1A1900DC24D0 /* TrackerTodayTableViewCell.swift in Sources */,
@@ -562,6 +577,7 @@
 				F0D6A1D429EE1B5700D8C9C8 /* WelcomeViewController.swift in Sources */,
 				F0B15C3129E2892900E4F9BC /* colors.swift in Sources */,
 				F0A1A13C29E15D86000F6277 /* SignUpViewController.swift in Sources */,
+				F0FD3A792A32ADE10023B643 /* MonthlyRecordView.swift in Sources */,
 				F0D646072A20CF9600BEB4C8 /* PreferenceModel.swift in Sources */,
 				F0D645FB2A1CC89F00BEB4C8 /* ProfileMenuModel.swift in Sources */,
 				F0F8A8AA29EB9D6600838F35 /* FirstProfileGreetingView.swift in Sources */,
@@ -652,7 +668,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -706,7 +722,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -724,6 +740,7 @@
 				CODE_SIGN_ENTITLEMENTS = CoffeePensieve/CoffeePensieve.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VMTM6Y63VB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoffeePensieve/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -752,6 +769,7 @@
 				CODE_SIGN_ENTITLEMENTS = CoffeePensieve/CoffeePensieve.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VMTM6Y63VB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoffeePensieve/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

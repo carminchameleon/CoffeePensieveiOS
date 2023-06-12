@@ -63,7 +63,7 @@ class ForgotPasswordViewController: UIViewController {
             forgotPasswordView.emailTextField.rightViewMode = .always
         }
 
-        if isValidEmail(email) {
+        if Common.isValidEmail(email) {
             forgotPasswordView.emailTextField.setupRightSideImage(imageViewName: "checkmark.circle.fill", passed: true)
             forgotPasswordView.continueButton.isEnabled = true
             forgotPasswordView.continueButton.setTitleColor(UIColor.primaryColor500, for: .normal)
@@ -75,11 +75,4 @@ class ForgotPasswordViewController: UIViewController {
         }
     }
 
-
-    // MARK: - TODO : Refactoring 공통 함수 부분으로 옮겨 놓을 것
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
-    }
 }

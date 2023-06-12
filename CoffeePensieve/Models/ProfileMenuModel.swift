@@ -16,7 +16,7 @@ struct ProfileMenu {
 enum Menu: String {
     case profile
     case preference
-    case rate
+    case delete
     case support
     case term
     case policy

@@ -34,6 +34,10 @@ class TrackerViewController: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
@@ -47,7 +51,7 @@ class TrackerViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = .primaryColor500
         tabBarController?.tabBar.isHidden = false
-        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
     }
     
@@ -86,9 +90,10 @@ class TrackerViewController: UIViewController {
         tableView.register(TrackerGuidelineTableViewCell.self, forCellReuseIdentifier: CellId.trackerGuidlineCell.rawValue)
         tableView.register(TrackerRecordTableViewCell.self, forCellReuseIdentifier: CellId.trackerRecordCell.rawValue)
         
-        
         // header
         tableView.register(TrackerTodayHeaderView.self, forHeaderFooterViewReuseIdentifier: CellId.trackerTodayHeader.rawValue)
+        tableView.register(TrackerGuidelineHeaderView.self, forHeaderFooterViewReuseIdentifier: CellId.trackerGuideHeader.rawValue)
+
     }
     
     func fetchTodayData() {
@@ -122,7 +127,6 @@ class TrackerViewController: UIViewController {
     
     // Record 부분에 들어갈 데이터
     func fetchRecordData() {
-        // 아직 commitCount = 0 인 경우 -> 조회해올 필요 없음
         dataManager.getTrackerRecord { result in
             switch result {
             case .success:
@@ -132,34 +136,38 @@ class TrackerViewController: UIViewController {
                     self.tableView.reloadData()
                 }
             case .failure:
-                print("데이터 로드 실패 뷰 보여주기")
+                self.showFailAlert()
             }
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerTodayHeader.rawValue) as! TrackerTodayHeaderView
+        
         switch section {
         case 0:
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerTodayHeader.rawValue) as! TrackerTodayHeaderView
             headerView.titleLabel.text = "Today's Memory"
             headerView.button.isHidden = true
+            return headerView
         case 1:
-            headerView.titleLabel.text = "Guideline"
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerGuideHeader.rawValue) as! TrackerGuidelineHeaderView
+            headerView.button.isHidden = false
+            headerView.titleLabel.text = "Caffeine Guideline"
             headerView.button.setTitle("Edit", for: .normal)
             headerView.button.setTitleColor(.primaryColor200, for: .normal)
             headerView.button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-
+            return headerView
         case 2:
-            
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerTodayHeader.rawValue) as! TrackerTodayHeaderView
             headerView.titleLabel.text = "Record"
             headerView.button.isHidden = false
             headerView.button.setTitle("Show More", for: .normal)
             headerView.button.addTarget(self, action: #selector(showMoreButtonTapped), for: .touchUpInside)
+            return headerView
         default:
-            break
+            return nil
         }
         
-        return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -167,14 +175,13 @@ class TrackerViewController: UIViewController {
     }
     
     @objc func showMoreButtonTapped() {
-        
         let calendarVC = CalendarViewController()
-        navigationController?.pushViewController(calendarVC, animated: false)
+        navigationController?.pushViewController(calendarVC, animated: true)
     }
     
     @objc func editButtonTapped() {
         let preferenceVC = PreferenceViewController()
-        navigationController?.pushViewController(preferenceVC, animated: false)
+        navigationController?.pushViewController(preferenceVC, animated: true)
     }
 }
 
@@ -207,11 +214,13 @@ extension TrackerViewController: UITableViewDelegate, UITableViewDataSource {
                 let commitDetail = dataManager.getCommitDetailInfo(commit: commit)
                 let docketVC = DocketViewController(commit: commitDetail)
                 navigationController?.pushViewController(docketVC, animated: true)
+            } else {
+                addButtonTapped()
             }
         case 1:
-            print("GuideLine")
+            editButtonTapped()
         case 2:
-            print("Record")
+            showMoreButtonTapped()
         default:
             break
         }
@@ -221,7 +230,7 @@ extension TrackerViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             return 80
         case 1:
-            return 90
+            return 120
         case 2:
             return 40
         default:
@@ -241,6 +250,8 @@ extension TrackerViewController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: CellId.trackerTodayCell.rawValue, for: indexPath) as! TrackerTodayTableViewCell
                 if !todayCommits.isEmpty {
                     cell.commit = todayCommits[indexPath.row]
+                } else {
+                    cell.commit = nil
                 }
                 return cell
             }

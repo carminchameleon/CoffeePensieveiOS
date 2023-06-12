@@ -10,11 +10,17 @@ import UIKit
 final class TrackerTodayTableViewCell: UITableViewCell {
     
     let dataManager = DataManager.shared
-    
     var commit: Commit? {
         didSet {
-            guard let commit = commit else { return }
-            
+            guard let commit = commit else {
+                drinkImage.image = UIImage(named: "Drink_Americano")
+                drinkImage.alpha = 0.1
+                drinkLabel.text = "You haven't had coffee yet."
+                moodLabel.text = "🤔"
+                timeLabel.text = ""
+                tagLabel.text = ""
+                return
+            }
             // drink
             let drinkList = dataManager.getDrinkListFromAPI()
             let selectedDrink = drinkList.filter { $0.drinkId == commit.drinkId }

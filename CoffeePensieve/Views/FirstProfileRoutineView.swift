@@ -51,7 +51,7 @@ class FirstProfileRoutineView: UIView {
         tf.spellCheckingType = .no
         tf.textAlignment = .center
         tf.addSubview(underline)
-        
+
         tf.attributedPlaceholder = NSAttributedString(string: "A.k.a Dumbledore", attributes: [NSAttributedString.Key.foregroundColor : UIColor.grayColor400])
 
         return tf
@@ -296,9 +296,7 @@ class FirstProfileRoutineView: UIView {
         st.alignment = .fill
         return st
     }()
-    
-  
-    
+
     
     // MARK: - 저장
     lazy var submitButton: UIButton = {

@@ -24,9 +24,9 @@ final class AuthNetworkManager {
     let db = Firestore.firestore()
     
     // MARK: - create new user
-    func signUp(email: String, password: String, name: String, morningTime: String,nightTime: String, limitTime: String, cups: Int, onError: @escaping (_ error: Error) -> Void) {
+    func signUp(_ userData: SignUpForm, onError: @escaping (_ error: Error) -> Void) {
         
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+        Auth.auth().createUser(withEmail: userData.email, password: userData.password) { authResult, error in
             if let error = error {
                 print("Sign In Error -",error.localizedDescription)
                 onError(error)
@@ -34,30 +34,40 @@ final class AuthNetworkManager {
             }
             guard let authData = authResult else  { return }
             let uid = authData.user.uid
-            self.uploadUserProfile(uid: uid, email: email, name: name, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, cups: cups)
+            let uploadData = UploadForm(uid: uid, email: userData.email, name: userData.name, cups: userData.cups, morningTime: userData.morningTime, nightTime: userData.nightTime, limitTime: userData.limitTime, reminder: userData.reminder)
+            
+                self.uploadUserProfile(userData: uploadData) { error in
+                    onError(error)
+                }
+            }
         }
-    }
+    
+    
     
     // MARK: - user profile upload to DB ( 생성 하는 것 )
-    func uploadUserProfile(uid: String, email: String, name: String, morningTime: String, nightTime: String, limitTime: String, cups: Int) {
+    func uploadUserProfile(userData: UploadForm,  onError: @escaping (_ error: Error) -> Void) {
+        let uid = userData.uid
         let userData: [String: Any] = [
-            Constant.FStore.emailField: email,
-            Constant.FStore.nameField:name,
-            Constant.FStore.cupsField: cups,
+            Constant.FStore.emailField: userData.email,
+            Constant.FStore.nameField:userData.name,
+            Constant.FStore.cupsField: userData.cups,
             
-            Constant.FStore.morningTimeField: morningTime,
-            Constant.FStore.nightTimeField: nightTime,
-            Constant.FStore.limitTimeField: limitTime,
-            
-            Constant.FStore.reminderField: true
+            Constant.FStore.morningTimeField: userData.morningTime,
+            Constant.FStore.nightTimeField: userData.nightTime,
+            Constant.FStore.limitTimeField: userData.limitTime,
+            Constant.FStore.reminderField: userData.reminder
         ]
         
         db.collection(Constant.FStore.userCollection).document(uid).setData(userData){ error in
             if let error = error {
+                onError(error)
                 print("Upload Profile Error -", error.localizedDescription)
             }
         }
     }
+    
+    
+
     
     // MARK: - sign iin
     func signIn(email: String, password: String, onError: @escaping (_ error: Error) -> Void) {
@@ -67,6 +77,18 @@ final class AuthNetworkManager {
             }
         }
     }
+    
+    func signOut() {
+        let firebaseAuth = Auth.auth()
+        do {
+          try firebaseAuth.signOut()
+            Common.removeUserDefaultsObject(forKey: .userId)
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError.localizedDescription)
+        }
+    }
+    
+    
     // MARK: - forgot password
     typealias ForgotPasswordCompletion = (Result<String, Error>) -> Void
     func forgotPassword(email: String, completion: @escaping ForgotPasswordCompletion) {
@@ -158,14 +180,6 @@ final class AuthNetworkManager {
                 self.getUserProfileFromRef(docRef: docRef) { userProfile in
                     completion(.success(userProfile))
                 }
-//                docRef.getDocument(as: UserProfile.self) { result in
-//                    switch result {
-//                    case .success(let userProfile):
-//                        completion(.success(userProfile))
-//                    case .failure:
-//                        break
-//                    }
-//                }
             }
             
         }
@@ -205,6 +219,37 @@ final class AuthNetworkManager {
         }
     }
     
+    func deleteAccount(onError: @escaping ((_ error: NetworkError)->Void)) {
+        let firebaseAuth = Auth.auth()
+        
+        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+            onError(.uidError)
+            return
+        }
+        
+        let user = firebaseAuth.currentUser
+        let userId = uid as! String
+        
+        db.collection(Constant.FStore.userCollection).document(userId).delete() { error in
+            if let error = error {
+                onError(.dataError)
+            }
+        }
     
+        user?.delete() { error in
+            if let error = error {
+                onError(.databaseError)
+            }
+        }
 
+        do {
+          try firebaseAuth.signOut()
+            Common.removeUserDefaultsObject(forKey: .userId)
+        } catch let signOutError as NSError {
+          print("Error signing out: %@", signOutError)
+        }
+
+        
+    }
+    
 }

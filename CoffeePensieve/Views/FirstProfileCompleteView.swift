@@ -35,7 +35,7 @@ class FirstProfileCompleteView: UIView {
     private lazy var subTitleLabel: UILabel = {
         var label = UILabel()
         label.text = "From now on, \n You can keep your memory in there"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.textColor = .black
         label.numberOfLines = 2
         label.textAlignment = .center
@@ -82,18 +82,18 @@ class FirstProfileCompleteView: UIView {
         
         
         NSLayoutConstraint.activate([
-            mainTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 120),
+            mainTitleLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -120),
             mainTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             mainTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            mainTitleLabel.heightAnchor.constraint(equalToConstant: 80)
+            mainTitleLabel.heightAnchor.constraint(equalToConstant: 120)
         ])
         
         
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 400),
-            imageView.topAnchor.constraint(equalTo: mainTitleLabel.bottomAnchor, constant: 12),
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 400)
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
         ])
         
         NSLayoutConstraint.activate([
