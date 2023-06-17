@@ -53,16 +53,16 @@ final class DataManager {
     private var yearlyCommits:[Commit] = []
     private var allCommits:[Commit] = []
 
-    
+    // MARK: - 기본 데이터 세팅
     // MARK: - drink 리스트 가져오기
     func fetchDrinkListFromAPI(completion: @escaping () -> Void) {
-        commitManager.fetchDrinks { result in
+        commitManager.fetchDrinks {[weak self] result in
+            guard let weakSelf = self else { return }
             switch result {
             case .success(let drinkDatas):
-                self.drinkList = drinkDatas
+                weakSelf.drinkList = drinkDatas
                 completion()
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure:
                 completion()
             }
         }
@@ -72,13 +72,13 @@ final class DataManager {
     }
     // MARK: - mood 리스트 가져오기
     func fetchMoodListFromAPI(completion: @escaping () -> Void) {
-        commitManager.fetchMoods { result in
+        commitManager.fetchMoods {[weak self] result in
+            guard let weakSelf = self else { return }
             switch result {
             case .success(let moodDatas):
-                self.moodList = moodDatas
+                weakSelf.moodList = moodDatas
                 completion()
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure:
                 completion()
             }
         }
@@ -89,21 +89,21 @@ final class DataManager {
     
     // MARK: - Tag 리스트 가져오기
     func fetchTagListFromAPI(completion: @escaping () -> Void) {
-        commitManager.fetchTags { result in
+        commitManager.fetchTags {[weak self] result in
+            guard let weakSelf = self else { return }
             switch result {
             case .success(let tagDatas):
-                self.tagList = tagDatas
+                weakSelf.tagList = tagDatas
                 completion()
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure:
                 completion()
             }
         }
     }
+    
     func getTagListFromAPI() -> [Tag] {
         return tagList
     }
-    
     
     // MARK: - 음료 등록
     typealias CommitCompletion = (Result<Date,NetworkError>) -> Void
@@ -112,6 +112,7 @@ final class DataManager {
             completion(.failure(.uidError))
             return
         }
+        
         let currentTime = Date()
         let commitData: [String: Any] = [
             Constant.FStore.uidField: uid,
@@ -179,7 +180,6 @@ final class DataManager {
     func getUserData() -> UserProfile? {
         return userProfile
     }
-    
     func updateUserPreference(data: UserPreference, completion: @escaping(Result<Void, NetworkError>) -> Void) {
         authManager.updateUserPreference(data: data) {[weak self] result in
             guard let weakSelf = self else { return }
@@ -206,18 +206,7 @@ final class DataManager {
             }
         }
     }
-//        authManager.updateUserPreference(name: name) {[weak self] result in
-//            guard let weakSelf = self else { return }
-//            switch result {
-//            case .success(let data):
-//                weakSelf.userProfile = data
-//                completion(.success(()))
-//            case .failure:
-//                completion(.failure(.dataError))
-//            }
-//        }
-//    }
-    
+
     // Today's drink 섹션에 들어갈 내용
     func fetchTodayCommits(completion: @escaping(Result<Void,NetworkError>) -> Void) {
         trackerManager.fetchTodayCommits { result in
@@ -227,12 +216,12 @@ final class DataManager {
                 self.calculateGuidelineData()
                 completion(.success(()))
             case .failure(let error):
-                print("Error to fetch Today commits -", error.localizedDescription)
                 completion(.failure(error))
             }
             
         }
     }
+    
     func getTodayCommits() -> [Commit] {
         return todayCommits
     }
@@ -248,7 +237,6 @@ final class DataManager {
                 self.allCommits = data
                 completion(.success(()))
             case .failure(let error):
-                print("Error to fetch All commits -", error.localizedDescription)
                 completion(.failure(error))
             }
         }
@@ -272,7 +260,7 @@ final class DataManager {
                 let yearly = try await trackerManager.fetchNumberOfYearlyCommits()
 
                 let data = [
-                    Summary(title: "Your All Coffee Memory", number: commitCount),
+                    Summary(title: "All your coffee memories", number: commitCount),
                     Summary(title: "This Week", number: weekly),
                     Summary(title: "This Month", number: monthly),
                     Summary(title: "This Year", number: yearly),
@@ -302,14 +290,12 @@ final class DataManager {
     
     // MARK: - Record Calendar 뷰
     func getMonthlyDurationCommit(start: Date, finish: Date, completion: @escaping (Result<Void,NetworkError>) -> Void) {
-        print(start, "START", finish, "FINISH")
         trackerManager.fetchDurationCommit(start: start, finish: finish) { result in
             switch result {
             case .success(let commits):
                 // 날짜별로 정렬된 데이터
                 let sortedData = self.sortCommitList(commits)
                 self.monthlySortedCommits = sortedData
-//                dump(sortedData)
                 completion(.success(()))
             case .failure:
                 completion(.failure(.dataError))
@@ -390,6 +376,7 @@ final class DataManager {
             return nil
         }
     }
+    
     
     func getTopDrinkList(commitList: [Commit]) {
         var drinkCount: [Int: Int] = [:]

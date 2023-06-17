@@ -52,24 +52,24 @@ class RecordListViewController: UIViewController {
     
     
     func readyData() {
-
-        dataManager.fetchAllCommits { result in
+        dataManager.fetchAllCommits {[weak self] result in
+            guard let weakSelf = self else { return }
             switch result {
             case .success:
-                let allCommitList = self.dataManager.getAllCommits()
-                let sortedList = self.dataManager.sortDetailedCommitwithCreatedAt(allCommitList)
-                self.changeForCollectionView(data: sortedList)
+                let allCommitList = weakSelf.dataManager.getAllCommits()
+                let sortedList = weakSelf.dataManager.sortDetailedCommitwithCreatedAt(allCommitList)
+                weakSelf.changeForCollectionView(data: sortedList)
 
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    weakSelf.collectionView.reloadData()
                 }
             case .failure:
                 let alert = UIAlertController(title: "Sorry", message: "Could not load your record list", preferredStyle: .alert)
                 let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
-                    self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+                    weakSelf.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
                 }
                 alert.addAction(tryAgain)
-                self.present(alert, animated: true, completion: nil)
+                weakSelf.present(alert, animated: true, completion: nil)
             }
         }
     }

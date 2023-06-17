@@ -195,7 +195,6 @@ class CommitTagView: UIView {
         saveButtonTopConstraint = saveButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -64)
         NSLayoutConstraint.activate([
             saveButtonTopConstraint,
-//            saveButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -64),
             saveButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             saveButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             saveButton.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight)

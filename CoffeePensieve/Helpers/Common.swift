@@ -97,9 +97,6 @@ class Common {
     }
     
     
-    
-    
-    
     static func getGreetingSentenceByTime() -> String? {
         let morningGreeting:[String] = [
             "I hope you had a good night’s sleep",

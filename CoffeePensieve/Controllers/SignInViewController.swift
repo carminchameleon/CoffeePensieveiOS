@@ -67,7 +67,6 @@ final class SignInViewController: UIViewController {
         guard let password = signInView.passwordTextField.text else { return }
         guard let email = signInView.emailTextField.text else { return }
         
-        // 이메일의 경우 이메일 형식에 맞아야 함
         if Common.isValidEmail(email) && password != "" {
             signInView.signInButton.isEnabled = true
             signInView.signInButton.setTitleColor(UIColor.primaryColor500, for: .normal)

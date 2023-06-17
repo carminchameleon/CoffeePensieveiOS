@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import SafariServices
 
-class SignUpViewController: UIViewController {
+final class SignUpViewController: UIViewController {
         
     let signUpView = SignUpView()
 
@@ -49,7 +49,7 @@ class SignUpViewController: UIViewController {
         }
         
         if placeholder == "Email" {
-            if isValidEmail(text) {
+            if Common.isValidEmail(text) {
                 signUpView.emailTextField.setupRightSideImage(imageViewName: "checkmark.circle.fill", passed: true)
                 signUpView.isEmailPassed = true
             } else {
@@ -57,7 +57,7 @@ class SignUpViewController: UIViewController {
                 signUpView.isEmailPassed = false
             }
         } else {
-            if isValidPassword(text) {
+            if Common.isValidPassword(text) {
                 signUpView.passwordTextField.setupRightSideImage(imageViewName: "checkmark.circle.fill", passed: true)
                 signUpView.isPasswordPassed = true
             } else {
@@ -73,7 +73,6 @@ class SignUpViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    // MARK: - TODO : 다음 작업
     @objc private func signUpButtonTapped() {
         guard let email = signUpView.emailTextField.text else { return }
         guard let password = signUpView.passwordTextField.text else { return }
@@ -85,27 +84,7 @@ class SignUpViewController: UIViewController {
         profileVC.modalPresentationStyle = .fullScreen
         profileVC.modalTransitionStyle = .crossDissolve
         present(profileVC, animated: true)
-
     }
-
-    // MARK: - TODO : Refactoring 공통 함수 부분으로 옮겨 놓을 것
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
-    }
-    // MARK: - TODO : Refactoring 공통 함수 부분으로 옮겨 놓을 것
-    /*
-     최소 8자리 이상
-     영어 대문자, 소문자 또는 숫자 중 하나 이상 포함
-     특수문자 (@, $, !, %, *, #, ?, &)를 포함할 수 있지만 필수는 아님
-     */
-    func isValidPassword(_ password: String) -> Bool {
-        let passwordRegEx = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*#?&]{8,}$"
-        let passwordPred = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
-        return passwordPred.evaluate(with: password)
-    }
-    
     
     @objc func termsLabelTapped() {
         showSafariView(url: Constant.Web.terms)
@@ -113,7 +92,6 @@ class SignUpViewController: UIViewController {
     
     @objc func policyLabelTapped() {
         showSafariView(url: Constant.Web.policy)
-
     }
     
     func showSafariView(url: String) {

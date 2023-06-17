@@ -80,7 +80,6 @@ class CommitCoffeeView: UIView {
     }
     
     func makeUI() {
-    
         self.addSubview(progressBar)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         

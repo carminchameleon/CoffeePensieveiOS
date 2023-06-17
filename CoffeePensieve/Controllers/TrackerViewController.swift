@@ -17,7 +17,7 @@ class TrackerViewController: UIViewController {
     
     var todayCommits: [Commit] = []
     var guideline: Guideline?
-    var record: [Summary] = [Summary(title: "Your All Coffee Memories", number: 0),Summary(title: "This Week", number: 0),Summary(title: "This Month", number: 0),Summary(title: "This Year", number: 0)]
+    var record: [Summary] = [Summary(title: "All your coffee memories", number: 0),Summary(title: "This Week", number: 0),Summary(title: "This Month", number: 0),Summary(title: "This Year", number: 0)]
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -98,19 +98,20 @@ class TrackerViewController: UIViewController {
     
     func fetchTodayData() {
         // 오늘의 커피 데이터 -> 가이드 라인 계산 이루어져야 함
-        dataManager.fetchTodayCommits { result in
+        dataManager.fetchTodayCommits {[weak self] result in
+            guard let weakSelf = self else { return }
             switch result {
             case .success:
-                self.todayCommits = self.dataManager.getTodayCommits()
-                self.guideline = self.dataManager.getGuidlineData()
-                self.isTodayLoading = false
-                self.isGuidelineLoading = false
+                weakSelf.todayCommits = weakSelf.dataManager.getTodayCommits()
+                weakSelf.guideline = weakSelf.dataManager.getGuidlineData()
+                weakSelf.isTodayLoading = false
+                weakSelf.isGuidelineLoading = false
                 
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    weakSelf.tableView.reloadData()
                 }
             case .failure:
-                self.showFailAlert()
+                weakSelf.showFailAlert()
             }
         }
 
@@ -118,25 +119,28 @@ class TrackerViewController: UIViewController {
     
     func showFailAlert() {
         let failAlert = UIAlertController(title: "Something's wrong", message: "Please check your internet connection and try again", preferredStyle: .alert)
-        let okayAction = UIAlertAction(title: "Okay", style: .default) {action in
+        let okayAction = UIAlertAction(title: "Okay", style: .default) { action in
             self.dismiss(animated: true)
         }
         failAlert.addAction(okayAction)
-        self.present(failAlert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(failAlert, animated: true, completion: nil)
+        }
     }
     
     // Record 부분에 들어갈 데이터
     func fetchRecordData() {
-        dataManager.getTrackerRecord { result in
+        dataManager.getTrackerRecord {[weak self] result in
+            guard let weakSelf = self else { return }
             switch result {
             case .success:
-                self.isRecordLoading = false
-                self.record = self.dataManager.getSummaryData()
+                weakSelf.isRecordLoading = false
+                weakSelf.record = weakSelf.dataManager.getSummaryData()
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    weakSelf.tableView.reloadData()
                 }
             case .failure:
-                self.showFailAlert()
+                weakSelf.showFailAlert()
             }
         }
     }

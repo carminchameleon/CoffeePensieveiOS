@@ -89,22 +89,20 @@ final class CommitNetworkManager {
     func uploadCommit(data:[String: Any], completion: @escaping CommitCompletion) {
         db.collection(Constant.FStore.commitCollection).addDocument(data: data) { error in
             if let error = error {
-                print("Upload Commit Error -", error.localizedDescription)
                 completion(.failure(.databaseError))
+            } else {
+                completion(.success(()))
             }
         }
-        completion(.success(()))
     }
     
     
     func deleteCommit(id: String, completion: @escaping DeleteCompletion ) {
         db.collection(Constant.FStore.commitCollection).document(id).delete() { err in
             if let err = err {
-                print("Error removing document: \(err)")
                 completion(.failure(.dataError))
             } else {
                 completion(.success(()))
-                print("Document successfully removed!")
             }
         }
     }

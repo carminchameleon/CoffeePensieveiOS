@@ -26,7 +26,6 @@ class DocketViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setNavigationBar()
         updateCommitData()
         updateDetail()
     }
@@ -131,6 +130,7 @@ class DocketViewController: UIViewController {
         func deleteData() {
             guard let commit = self.commit else { return }
             let id = commit.id
+            
             self.dataManager.deleteCommit(id: id) {[weak self] result in
                 guard let strongSelf = self else { return }
                 switch result {

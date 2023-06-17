@@ -32,7 +32,6 @@ class CommitViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         fetchCommitData()
         fetchUserData()
-
         self.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.tabBar.isHidden = false
     }
@@ -58,6 +57,7 @@ class CommitViewController: UIViewController {
         }
         
         commitView.greetingLabel.text = greeting
+        commitView.cheeringLabel.text = Common.getGreetingSentenceByTime()
     }
 
     
@@ -128,7 +128,7 @@ class CommitViewController: UIViewController {
                     weakSelf.updateImage()
                 }
             case .failure:
-                print("Error")
+                break
             }
         }
     }

@@ -101,15 +101,15 @@ class StartPointViewController: UIViewController {
             
             // firebase에 로그인
             Auth.auth().signIn(with: credential) {[weak self] result, error in
-                guard let strongSelf = self else { return }
+                guard let weakSelf = self else { return }
                 if let error = error {
                     print("Firebase Google Sign In Error -", error.localizedDescription)
                     let alert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
                     let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
-                        strongSelf.dismiss(animated: true)
+                        weakSelf.dismiss(animated: true)
                     }
                     alert.addAction(tryAgain)
-                    strongSelf.present(alert, animated: true, completion: nil)
+                    weakSelf.present(alert, animated: true, completion: nil)
                 }
             }
         }
@@ -143,8 +143,6 @@ class StartPointViewController: UIViewController {
         let newsSafariView: SFSafariViewController = SFSafariViewController(url: newsUrl! as URL)
         self.present(newsSafariView, animated: true, completion: nil)
     }
-
-    
 }
 
 
@@ -166,7 +164,6 @@ extension StartPointViewController: ASAuthorizationControllerDelegate {
             print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
             return
           }
-            print(idTokenString)
             
           // Initialize a Firebase credential, including the user's full name.
           let credential = OAuthProvider.appleCredential(withIDToken: idTokenString,
@@ -187,38 +184,9 @@ extension StartPointViewController: ASAuthorizationControllerDelegate {
                 strongSelf.present(alert, animated: true, completion: nil)
                   return
                 }
-            // User is signed in to Firebase with Apple.
-            // ...
-              print("Apple Sign in 완료 되었음")
           }
         }
       }
-
-    
-//
-//    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-//        guard let appleCredential = authorization.credential as? ASAuthorizationAppleIDCredential else {
-//            return
-//        }
-//
-//        guard let nonce = currentNonce else {
-//            NSLog("Invalid state: A login callback was received, but no login request was sent.")
-//            return
-//        }
-//        guard let appleIDToken = appleCredential.identityToken else {
-//            NSLog("Unable to fetch identity token")
-//
-//            return
-//        }
-//        guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-//            NSLog("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
-//
-//            return
-//        }
-//
-//        // Initialize a Firebase credential.
-//        // Sign in with Firebase.
-//    }
 }
 
 extension StartPointViewController {

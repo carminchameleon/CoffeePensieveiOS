@@ -8,52 +8,7 @@
 import UIKit
 
 class CommitMainView: UIView {
-    
-    
-    let morningGreeting = [
-    "I hope you had a good night’s sleep",
-    "I hope you woke up feeling refreshed",
-    "I hope you had sweet dreams",
-    "The world is waiting for you.",
-    "sleepyhead! Let's conquer the day together.",
-    "Sending positive vibes your way.",
-    "May your morning be as wonderful as you are.",
-    "Here's to a new day full of endless possibilities.",
-    ]
-    
-    let afternoonGreeting = [
-    "I hope you end your day on a high note",
-    "How has your day been so far?",
-    "Wishing you a great afternoon ahead.",
-    "May your day be filled with\n productivity and success.",
-    "May your day be filled with\n joy and productivity.",
-    "how's your day going?\n Hope it's been great so far.",
-    "Keep up the good workn you're doing great!",
-    "May your morning be as wonderful as you are.",
-    "May the rest of your day be \nas awesome as you are.",
-    "Wishing you a peaceful and \nstress-free afternoon.",
-    "Remember to take a break and \nenjoy the little things in life."
-    ]
-    
-    let eveningGreeting = [
-        "I hope your evening is filled\n with laughter and joy",
-        "I hope you have a restful and rejuvenating night",
-        "I hope you have a delicious dinner \nand a wonderful evening",
-        "Sleep well and sweet dreams",
-        "I hope you wake up feeling refreshed\n and ready for a new day",
-        "I wish you a peaceful and restful night",
-        "Wishing you a relaxing and enjoyable evening.",
-        "May your night be filled \nwith peace and tranquility.",
-        "Hope you had a good day and\n are looking forward to a great evening.",
-        "Take a deep breath and let go\n of any stress from the day.",
-        "May your evening be filled with\n laughter and good company.",
-        "Remember to take some time for yourself\n and do something you enjoy.",
-        "Wishing you a night full of \nsweet dreams and happy thoughts.",
-        "Hope you have a chance to unwind \nand recharge before the day is over.",
-        "May your evening be as wonderful as you are."
-    ]
-    
-    
+
     let greetingLabel: UILabel = {
         let label = UILabel()
         label.font = FontStyle.title2
@@ -69,7 +24,7 @@ class CommitMainView: UIView {
         label.textColor = .grayColor500
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = Common.getGreetingSentenceByTime()
+        label.text = ""
         return label
     }()
 
@@ -101,11 +56,9 @@ class CommitMainView: UIView {
         button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
         button.clipsToBounds = true
         button.layer.cornerRadius = 6
-    
         return button
     }()
-    
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
@@ -119,7 +72,6 @@ class CommitMainView: UIView {
     func setUI() {
 
         self.addSubview(greetingLabel)
-
         greetingLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             greetingLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 40),
@@ -135,10 +87,8 @@ class CommitMainView: UIView {
             cheeringLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
         ])
         
-     
         self.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -155,7 +105,6 @@ class CommitMainView: UIView {
         ])
 
         
-        
         self.addSubview(addButton)
         addButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -165,17 +114,5 @@ class CommitMainView: UIView {
             addButton.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight)
         ])
     }
-    
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
-     let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.greatestFiniteMagnitude))
-     label.numberOfLines = 0
-     label.lineBreakMode = NSLineBreakMode.byWordWrapping
-     label.font = font
-     label.text = text
-
-     label.sizeToFit()
-     return label.frame.height
-    }
-
 }
 

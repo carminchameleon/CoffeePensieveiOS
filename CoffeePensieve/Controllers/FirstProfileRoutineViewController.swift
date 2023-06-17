@@ -127,27 +127,28 @@ class FirstProfileRoutineViewController: UIViewController {
             let uid = currentUser.uid
             
             let socialForm = UploadForm(uid: uid, email: userEmail, name: name, cups: cups, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, reminder: reminder)
-            networkManager.uploadUserProfile(userData: socialForm) { error in
-
+            networkManager.uploadUserProfile(userData: socialForm) {[weak self] error in
+                guard let weakSelf = self else { return }
                 let alert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
                 let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
-                    self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+                    weakSelf.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
                 }
                 alert.addAction(tryAgain)
-                self.present(alert, animated: true, completion: nil)
+                weakSelf.present(alert, animated: true, completion: nil)
                 return
             }
             let completeVC = FirstProfileCompleteViewController()
             self.navigationController?.pushViewController(completeVC, animated: true)
         } else {
-            networkManager.signUp(userData) { error in
+            networkManager.signUp(userData) {[weak self] error in
+                guard let weakSelf = self else { return }
 
                 let alert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
                 let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
-                    self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+                    weakSelf.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
                 }
                 alert.addAction(tryAgain)
-                self.present(alert, animated: true, completion: nil)
+                weakSelf.present(alert, animated: true, completion: nil)
                 return
             }
         }
@@ -161,8 +162,9 @@ class FirstProfileRoutineViewController: UIViewController {
     
     func showErrorAlert() {
         let alert = UIAlertController(title: "Sorry", message: "Failed to make your profile. If this error continues to occur, please contact the administrator.", preferredStyle: .alert)
-        let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
-            self.networkManager.signOut()
+        let tryAgain = UIAlertAction(title: "Okay", style: .default) {[weak self] action in
+            guard let weakSelf = self else { return }
+            weakSelf.networkManager.signOut()
         }
         alert.addAction(tryAgain)
         self.present(alert, animated: true, completion: nil)

@@ -39,15 +39,19 @@ final class AppController {
     }
     
     @objc private func checkLoginStatus() {
-        
-        if let user = Auth.auth().currentUser {
-            Common.setUserDefaults(user.uid, forKey: .userId)
+        // 기존 유저 정보가 저장되어 있는 경우
+        if let _ = Common.getUserDefaultsObject(forKey: .userId) {
             moveMain()
         } else {
-            moveWelcome()
+            if let user = Auth.auth().currentUser {
+                Common.setUserDefaults(user.uid, forKey: .userId)
+                moveMain()
+            } else {
+                moveWelcome()
+            }
         }
     }
-
+    
     let tabBarVC: UITabBarController = {
         let tabBarVC = UITabBarController()
 
@@ -87,8 +91,8 @@ final class AppController {
     }
 
     private func moveWelcome(){
-        print("1. move Welcome")
         let startingVC = StartPointViewController()
         rootViewController = UINavigationController(rootViewController: startingVC)
     }
+    
 }

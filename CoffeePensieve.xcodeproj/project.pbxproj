@@ -70,7 +70,7 @@
 		F0B15C3129E2892900E4F9BC /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B15C3029E2892900E4F9BC /* colors.swift */; };
 		F0CC3FDE29DEA47D00BD5B51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */; };
 		F0CC3FE029DEA47D00BD5B51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */; };
-		F0CC3FE229DEA47D00BD5B51 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FE129DEA47D00BD5B51 /* ViewController.swift */; };
+		F0CC3FE229DEA47D00BD5B51 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FE129DEA47D00BD5B51 /* NetworkViewController.swift */; };
 		F0CC3FE529DEA47D00BD5B51 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FE329DEA47D00BD5B51 /* Main.storyboard */; };
 		F0CC3FE829DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FE629DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld */; };
 		F0CC3FEA29DEA48000BD5B51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FE929DEA48000BD5B51 /* Assets.xcassets */; };
@@ -96,6 +96,8 @@
 		F0D6A1D429EE1B5700D8C9C8 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D6A1D329EE1B5700D8C9C8 /* WelcomeViewController.swift */; };
 		F0D6A1D629EE326800D8C9C8 /* CommitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D6A1D529EE326800D8C9C8 /* CommitViewController.swift */; };
 		F0DF062B2A372E5B001016DF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DF062A2A372E5B001016DF /* Extensions.swift */; };
+		F0DF062D2A3878BE001016DF /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DF062C2A3878BE001016DF /* NetworkCheck.swift */; };
+		F0DF062F2A3AF608001016DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DF062E2A3AF607001016DF /* ViewController.swift */; };
 		F0E660B82A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E660B72A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift */; };
 		F0E9AB9F2A1B83E200591161 /* RankingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E9AB9E2A1B83E200591161 /* RankingModel.swift */; };
 		F0EC729C2A08E98A00DC24D0 /* CommitResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EC729B2A08E98A00DC24D0 /* CommitResultView.swift */; };
@@ -171,7 +173,7 @@
 		F0CC3FDA29DEA47D00BD5B51 /* CoffeePensieve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeePensieve.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F0CC3FE129DEA47D00BD5B51 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F0CC3FE129DEA47D00BD5B51 /* NetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
 		F0CC3FE429DEA47D00BD5B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F0CC3FE729DEA47D00BD5B51 /* CoffeePensieve.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoffeePensieve.xcdatamodel; sourceTree = "<group>"; };
 		F0CC3FE929DEA48000BD5B51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -198,6 +200,8 @@
 		F0D6A1D329EE1B5700D8C9C8 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		F0D6A1D529EE326800D8C9C8 /* CommitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitViewController.swift; sourceTree = "<group>"; };
 		F0DF062A2A372E5B001016DF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F0DF062C2A3878BE001016DF /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
+		F0DF062E2A3AF607001016DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = CoffeePensieve/Views/ViewController.swift; sourceTree = SOURCE_ROOT; };
 		F0E660B72A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecordEmptyTableViewCell.swift; sourceTree = "<group>"; };
 		F0E9AB9E2A1B83E200591161 /* RankingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingModel.swift; sourceTree = "<group>"; };
 		F0EC729B2A08E98A00DC24D0 /* CommitResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitResultView.swift; sourceTree = "<group>"; };
@@ -308,9 +312,9 @@
 				F03E39B32A14FF350042B491 /* DocketView.swift */,
 				F05011622A17666000AD0A49 /* CalendarCell.swift */,
 				F05011662A17AB5000AD0A49 /* RecordListCollectionViewCell.swift */,
+				F0D646042A20CC2B00BEB4C8 /* PreferenceHeaderView.swift */,
 				F0D645FE2A205BC100BEB4C8 /* ProfileTableViewCell.swift */,
 				F0D646022A2087BB00BEB4C8 /* PreferenceTableViewCell.swift */,
-				F0D646042A20CC2B00BEB4C8 /* PreferenceHeaderView.swift */,
 				F0D646082A20D6C500BEB4C8 /* PreferenceTimeTableViewCell.swift */,
 				F0D6460A2A21C8FF00BEB4C8 /* PreferenceCupTableViewCell.swift */,
 				F0D646102A233E0A00BEB4C8 /* PreferenceView.swift */,
@@ -325,7 +329,8 @@
 		F0B15C3429E5545100E4F9BC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F0CC3FE129DEA47D00BD5B51 /* ViewController.swift */,
+				F0DF062E2A3AF607001016DF /* ViewController.swift */,
+				F0CC3FE129DEA47D00BD5B51 /* NetworkViewController.swift */,
 				F0A1A13D29E15FBB000F6277 /* OnboardingViewController.swift */,
 				F0A1A13B29E15D86000F6277 /* SignUpViewController.swift */,
 				F0F6E49D29E1AC9B00C520CE /* StartPointViewController.swift */,
@@ -352,6 +357,7 @@
 				F00D78052A249C5800262B95 /* NickNameViewController.swift */,
 				F00B4F522A2C4C7E00D94FF2 /* AccountSettingViewController.swift */,
 				F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */,
+				F0DF062C2A3878BE001016DF /* NetworkCheck.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -513,7 +519,7 @@
 				F09F61032A052403004F2462 /* CommitTagViewController.swift in Sources */,
 				F01413732A120C3800A0DB99 /* TrackerRecordTableViewCell.swift in Sources */,
 				F09E02E229FCE39E0008C259 /* Constants.swift in Sources */,
-				F0CC3FE229DEA47D00BD5B51 /* ViewController.swift in Sources */,
+				F0CC3FE229DEA47D00BD5B51 /* NetworkViewController.swift in Sources */,
 				F0D645FD2A1CE56500BEB4C8 /* ProfileViewController.swift in Sources */,
 				F0A1A13E29E15FBB000F6277 /* OnboardingViewController.swift in Sources */,
 				F0E9AB9F2A1B83E200591161 /* RankingModel.swift in Sources */,
@@ -533,6 +539,7 @@
 				F09E02C529FA955D0008C259 /* AuthData+CoreDataProperties.swift in Sources */,
 				F0D6460B2A21C90000BEB4C8 /* PreferenceCupTableViewCell.swift in Sources */,
 				F0D646092A20D6C500BEB4C8 /* PreferenceTimeTableViewCell.swift in Sources */,
+				F0DF062D2A3878BE001016DF /* NetworkCheck.swift in Sources */,
 				F09F61052A052428004F2462 /* CommitTagView.swift in Sources */,
 				F0F6E49E29E1AC9B00C520CE /* StartPointViewController.swift in Sources */,
 				F09E02E429FCE3FC0008C259 /* AuthNetworkManager.swift in Sources */,
@@ -576,6 +583,7 @@
 				F0CC3FE029DEA47D00BD5B51 /* SceneDelegate.swift in Sources */,
 				F0D6A1D429EE1B5700D8C9C8 /* WelcomeViewController.swift in Sources */,
 				F0B15C3129E2892900E4F9BC /* colors.swift in Sources */,
+				F0DF062F2A3AF608001016DF /* ViewController.swift in Sources */,
 				F0A1A13C29E15D86000F6277 /* SignUpViewController.swift in Sources */,
 				F0FD3A792A32ADE10023B643 /* MonthlyRecordView.swift in Sources */,
 				F0D646072A20CF9600BEB4C8 /* PreferenceModel.swift in Sources */,
@@ -740,6 +748,7 @@
 				CODE_SIGN_ENTITLEMENTS = CoffeePensieve/CoffeePensieve.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VMTM6Y63VB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoffeePensieve/Info.plist;
@@ -769,6 +778,7 @@
 				CODE_SIGN_ENTITLEMENTS = CoffeePensieve/CoffeePensieve.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VMTM6Y63VB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoffeePensieve/Info.plist;
