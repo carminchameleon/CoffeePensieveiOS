@@ -98,6 +98,7 @@
 		F0DF062B2A372E5B001016DF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DF062A2A372E5B001016DF /* Extensions.swift */; };
 		F0DF062D2A3878BE001016DF /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DF062C2A3878BE001016DF /* NetworkCheck.swift */; };
 		F0DF062F2A3AF608001016DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DF062E2A3AF607001016DF /* ViewController.swift */; };
+		F0DF06322A3D831E001016DF /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DF06312A3D831E001016DF /* SafariServices.framework */; };
 		F0E660B82A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E660B72A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift */; };
 		F0E9AB9F2A1B83E200591161 /* RankingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E9AB9E2A1B83E200591161 /* RankingModel.swift */; };
 		F0EC729C2A08E98A00DC24D0 /* CommitResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EC729B2A08E98A00DC24D0 /* CommitResultView.swift */; };
@@ -170,7 +171,7 @@
 		F0AA67E129ED388500B135CE /* FirstProfileCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileCompleteView.swift; sourceTree = "<group>"; };
 		F0AA67E329ED38A000B135CE /* FirstProfileCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileCompleteViewController.swift; sourceTree = "<group>"; };
 		F0B15C3029E2892900E4F9BC /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
-		F0CC3FDA29DEA47D00BD5B51 /* CoffeePensieve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeePensieve.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0CC3FDA29DEA47D00BD5B51 /* Coffee Pensieve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coffee Pensieve.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F0CC3FE129DEA47D00BD5B51 /* NetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +203,7 @@
 		F0DF062A2A372E5B001016DF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F0DF062C2A3878BE001016DF /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
 		F0DF062E2A3AF607001016DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = CoffeePensieve/Views/ViewController.swift; sourceTree = SOURCE_ROOT; };
+		F0DF06312A3D831E001016DF /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		F0E660B72A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecordEmptyTableViewCell.swift; sourceTree = "<group>"; };
 		F0E9AB9E2A1B83E200591161 /* RankingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingModel.swift; sourceTree = "<group>"; };
 		F0EC729B2A08E98A00DC24D0 /* CommitResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitResultView.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				F09E02F629FE924F0008C259 /* FirebaseAuth in Frameworks */,
 				F09E02F029FE924E0008C259 /* FirebaseAnalytics in Frameworks */,
 				F09E02F829FE924F0008C259 /* FirebaseCrashlytics in Frameworks */,
+				F0DF06322A3D831E001016DF /* SafariServices.framework in Frameworks */,
 				F09E02E929FD43F40008C259 /* GoogleSignIn in Frameworks */,
 				F09E02FC29FE92500008C259 /* FirebaseFirestore in Frameworks */,
 				F09E02FA29FE92500008C259 /* FirebaseDynamicLinks in Frameworks */,
@@ -371,13 +374,14 @@
 				F09E02C329FA955D0008C259 /* AuthData+CoreDataProperties.swift */,
 				F0CC3FDC29DEA47D00BD5B51 /* CoffeePensieve */,
 				F0CC3FDB29DEA47D00BD5B51 /* Products */,
+				F0DF06302A3D831D001016DF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		F0CC3FDB29DEA47D00BD5B51 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F0CC3FDA29DEA47D00BD5B51 /* CoffeePensieve.app */,
+				F0CC3FDA29DEA47D00BD5B51 /* Coffee Pensieve.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -417,6 +421,14 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		F0DF06302A3D831D001016DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F0DF06312A3D831E001016DF /* SafariServices.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -448,7 +460,7 @@
 				F09E030329FE92520008C259 /* FirebaseMessaging */,
 			);
 			productName = CoffeePensieve;
-			productReference = F0CC3FDA29DEA47D00BD5B51 /* CoffeePensieve.app */;
+			productReference = F0CC3FDA29DEA47D00BD5B51 /* Coffee Pensieve.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -755,6 +767,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -763,7 +776,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.carminido.CoffeePensieve;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Coffee Pensieve";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -785,6 +798,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -793,7 +807,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.carminido.CoffeePensieve;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Coffee Pensieve";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

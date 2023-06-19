@@ -18,7 +18,7 @@ class CommitViewController: UIViewController {
     var count: Int?
     var todayCount = 0
     var greeting = ""
-    
+    var cherringSentence = Common.getGreetingSentenceByTime()
     override func loadView() {
         view = commitView
     }
@@ -57,25 +57,37 @@ class CommitViewController: UIViewController {
         }
         
         commitView.greetingLabel.text = greeting
-        commitView.cheeringLabel.text = Common.getGreetingSentenceByTime()
+        commitView.cheeringLabel.text = cherringSentence
     }
 
     
     func fetchUserData() {
-        dataManager.getUserProfileFromAPI {[weak self] result in
-            guard let weakSelf = self else { return }
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    weakSelf.updateName()
-                }
-            case .failure:
-                let profileVC = FirstProfileGreetingViewController()
-                profileVC.isSocial = true
-                weakSelf.navigationController?.pushViewController(profileVC, animated: true)
+        // 이미 저장되어 있는지 확인 하고, 만약 안되어있으면 그때 받아온다.
+        // 저장되어있다면, 기존 것에서 가져오기
+        // 저장 안되어있으면 api에서 가져오기
+        // 필요한 데이터 -> name만
+        if Common.getUserDefaultsObject(forKey: .name) != nil {
+            dataManager.setProfileFromUserDefault()
+            self.updateName()
+        } else {
+            // api에서 데이터 가져와서 UserDefault에 저장
+            dataManager.getUserProfileFromAPI {[weak self] result in
+                guard let weakSelf = self else { return }
+                switch result {
+                case .success:
+                    DispatchQueue.main.async {
+                        weakSelf.updateName()
+                    }
+                case .failure:
+                    let profileVC = FirstProfileGreetingViewController()
+                    profileVC.isSocial = true
+                    weakSelf.navigationController?.pushViewController(profileVC, animated: true)
 
+                }
             }
         }
+        
+        
     }
     
 

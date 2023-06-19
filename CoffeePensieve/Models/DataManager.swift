@@ -164,28 +164,59 @@ final class DataManager {
     }
     
     // MARK: - 유저 프로필 가져오기
+    // 유저 프로필을 api에서 받으면, 그 데이터는 무조건 userDefault에 저장됨
     func getUserProfileFromAPI(completion: @escaping(Result<Void,NetworkError>) -> Void) {
         authManager.getUserProfile(completion: {[weak self] result in
             guard let weakSelf = self else { return }
             switch result {
             case .success(let data):
-                weakSelf.userProfile = data
+                weakSelf.saveProfiletoUserDefaults(userProfile: data)
+                weakSelf.setProfileFromUserDefault()
                 completion(.success(()))
             case .failure:
                 completion(.failure(.dataError))
             }
         })
     }
+
+    // api에서 받은 데이터를 userDefault에 저장한다.
+    func saveProfiletoUserDefaults(userProfile: UserProfile) {
+        Common.setUserDefaults(userProfile.name, forKey: .name)
+        Common.setUserDefaults(userProfile.email, forKey: .email)
+        Common.setUserDefaults(userProfile.cups, forKey: .cups)
+        Common.setUserDefaults(userProfile.morningTime, forKey: .morningTime)
+        Common.setUserDefaults(userProfile.nightTime, forKey: .nightTime)
+        Common.setUserDefaults(userProfile.limitTime, forKey: .limitTime)
+        Common.setUserDefaults(userProfile.reminder, forKey: .reminder)
+    }
+    
+    func setProfileFromUserDefault() {
+        guard let name = Common.getUserDefaultsObject(forKey: .name) as? String else { return }
+        guard let email = Common.getUserDefaultsObject(forKey: .email) as? String else { return }
+        guard let cups = Common.getUserDefaultsObject(forKey: .cups) as? Int else { return }
+        guard let nightTime = Common.getUserDefaultsObject(forKey: .nightTime) as? String else { return }
+        guard let morningTime = Common.getUserDefaultsObject(forKey: .morningTime) as? String else { return }
+        guard let limitTime = Common.getUserDefaultsObject(forKey: .limitTime) as? String else { return }
+        guard let reminder = Common.getUserDefaultsObject(forKey: .reminder) as? Bool else { return }
+        
+       // 어떤 값도 optional이 아니라면?
+        let profile = UserProfile(name: name, cups: cups, email: email, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, reminder: reminder)
+        self.userProfile = profile
+    }
     
     func getUserData() -> UserProfile? {
         return userProfile
     }
+    
     func updateUserPreference(data: UserPreference, completion: @escaping(Result<Void, NetworkError>) -> Void) {
         authManager.updateUserPreference(data: data) {[weak self] result in
             guard let weakSelf = self else { return }
             switch result {
             case .success(let data):
-                weakSelf.userProfile = data
+                weakSelf.saveProfiletoUserDefaults(userProfile: data)
+                weakSelf.setProfileFromUserDefault()
+                //                weakSelf.userProfile = data
+                
                 completion(.success(()))
             case .failure:
                 completion(.failure(.dataError))
@@ -199,7 +230,8 @@ final class DataManager {
             guard let weakSelf = self else { return }
             switch result {
             case .success(let data):
-                weakSelf.userProfile = data
+                weakSelf.saveProfiletoUserDefaults(userProfile: data)
+                weakSelf.setProfileFromUserDefault()
                 completion(.success(()))
             case .failure:
                 completion(.failure(.dataError))
@@ -207,7 +239,10 @@ final class DataManager {
         }
     }
 
-    // Today's drink 섹션에 들어갈 내용
+    // MARK: - TRACKER - Today's memory
+    // 오늘 날짜에 해당하는 commit을 api에서 패치
+    // today에 해당하는 데이터 -> todayCommits에 저장
+    // calculateGuideLineData -> 현재 유저의 설정 + today commit 숫자 합쳐서 guideline을 만든다.
     func fetchTodayCommits(completion: @escaping(Result<Void,NetworkError>) -> Void) {
         trackerManager.fetchTodayCommits { result in
             switch result {
@@ -229,29 +264,19 @@ final class DataManager {
         return todayCommits.count
     }
     
-    // Top 3 tags 계산할 것
-    func fetchAllCommits(completion: @escaping(Result<Void,NetworkError>) -> Void) {
-        trackerManager.fetchAllCommits { result in
-            switch result {
-            case .success(let data):
-                self.allCommits = data
-                completion(.success(()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+    // MARK: - TRACKER - Caffeine Guideline
+    func calculateGuidelineData() {
+        if let profile = userProfile {
+            let data = Guideline(limitTime: profile.limitTime, limitCup: profile.cups, currentCup: todayCommits.count)
+            self.guideline = data
         }
     }
     
-    func getAllCommits() -> [CommitDetail] {
-        var detailCommitList: [CommitDetail] = []
-        allCommits.forEach { commit in
-            if let commitDetail = getCommitDetailInfo(commit: commit) {
-                detailCommitList.append(commitDetail)
-            }
-        }
-        return detailCommitList
+    func getGuidlineData() -> Guideline? {
+        return self.guideline
     }
-    
+
+    // MARK: - TRACKER - Record
     func getTrackerRecord(completion: @escaping(Result<Void,NetworkError>)->Void) {
         Task {
             do {
@@ -277,16 +302,34 @@ final class DataManager {
         return self.recordSummary
     }
 
-    func calculateGuidelineData() {
-        if let profile = userProfile {
-            let data = Guideline(limitTime: profile.limitTime, limitCup: profile.cups, currentCup: todayCommits.count)
-            self.guideline = data
+    
+    
+  // MARK: - 전체 commit 내용 가져오기 (Tracker - List에서)
+    // allCommit에 저장
+    func fetchAllCommits(completion: @escaping(Result<Void,NetworkError>) -> Void) {
+        trackerManager.fetchAllCommits { result in
+            switch result {
+            case .success(let data):
+                self.allCommits = data
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
     
-    func getGuidlineData() -> Guideline? {
-        return self.guideline
+    // 현재의 AllCommit 변수에서 데이터를 가져와서 원하는 데이터 형식으로 바꿔서 리턴
+    func getAllCommits() -> [CommitDetail] {
+        var detailCommitList: [CommitDetail] = []
+        allCommits.forEach { commit in
+            if let commitDetail = getCommitDetailInfo(commit: commit) {
+                detailCommitList.append(commitDetail)
+            }
+        }
+        return detailCommitList
     }
+    
+
     
     // MARK: - Record Calendar 뷰
     func getMonthlyDurationCommit(start: Date, finish: Date, completion: @escaping (Result<Void,NetworkError>) -> Void) {

@@ -18,9 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // 파이어베이스 설정
         FirebaseApp.configure()
-        let db = Firestore.firestore()
-
-        NetworkCheck.shared.startMonitoring()
         
         // 로컬 푸시 알림 설정
         let center = UNUserNotificationCenter.current()

@@ -88,7 +88,7 @@ final class CommitNetworkManager {
     // MARK: - upload coffee commit to DB
     func uploadCommit(data:[String: Any], completion: @escaping CommitCompletion) {
         db.collection(Constant.FStore.commitCollection).addDocument(data: data) { error in
-            if let error = error {
+            if let _ = error {
                 completion(.failure(.databaseError))
             } else {
                 completion(.success(()))
@@ -99,7 +99,7 @@ final class CommitNetworkManager {
     
     func deleteCommit(id: String, completion: @escaping DeleteCompletion ) {
         db.collection(Constant.FStore.commitCollection).document(id).delete() { err in
-            if let err = err {
+            if let _ = err {
                 completion(.failure(.dataError))
             } else {
                 completion(.success(()))

@@ -54,7 +54,6 @@ class AccountDeleteViewController: UIViewController {
     }
     
     func deleteAccount() {
-        print("데이터를 삭제함")
         // auth
         // db에서도 삭제
         authManager.deleteAccount { error in

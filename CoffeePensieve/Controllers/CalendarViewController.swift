@@ -34,8 +34,6 @@ class CalendarViewController: UIViewController {
         getCurrentCalendar()
         monthlyRecordView.calendar.delegate = self
     }
-    
-
 
     func setNavigation() {
         navigationItem.title = "Monthly"

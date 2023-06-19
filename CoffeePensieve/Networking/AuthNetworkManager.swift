@@ -76,7 +76,7 @@ final class AuthNetworkManager {
         let firebaseAuth = Auth.auth()
         do {
           try firebaseAuth.signOut()
-            Common.removeUserDefaultsObject(forKey: .userId)
+            Common.removeAllUserDefaultObject()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError.localizedDescription)
         }
@@ -98,12 +98,15 @@ final class AuthNetworkManager {
     // MARK: - get user profile
     typealias ProfileCompletion = (Result<UserProfile, NetworkError>) -> Void
     // MARK: - get user profile
+    
+    // 데이터를 Firestore에서 가져온다.
     func getUserProfile(completion: @escaping ProfileCompletion) {
         // 유저 uid
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
             return
         }
+        
         let userId = uid as! String
         let docRef = db.collection(Constant.FStore.userCollection).document(userId)
         docRef.getDocument(as: UserProfile.self) { result in
@@ -115,7 +118,6 @@ final class AuthNetworkManager {
             }
         }
     }
-    
 
     // MARK: - update user profile - Preference ( update 이후, user profile을 다시 조회 )
     // update 성공 -> 유저 데이터 업데이트 해줘야 함 - 다른 곳에서 사용하기 때문에
@@ -210,7 +212,7 @@ final class AuthNetworkManager {
 
         do {
           try firebaseAuth.signOut()
-            Common.removeUserDefaultsObject(forKey: .userId)
+            Common.removeAllUserDefaultObject()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }

@@ -30,7 +30,6 @@ final class AppController {
         window?.makeKeyAndVisible()
         window?.overrideUserInterfaceStyle = .light
         checkLoginStatus()
-        
     }
     
     private func registerAuthStateDidChangeEvent() {
@@ -51,10 +50,9 @@ final class AppController {
             }
         }
     }
-    
+
     let tabBarVC: UITabBarController = {
         let tabBarVC = UITabBarController()
-
         tabBarVC.tabBar.layer.borderWidth = 0.50
         tabBarVC.tabBar.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         tabBarVC.tabBar.tintColor = .primaryColor500
@@ -65,7 +63,7 @@ final class AppController {
     
 
     private func moveMain() {
-        // 첫번째 화면은 네비게이션컨트롤러로 만들기 (기본루트뷰 설정)
+        
         let commitVC = UINavigationController(rootViewController: CommitViewController())
         let trackerVC = UINavigationController(rootViewController: TrackerViewController())
         let profileVC = UINavigationController(rootViewController: ProfileViewController())
@@ -87,6 +85,7 @@ final class AppController {
         items[2].image = UIImage(systemName: "person.crop.circle.fill")
                 
         // 기본루트뷰를 탭바컨트롤러로 설정⭐️⭐️⭐️
+        tabBarVC.selectedIndex = 0
         rootViewController = tabBarVC
     }
 

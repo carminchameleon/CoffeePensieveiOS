@@ -70,7 +70,9 @@ class OnboardingView: UIView {
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 200),
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),imageView.heightAnchor.constraint(equalToConstant: 300)]
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)]
         )
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 44),

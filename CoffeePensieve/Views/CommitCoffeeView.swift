@@ -130,7 +130,7 @@ class CommitCoffeeView: UIView {
             collectionView.topAnchor.constraint(equalTo: tempController.bottomAnchor, constant: 24),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-            collectionView.heightAnchor.constraint(equalToConstant: 360)
+            collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1)
         ])
         
         self.addSubview(continueButton)

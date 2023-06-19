@@ -9,6 +9,8 @@ import UIKit
 
 class Common {
 
+    static let notiCenter = DataManager.sharedNotiCenter
+
     // 이메일 검증 로직
     static func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -28,10 +30,17 @@ class Common {
         return passwordPred.evaluate(with: password)
     }
     
-    static let notiCenter = DataManager.sharedNotiCenter
     
     enum UserDefaultsKey: String {
         case userId
+        case name
+        case email
+        // preference
+        case cups
+        case morningTime
+        case nightTime
+        case limitTime
+        case reminder
     }
     
     // forKey 넣으면 해당되는 값을 반환
@@ -44,16 +53,24 @@ class Common {
             return nil
         }
     }
-    
+    //  설정하기
     static func setUserDefaults(_ value: Any?, forKey defaultsKey: UserDefaultsKey) {
         let userDefaults = UserDefaults.standard
         userDefaults.set(value, forKey: defaultsKey.rawValue)
     }
-    
+    // 설정된 값 지우기
     static func removeUserDefaultsObject(forKey defaultskey: UserDefaultsKey) {
         let userDefaults = UserDefaults.standard
         userDefaults.removeObject(forKey: defaultskey.rawValue)
     }
+    
+    static func removeAllUserDefaultObject() {
+        let keys = Array(UserDefaults.standard.dictionaryRepresentation().keys)
+        for key in keys {
+            UserDefaults.standard.removeObject(forKey: key)
+        }
+    }
+    
     
     static func changeDateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()

@@ -12,6 +12,7 @@ import SafariServices
 class ProfileViewController: UIViewController {
 
     let dataManager = DataManager.shared
+    let authManager = AuthNetworkManager.shared
     
     let menuList = [
                     ProfileMenu(type:Menu.profile, title: "Account", icon: "person.crop.circle"),
@@ -22,7 +23,6 @@ class ProfileViewController: UIViewController {
                     ProfileMenu(type:Menu.about, title: "About", icon: "face.smiling"),
                     ProfileMenu(type:Menu.delete, title: "Delete Account", icon: "hand.raised.fingers.spread"),
                     ProfileMenu(type:Menu.logout, title: "Log out", icon: "door.sliding.right.hand.open"),
-
     ]
     
     let tableView: UITableView = {
@@ -45,18 +45,22 @@ class ProfileViewController: UIViewController {
     }
     
     func getRecentUserData(){
-        dataManager.getUserProfileFromAPI {[weak self] result in
-            guard let strongSelf = self else { return }
-            switch result {
-            case .success:
-                return
-            case .failure:
-                let failAlert = UIAlertController(title: "Sorry", message: "Fail to get your profile.\n Please try again later", preferredStyle: .alert)
-               let okayAction = UIAlertAction(title: "Okay", style: .default)
-               failAlert.addAction(okayAction)
-               strongSelf.present(failAlert, animated: true, completion: nil)
+        if Common.getUserDefaultsObject(forKey: .name) == nil {
+            dataManager.getUserProfileFromAPI {[weak self] result in
+                guard let strongSelf = self else { return }
+                switch result {
+                case .success:
+                    return
+                case .failure:
+                    let failAlert = UIAlertController(title: "Sorry", message: "Fail to get your profile.\n Please try again later", preferredStyle: .alert)
+                   let okayAction = UIAlertAction(title: "Okay", style: .default)
+                   failAlert.addAction(okayAction)
+                   strongSelf.present(failAlert, animated: true, completion: nil)
+                }
             }
+
         }
+        
     }
     
     func configureTitle() {
@@ -136,13 +140,7 @@ class ProfileViewController: UIViewController {
     }
     
     func logOutTapped(){
-        let firebaseAuth = Auth.auth()
-        do {
-          try firebaseAuth.signOut()
-            Common.removeUserDefaultsObject(forKey: .userId)
-        } catch let signOutError as NSError {
-          print("Error signing out: %@", signOutError)
-        }
+        authManager.signOut()
     }
 
     

@@ -213,7 +213,7 @@ extension RecordListViewController: UICollectionViewDelegateFlowLayout {
            }
            
            // 푸터 뷰를 반환하는 경우에 대한 처리도 추가할 수 있습니다.
-        assert(false, "Unexpected element kind")
+        fatalError("Unexpected element kind")
     }
     
     

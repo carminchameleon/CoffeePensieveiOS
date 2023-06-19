@@ -41,7 +41,7 @@ struct Constant {
     
     struct NotificatonMessage {
         static let morningMessage = Message(greeting: "How did you sleep last night", message: "Let's start a new day with a cup of morning coffee.")
-        static let nightMessage = Message(greeting: "It's almost time to go to sleep", message: "Take a moment to reflect on your day and preserve your memories in a fancy way with Coffee Pensieve")
+        static let nightMessage = Message(greeting: "It's almost time to go to sleep", message: "Take a moment to reflect on your day and preserve your memories in a fancy way")
         static let limitMessage = Message(greeting: "How's your day going so far", message: "Your coffee time is almost up. If you haven't had your coffee yet, now is the perfect time!")
 
         struct Message {
