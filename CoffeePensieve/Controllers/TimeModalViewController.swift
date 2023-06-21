@@ -96,12 +96,12 @@ class TimeModalViewController: UIViewController {
             timePicker.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 0),
             timePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             timePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            timePicker.heightAnchor.constraint(equalToConstant: 200),
+            timePicker.bottomAnchor.constraint(equalTo: setButton.topAnchor, constant: -8)
         ])
         
         setButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            setButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            setButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
             setButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             setButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             setButton.heightAnchor.constraint(equalToConstant: 56),

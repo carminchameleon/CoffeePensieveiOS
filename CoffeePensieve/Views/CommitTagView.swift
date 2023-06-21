@@ -11,7 +11,8 @@ class CommitTagView: UIView {
 
     var memoViewTopConstraint: NSLayoutConstraint!
     var memoViewHeightConstraint: NSLayoutConstraint!
-    var saveButtonTopConstraint: NSLayoutConstraint!
+    var saveButtonBottomConstraint: NSLayoutConstraint!
+    var memoViewBottomConstraint: NSLayoutConstraint!
     
     let progressBar: UIProgressView = {
         let bar = UIProgressView(progressViewStyle: .bar)
@@ -52,10 +53,10 @@ class CommitTagView: UIView {
         
         let textView = UITextView()
         textView.contentInsetAdjustmentBehavior = .automatic
-        textView.textAlignment = NSTextAlignment.justified
-        textView.layer.borderWidth = 2
-        textView.layer.borderColor = #colorLiteral(red: 0.1058823529, green: 0.3019607843, blue: 1, alpha: 1)
-        textView.font = FontStyle.body
+        textView.textAlignment = NSTextAlignment.left
+        
+        textView.backgroundColor = .primaryColor25
+        textView.font =  UIFont.italicSystemFont(ofSize: 17)
         textView.isSelectable = true
         textView.dataDetectorTypes = UIDataDetectorTypes.link
         textView.layer.cornerRadius = 12
@@ -69,18 +70,18 @@ class CommitTagView: UIView {
         return textView
     }()
     
-    
-    let saveButton: UIButton = {
-        let button = UIButton(type:.custom)
-        button.setTitle("Save", for: .normal)
-        button.titleLabel?.font = FontStyle.body
-        button.setTitleColor(UIColor.primaryColor300, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 6
-        button.isEnabled = false
-        return button
-    }()
+//
+//    let saveButton: UIButton = {
+//        let button = UIButton(type:.custom)
+//        button.setTitle("Save", for: .normal)
+//        button.titleLabel?.font = FontStyle.body
+//        button.setTitleColor(UIColor.primaryColor300, for: .normal)
+//        button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
+//        button.clipsToBounds = true
+//        button.layer.cornerRadius = 6
+//        button.isEnabled = false
+//        return button
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -102,23 +103,20 @@ class CommitTagView: UIView {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             collectionView.isHidden = true
             memoViewTopConstraint.constant = -240
-            memoViewHeightConstraint.constant = 240
-            saveButtonTopConstraint.constant = -(keyboardSize.height + 32)
-            
+            memoViewBottomConstraint.constant = -(keyboardSize.height + 20)
             UIView.animate(withDuration: 0.3) {
                 self.layoutIfNeeded()
             }
         }
     }
     @objc func keyboardWillHide(notification: NSNotification) {
-
             collectionView.isHidden = false
             memoViewTopConstraint.constant = 0
-            memoViewHeightConstraint.constant = 180
-            saveButtonTopConstraint.constant = -64
+            memoViewBottomConstraint.constant = -20
+
             UIView.animate(withDuration: 0.3) {
                 self.layoutIfNeeded()
         }
@@ -174,31 +172,26 @@ class CommitTagView: UIView {
                 collectionView.heightAnchor.constraint(equalToConstant: 240)
             ])
         
-            memoViewTopConstraint = memoView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 0)
-            memoViewHeightConstraint = memoView.heightAnchor.constraint(equalToConstant: 180)
-
-   
-        
             self.addSubview(memoView)
             memoView.translatesAutoresizingMaskIntoConstraints = false
+          
         
+            memoViewTopConstraint = memoView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 0)
+            memoViewHeightConstraint = memoView.heightAnchor.constraint(equalToConstant: 180)
+            memoViewBottomConstraint =  memoView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
+
+            self.addSubview(memoView)
+            memoView.translatesAutoresizingMaskIntoConstraints = false
+
             NSLayoutConstraint.activate([
             memoViewTopConstraint,
             memoView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             memoView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-            memoViewHeightConstraint,
+            memoViewBottomConstraint,
+
         ])
         
-        
-        self.addSubview(saveButton)
-        saveButton.translatesAutoresizingMaskIntoConstraints = false
-        saveButtonTopConstraint = saveButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -64)
-        NSLayoutConstraint.activate([
-            saveButtonTopConstraint,
-            saveButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            saveButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-            saveButton.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight)
-        ])
+
     }
     
     

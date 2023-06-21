@@ -107,14 +107,14 @@ class CommitMoodView: UIView {
             collectionView.topAnchor.constraint(equalTo: selectedMood.bottomAnchor, constant: 32),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-            collectionView.heightAnchor.constraint(equalToConstant: 320)
+            collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1)
         ])
-//        
+     
         self.addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            continueButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -64),
+            continueButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -76),
             continueButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             continueButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             continueButton.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight)

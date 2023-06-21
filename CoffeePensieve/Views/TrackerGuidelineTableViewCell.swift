@@ -98,15 +98,16 @@ class TrackerGuidelineTableViewCell: UITableViewCell {
         label.text = "0 Cups Left"
         label.font = UIFont.italicSystemFont(ofSize: 16)
         label.textColor = .primaryColor300
-        label.textAlignment = .left
+        label.textAlignment = .right
         return label
     }()
     
     lazy var cupStackView: UIStackView = {
         let st = UIStackView(arrangedSubviews: [currentCupNumber, leftCupNumber])
+        st.spacing = 12
         st.axis = .horizontal
         st.alignment = .fill
-        st.distribution = .fillEqually
+        st.distribution = .fill
         return st
     }()
     
@@ -143,15 +144,16 @@ class TrackerGuidelineTableViewCell: UITableViewCell {
         label.text = "0 hours Left"
         label.font = UIFont.italicSystemFont(ofSize: 16)
         label.textColor = .primaryColor300
-        label.textAlignment = .left
+        label.textAlignment = .right
         return label
     }()
 
     lazy var timeStackView: UIStackView = {
         let st = UIStackView(arrangedSubviews: [currentTimeNumber, leftTimeNumber])
+        st.spacing = 12
         st.axis = .horizontal
         st.alignment = .fill
-        st.distribution = .fillEqually
+        st.distribution = .fill
         return st
     }()
     

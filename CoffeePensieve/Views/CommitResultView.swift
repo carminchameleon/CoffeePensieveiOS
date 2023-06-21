@@ -96,7 +96,7 @@ class CommitResultView: UIView {
     let moodImage : UILabel = {
         let label = UILabel()
         label.text = "🥳"
-        label.font = UIFont.systemFont(ofSize: 80)
+        label.font = UIFont.systemFont(ofSize: 58)
         label.textAlignment = .center
         return label
     }()
@@ -131,7 +131,7 @@ class CommitResultView: UIView {
     let memoView: UITextView = {
         let textView = UITextView()
         textView.contentInsetAdjustmentBehavior = .automatic
-        textView.textAlignment = NSTextAlignment.natural
+        textView.textAlignment = NSTextAlignment.left
         textView.font =  UIFont.italicSystemFont(ofSize: 17)
         textView.isSelectable = true
         textView.isEditable = false
@@ -141,7 +141,7 @@ class CommitResultView: UIView {
         textView.textColor = .white
         textView.autocorrectionType = UITextAutocorrectionType.no
         textView.spellCheckingType = UITextSpellCheckingType.no
-        textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 16)
         return textView
     }()
 
@@ -153,9 +153,7 @@ class CommitResultView: UIView {
         label.textColor = .white
       label.textAlignment = .left
       return label
-    }()
-
-    
+    }()    
     
     let tagTitle: UILabel = {
         let label = UILabel()
@@ -241,13 +239,13 @@ class CommitResultView: UIView {
             drinkStack.topAnchor.constraint(equalTo: coffeeLabel.bottomAnchor, constant: 12),
             drinkStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             drinkStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-            drinkStack.heightAnchor.constraint(equalToConstant: 140)
+            drinkStack.heightAnchor.constraint(equalToConstant: 108)
         ])
         
         coffeeImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            coffeeImage.widthAnchor.constraint(equalToConstant: 70),
-            coffeeImage.heightAnchor.constraint(equalToConstant: 100),
+            coffeeImage.widthAnchor.constraint(equalToConstant: 49),
+            coffeeImage.heightAnchor.constraint(equalToConstant: 70),
         ])
         
         addSubview(moodTitle)
@@ -264,7 +262,7 @@ class CommitResultView: UIView {
             moodStack.topAnchor.constraint(equalTo: moodTitle.bottomAnchor, constant: 12),
             moodStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             moodStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-            moodStack.heightAnchor.constraint(equalToConstant: 115)
+            moodStack.heightAnchor.constraint(equalToConstant: 98)
         ])
      
         

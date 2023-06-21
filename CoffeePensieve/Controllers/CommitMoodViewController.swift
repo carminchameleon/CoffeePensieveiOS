@@ -20,11 +20,15 @@ class CommitMoodViewController: UIViewController {
         view = moodView
     }
     
+    let relativeFontConstant: CGFloat = 0.048
+    let relativeFontConstant2: CGFloat = 0.016
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addTargets()
         setMoodData()
         setCollection()
+        
     }
     
     func setMoodData() {
@@ -42,6 +46,8 @@ class CommitMoodViewController: UIViewController {
         moodView.collectionView.register(CommitMoodCollectionViewCell.self, forCellWithReuseIdentifier: CellId.commitMoodCell.rawValue)
 
     }
+    
+  
 
     @objc func continueButtonTapped() {
         let tagVC = CommitTagViewController()
@@ -73,6 +79,9 @@ extension CommitMoodViewController: UICollectionViewDataSource {
         cell.iconLabel.text = data.image
         cell.titleLabel.text = data.name
         
+        
+        cell.iconLabel.font = cell.iconLabel.font.withSize(self.view.frame.height * relativeFontConstant)
+        cell.titleLabel.font = cell.titleLabel.font.withSize(self.view.frame.height * relativeFontConstant2)
         if selectedMood != nil, selectedMood! == indexPath.row {
             cell.backgroundColor = .primaryColor100
             cell.titleLabel.textColor = .primaryColor500
@@ -88,10 +97,11 @@ extension CommitMoodViewController: UICollectionViewDataSource {
 extension CommitMoodViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (collectionView.frame.width - 80) / 3, height: (collectionView.frame.height - 60) / 3)
+        return CGSize(width: (collectionView.frame.width - 80) / 3, height: (collectionView.frame.width - 80) / 3)
     }
+ 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 40
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

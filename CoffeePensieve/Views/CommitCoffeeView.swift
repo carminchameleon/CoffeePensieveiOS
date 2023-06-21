@@ -137,7 +137,7 @@ class CommitCoffeeView: UIView {
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            continueButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -64),
+            continueButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -76),
             continueButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             continueButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             continueButton.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight)

@@ -82,7 +82,7 @@ final class AppController {
         guard let items = tabBarVC.tabBar.items else { return }
         items[0].image = UIImage(systemName: "cup.and.saucer.fill")
         items[1].image = UIImage(systemName: "chart.bar.fill")
-        items[2].image = UIImage(systemName: "person.crop.circle.fill")
+        items[2].image = UIImage(systemName: "gear.circle")
                 
         // 기본루트뷰를 탭바컨트롤러로 설정⭐️⭐️⭐️
         tabBarVC.selectedIndex = 0

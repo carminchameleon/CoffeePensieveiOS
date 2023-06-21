@@ -67,15 +67,16 @@ class OnboardingView: UIView {
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.66),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
+        ])
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 200),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)]
-        )
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 44),
+            stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }

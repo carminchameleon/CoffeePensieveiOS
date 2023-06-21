@@ -51,7 +51,7 @@ class DocketView: UIView {
     }()
     
     lazy var drinkStack: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [coffeeImage, drinkLabel ])
+        let st = UIStackView(arrangedSubviews: [coffeeImage, drinkLabel])
         st.spacing = 8
         st.axis = .vertical
         st.alignment = .center
@@ -72,7 +72,7 @@ class DocketView: UIView {
     let moodImage : UILabel = {
         let label = UILabel()
         label.text = "🥳"
-        label.font = UIFont.systemFont(ofSize: 80)
+        label.font = UIFont.systemFont(ofSize: 58)
         label.textAlignment = .center
         return label
     }()
@@ -105,10 +105,12 @@ class DocketView: UIView {
     
     
     let memoView: UITextView = {
+
+        
         let textView = UITextView()
         textView.contentInsetAdjustmentBehavior = .automatic
-        textView.textAlignment = NSTextAlignment.natural
-        textView.font =  UIFont.italicSystemFont(ofSize: 17)
+        textView.textAlignment = .left
+        textView.font = UIFont.italicSystemFont(ofSize: 17)
         textView.isSelectable = true
         textView.isEditable = false
         textView.dataDetectorTypes = UIDataDetectorTypes.link
@@ -117,17 +119,18 @@ class DocketView: UIView {
         textView.textColor = .white
         textView.autocorrectionType = UITextAutocorrectionType.no
         textView.spellCheckingType = UITextSpellCheckingType.no
-        textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 16)
+
         return textView
     }()
 
     
     let detailView: UILabel = {
-      let label = UILabel()
+        let label = UILabel()
         label.font = UIFont.italicSystemFont(ofSize: 17)
-      label.numberOfLines = 0
+        label.numberOfLines = 0
         label.textColor = .white
-      label.textAlignment = .left
+        label.textAlignment = .left
       return label
     }()
 
@@ -145,7 +148,7 @@ class DocketView: UIView {
     let tags: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
-        label.textColor = .primaryColor100
+        label.textColor = .white
         label.textAlignment = .left
         return label
     }()
@@ -188,13 +191,13 @@ class DocketView: UIView {
             drinkStack.topAnchor.constraint(equalTo: coffeeLabel.bottomAnchor, constant: 12),
             drinkStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             drinkStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-            drinkStack.heightAnchor.constraint(equalToConstant: 140)
+            drinkStack.heightAnchor.constraint(equalToConstant: 108)
         ])
         
         coffeeImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            coffeeImage.widthAnchor.constraint(equalToConstant: 70),
-            coffeeImage.heightAnchor.constraint(equalToConstant: 100),
+            coffeeImage.widthAnchor.constraint(equalToConstant: 49),
+            coffeeImage.heightAnchor.constraint(equalToConstant: 70),
         ])
         
         addSubview(moodTitle)
@@ -211,7 +214,7 @@ class DocketView: UIView {
             moodStack.topAnchor.constraint(equalTo: moodTitle.bottomAnchor, constant: 12),
             moodStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             moodStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-            moodStack.heightAnchor.constraint(equalToConstant: 115)
+            moodStack.heightAnchor.constraint(equalToConstant: 98)
         ])
      
         
@@ -272,13 +275,3 @@ extension UIView {
       layer.insertSublayer(gradient, at: 0)
     }
 }
-
-
-//*** for horizontal gradient ***
-//        // gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
-//        // gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
-//
-//        // *** for vertical gradient ***
-//        // gradientLayer.locations = [0,1]
-//        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
-//        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)

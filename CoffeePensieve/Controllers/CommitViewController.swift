@@ -102,7 +102,6 @@ class CommitViewController: UIViewController {
                     weakSelf.updateCommitCount()
                 }
             case .failure(let error):
-
                 var errorMessage = "Failed to get your commits. Please try again later"
                 switch error {
                 case .uidError:
@@ -120,12 +119,20 @@ class CommitViewController: UIViewController {
                         weakSelf.networkManager.signOut()
                     }
                     failAlert.addAction(okayAction)
-                    weakSelf.present(failAlert, animated: true, completion: nil)
+                    
+                    DispatchQueue.main.async {
+                        weakSelf.present(failAlert, animated: true, completion: nil)
+                    }
+                    
                 default:
                     let failAlert = UIAlertController(title: "Sorry", message: errorMessage, preferredStyle: .alert)
                     let okayAction = UIAlertAction(title: "Okay", style: .default)
                     failAlert.addAction(okayAction)
-                    weakSelf.present(failAlert, animated: true, completion: nil)
+                    
+                    DispatchQueue.main.async {
+                        weakSelf.present(failAlert, animated: true, completion: nil)
+
+                    }
                 }
 
             }

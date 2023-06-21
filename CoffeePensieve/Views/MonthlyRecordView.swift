@@ -7,9 +7,10 @@
 
 import UIKit
 
-class MonthlyRecordView: UIView {
+final class MonthlyRecordView: UIView {
 
     let calendar: UICalendarView = {
+        
         let calendarView = UICalendarView()
         calendarView.fontDesign = .rounded
         calendarView.tintColor = .primaryColor500
@@ -19,20 +20,20 @@ class MonthlyRecordView: UIView {
         calendarView.calendar = .current
         calendarView.locale = Locale(identifier: "En")
         
+        
+        
+        
         let startDateString = "01/03/2023"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         
         let startDate = dateFormatter.date(from: startDateString)!
         calendarView.availableDateRange = DateInterval(start: startDate, end: .now)
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
        return calendarView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        addSubview(calendar)
         makeUI()
     }
     
@@ -41,12 +42,14 @@ class MonthlyRecordView: UIView {
     }
     
     func makeUI(){
-        
-     addSubview(calendar)
-         NSLayoutConstraint.activate([
+        addSubview(calendar)
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            
+            calendar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            calendar.trailingAnchor .constraint(equalTo: trailingAnchor, constant: 0),
             calendar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
-            calendar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
-            calendar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -18),
+            calendar.heightAnchor.constraint(equalToConstant: 500)
          ])
     }
     

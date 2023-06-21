@@ -16,11 +16,11 @@ class ProfileViewController: UIViewController {
     
     let menuList = [
                     ProfileMenu(type:Menu.profile, title: "Account", icon: "person.crop.circle"),
-                    ProfileMenu(type:Menu.preference, title: "Preference", icon: "gear.circle"),
+                    ProfileMenu(type:Menu.preference, title: "Preference", icon: "slider.horizontal.3"),
                     ProfileMenu(type:Menu.support, title: "Help & Support", icon: "questionmark.circle"),
                     ProfileMenu(type:Menu.term, title: "Terms of Service", icon: "doc.plaintext"),
                     ProfileMenu(type:Menu.policy, title: "Privacy Policy", icon: "lock.shield"),
-                    ProfileMenu(type:Menu.about, title: "About", icon: "face.smiling"),
+                    ProfileMenu(type:Menu.about, title: "About", icon: "sparkles"),
                     ProfileMenu(type:Menu.delete, title: "Delete Account", icon: "hand.raised.fingers.spread"),
                     ProfileMenu(type:Menu.logout, title: "Log out", icon: "door.sliding.right.hand.open"),
     ]

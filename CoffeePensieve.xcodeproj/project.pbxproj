@@ -332,27 +332,27 @@
 		F0B15C3429E5545100E4F9BC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F0DF062E2A3AF607001016DF /* ViewController.swift */,
 				F0CC3FE129DEA47D00BD5B51 /* NetworkViewController.swift */,
+				F0DF062C2A3878BE001016DF /* NetworkCheck.swift */,
 				F0A1A13D29E15FBB000F6277 /* OnboardingViewController.swift */,
-				F0A1A13B29E15D86000F6277 /* SignUpViewController.swift */,
 				F0F6E49D29E1AC9B00C520CE /* StartPointViewController.swift */,
+				F0A1A13B29E15D86000F6277 /* SignUpViewController.swift */,
 				F0F8A89729E9606500838F35 /* SignInViewController.swift */,
 				F0F8A89929E9951800838F35 /* ForgotPasswordViewController.swift */,
 				F0F8A8A529EB9CCE00838F35 /* FirstProfileGreetingViewController.swift */,
 				F0F8A8AB29EBE62400838F35 /* FirstProfileRoutineViewController.swift */,
 				F0AA67E329ED38A000B135CE /* FirstProfileCompleteViewController.swift */,
 				F0D6A1D329EE1B5700D8C9C8 /* WelcomeViewController.swift */,
-				F0EC72C22A0E6A1A00DC24D0 /* TrackerViewController.swift */,
 				F0D6A1D529EE326800D8C9C8 /* CommitViewController.swift */,
 				F09F60F22A0122D8004F2462 /* CommitCoffeeViewController.swift */,
 				F09F60FA2A048D18004F2462 /* CommitMoodViewController.swift */,
 				F09F61022A052403004F2462 /* CommitTagViewController.swift */,
 				F028276A2A05FD1100213B94 /* CommitLoadingViewController.swift */,
 				F02827722A075FF300213B94 /* CommitResultViewController.swift */,
-				F03E39AF2A13AB720042B491 /* CalendarViewController.swift */,
+				F0EC72C22A0E6A1A00DC24D0 /* TrackerViewController.swift */,
 				F03E39B12A14FC790042B491 /* DocketViewController.swift */,
 				F05011642A179D2600AD0A49 /* RecordListViewController.swift */,
+				F03E39AF2A13AB720042B491 /* CalendarViewController.swift */,
 				F0D645FC2A1CE56500BEB4C8 /* ProfileViewController.swift */,
 				F0D646002A207F6100BEB4C8 /* PreferenceViewController.swift */,
 				F0D6460C2A23251C00BEB4C8 /* CupModalViewController.swift */,
@@ -360,7 +360,7 @@
 				F00D78052A249C5800262B95 /* NickNameViewController.swift */,
 				F00B4F522A2C4C7E00D94FF2 /* AccountSettingViewController.swift */,
 				F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */,
-				F0DF062C2A3878BE001016DF /* NetworkCheck.swift */,
+				F0DF062E2A3AF607001016DF /* ViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

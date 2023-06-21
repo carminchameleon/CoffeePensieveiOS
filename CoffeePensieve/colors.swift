@@ -6,7 +6,7 @@
 //
 import UIKit
 
-// MARK: - 프로젝트 색상 리스트
+// MARK: - Main Color List
 extension UIColor {
     // primary
     static var primaryColor25 = UIColor.init(red: 242/255, green: 245/255, blue: 255/255, alpha: 1)

@@ -198,7 +198,7 @@ class AuthStartPointView: UIView {
         ])
     
         NSLayoutConstraint.activate([
-            infoLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 36),
+            infoLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 24),
             infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
         NSLayoutConstraint.activate([

@@ -66,6 +66,7 @@ extension WelcomeViewController {
         pages.append(secondPage)
         pages.append(thirdPage)
         
+        
         // 처음으로 보여질 페이지를 선택, 배열이지만 단 하나만 보내야 함.
         pageViewController?.setViewControllers([pages[initialPage]], direction: .forward, animated: true)
         addChild(pageViewController!)
@@ -92,23 +93,25 @@ extension WelcomeViewController {
         startButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            appNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            appNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             appNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            pageControl.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
+            pageControl.topAnchor.constraint(equalTo: startButton.topAnchor, constant: -48 ),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -48),
+            startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
             startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36),
             startButton.heightAnchor.constraint(equalToConstant: 48)
-            
         ])
+        
+    
+        
+        
     }
 }
 

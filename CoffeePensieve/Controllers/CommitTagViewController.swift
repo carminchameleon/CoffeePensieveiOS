@@ -18,7 +18,8 @@ class CommitTagViewController: UIViewController {
     var selectedDrink: Int?
     var selectedMood: Int?
     var selectedTags: [Int] = [] 
-
+    var isInit = true
+    
     override func loadView() {
         view = tagView
     }
@@ -27,7 +28,6 @@ class CommitTagViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setTagData()
-        addTargets()
         setCollection()
     }
     
@@ -35,12 +35,21 @@ class CommitTagViewController: UIViewController {
         let tagList = dataManager.getTagListFromAPI()
         tags = tagList
     }
+    
+
     func setUI() {
         view.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
+
+    override func viewWillLayoutSubviews() {
+        let height = view.frame.size.height
     
-    func addTargets() {
-        tagView.saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchDown)
+        if isInit {
+            tagView.memoViewHeightConstraint.constant = height > 736 ? 180 : 140
+            isInit = false
+        }
     }
 
     
@@ -130,11 +139,9 @@ extension CommitTagViewController: UICollectionViewDelegateFlowLayout {
     
     func controlTagView(isActive: Bool) {
         if isActive {
-            tagView.saveButton.isEnabled = true
-            tagView.saveButton.setTitleColor(UIColor.primaryColor500, for: .normal)
+            navigationItem.rightBarButtonItem?.isEnabled = true
         } else {
-            tagView.saveButton.isEnabled = false
-            tagView.saveButton.setTitleColor(UIColor.primaryColor300, for: .normal)
+            navigationItem.rightBarButtonItem?.isEnabled = false
         }
         tagView.collectionView.reloadData()
     }

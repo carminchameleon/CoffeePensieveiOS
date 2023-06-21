@@ -102,7 +102,10 @@ class CommitLoadingViewController: UIViewController {
                     strongSelf.navigationController?.popToRootViewController(animated: true)
                 }
                 failAlert.addAction(okayAction)
-                strongSelf.present(failAlert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    strongSelf.present(failAlert, animated: true, completion: nil)
+                }
+
             }
         }
     }
@@ -140,10 +143,10 @@ class CommitLoadingViewController: UIViewController {
        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 400),
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 28),
-            imageView.heightAnchor.constraint(equalToConstant: 400)
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
         ])
         
         loadingLabel.translatesAutoresizingMaskIntoConstraints = false

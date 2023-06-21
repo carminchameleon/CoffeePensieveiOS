@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CalendarViewController: UIViewController {
+final class CalendarViewController: UIViewController {
 
     let dataManager = DataManager.shared
     var monthlyCommitCounting: [Int: Int]?
@@ -26,13 +26,21 @@ class CalendarViewController: UIViewController {
         view = monthlyRecordView
     }
     
+    override func viewWillLayoutSubviews() {
+        NSLayoutConstraint.activate([
+            monthlyRecordView.calendar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            monthlyRecordView.calendar.trailingAnchor .constraint(equalTo: view.trailingAnchor, constant: 0),
+            monthlyRecordView.calendar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
+        ])
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setNavigation()
         getCurrentCalendar()
         monthlyRecordView.calendar.delegate = self
+        
     }
 
     func setNavigation() {
@@ -51,7 +59,6 @@ class CalendarViewController: UIViewController {
         
         let currentComponents = calendar.dateComponents([.year, .month], from: today)
         visibleDate = currentComponents
-        
         // 이번 달의 시작 날짜 계산
         let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: today))!
         
@@ -130,13 +137,15 @@ extension CalendarViewController: UICalendarViewDelegate {
             return nil
         }
         
+        
+        
         guard let monthlyData = self.monthlyCommitCounting else { return nil }
         if let counting = monthlyData[day] {
             let font = UIFont.systemFont(ofSize: 17)
             let configuration = UIImage.SymbolConfiguration(font: font)
             let color = getCellColor(counting)
             let image = UIImage(systemName: "cup.and.saucer.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysOriginal).withTintColor(color)
-              return .image(image)
+            return .image(image)
         }
         return nil
     }
@@ -219,7 +228,7 @@ extension CalendarViewController: UICalendarViewDelegate {
 
         let startDateComponents = calendar.dateComponents([.year, .month, .day], from: startDate)
         let endDateComponents = calendar.dateComponents([.year, .month, .day], from: endDate)
-
+        
         var currentDate = calendar.date(from: startDateComponents)!
 
         var dateComponentsArray: [DateComponents] = []
