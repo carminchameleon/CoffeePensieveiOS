@@ -24,7 +24,7 @@ class RecordListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         let totalCount = dataManager.getCommitCount()
         if totalCount == 0 {
             // 테이블 데이터 없음 셀 보여줘야 함.

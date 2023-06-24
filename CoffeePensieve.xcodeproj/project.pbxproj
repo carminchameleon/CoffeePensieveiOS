@@ -75,12 +75,6 @@
 		F0CC3FE829DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FE629DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld */; };
 		F0CC3FEA29DEA48000BD5B51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FE929DEA48000BD5B51 /* Assets.xcassets */; };
 		F0CC3FED29DEA48000BD5B51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FEB29DEA48000BD5B51 /* LaunchScreen.storyboard */; };
-		F0CC3FF629DEB39100BD5B51 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FF529DEB39100BD5B51 /* Montserrat-Bold.ttf */; };
-		F0CC3FF829DEB39A00BD5B51 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FF729DEB39A00BD5B51 /* Montserrat-Medium.ttf */; };
-		F0CC3FFA29DEB3A200BD5B51 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FF929DEB3A200BD5B51 /* Montserrat-Regular.ttf */; };
-		F0CC3FFC29DEB3A900BD5B51 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FFB29DEB3A900BD5B51 /* Montserrat-SemiBold.ttf */; };
-		F0CC3FFE29DEB3B300BD5B51 /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FFD29DEB3B300BD5B51 /* Montserrat-ExtraBold.ttf */; };
-		F0CC400029DEB3C000BD5B51 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FFF29DEB3C000BD5B51 /* Montserrat-ExtraLight.ttf */; };
 		F0D645FB2A1CC89F00BEB4C8 /* ProfileMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D645FA2A1CC89F00BEB4C8 /* ProfileMenuModel.swift */; };
 		F0D645FD2A1CE56500BEB4C8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D645FC2A1CE56500BEB4C8 /* ProfileViewController.swift */; };
 		F0D645FF2A205BC100BEB4C8 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D645FE2A205BC100BEB4C8 /* ProfileTableViewCell.swift */; };
@@ -180,12 +174,6 @@
 		F0CC3FE929DEA48000BD5B51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0CC3FEC29DEA48000BD5B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F0CC3FEE29DEA48000BD5B51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F0CC3FF529DEB39100BD5B51 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../../../../../Downloads/Montserrat/static/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
-		F0CC3FF729DEB39A00BD5B51 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Medium.ttf"; path = "../../../../../Downloads/Montserrat/static/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
-		F0CC3FF929DEB3A200BD5B51 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../../../../../Downloads/Montserrat/static/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
-		F0CC3FFB29DEB3A900BD5B51 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../../../../../Downloads/Montserrat/static/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
-		F0CC3FFD29DEB3B300BD5B51 /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-ExtraBold.ttf"; path = "../../../../../Downloads/Montserrat/static/Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
-		F0CC3FFF29DEB3C000BD5B51 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-ExtraLight.ttf"; path = "../../../../../Downloads/Montserrat/static/Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		F0D645FA2A1CC89F00BEB4C8 /* ProfileMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMenuModel.swift; sourceTree = "<group>"; };
 		F0D645FC2A1CE56500BEB4C8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F0D645FE2A205BC100BEB4C8 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -402,23 +390,9 @@
 				F0CC3FEB29DEA48000BD5B51 /* LaunchScreen.storyboard */,
 				F0CC3FEE29DEA48000BD5B51 /* Info.plist */,
 				F0CC3FE629DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld */,
-				F0CC3FF429DEB36600BD5B51 /* Font */,
 				F0B15C3029E2892900E4F9BC /* colors.swift */,
 			);
 			path = CoffeePensieve;
-			sourceTree = "<group>";
-		};
-		F0CC3FF429DEB36600BD5B51 /* Font */ = {
-			isa = PBXGroup;
-			children = (
-				F0CC3FFD29DEB3B300BD5B51 /* Montserrat-ExtraBold.ttf */,
-				F0CC3FFF29DEB3C000BD5B51 /* Montserrat-ExtraLight.ttf */,
-				F0CC3FFB29DEB3A900BD5B51 /* Montserrat-SemiBold.ttf */,
-				F0CC3FF729DEB39A00BD5B51 /* Montserrat-Medium.ttf */,
-				F0CC3FF929DEB3A200BD5B51 /* Montserrat-Regular.ttf */,
-				F0CC3FF529DEB39100BD5B51 /* Montserrat-Bold.ttf */,
-			);
-			path = Font;
 			sourceTree = "<group>";
 		};
 		F0DF06302A3D831D001016DF /* Frameworks */ = {
@@ -439,6 +413,7 @@
 				F0CC3FD629DEA47D00BD5B51 /* Sources */,
 				F0CC3FD729DEA47D00BD5B51 /* Frameworks */,
 				F0CC3FD829DEA47D00BD5B51 /* Resources */,
+				F086AEDA2A42FC000015BB34 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -505,13 +480,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0CC3FFA29DEB3A200BD5B51 /* Montserrat-Regular.ttf in Resources */,
-				F0CC3FF629DEB39100BD5B51 /* Montserrat-Bold.ttf in Resources */,
-				F0CC3FF829DEB39A00BD5B51 /* Montserrat-Medium.ttf in Resources */,
-				F0CC3FFC29DEB3A900BD5B51 /* Montserrat-SemiBold.ttf in Resources */,
-				F0CC400029DEB3C000BD5B51 /* Montserrat-ExtraLight.ttf in Resources */,
 				F0CC3FED29DEA48000BD5B51 /* LaunchScreen.storyboard in Resources */,
-				F0CC3FFE29DEB3B300BD5B51 /* Montserrat-ExtraBold.ttf in Resources */,
 				F09E02C729FAA5D30008C259 /* GoogleService-Info.plist in Resources */,
 				F0CC3FEA29DEA48000BD5B51 /* Assets.xcassets in Resources */,
 				F0CC3FE529DEA47D00BD5B51 /* Main.storyboard in Resources */,
@@ -519,6 +488,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F086AEDA2A42FC000015BB34 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F0CC3FD629DEA47D00BD5B51 /* Sources */ = {
@@ -760,7 +752,7 @@
 				CODE_SIGN_ENTITLEMENTS = CoffeePensieve/CoffeePensieve.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VMTM6Y63VB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoffeePensieve/Info.plist;
@@ -791,7 +783,7 @@
 				CODE_SIGN_ENTITLEMENTS = CoffeePensieve/CoffeePensieve.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VMTM6Y63VB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoffeePensieve/Info.plist;

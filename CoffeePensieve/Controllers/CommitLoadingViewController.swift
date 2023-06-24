@@ -112,7 +112,7 @@ class CommitLoadingViewController: UIViewController {
 
     
     func moveToResultView(_ time: Date) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
             let resultVC = CommitResultViewController()
             resultVC.drinkId = self.selectedDrink!
             resultVC.tagIds = self.selectedTags
@@ -124,7 +124,7 @@ class CommitLoadingViewController: UIViewController {
     }
     
     func fadeInAnimation() {
-        UIView.animate(withDuration: 2.0) {
+        UIView.animate(withDuration: 1.0) {
             self.imageView.alpha = 1
             self.loadingLabel.alpha = 1
         }

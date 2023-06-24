@@ -16,8 +16,7 @@ struct CoffeeModel {
 }
 
 // 서버에서 받아오는 커피 리스트
-struct Drink: Codable {
-    @DocumentID var id: String?
+struct Drink {
     let isIced: Bool
     let drinkId: Int
     let name: String

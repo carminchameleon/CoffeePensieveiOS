@@ -6,12 +6,9 @@
 //
 
 import Foundation
-import FirebaseFirestoreSwift
 
-struct Mood: Codable {
-    @DocumentID var id: String?
+struct Mood {
     let moodId: Int
     let name: String
     let image: String
-
 }

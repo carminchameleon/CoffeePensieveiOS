@@ -18,15 +18,6 @@
 	</array>
 	<key>NSAppUsesSafariViewController</key>
 	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Montserrat-ExtraBold.otf</string>
-		<string>Montserrat-SemiBold.otf</string>
-		<string>Montserrat-ExtraLight.otf</string>
-		<string>Montserrat-Regular.otf</string>
-		<string>Montserrat-Bold.otf</string>
-		<string>Montserrat-Medium.otf</string>
-	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

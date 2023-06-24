@@ -6,10 +6,8 @@
 //
 
 import Foundation
-import FirebaseFirestoreSwift
 
-struct Tag: Codable {
-    @DocumentID var id: String?
+struct Tag {
     let tagId: Int
     let name: String
 }

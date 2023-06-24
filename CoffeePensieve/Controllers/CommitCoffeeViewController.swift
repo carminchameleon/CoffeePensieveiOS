@@ -73,7 +73,7 @@ class CommitCoffeeViewController: UIViewController {
     
     @objc func continueButtonTapped() {
         let moodVC = CommitMoodViewController()
-        moodVC.selectedDrink = selectedDrink!
+        moodVC.selectedDrink = selectedDrink
         navigationController?.pushViewController(moodVC, animated: false)
     
     }
@@ -95,7 +95,7 @@ extension CommitCoffeeViewController: UICollectionViewDataSource {
         cell.imageView.image = UIImage(named: data.image)        
         
         // 음료수가 선택 되었다면
-        if selectedDrink != nil, selectedDrink! == data.drinkId {
+        if let selectedDrink, selectedDrink == data.drinkId {
             cell.imageView.layer.shadowColor = UIColor.blue.cgColor
             cell.titleLabel.textColor = .primaryColor500
             cell.imageLayer.alpha = 1
