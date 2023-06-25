@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 final class CalendarViewController: UIViewController {
 
     let dataManager = DataManager.shared
@@ -40,7 +41,47 @@ final class CalendarViewController: UIViewController {
         setNavigation()
         getCurrentCalendar()
         monthlyRecordView.calendar.delegate = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !isInitSetting {
+            updateCurrentCoffeeCommit()
+        }
+
+    }
+    
+    func reFetchMonthly() {
+        let today = Date()
+        let calendar = Calendar.current
         
+        let currentComponents = calendar.dateComponents([.year, .month], from: today)
+        visibleDate = currentComponents
+        // 이번 달의 시작 날짜 계산
+        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: today))!
+        
+        dataManager.getMonthlyDurationCommit(start: startOfMonth, finish: today) {[weak self] result in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .success:
+                let data = strongSelf.dataManager.getMonthlySortedCommits()!
+                
+                let countingData = strongSelf.countDailyCommit(data)
+                strongSelf.monthlyCommitCounting = countingData
+                
+                let updateList = strongSelf.makeFirstMonthDateComponentsList(countingData)
+                print(updateList)
+                //                DispatchQueue.main.async {
+//                    strongSelf.monthlyRecordView.calendar.reloadDecorations(forDateComponents: updateList, animated: true)
+//                }
+//                strongSelf.isInitSetting = true
+            case .failure:
+                let failAlert = UIAlertController(title: "Sorry", message: "Could not load your monthly coffee memories. Please try again later.", preferredStyle: .alert)
+                let okayAction = UIAlertAction(title: "Okay", style: .default)
+                failAlert.addAction(okayAction)
+                strongSelf.present(failAlert, animated: true, completion: nil)
+            }
+        }
     }
 
     func setNavigation() {
@@ -108,6 +149,7 @@ final class CalendarViewController: UIViewController {
             components.year = year
             updateComponentsList.append(components)
         }
+        print("첫번째 달 업데이트 리스트",updateComponentsList)
         return updateComponentsList
     }
     
@@ -131,6 +173,7 @@ final class CalendarViewController: UIViewController {
 
 extension CalendarViewController: UICalendarViewDelegate {
     func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
+        // 현재 보여지는 Cell을 데코레이션 할 것
         visibleDate = calendarView.visibleDateComponents
         isInitSetting = false
         guard let day = dateComponents.day else {
@@ -150,8 +193,9 @@ extension CalendarViewController: UICalendarViewDelegate {
         return nil
     }
     
-
+    // 새로 바뀐 Month로 데이터를  fetch 해옴
     func updateCurrentCoffeeCommit() {
+        
         guard let visibleDate = visibleDate else { return }
         guard let firstDayOfMonth = visibleDate.date else { return }
         // 마지막 날짜 얻기 (해당 달 + 1 , 다음달의 0번째 날 : 그 전 달의 마지막 날)

@@ -19,40 +19,9 @@ final class DataManager {
 
     
     // 음료 리스트 무드 리스트 태그 리스트
-    private let drinkList: [Drink] = [
-                                    Drink(isIced: false, drinkId: 0, name: "Americano", image: "Drink_Americano"),
-                                    Drink(isIced: false, drinkId: 1, name: "Latte", image: "Drink_Latte"),
-                                    Drink(isIced: false, drinkId: 2, name: "Cappuccino", image: "Drink_Cappuccino"),
-                                    Drink(isIced: false, drinkId: 3, name: "Flatwhite", image: "Drink_Flatwhite"),
-                                    Drink(isIced: false, drinkId: 4, name: "Mocha", image: "Drink_Mocha"),
-                                    Drink(isIced: false, drinkId: 5, name: "Filter", image: "Drink_Filter"),
-                                    Drink(isIced: true, drinkId: 50, name: "Americano", image: "Drink_IcedAmericano"),
-                                    Drink(isIced: true, drinkId: 51, name: "Latte", image: "Drink_IcedLatte"),
-                                    Drink(isIced: true, drinkId: 52, name: "Mocha", image: "Drink_IcedMocha"),
-                                    Drink(isIced: true, drinkId: 53, name: "Cold brew", image: "Drink_Coldbrew"),
-                                    Drink(isIced: false, drinkId: 6, name: "Espresso", image: "Drink_Espresso"),
-                                    Drink(isIced: false, drinkId: 7, name: "Macchiato", image: "Drink_Macchiato")]
-
-    private let moodList: [Mood] = [
-                                    Mood(moodId: 0, name: "Happy", image: "😊"),
-                                    Mood(moodId: 1, name: "Excited", image: "🥳"),
-                                    Mood(moodId: 2, name: "Grateful", image: "🥰"),
-                                    Mood(moodId: 3, name: "Relaxed", image: "😌"),
-                                    Mood(moodId: 4, name: "Tired", image: "🫠"),
-                                    Mood(moodId: 5, name: "Anxious", image: "🥺"),
-                                    Mood(moodId: 6, name: "Angry",image: "🤬"),
-                                    Mood(moodId: 7, name: "Sad", image: "😥"),
-                                    Mood(moodId: 8, name: "Stressed", image: "🤯")]
-
-    private let tagList: [Tag] = [
-                                    Tag(tagId: 0, name: "Refreshing"),
-                                    Tag(tagId: 1, name: "Morning"),
-                                    Tag(tagId: 2, name: "Concentrating"),
-                                    Tag(tagId: 3, name: "Socializing"),
-                                    Tag(tagId: 4, name: "Working out"),
-                                    Tag(tagId: 5, name: "Chilling"),
-                                    Tag(tagId: 6, name: "Lunch"),
-                                    Tag(tagId: 7, name: "Dinner")]
+    private let drinkList: [Drink] = Common.drinkList
+    private let moodList: [Mood] = Common.moodList
+    private let tagList: [Tag] = Common.tagList
     
     private var commitCount: Int = 0
     private var userProfile: UserProfile?
@@ -60,7 +29,6 @@ final class DataManager {
     // tracker 관련 데이터
     private var guideline: Guideline?
     private var recordSummary: [Summary] = []
-    
     
     private var todayCommits:[Commit] =  []
     private var weeklyCommits:[Commit] =  []

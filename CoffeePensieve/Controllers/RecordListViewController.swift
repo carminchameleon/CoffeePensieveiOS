@@ -13,17 +13,8 @@ class RecordListViewController: UIViewController {
     
     typealias SortedDailyDetailedCommit = [Date: [CommitDetail]]
     
-    var recordHeaders: [Date] = [] {
-        didSet {
-            print(recordHeaders)
-        }
-    }
-    
-    var recordSections: [[CommitDetail]] = [] {
-        didSet {
-            print(recordHeaders)
-        }
-    }
+    var recordHeaders: [Date] = []
+    var recordSections: [[CommitDetail]] = []
     
     private let loadingView: RecordLoadingView = {
         let view = RecordLoadingView()
@@ -184,9 +175,6 @@ extension RecordListViewController: UICollectionViewDataSource {
         if !recordSections.isEmpty {
             let sectionIndex = indexPath.section
             let rowIndex = indexPath.row
-            
-            print("Section Index", sectionIndex)
-            print("row Index", rowIndex)
             
             let commit = recordSections[sectionIndex][rowIndex]
             cell.commit = commit
