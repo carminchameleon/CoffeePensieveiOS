@@ -56,8 +56,9 @@ class RecordEmptyView: UIView {
         self.addSubview(imageView)
         self.addSubview(titleLabel)
         self.addSubview(addButton)
+        
        NSLayoutConstraint.activate([
-            imageView.centerYAnchor.constraint(equalTo: centerYAnchor,constant: -36),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor,constant: -80),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)

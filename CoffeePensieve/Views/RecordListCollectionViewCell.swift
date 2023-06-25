@@ -9,6 +9,19 @@ import UIKit
 
 class RecordListCollectionViewCell: UICollectionViewCell {
     
+    var commit: CommitDetail? {
+        didSet {
+            guard let commit = commit else { return }
+            timeLabel.text = Common.changeDateToString(date: commit.createdAt)
+            drinkImage.image = UIImage(named: commit.drink.image)
+            let tempMode = commit.drink.isIced ? "🧊ICED" : "🔥HOT"
+            drinkLabel.text = "\(tempMode) \(commit.drink.name.uppercased())"
+            moodLabel.text = commit.mood.image
+            tagLabel.text = commit.tagList.reduce("", { $0 + " " + "#\($1.name)" })
+            memoLabel.text = commit.memo           
+        }
+    }
+    
     let drinkImage: UIImageView = {
         let view = UIImageView()
 //        view.image = UIImage(named: "Drink_Americano")

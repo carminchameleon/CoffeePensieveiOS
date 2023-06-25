@@ -31,6 +31,7 @@ class CommitCoffeeViewController: UIViewController {
     }
 
 
+
     func readyData() {
         let drinkList = dataManager.getDrinkListFromAPI()
         drinkList.forEach { drink in

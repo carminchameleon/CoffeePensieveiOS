@@ -13,6 +13,7 @@
 		F00B4F532A2C4C7F00D94FF2 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F522A2C4C7E00D94FF2 /* AccountSettingViewController.swift */; };
 		F00B4F552A2C5FE200D94FF2 /* AccountDeleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */; };
 		F00D78062A249C5800262B95 /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00D78052A249C5800262B95 /* NickNameViewController.swift */; };
+		F010D1522A47CBCC00E4CD0E /* RecordLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F010D1512A47CBCC00E4CD0E /* RecordLoadingView.swift */; };
 		F0129FB82A124873008BF649 /* TrackerLoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0129FB72A124872008BF649 /* TrackerLoadingTableViewCell.swift */; };
 		F01413672A1098F400A0DB99 /* GuidelineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01413662A1098F400A0DB99 /* GuidelineModel.swift */; };
 		F014136D2A11023200A0DB99 /* TrackerGuidelineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F014136C2A11023200A0DB99 /* TrackerGuidelineTableViewCell.swift */; };
@@ -121,6 +122,7 @@
 		F00B4F522A2C4C7E00D94FF2 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeleteViewController.swift; sourceTree = "<group>"; };
 		F00D78052A249C5800262B95 /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
+		F010D1512A47CBCC00E4CD0E /* RecordLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordLoadingView.swift; sourceTree = "<group>"; };
 		F0129FB72A124872008BF649 /* TrackerLoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerLoadingTableViewCell.swift; sourceTree = "<group>"; };
 		F01413662A1098F400A0DB99 /* GuidelineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidelineModel.swift; sourceTree = "<group>"; };
 		F014136C2A11023200A0DB99 /* TrackerGuidelineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerGuidelineTableViewCell.swift; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				F00B4F4E2A29F31D00D94FF2 /* RecordEmptyView.swift */,
 				F0E660B72A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift */,
 				F0FD3A782A32ADE10023B643 /* MonthlyRecordView.swift */,
+				F010D1512A47CBCC00E4CD0E /* RecordLoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				F0D645FD2A1CE56500BEB4C8 /* ProfileViewController.swift in Sources */,
 				F0A1A13E29E15FBB000F6277 /* OnboardingViewController.swift in Sources */,
 				F0E9AB9F2A1B83E200591161 /* RankingModel.swift in Sources */,
+				F010D1522A47CBCC00E4CD0E /* RecordLoadingView.swift in Sources */,
 				F00B4F512A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift in Sources */,
 				F01413672A1098F400A0DB99 /* GuidelineModel.swift in Sources */,
 				F0E660B82A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift in Sources */,
