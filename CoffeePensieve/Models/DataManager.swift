@@ -255,16 +255,18 @@ final class DataManager {
     func getTrackerRecord(completion: @escaping(Result<Void,NetworkError>)->Void) {
         Task {
             do {
+                let all = try await trackerManager.fetchNumberOfAllCommits()
                 let weekly = try await trackerManager.fetchNumberOfWeeklyCommits()
                 let monthly = try await trackerManager.fetchNumberOfMonthlyCommits()
                 let yearly = try await trackerManager.fetchNumberOfYearlyCommits()
 
                 let data = [
-                    Summary(title: "All your coffee memories", number: commitCount),
+                    Summary(title: "All your coffee memories", number: all),
                     Summary(title: "This Week", number: weekly),
                     Summary(title: "This Month", number: monthly),
                     Summary(title: "This Year", number: yearly),
                 ]
+                
                 self.recordSummary = data
                 completion(.success(()))
             } catch {
@@ -277,8 +279,6 @@ final class DataManager {
         return self.recordSummary
     }
 
-    
-    
   // MARK: - 전체 commit 내용 가져오기 (Tracker - List에서)
     // allCommit에 저장
     func fetchAllCommits(completion: @escaping(Result<Void,NetworkError>) -> Void) {

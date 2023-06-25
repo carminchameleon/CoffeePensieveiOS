@@ -89,6 +89,29 @@ final class TrackerNetworkManager {
             }
     }
     
+    // 지금까지 전체 Commit 횟수 가져오기
+    func fetchNumberOfAllCommits() async throws -> Int {
+        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+            throw NetworkError.uidError
+        }
+        
+        let userId = uid as! String
+        let query = db.collection(Constant.FStore.commitCollection).whereField("uid", isEqualTo: userId)
+        let countQuery = query.count
+        
+        
+        do {
+            let snapshot = try await countQuery.getAggregation(source: .server)
+            let count = Int(truncating: snapshot.count)
+            return count
+        } catch {
+            throw NetworkError.databaseError
+        }
+        
+    }
+    
+
+    
     
     // MARK: - fetch Number of weekly Commits
     func fetchNumberOfWeeklyCommits() async throws -> Int {
