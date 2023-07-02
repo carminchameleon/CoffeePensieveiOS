@@ -13,7 +13,7 @@ class FirstProfileCompleteView: UIView {
     
     private lazy var mainTitleLabel: UILabel = {
         var label = UILabel()
-        label.text = "Congratulations! \n your own coffee pensieve \n has been created."
+        label.text = "Congratulations! \n your coffee pensieve \n has been created."
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
         label.numberOfLines = 3

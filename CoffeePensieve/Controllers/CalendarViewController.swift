@@ -48,41 +48,8 @@ final class CalendarViewController: UIViewController {
         if !isInitSetting {
             updateCurrentCoffeeCommit()
         }
-
     }
     
-    func reFetchMonthly() {
-        let today = Date()
-        let calendar = Calendar.current
-        
-        let currentComponents = calendar.dateComponents([.year, .month], from: today)
-        visibleDate = currentComponents
-        // 이번 달의 시작 날짜 계산
-        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: today))!
-        
-        dataManager.getMonthlyDurationCommit(start: startOfMonth, finish: today) {[weak self] result in
-            guard let strongSelf = self else { return }
-            switch result {
-            case .success:
-                let data = strongSelf.dataManager.getMonthlySortedCommits()!
-                
-                let countingData = strongSelf.countDailyCommit(data)
-                strongSelf.monthlyCommitCounting = countingData
-                
-                let updateList = strongSelf.makeFirstMonthDateComponentsList(countingData)
-                print(updateList)
-                //                DispatchQueue.main.async {
-//                    strongSelf.monthlyRecordView.calendar.reloadDecorations(forDateComponents: updateList, animated: true)
-//                }
-//                strongSelf.isInitSetting = true
-            case .failure:
-                let failAlert = UIAlertController(title: "Sorry", message: "Could not load your monthly coffee memories. Please try again later.", preferredStyle: .alert)
-                let okayAction = UIAlertAction(title: "Okay", style: .default)
-                failAlert.addAction(okayAction)
-                strongSelf.present(failAlert, animated: true, completion: nil)
-            }
-        }
-    }
 
     func setNavigation() {
         navigationItem.title = "Monthly"
@@ -149,7 +116,6 @@ final class CalendarViewController: UIViewController {
             components.year = year
             updateComponentsList.append(components)
         }
-        print("첫번째 달 업데이트 리스트",updateComponentsList)
         return updateComponentsList
     }
     

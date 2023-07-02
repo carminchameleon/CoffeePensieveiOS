@@ -156,7 +156,7 @@ final class SignUpView: UIView {
     
     
     lazy var policyLabel: UILabel = {
-        let text = "acknowlege that you have read our Privacy Policy."
+        let text = "acknowledge that you have read our Privacy Policy."
         let privacyRange =  NSRange(location: 34, length: 14)
         
         // NSAttributedString 생성

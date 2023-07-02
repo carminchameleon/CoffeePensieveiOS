@@ -38,7 +38,7 @@ class AuthStartPointView: UIView {
     // MARK: - 회원가입 안내 타이틀
     lazy var emailButton: UIButton = {
         var filled = UIButton.Configuration.filled()
-        filled.title = "Contiune with Email "
+        filled.title = "Continue with Email "
         filled.buttonSize = .medium
         filled.image = UIImage(systemName: "envelope")
         filled.imagePlacement = .leading
@@ -74,7 +74,7 @@ class AuthStartPointView: UIView {
     // MARK: - 회원가입 안내 타이틀
     lazy var appleButton: UIButton = {
         var filled = UIButton.Configuration.filled()
-        filled.title = "Contiune with Apple "
+        filled.title = "Continue with Apple "
         filled.buttonSize = .medium
         filled.image = UIImage(systemName: "apple.logo")
         filled.imagePlacement = .leading
@@ -120,7 +120,7 @@ class AuthStartPointView: UIView {
     
     
     lazy var policyLabel: UILabel = {
-        let text = "acknowlege that you have read our Privacy Policy."
+        let text = "acknowledge that you have read our Privacy Policy."
         let privacyRange =  NSRange(location: 34, length: 14)
         
         // NSAttributedString 생성

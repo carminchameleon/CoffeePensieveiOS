@@ -153,7 +153,7 @@ class SignInView: UIView {
     
     // MARK: - 규정 안내 타이틀 UITextView로 바꿔야함
     private lazy var policyLabel: UILabel = {
-        let text = "acknowlege that you have read our Privacy Policy."
+        let text = "acknowledge that you have read our Privacy Policy."
         let privacyRange =  NSRange(location: 34, length: 14)
         
         // NSAttributedString 생성

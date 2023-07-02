@@ -39,7 +39,7 @@ class ForgotPasswordViewController: UIViewController {
 
             switch result {
             case .success(let successMessage):
-                let successAlert = UIAlertController(title: successMessage, message: "You will recieve a password reset email shortly", preferredStyle: .alert)
+                let successAlert = UIAlertController(title: successMessage, message: "You will receive a password reset email shortly", preferredStyle: .alert)
                 let okayAction = UIAlertAction(title: "Okay", style: .default) { action in
                     strongSelf.dismiss(animated: true)
                 }
