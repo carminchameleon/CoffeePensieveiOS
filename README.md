@@ -15,8 +15,7 @@ Track your coffee moments and capture your mood for a personalized journey of se
   </a>
 </p>
 
-# ✏️ Description
-
+## Description
 > Coffee Pensieve enhances your coffee experience by allowing you to track your coffee moments and capture your mood. It goes beyond a simple coffee tracker, empowering you to explore the fascinating connection between coffee and your emotional state. With every sip, Coffee Pensieve creates a personalized journey of self-discovery. <br>
 > 
 [![image](https://velog.velcdn.com/images/carminchameleon/post/7eb8eda1-4a45-4393-ba59-5d9cb7c94316/image.png)](https://youtu.be/UBnTo2mxjRQ)
@@ -24,23 +23,19 @@ Track your coffee moments and capture your mood for a personalized journey of se
 
 
 ## Table of Contents
-* [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
-* [Setup](#setup)
-* [Usage](#usage)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
-* [Acknowledgements](#acknowledgements)
 * [Contact](#contact)
 <!-- * [License](#license) -->
 
 
-## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
+<!--## General Information -->
+<!-- - Provide general information about your project here. -->
+<!--- What problem does it (intend to) solve?-->
+<!--- What is the purpose of your project?-->
+<!--- Why did you undertake it?-->
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 
@@ -57,38 +52,20 @@ Track your coffee moments and capture your mood for a personalized journey of se
 - Reminders: Get reminders for user's preferred coffee time.
 - Records: Check all past coffee memories and record summaries.
 
-## Usage
-How does one go about using it?
-Provide various use cases and code examples here.
-
-`write-your-code-here`
-
-
 ## Project Status
-Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are no longer working on it, provide reasons why.
 
+This project has been completed and launched on the app store.
+Released June 2023
 
 ## Room for Improvement
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
-
-Room for improvement:
-- Improvement to be done 1
-- Improvement to be done 2
 
 To do:
-- Feature to be added 1
-- Feature to be added 2
-
-
-## Acknowledgements
-Give credit here.
-- This project was inspired by...
-- This project was based on [this tutorial](https://www.example.com).
-- Many thanks to...
-
+- Monthly, weekly memory View
+- Calendar Detail View
+- Charts
 
 ## Contact
-Created by [@flynerdpl](https://www.flynerd.pl/) - feel free to contact me!
+Created by [@Eunji Carmen Hwang](https://www.coffeepensieve.com/help) - feel free to contact me!
 
 
 <!-- Optional -->
