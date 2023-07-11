@@ -40,12 +40,11 @@ Track your coffee moments and capture your mood for a personalized journey of se
 
 
 ## Technologies Used
-- iOS 16.0+
+- iOS 16.0+ 
 - Xcode 14.3
-- Firebase, Cloud Firestore, UIKit
+- Firebase, Cloud Firestore, UIKit(100% programmatically)
 
 ## Features
-
 - Coffee Commit : Create coffee memories with details like drink, feelings, tags, and memos.
 - Calendar integration: View monthly coffee intakes at a glance
 - Caffeine Guidline: Set and monitor user's daily caffeine guideline.
@@ -53,7 +52,6 @@ Track your coffee moments and capture your mood for a personalized journey of se
 - Records: Check all past coffee memories and record summaries.
 
 ## Project Status
-
 This project has been completed and launched on the app store.
 Released June 2023
 
