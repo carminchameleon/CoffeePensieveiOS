@@ -25,18 +25,11 @@ Track your coffee moments and capture your mood for a personalized journey of se
 ## Table of Contents
 * [Technologies Used](#technologies-used)
 * [Features](#features)
+* [General Information](#general-information)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
 * [Contact](#contact)
 <!-- * [License](#license) -->
-
-
-<!--## General Information -->
-<!-- - Provide general information about your project here. -->
-<!--- What problem does it (intend to) solve?-->
-<!--- What is the purpose of your project?-->
-<!--- Why did you undertake it?-->
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 
 ## Technologies Used
@@ -51,6 +44,21 @@ Track your coffee moments and capture your mood for a personalized journey of se
 - Reminders: Get reminders for user's preferred coffee time.
 - Records: Check all past coffee memories and record summaries.
 
+
+## General Information
+### Prototyping
+- Map  
+![image](https://velog.velcdn.com/images/carminchameleon/post/f0a76185-c92e-4cbd-a43d-33c35bd2f375/image.png)
+- UserFlow
+![image](https://velog.velcdn.com/images/carminchameleon/post/5b334fcb-a153-4324-985e-25f8a8d15d47/image.png)
+
+
+<!-- - Provide general information about your project here. -->
+<!--- What problem does it (intend to) solve?-->
+<!--- What is the purpose of your project?-->
+<!--- Why did you undertake it?-->
+<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
+
 ## Project Status
 This project has been completed and launched on the app store.
 Released June 2023
@@ -63,7 +71,8 @@ To do:
 - Charts
 
 ## Contact
-Created by [@Eunji Carmen Hwang](https://www.coffeepensieve.com/help) - feel free to contact me!
+- You can check more information 👋🏻 https://www.coffeepensieve.com
+- Created by [@Eunji Carmen Hwang](https://www.coffeepensieve.com/help) - feel free to contact me!
 
 
 <!-- Optional -->
