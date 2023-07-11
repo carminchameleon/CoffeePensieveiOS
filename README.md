@@ -16,7 +16,8 @@ Track your coffee moments and capture your mood for a personalized journey of se
 </p>
 
 ## Description
-> Coffee Pensieve enhances your coffee experience by allowing you to track your coffee moments and capture your mood. It goes beyond a simple coffee tracker, empowering you to explore the fascinating connection between coffee and your emotional state. With every sip, Coffee Pensieve creates a personalized journey of self-discovery. <br>
+> Coffee Pensieve enhances your coffee experience by allowing you to track your coffee moments and capture your mood. It goes beyond a simple coffee tracker, empowering you to explore the fascinating connection between coffee and your emotional state. With every sip, Coffee Pensieve creates a personalized journey of self-discovery.
+>  <br>
 > 
 [![image](https://velog.velcdn.com/images/carminchameleon/post/7eb8eda1-4a45-4393-ba59-5d9cb7c94316/image.png)](https://youtu.be/UBnTo2mxjRQ)
 > Live demo (Click here👆🏻)
@@ -39,7 +40,7 @@ Track your coffee moments and capture your mood for a personalized journey of se
 
 ## Features
 - Coffee Commit : Create coffee memories with details like drink, feelings, tags, and memos.
-- Calendar integration: View monthly coffee intakes at a glance
+- Calendar integration: View monthly coffee intakes at a glance.
 - Caffeine Guidline: Set and monitor user's daily caffeine guideline.
 - Reminders: Get reminders for user's preferred coffee time.
 - Records: Check all past coffee memories and record summaries.
@@ -60,8 +61,8 @@ Track your coffee moments and capture your mood for a personalized journey of se
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 ## Project Status
-This project has been completed and launched on the app store.
-Released June 2023
+- This project has been completed and launched on the app store. 
+- Released June 2023
 
 ## Room for Improvement
 
