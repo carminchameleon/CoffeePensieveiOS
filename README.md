@@ -52,7 +52,8 @@ Track your coffee moments and capture your mood for a personalized journey of se
 ![image](https://velog.velcdn.com/images/carminchameleon/post/f0a76185-c92e-4cbd-a43d-33c35bd2f375/image.png)
 - UserFlow
 ![image](https://velog.velcdn.com/images/carminchameleon/post/5b334fcb-a153-4324-985e-25f8a8d15d47/image.png)
-
+- Prototyping
+![image](https://velog.velcdn.com/images/carminchameleon/post/e5ef5c1a-3ac7-48b8-8700-c1c472f673f0/image.png)
 
 <!-- - Provide general information about your project here. -->
 <!--- What problem does it (intend to) solve?-->
