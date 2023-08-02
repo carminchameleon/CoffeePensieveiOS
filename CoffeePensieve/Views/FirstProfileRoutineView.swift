@@ -98,29 +98,29 @@ class FirstProfileRoutineView: UIView {
         label.textColor = .primaryColor400
         return label
     }()
-    
-    //MARK: - 이메일 입력 필드
-    lazy var cupTextField: UITextField = {
-        var tf = UITextField()
-        tf.frame.size.height = 36
-        tf.font = UIFont.systemFont(ofSize: 18)
-        tf.backgroundColor = .clear
-        tf.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        tf.keyboardType = .numberPad
-        tf.autocapitalizationType = .none
-        tf.autocorrectionType = .no
-        tf.spellCheckingType = .no
-        tf.textAlignment = .center
-        tf.addSubview(cupUnderline)
-
-        return tf
-    }()
-    
-    lazy var cupUnderline: UIView = {
-       let view = UIView()
-        view.backgroundColor = .primaryColor400
-        return view
-    }()
+//
+//    //MARK: - 컵 입력
+//    lazy var cupTextField: UITextField = {
+//        var tf = UITextField()
+//        tf.frame.size.height = 36
+//        tf.font = UIFont.systemFont(ofSize: 18)
+//        tf.backgroundColor = .clear
+//        tf.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+//        tf.keyboardType = .numberPad
+//        tf.autocapitalizationType = .none
+//        tf.autocorrectionType = .no
+//        tf.spellCheckingType = .no
+//        tf.textAlignment = .center
+//        tf.addSubview(cupUnderline)
+//
+//        return tf
+//    }()
+//
+//    lazy var cupUnderline: UIView = {
+//       let view = UIView()
+//        view.backgroundColor = .primaryColor400
+//        return view
+//    }()
     
     lazy var cupCountLabel: UILabel = {
         let label = UILabel()
@@ -204,7 +204,7 @@ class FirstProfileRoutineView: UIView {
     // MARK: - 메인 레이블 - 루틴
     let routineLabel: UILabel = {
         let label = UILabel()
-        label.text = "Daily routine"
+        label.text = "Daily Routine"
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.numberOfLines = 1
         label.textAlignment = .left
@@ -353,13 +353,13 @@ class FirstProfileRoutineView: UIView {
         
         
         
-        cupUnderline.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            cupUnderline.heightAnchor.constraint(equalToConstant: 1),
-            cupUnderline.widthAnchor.constraint(equalTo: cupTextField.widthAnchor, multiplier: 1 ),
-            cupUnderline.leadingAnchor.constraint(equalTo: cupTextField.leadingAnchor),
-            cupUnderline.bottomAnchor.constraint(equalTo: cupTextField.bottomAnchor)
-        ])
+//        cupUnderline.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            cupUnderline.heightAnchor.constraint(equalToConstant: 1),
+//            cupUnderline.widthAnchor.constraint(equalTo: cupTextField.widthAnchor, multiplier: 1 ),
+//            cupUnderline.leadingAnchor.constraint(equalTo: cupTextField.leadingAnchor),
+//            cupUnderline.bottomAnchor.constraint(equalTo: cupTextField.bottomAnchor)
+//        ])
         
         
         
@@ -425,7 +425,6 @@ extension UIImage {
 }
 
 extension FirstProfileRoutineView: UITextFieldDelegate {
-    // 엔터 눌렀을 대 넘어가는 것
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         nameTextField.resignFirstResponder()
         return true

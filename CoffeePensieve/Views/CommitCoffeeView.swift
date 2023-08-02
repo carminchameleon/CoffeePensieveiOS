@@ -80,8 +80,19 @@ class CommitCoffeeView: UIView {
     }
     
     func makeUI() {
+
         self.addSubview(progressBar)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(questionLabel)
+        questionLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(selectedDrink)
+        selectedDrink.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        self.addSubview(tempController)
+        tempController.translatesAutoresizingMaskIntoConstraints = false
+        
         
         NSLayoutConstraint.activate([
             progressBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
@@ -90,10 +101,6 @@ class CommitCoffeeView: UIView {
             progressBar.heightAnchor.constraint(equalToConstant: 10)
         ])
     
- 
-        self.addSubview(questionLabel)
-        questionLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             questionLabel.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 24),
             questionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
@@ -101,19 +108,13 @@ class CommitCoffeeView: UIView {
             questionLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
         
-        self.addSubview(selectedDrink)
-        selectedDrink.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             selectedDrink.topAnchor.constraint(equalTo: questionLabel.bottomAnchor, constant: 20),
             selectedDrink.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             selectedDrink.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             selectedDrink.heightAnchor.constraint(equalToConstant: 20)
         ])
-        
-    
-        self.addSubview(tempController)
-        tempController.translatesAutoresizingMaskIntoConstraints = false
+
         
         NSLayoutConstraint.activate([
             tempController.topAnchor.constraint(equalTo: selectedDrink.bottomAnchor, constant: 24),
