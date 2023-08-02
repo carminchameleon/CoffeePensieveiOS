@@ -199,39 +199,39 @@ extension CalendarViewController: UICalendarViewDelegate {
     }
 
 
-//    // MARK: - after ios 16.2
-//    func calendarView(_ calendarView: UICalendarView, didChangeVisibleDateComponentsFrom previousDateComponents: DateComponents){
-//        // 첫번째 날짜 얻기
-//        let firstDayOfMonth = calendarView.visibleDateComponents.date!
-//        // 마지막 날짜 얻기 (해당 달 + 1 , 다음달의 0번째 날 : 그 전 달의 마지막 날)
-//        let month = calendarView.visibleDateComponents.month!
-//        let year = calendarView.visibleDateComponents.year!
-//
-//        var components = DateComponents()
-//        components.year = year
-//        components.month = month + 1
-//        components.day = 0
-//
-//        let calendar = Calendar.current
-//        let lastDayOfMonth = calendar.date(from: components)!
-//
-//        dataManager.getMonthlyDurationCommit(start: firstDayOfMonth, finish: lastDayOfMonth) { result in
-//            switch result {
-//            case .success:
-//
-//                let data = self.dataManager.getMonthlySortedCommits()!
-//                let countingData = self.countDailyCommit(data)
-//                self.monthlyCommitCounting = countingData
-//                let dateList = self.makeDateComponentsList(startDate: firstDayOfMonth, endDate: lastDayOfMonth)
-//
-//                DispatchQueue.main.async {
-//                    calendarView.reloadDecorations(forDateComponents: dateList, animated: true)
-//                }
-//            case .failure:
-//                print("error 발생")
-//            }
-//        }
-//    }
+    // MARK: - after ios 16.2
+    func calendarView(_ calendarView: UICalendarView, didChangeVisibleDateComponentsFrom previousDateComponents: DateComponents){
+        // 첫번째 날짜 얻기
+        let firstDayOfMonth = calendarView.visibleDateComponents.date!
+        // 마지막 날짜 얻기 (해당 달 + 1 , 다음달의 0번째 날 : 그 전 달의 마지막 날)
+        let month = calendarView.visibleDateComponents.month!
+        let year = calendarView.visibleDateComponents.year!
+
+        var components = DateComponents()
+        components.year = year
+        components.month = month + 1
+        components.day = 0
+
+        let calendar = Calendar.current
+        let lastDayOfMonth = calendar.date(from: components)!
+
+        dataManager.getMonthlyDurationCommit(start: firstDayOfMonth, finish: lastDayOfMonth) { result in
+            switch result {
+            case .success:
+
+                let data = self.dataManager.getMonthlySortedCommits()!
+                let countingData = self.countDailyCommit(data)
+                self.monthlyCommitCounting = countingData
+                let dateList = self.makeDateComponentsList(startDate: firstDayOfMonth, endDate: lastDayOfMonth)
+
+                DispatchQueue.main.async {
+                    calendarView.reloadDecorations(forDateComponents: dateList, animated: true)
+                }
+            case .failure:
+                print("error 발생")
+            }
+        }
+    }
 
     func makeDateComponentsList(startDate: Date, endDate:Date) -> [DateComponents] {
         let calendar = Calendar.current
