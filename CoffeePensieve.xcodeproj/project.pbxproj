@@ -28,6 +28,8 @@
 		F03E39B02A13AB720042B491 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03E39AF2A13AB720042B491 /* CalendarViewController.swift */; };
 		F03E39B22A14FC790042B491 /* DocketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03E39B12A14FC790042B491 /* DocketViewController.swift */; };
 		F03E39B42A14FF350042B491 /* DocketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03E39B32A14FF350042B491 /* DocketView.swift */; };
+		F04425572A7A51080004334B /* Symbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04425562A7A51080004334B /* Symbols.swift */; };
+		F04425592A7A55200004334B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04425582A7A55200004334B /* Theme.swift */; };
 		F05011632A17666000AD0A49 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05011622A17666000AD0A49 /* CalendarCell.swift */; };
 		F05011652A179D2600AD0A49 /* RecordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05011642A179D2600AD0A49 /* RecordListViewController.swift */; };
 		F05011672A17AB5000AD0A49 /* RecordListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05011662A17AB5000AD0A49 /* RecordListCollectionViewCell.swift */; };
@@ -68,7 +70,7 @@
 		F0A1A13E29E15FBB000F6277 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1A13D29E15FBB000F6277 /* OnboardingViewController.swift */; };
 		F0AA67E229ED388500B135CE /* FirstProfileCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA67E129ED388500B135CE /* FirstProfileCompleteView.swift */; };
 		F0AA67E429ED38A000B135CE /* FirstProfileCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA67E329ED38A000B135CE /* FirstProfileCompleteViewController.swift */; };
-		F0B15C3129E2892900E4F9BC /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B15C3029E2892900E4F9BC /* colors.swift */; };
+		F0B15C3129E2892900E4F9BC /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B15C3029E2892900E4F9BC /* Colors.swift */; };
 		F0CC3FDE29DEA47D00BD5B51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */; };
 		F0CC3FE029DEA47D00BD5B51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */; };
 		F0CC3FE229DEA47D00BD5B51 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FE129DEA47D00BD5B51 /* NetworkViewController.swift */; };
@@ -137,6 +139,8 @@
 		F03E39AF2A13AB720042B491 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		F03E39B12A14FC790042B491 /* DocketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocketViewController.swift; sourceTree = "<group>"; };
 		F03E39B32A14FF350042B491 /* DocketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocketView.swift; sourceTree = "<group>"; };
+		F04425562A7A51080004334B /* Symbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbols.swift; sourceTree = "<group>"; };
+		F04425582A7A55200004334B /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		F05011622A17666000AD0A49 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		F05011642A179D2600AD0A49 /* RecordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListViewController.swift; sourceTree = "<group>"; };
 		F05011662A17AB5000AD0A49 /* RecordListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -166,7 +170,7 @@
 		F0A1A13D29E15FBB000F6277 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F0AA67E129ED388500B135CE /* FirstProfileCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileCompleteView.swift; sourceTree = "<group>"; };
 		F0AA67E329ED38A000B135CE /* FirstProfileCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileCompleteViewController.swift; sourceTree = "<group>"; };
-		F0B15C3029E2892900E4F9BC /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
+		F0B15C3029E2892900E4F9BC /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		F0CC3FDA29DEA47D00BD5B51 /* Coffee Pensieve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coffee Pensieve.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -239,6 +243,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F04425552A7A50F60004334B /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				F04425562A7A51080004334B /* Symbols.swift */,
+				F04425582A7A55200004334B /* Theme.swift */,
+				F0B15C3029E2892900E4F9BC /* Colors.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		F09E02DF29FCE3800008C259 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +373,7 @@
 		F0CC3FD129DEA47C00BD5B51 = {
 			isa = PBXGroup;
 			children = (
+				F04425552A7A50F60004334B /* Resource */,
 				F09E02EA29FE41140008C259 /* CoffeePensieve.entitlements */,
 				F09E02C629FAA5D10008C259 /* GoogleService-Info.plist */,
 				F09E02C229FA955D0008C259 /* AuthData+CoreDataClass.swift */,
@@ -393,7 +408,6 @@
 				F0CC3FEB29DEA48000BD5B51 /* LaunchScreen.storyboard */,
 				F0CC3FEE29DEA48000BD5B51 /* Info.plist */,
 				F0CC3FE629DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld */,
-				F0B15C3029E2892900E4F9BC /* colors.swift */,
 			);
 			path = CoffeePensieve;
 			sourceTree = "<group>";
@@ -565,6 +579,7 @@
 				F0CC3FE829DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld in Sources */,
 				F0F8A89629E9604D00838F35 /* SignInView.swift in Sources */,
 				F0F8A89A29E9951800838F35 /* ForgotPasswordViewController.swift in Sources */,
+				F04425572A7A51080004334B /* Symbols.swift in Sources */,
 				F02827732A075FF300213B94 /* CommitResultViewController.swift in Sources */,
 				F03E39B02A13AB720042B491 /* CalendarViewController.swift in Sources */,
 				F00B4F552A2C5FE200D94FF2 /* AccountDeleteViewController.swift in Sources */,
@@ -588,9 +603,10 @@
 				F00D78062A249C5800262B95 /* NickNameViewController.swift in Sources */,
 				F028276F2A06291200213B94 /* DataManager.swift in Sources */,
 				F09F60F129FF8B32004F2462 /* CommitMainView.swift in Sources */,
+				F04425592A7A55200004334B /* Theme.swift in Sources */,
 				F0CC3FE029DEA47D00BD5B51 /* SceneDelegate.swift in Sources */,
 				F0D6A1D429EE1B5700D8C9C8 /* WelcomeViewController.swift in Sources */,
-				F0B15C3129E2892900E4F9BC /* colors.swift in Sources */,
+				F0B15C3129E2892900E4F9BC /* Colors.swift in Sources */,
 				F0DF062F2A3AF608001016DF /* ViewController.swift in Sources */,
 				F0A1A13C29E15D86000F6277 /* SignUpViewController.swift in Sources */,
 				F0FD3A792A32ADE10023B643 /* MonthlyRecordView.swift in Sources */,
