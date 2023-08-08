@@ -18,7 +18,7 @@ class ForgotPasswordView: UIView {
     // MARK: - 뒤로가기 버튼
     lazy var backButton: UIButton = {
         let button = UIButton(type:.custom)
-        let iconImage = UIImage(systemName: "chevron.backward.circle")
+        let iconImage = Symbols.back
         let resizedImage = iconImage?.resized(toWidth: 36) // 아이콘 사이즈 설정
         button.setImage(resizedImage, for: .normal)
         button.setImageTintColor(.primaryColor500) // 아이콘 색 설정

@@ -21,7 +21,7 @@ class CupModalViewController: UIViewController {
     // MARK: - 취소 버튼
     let cancelButton: UIButton = {
         let button = UIButton(type:.custom)
-        let iconImage = UIImage(systemName: "xmark")
+        let iconImage = Symbols.cancel
         let resizedImage = iconImage?.resized(toWidth: 20) // 아이콘 사이즈 설정
         button.setImage(resizedImage, for: .normal)
         button.setImageTintColor(.black) // 아이콘 색 설정

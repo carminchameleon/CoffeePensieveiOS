@@ -17,7 +17,6 @@ final class AppController {
     }
     
     private var window: UIWindow?
-    
     private var rootViewController: UIViewController? {
         didSet {
             window?.rootViewController = rootViewController
@@ -51,7 +50,7 @@ final class AppController {
         }
     }
 
-    let tabBarVC: UITabBarController = {
+    private let tabBarVC: UITabBarController = {
         let tabBarVC = UITabBarController()
         tabBarVC.tabBar.layer.borderWidth = 0.50
         tabBarVC.tabBar.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
@@ -80,9 +79,9 @@ final class AppController {
 
         // 탭바 이미지 설정 (이미지는 애플이 제공하는 것으로 사용)
         guard let items = tabBarVC.tabBar.items else { return }
-        items[0].image = UIImage(systemName: "cup.and.saucer.fill")
-        items[1].image = UIImage(systemName: "chart.bar.fill")
-        items[2].image = UIImage(systemName: "gear.circle")
+        items[0].image = Symbols.coffee
+        items[1].image = Symbols.tracker
+        items[2].image = Symbols.setting
                 
         // 기본루트뷰를 탭바컨트롤러로 설정⭐️⭐️⭐️
         tabBarVC.selectedIndex = 0

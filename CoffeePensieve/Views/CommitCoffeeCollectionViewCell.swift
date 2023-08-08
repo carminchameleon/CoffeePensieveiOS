@@ -31,7 +31,7 @@ class CommitCoffeeCollectionViewCell: UICollectionViewCell {
     }()
     
     lazy var checkIcon: UIImageView = {
-        let icon = UIImage(systemName: "checkmark")
+        let icon = Symbols.check
         let imageView = UIImageView(image: icon!)
         imageView.tintColor = .white
         imageView.layer.zPosition = 20

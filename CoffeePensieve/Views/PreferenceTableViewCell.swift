@@ -22,7 +22,7 @@ class PreferenceTableViewCell: UITableViewCell {
     var handleNameField: (UITextField) -> Void = {(sender) in }
     
     let iconView: UIImageView = {
-        let image = UIImage(systemName: "face.smiling")
+        let image = Symbols.smile
         let imageView = UIImageView(image: image)
         imageView.tintColor = .primaryColor500
         return imageView

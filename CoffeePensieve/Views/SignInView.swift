@@ -14,7 +14,7 @@ class SignInView: UIView {
     // MARK: - 뒤로가기 버튼
     lazy var backButton: UIButton = {
         let button = UIButton(type:.custom)
-        let iconImage = UIImage(systemName: "chevron.backward.circle")
+        let iconImage = Symbols.back
         let resizedImage = iconImage?.resized(toWidth: 36) // 아이콘 사이즈 설정
         button.setImage(resizedImage, for: .normal)
         button.setImageTintColor(.primaryColor500) // 아이콘 색 설정
@@ -104,7 +104,7 @@ class SignInView: UIView {
         button.setAttributedTitle(attributedString, for: .normal)
         return button
     }()
-    
+
     
     // MARK: - 로그인
     let signInButton: UIButton = {
@@ -154,7 +154,7 @@ class SignInView: UIView {
     // MARK: - 규정 안내 타이틀 UITextView로 바꿔야함
     private lazy var policyLabel: UILabel = {
         let text = "acknowledge that you have read our Privacy Policy."
-        let privacyRange =  NSRange(location: 34, length: 14)
+        let privacyRange =  NSRange(location: 34, length: 15)
         
         // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)

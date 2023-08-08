@@ -40,7 +40,7 @@ class AuthStartPointView: UIView {
         var filled = UIButton.Configuration.filled()
         filled.title = "Continue with Email "
         filled.buttonSize = .medium
-        filled.image = UIImage(systemName: "envelope")
+        filled.image = Symbols.envelope
         filled.imagePlacement = .leading
         filled.imagePadding = 3
         filled.baseBackgroundColor = .primaryColor500
@@ -61,7 +61,7 @@ class AuthStartPointView: UIView {
         let image = UIImage(named: "GoogleIcon")?.resized(toWidth: 20)
         button.setImage(image, for: .normal)
         button.setTitle("  Continue with Google", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         button.backgroundColor = .primaryColor500
         button.setTitleColor(.white, for: .normal)
         button.tintColor = .white
@@ -76,7 +76,7 @@ class AuthStartPointView: UIView {
         var filled = UIButton.Configuration.filled()
         filled.title = "Continue with Apple "
         filled.buttonSize = .medium
-        filled.image = UIImage(systemName: "apple.logo")
+        filled.image = Symbols.apple
         filled.imagePlacement = .leading
         filled.imagePadding = 3
         filled.baseBackgroundColor = .primaryColor500
@@ -121,7 +121,7 @@ class AuthStartPointView: UIView {
     
     lazy var policyLabel: UILabel = {
         let text = "acknowledge that you have read our Privacy Policy."
-        let privacyRange =  NSRange(location: 34, length: 14)
+        let privacyRange =  NSRange(location: 34, length: 15)
         
         // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)

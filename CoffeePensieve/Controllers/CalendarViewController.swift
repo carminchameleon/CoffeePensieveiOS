@@ -55,7 +55,7 @@ final class CalendarViewController: UIViewController {
         navigationItem.title = "Monthly"
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.tintColor = .primaryColor500
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: #selector(listButtonTapped))
+        let rightBarButtonItem = UIBarButtonItem(image: Symbols.bulletList, style: .plain, target: self, action: #selector(listButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     

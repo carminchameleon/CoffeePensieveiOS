@@ -10,7 +10,7 @@ import UIKit
 class ProfileTableViewCell: UITableViewCell {
 
     let iconView: UIImageView = {
-        let image = UIImage(systemName: "questionmark.circle")
+        let image = Symbols.question
         let imageView = UIImageView(image: image)
         imageView.tintColor = .primaryColor500
         return imageView

@@ -301,7 +301,7 @@ class FirstProfileRoutineView: UIView {
     // MARK: - 저장
     lazy var submitButton: UIButton = {
         let button = UIButton(type:.custom)
-        let iconImage = UIImage(systemName: "chevron.forward.circle")
+        let iconImage = Symbols.forward
         let resizedImage = iconImage?.resized(toWidth: 52) // 아이콘 사이즈 설정
         button.setImage(resizedImage, for: .normal)
         button.setImageTintColor(.primaryColor200) // 아이콘 색 설정

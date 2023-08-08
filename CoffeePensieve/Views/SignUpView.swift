@@ -47,7 +47,7 @@ final class SignUpView: UIView {
     // MARK: - 뒤로가기 버튼
     lazy var backButton: UIButton = {
         let button = UIButton(type:.custom)
-        let iconImage = UIImage(systemName: "chevron.backward.circle")
+        let iconImage = Symbols.back
         let resizedImage = iconImage?.resized(toWidth: 36) // 아이콘 사이즈 설정
         button.setImage(resizedImage, for: .normal)
         button.setImageTintColor(.primaryColor500) // 아이콘 색 설정
@@ -70,6 +70,7 @@ final class SignUpView: UIView {
         let view = UIView()
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 6
+        
         view.layer.borderColor = #colorLiteral(red: 0.6862745098, green: 0.7294117647, blue: 0.7921568627, alpha: 1)
         view.layer.borderWidth = 1
         view.backgroundColor = .clear
@@ -157,7 +158,7 @@ final class SignUpView: UIView {
     
     lazy var policyLabel: UILabel = {
         let text = "acknowledge that you have read our Privacy Policy."
-        let privacyRange =  NSRange(location: 34, length: 14)
+        let privacyRange =  NSRange(location: 34, length: 15)
         
         // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)
@@ -201,7 +202,7 @@ final class SignUpView: UIView {
     
     // MARK: - 오토레이아웃
     private func makeUI() {
-        backgroundColor = .white
+        backgroundColor = Theme.background
         emailTextField.becomeFirstResponder()
         
         addSubview(stackView)
@@ -296,7 +297,7 @@ extension SignUpView: UITextFieldDelegate {
     // 텍스트필드 입력 시작
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == emailTextField {
-            emailTextFieldView.layer.borderColor = #colorLiteral(red: 0.2705882353, green: 0.3294117647, blue: 0.4078431373, alpha: 1)
+//            emailTextFieldView.layer.borderColor = #colorLiteral(red: 0.2705882353, green: 0.3294117647, blue: 0.4078431373, alpha: 1)
         } else {
             passwordTextFieldView.layer.borderColor = #colorLiteral(red: 0.2705882353, green: 0.3294117647, blue: 0.4078431373, alpha: 1)
         }
