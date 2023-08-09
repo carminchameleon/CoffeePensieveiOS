@@ -76,7 +76,7 @@ final class AuthNetworkManager {
         let firebaseAuth = Auth.auth()
         do {
           try firebaseAuth.signOut()
-            Common.removeAllUserDefaultObject()
+            UserDefaultsManager.removeAllUserDefaultObject()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError.localizedDescription)
         }
@@ -102,7 +102,7 @@ final class AuthNetworkManager {
     // 데이터를 Firestore에서 가져온다.
     func getUserProfile(completion: @escaping ProfileCompletion) {
         // 유저 uid
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
             return
         }
@@ -122,7 +122,7 @@ final class AuthNetworkManager {
     // MARK: - update user profile - Preference ( update 이후, user profile을 다시 조회 )
     // update 성공 -> 유저 데이터 업데이트 해줘야 함 - 다른 곳에서 사용하기 때문에
     func updateUserPreference(data: UserPreference, completion: @escaping ProfileCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
             return
         }
@@ -154,7 +154,7 @@ final class AuthNetworkManager {
     
     // MARK: - update user profile - Name
     func updateUserProfile(name: String, completion: @escaping ProfileCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
             return
         }
@@ -190,7 +190,7 @@ final class AuthNetworkManager {
     func deleteAccount(onError: @escaping ((_ error: NetworkError)->Void)) {
         let firebaseAuth = Auth.auth()
         
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             onError(.uidError)
             return
         }
@@ -212,7 +212,7 @@ final class AuthNetworkManager {
 
         do {
           try firebaseAuth.signOut()
-            Common.removeAllUserDefaultObject()
+            UserDefaultsManager.removeAllUserDefaultObject()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
@@ -221,7 +221,7 @@ final class AuthNetworkManager {
     // 지금까지 전체 Commit 횟수 가져오기
     typealias CommitNumberCompletion = (Result<Int, NetworkError>) -> Void
     func getNumberOfCommits(completion: @escaping CommitNumberCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
             return
         }

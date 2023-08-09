@@ -36,7 +36,7 @@ final class TrackerNetworkManager {
     // MARK: - fetch TODAY commits
     func fetchTodayCommits(completion: @escaping CommitCompletion) {
 
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
             return
         }
@@ -65,7 +65,7 @@ final class TrackerNetworkManager {
     
     // MARK: - fetch All commits
     func fetchAllCommits(completion: @escaping CommitCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
             return
         }
@@ -91,7 +91,7 @@ final class TrackerNetworkManager {
     
     // 지금까지 전체 Commit 횟수 가져오기
     func fetchNumberOfAllCommits() async throws -> Int {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             throw NetworkError.uidError
         }
         
@@ -115,7 +115,7 @@ final class TrackerNetworkManager {
     
     // MARK: - fetch Number of weekly Commits
     func fetchNumberOfWeeklyCommits() async throws -> Int {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             throw NetworkError.uidError
         }
         let userId = uid as! String
@@ -138,7 +138,7 @@ final class TrackerNetworkManager {
 
     // MARK: - fetch Number of Monthly Commits
     func fetchNumberOfMonthlyCommits() async throws -> Int {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             throw NetworkError.uidError
         }
         let userId = uid as! String
@@ -161,7 +161,7 @@ final class TrackerNetworkManager {
         }
     // MARK: - fetch Number of Yearly Commits
     func fetchNumberOfYearlyCommits() async throws -> Int {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             throw NetworkError.uidError
         }
         let userId = uid as! String
@@ -185,7 +185,7 @@ final class TrackerNetworkManager {
     
     // MARK: - fetch specific duration's commits
     func fetchDurationCommit(start: Date, finish: Date, completion: @escaping CommitCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
             return
         }
@@ -215,7 +215,7 @@ final class TrackerNetworkManager {
     // MARK: - NOT USING NOW
     // MARK: - fetch Weekly commits
     func fetchWeeklyCommits(completion: @escaping CommitCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
             return
         }
@@ -244,7 +244,7 @@ final class TrackerNetworkManager {
     
     // MARK: - fetch Monthly commits
     func fetchMonthlyCommits(completion: @escaping CommitCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
             return
         }
@@ -275,7 +275,7 @@ final class TrackerNetworkManager {
     
     // MARK: - fetch yearly commits
     func fetchYearlyCommits(completion: @escaping CommitCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+        guard let uid = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
             return
         }

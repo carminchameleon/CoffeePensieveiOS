@@ -96,6 +96,9 @@
 		F0DF062D2A3878BE001016DF /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DF062C2A3878BE001016DF /* NetworkCheck.swift */; };
 		F0DF062F2A3AF608001016DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DF062E2A3AF607001016DF /* ViewController.swift */; };
 		F0DF06322A3D831E001016DF /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DF06312A3D831E001016DF /* SafariServices.framework */; };
+		F0E4FE7B2A83A7B700C999D2 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E4FE7A2A83A7B600C999D2 /* URLs.swift */; };
+		F0E4FE7E2A83A8CE00C999D2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E4FE7D2A83A8CE00C999D2 /* Strings.swift */; };
+		F0E4FE882A83B1EC00C999D2 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E4FE872A83B1EB00C999D2 /* UserDefaults.swift */; };
 		F0E660B82A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E660B72A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift */; };
 		F0E9AB9F2A1B83E200591161 /* RankingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E9AB9E2A1B83E200591161 /* RankingModel.swift */; };
 		F0EC729C2A08E98A00DC24D0 /* CommitResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EC729B2A08E98A00DC24D0 /* CommitResultView.swift */; };
@@ -198,6 +201,9 @@
 		F0DF062C2A3878BE001016DF /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
 		F0DF062E2A3AF607001016DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = CoffeePensieve/Views/ViewController.swift; sourceTree = SOURCE_ROOT; };
 		F0DF06312A3D831E001016DF /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		F0E4FE7A2A83A7B600C999D2 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
+		F0E4FE7D2A83A8CE00C999D2 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		F0E4FE872A83B1EB00C999D2 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		F0E660B72A2E0E9B00F5E812 /* TrackerRecordEmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecordEmptyTableViewCell.swift; sourceTree = "<group>"; };
 		F0E9AB9E2A1B83E200591161 /* RankingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingModel.swift; sourceTree = "<group>"; };
 		F0EC729B2A08E98A00DC24D0 /* CommitResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitResultView.swift; sourceTree = "<group>"; };
@@ -249,6 +255,8 @@
 				F04425562A7A51080004334B /* Symbols.swift */,
 				F04425582A7A55200004334B /* Theme.swift */,
 				F0B15C3029E2892900E4F9BC /* Colors.swift */,
+				F0E4FE7A2A83A7B600C999D2 /* URLs.swift */,
+				F0E4FE7D2A83A8CE00C999D2 /* Strings.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -259,6 +267,7 @@
 				F09E02E129FCE39E0008C259 /* Constants.swift */,
 				F09E02EB29FE5AC10008C259 /* Common.swift */,
 				F0DF062A2A372E5B001016DF /* Extensions.swift */,
+				F0E4FE872A83B1EB00C999D2 /* UserDefaults.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -373,7 +382,6 @@
 		F0CC3FD129DEA47C00BD5B51 = {
 			isa = PBXGroup;
 			children = (
-				F04425552A7A50F60004334B /* Resource */,
 				F09E02EA29FE41140008C259 /* CoffeePensieve.entitlements */,
 				F09E02C629FAA5D10008C259 /* GoogleService-Info.plist */,
 				F09E02C229FA955D0008C259 /* AuthData+CoreDataClass.swift */,
@@ -395,6 +403,8 @@
 		F0CC3FDC29DEA47D00BD5B51 /* CoffeePensieve */ = {
 			isa = PBXGroup;
 			children = (
+				F0E4FE792A83A72800C999D2 /* Features */,
+				F04425552A7A50F60004334B /* Resource */,
 				F09E02DF29FCE3800008C259 /* Helpers */,
 				F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */,
 				F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */,
@@ -418,6 +428,21 @@
 				F0DF06312A3D831E001016DF /* SafariServices.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F0E4FE792A83A72800C999D2 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				F0E4FE7F2A83AA8C00C999D2 /* Onboarding */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		F0E4FE7F2A83AA8C00C999D2 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -570,9 +595,11 @@
 				F09E02E629FCF42D0008C259 /* UserProfile.swift in Sources */,
 				F03E39B22A14FC790042B491 /* DocketViewController.swift in Sources */,
 				F09F60FD2A048D35004F2462 /* CommitMoodView.swift in Sources */,
+				F0E4FE882A83B1EC00C999D2 /* UserDefaults.swift in Sources */,
 				F09F61072A05269E004F2462 /* TagModel.swift in Sources */,
 				F0F8A89229E8E3DE00838F35 /* SignUpView.swift in Sources */,
 				F0F8A89829E9606500838F35 /* SignInViewController.swift in Sources */,
+				F0E4FE7B2A83A7B700C999D2 /* URLs.swift in Sources */,
 				F09F60F92A0279B7004F2462 /* CoffeeModel.swift in Sources */,
 				F09F60F32A0122D8004F2462 /* CommitCoffeeViewController.swift in Sources */,
 				F05011672A17AB5000AD0A49 /* RecordListCollectionViewCell.swift in Sources */,
@@ -606,6 +633,7 @@
 				F04425592A7A55200004334B /* Theme.swift in Sources */,
 				F0CC3FE029DEA47D00BD5B51 /* SceneDelegate.swift in Sources */,
 				F0D6A1D429EE1B5700D8C9C8 /* WelcomeViewController.swift in Sources */,
+				F0E4FE7E2A83A8CE00C999D2 /* Strings.swift in Sources */,
 				F0B15C3129E2892900E4F9BC /* Colors.swift in Sources */,
 				F0DF062F2A3AF608001016DF /* ViewController.swift in Sources */,
 				F0A1A13C29E15D86000F6277 /* SignUpViewController.swift in Sources */,
@@ -654,6 +682,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -714,6 +743,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

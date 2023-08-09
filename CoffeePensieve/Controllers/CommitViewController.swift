@@ -66,7 +66,7 @@ class CommitViewController: UIViewController {
         // 저장되어있다면, 기존 것에서 가져오기
         // 저장 안되어있으면 api에서 가져오기
         // 필요한 데이터 -> name만
-        if Common.getUserDefaultsObject(forKey: .name) != nil {
+        if UserDefaultsManager.getUserDefaultsObject(forKey: .name) != nil {
             dataManager.setProfileFromUserDefault()
             self.updateName()
         } else {

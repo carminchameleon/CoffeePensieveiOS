@@ -9,13 +9,6 @@ import UIKit
 
 struct Constant {
     
-    struct Web {
-        static let about = "https://www.coffeepensieve.com/story"
-        static let terms = "https://www.coffeepensieve.com/terms"
-        static let policy = "https://www.coffeepensieve.com/privacypolicy"
-        static let help = "https://www.coffeepensieve.com/help"
-    }
-    
     struct FStore {
         static let userCollection = "users"
         static let emailField = "email"
@@ -112,8 +105,5 @@ enum CellId: String {
     case PreferenceNameCell
     case PreferenceCupCell
     case PreferenceTimeCell
-    
-    
-}
 
-// Alert Messgae
+}

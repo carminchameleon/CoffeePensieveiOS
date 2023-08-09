@@ -125,23 +125,23 @@ final class DataManager {
 
     // api에서 받은 데이터를 userDefault에 저장한다.
     func saveProfiletoUserDefaults(userProfile: UserProfile) {
-        Common.setUserDefaults(userProfile.name, forKey: .name)
-        Common.setUserDefaults(userProfile.email, forKey: .email)
-        Common.setUserDefaults(userProfile.cups, forKey: .cups)
-        Common.setUserDefaults(userProfile.morningTime, forKey: .morningTime)
-        Common.setUserDefaults(userProfile.nightTime, forKey: .nightTime)
-        Common.setUserDefaults(userProfile.limitTime, forKey: .limitTime)
-        Common.setUserDefaults(userProfile.reminder, forKey: .reminder)
+        UserDefaultsManager.setUserDefaults(userProfile.name, forKey: .name)
+        UserDefaultsManager.setUserDefaults(userProfile.email, forKey: .email)
+        UserDefaultsManager.setUserDefaults(userProfile.cups, forKey: .cups)
+        UserDefaultsManager.setUserDefaults(userProfile.morningTime, forKey: .morningTime)
+        UserDefaultsManager.setUserDefaults(userProfile.nightTime, forKey: .nightTime)
+        UserDefaultsManager.setUserDefaults(userProfile.limitTime, forKey: .limitTime)
+        UserDefaultsManager.setUserDefaults(userProfile.reminder, forKey: .reminder)
     }
     
     func setProfileFromUserDefault() {
-        guard let name = Common.getUserDefaultsObject(forKey: .name) as? String else { return }
-        guard let email = Common.getUserDefaultsObject(forKey: .email) as? String else { return }
-        guard let cups = Common.getUserDefaultsObject(forKey: .cups) as? Int else { return }
-        guard let nightTime = Common.getUserDefaultsObject(forKey: .nightTime) as? String else { return }
-        guard let morningTime = Common.getUserDefaultsObject(forKey: .morningTime) as? String else { return }
-        guard let limitTime = Common.getUserDefaultsObject(forKey: .limitTime) as? String else { return }
-        guard let reminder = Common.getUserDefaultsObject(forKey: .reminder) as? Bool else { return }
+        guard let name = UserDefaultsManager.getUserDefaultsObject(forKey: .name) as? String else { return }
+        guard let email = UserDefaultsManager.getUserDefaultsObject(forKey: .email) as? String else { return }
+        guard let cups = UserDefaultsManager.getUserDefaultsObject(forKey: .cups) as? Int else { return }
+        guard let nightTime = UserDefaultsManager.getUserDefaultsObject(forKey: .nightTime) as? String else { return }
+        guard let morningTime = UserDefaultsManager.getUserDefaultsObject(forKey: .morningTime) as? String else { return }
+        guard let limitTime = UserDefaultsManager.getUserDefaultsObject(forKey: .limitTime) as? String else { return }
+        guard let reminder = UserDefaultsManager.getUserDefaultsObject(forKey: .reminder) as? Bool else { return }
         
        // 어떤 값도 optional이 아니라면?
         let profile = UserProfile(name: name, cups: cups, email: email, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, reminder: reminder)

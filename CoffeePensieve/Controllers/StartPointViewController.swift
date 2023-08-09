@@ -130,11 +130,11 @@ class StartPointViewController: UIViewController {
     }
     
     @objc func termsLabelTapped() {
-        showSafariView(url: Constant.Web.terms)
+        showSafariView(url: URLs.terms)
     }
     
     @objc func policyLabelTapped() {
-        showSafariView(url: Constant.Web.policy)
+        showSafariView(url: URLs.policy)
 
     }
     

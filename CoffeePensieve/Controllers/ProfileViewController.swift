@@ -45,7 +45,7 @@ class ProfileViewController: UIViewController {
     }
     
     func getRecentUserData(){
-        if Common.getUserDefaultsObject(forKey: .name) == nil {
+        if UserDefaultsManager.getUserDefaultsObject(forKey: .name) == nil {
             dataManager.getUserProfileFromAPI {[weak self] result in
                 guard let strongSelf = self else { return }
                 switch result {
@@ -118,19 +118,19 @@ class ProfileViewController: UIViewController {
     }
     
     func helpSupportTapped() {
-        showSafariView(url: Constant.Web.help)
+        showSafariView(url: URLs.help)
     }
 
     func termOfServiceTapped() {
-        showSafariView(url: Constant.Web.terms)
+        showSafariView(url: URLs.terms)
     }
 
     func privacyPolicyTapped() {
-        showSafariView(url: Constant.Web.policy)
+        showSafariView(url: URLs.policy)
     }
 
     func aboutTapped() {
-        showSafariView(url: Constant.Web.about)
+        showSafariView(url: URLs.about)
     }
     
     func showSafariView(url: String) {

@@ -105,7 +105,7 @@ class AuthStartPointView: UIView {
         
         // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)
-        let termURL = URL(string: Constant.Web.terms)!
+        let termURL = URL(string: URLs.terms)!
 
         attributedString.addAttribute(.link, value: termURL, range: termRange)
         
@@ -125,7 +125,7 @@ class AuthStartPointView: UIView {
         
         // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)
-        let policyURL = URL(string: Constant.Web.policy)!
+        let policyURL = URL(string: URLs.policy)!
         
         attributedString.addAttribute(.link, value: policyURL, range: privacyRange)
         let label = UILabel()

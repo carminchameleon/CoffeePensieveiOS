@@ -31,18 +31,18 @@ final class AppController {
         checkLoginStatus()
     }
     
+    // .AuthStateDidChange : Firebase에서 연동되는 이벤트
     private func registerAuthStateDidChangeEvent() {
-        // .AuthStateDidChange : Firebase에서 연동되는 이벤트
         NotificationCenter.default.addObserver(self, selector: #selector(checkLoginStatus), name: .AuthStateDidChange, object: nil)
     }
     
     @objc private func checkLoginStatus() {
         // 기존 유저 정보가 저장되어 있는 경우
-        if let _ = Common.getUserDefaultsObject(forKey: .userId) {
+        if let _ = UserDefaultsManager.getUserDefaultsObject(forKey: .userId) {
             moveMain()
         } else {
             if let user = Auth.auth().currentUser {
-                Common.setUserDefaults(user.uid, forKey: .userId)
+                UserDefaultsManager.setUserDefaults(user.uid, forKey: .userId)
                 moveMain()
             } else {
                 moveWelcome()
