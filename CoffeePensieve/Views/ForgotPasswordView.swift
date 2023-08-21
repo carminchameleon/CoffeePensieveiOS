@@ -8,15 +8,12 @@
 import UIKit
 
 
-class ForgotPasswordView: UIView {
-    
-    private let textViewHeight: CGFloat = 48
-    private let buttonHeight: CGFloat = 56
-    
+final class ForgotPasswordView: UIView {
+        
     var isTouched = false
     
     // MARK: - 뒤로가기 버튼
-    lazy var backButton: UIButton = {
+    let backButton: UIButton = {
         let button = UIButton(type:.custom)
         let iconImage = UIImage(systemName: "chevron.backward.circle")
         let resizedImage = iconImage?.resized(toWidth: 36) // 아이콘 사이즈 설정
@@ -26,7 +23,7 @@ class ForgotPasswordView: UIView {
     }()
     
     // MARK: - 비밀번호 까먹음 안내 멘트
-    private lazy var mainLabel: UILabel = {
+    private let mainLabel: UILabel = {
         var label = UILabel()
         label.text = "Forgot password? \n It's okay!"
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -38,9 +35,9 @@ class ForgotPasswordView: UIView {
     
     
     // MARK: - 이메일 입력 안내 멘트
-    private lazy var infoLabel: UILabel = {
+    private let infoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Enter your registered email below to receive \n password reset instruction"
+        label.text = "Enter your registered email below to receive \n password reset instruction."
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .black
         label.numberOfLines = 2
@@ -61,7 +58,7 @@ class ForgotPasswordView: UIView {
     }()
     
     //MARK: - 이메일 입력 필드
-    lazy var emailTextField: UITextField = {
+    let emailTextField: UITextField = {
         var tf = UITextField()
         tf.frame.size.height = 36
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -107,15 +104,12 @@ class ForgotPasswordView: UIView {
         
         emailTextField.setupLeftSideImage(imageViewName: "envelope")
         emailTextField.setupRightSideImage(imageViewName: "xmark.circle.fill", passed: false)
-        emailTextField.becomeFirstResponder()
         
+        emailTextField.becomeFirstResponder()
+        emailTextField.rightViewMode = .never
+
         
         addSubview(backButton)
-        addSubview(mainLabel)
-        addSubview(infoLabel)
-        addSubview(emailTextFieldView)
-        addSubview(continueButton)
-        
         backButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
@@ -123,6 +117,7 @@ class ForgotPasswordView: UIView {
             backButton.heightAnchor.constraint(equalToConstant: 36),
         ])
         
+        addSubview(mainLabel)
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 80),
@@ -130,6 +125,7 @@ class ForgotPasswordView: UIView {
             mainLabel.heightAnchor.constraint(equalToConstant: 60)
         ])
         
+        addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 18),
@@ -137,6 +133,7 @@ class ForgotPasswordView: UIView {
             infoLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
         
+        addSubview(emailTextFieldView)
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             emailTextField.topAnchor.constraint(equalTo: emailTextFieldView.topAnchor, constant: 0),
@@ -150,18 +147,17 @@ class ForgotPasswordView: UIView {
             emailTextFieldView.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 20),
             emailTextFieldView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             emailTextFieldView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            emailTextFieldView.heightAnchor.constraint(equalToConstant: textViewHeight)
+            emailTextFieldView.heightAnchor.constraint(equalToConstant: ContentHeight.textViewHeight)
         ])
         
+        addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             continueButton.topAnchor.constraint(equalTo: emailTextFieldView.bottomAnchor, constant: 12),
             continueButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             continueButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            continueButton.heightAnchor.constraint(equalToConstant: buttonHeight)
+            continueButton.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight)
         ])
-        
-        emailTextField.rightViewMode = .never
     }
 }
 

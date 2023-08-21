@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FirstProfileCompleteViewController: UIViewController {
+final class FirstProfileCompleteViewController: UIViewController {
 
     let completeView = FirstProfileCompleteView()
     
@@ -20,7 +20,7 @@ class FirstProfileCompleteViewController: UIViewController {
         addTarget()
     }
     
-    func addTarget() {
+    private func addTarget() {
         completeView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     

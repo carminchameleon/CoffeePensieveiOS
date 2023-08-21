@@ -24,7 +24,7 @@ final class WelcomeViewController: UIViewController {
         return label
     }()
     
-    private lazy var startButton: UIButton = {
+    private let startButton: UIButton = {
         let button = UIButton(type:.custom)
         button.setTitle("Get Started", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -57,8 +57,7 @@ extension WelcomeViewController {
         //인디케이터 부분 눌렸을 때
         pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
     
-        // MARK: - ENUM 으로 만들어 넣을 것
-        let firstPage = OnboardingViewController(imageName: "Cloud 1", mainText: "Make Your Coffee Tracker", subText: "how many cups of coffee do you drink a day? \n What made you need a coffee? \n Keep your coffee moment.")
+        let firstPage = OnboardingViewController(imageName: "Cloud 1", mainText: "Make Your Coffee Tracker", subText: "How many cups of coffee do you drink a day? \n What made you need a coffee? \n Keep your coffee moment.")
         let secondPage = OnboardingViewController(imageName: "Cloud 3", mainText: "Check Your Feeling And Mood", subText: "How are you really doing? \n Even while drinking coffee, \nlook back on your feeling and mood.")
         let thirdPage = OnboardingViewController(imageName: "Cloud 4", mainText: "Anytime, Anywhere", subText: "Whether it's a cafe, an office, or a home.\n When you get a coffee,\n Always I’m here.")
         
@@ -84,34 +83,29 @@ extension WelcomeViewController {
     
     private func setLayout() {
         
+
         view.addSubview(appNameLabel)
-        view.addSubview(pageControl)
-        view.addSubview(startButton)
-        
         appNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        startButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             appNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             appNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
+        view.addSubview(pageControl)
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             pageControl.topAnchor.constraint(equalTo: startButton.topAnchor, constant: -48 ),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        
+
+        view.addSubview(startButton)
+        startButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
             startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36),
             startButton.heightAnchor.constraint(equalToConstant: 48)
         ])
-        
-    
-        
-        
     }
 }
 

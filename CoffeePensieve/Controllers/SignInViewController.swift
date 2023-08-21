@@ -10,8 +10,8 @@ import FirebaseAuth
 
 final class SignInViewController: UIViewController {
     
-    let signInView = SignInView()
-    let networkManager = AuthNetworkManager.shared
+    private let signInView = SignInView()
+    private let networkManager = AuthNetworkManager.shared
     
     override func loadView() {
         view = signInView
@@ -61,7 +61,6 @@ final class SignInViewController: UIViewController {
         signInView.passwordTextField.text = ""
         signInView.emailTextField.becomeFirstResponder()
     }
-    
     
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         guard let password = signInView.passwordTextField.text else { return }

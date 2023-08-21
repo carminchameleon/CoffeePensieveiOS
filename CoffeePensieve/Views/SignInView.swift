@@ -7,12 +7,11 @@
 
 import UIKit
 
-class SignInView: UIView {
-    private let textViewHeight: CGFloat = 48
+final class SignInView: UIView {
     private let buttonHeight: CGFloat = 56
     
     // MARK: - 뒤로가기 버튼
-    lazy var backButton: UIButton = {
+    let backButton: UIButton = {
         let button = UIButton(type:.custom)
         let iconImage = UIImage(systemName: "chevron.backward.circle")
         let resizedImage = iconImage?.resized(toWidth: 36) // 아이콘 사이즈 설정
@@ -23,7 +22,7 @@ class SignInView: UIView {
     
     
     // MARK: - 회원가입 안내 타이틀
-    private lazy var signInLabel: UILabel = {
+    private let signInLabel: UILabel = {
         var label = UILabel()
         label.text = "Log into your account"
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -46,7 +45,7 @@ class SignInView: UIView {
     }()
     
     //MARK: - 이메일 입력 필드
-    lazy var emailTextField: UITextField = {
+    let emailTextField: UITextField = {
         var tf = UITextField()
         tf.frame.size.height = 36
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -75,7 +74,7 @@ class SignInView: UIView {
     }()
     
     // MARK: - 비밀번호 입력 필드
-    lazy var passwordTextField: UITextField = {
+    let passwordTextField: UITextField = {
         var tf = UITextField()
         tf.frame.size.height = 36
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -92,7 +91,7 @@ class SignInView: UIView {
     
     
     // MARK: - 비밀번호 까먹음
-    lazy var forgotButton: UIButton = {
+    let forgotButton: UIButton = {
         let text = "Forgot password?"
         let range = NSRange(location: 0, length: text.count)
         let attributedString = NSMutableAttributedString(string: text)
@@ -134,11 +133,10 @@ class SignInView: UIView {
     private lazy var infoLabel: UILabel = {
         let text = "By tapping Continue, You agree to our Terms and"
         let termRange = NSRange(location: 38, length: 5)
-        
+    
         // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)
         let termURL = URL(string: Constant.Web.terms)!
-
         attributedString.addAttribute(.link, value: termURL, range: termRange)
         
         let label = UILabel()
@@ -154,14 +152,12 @@ class SignInView: UIView {
     // MARK: - 규정 안내 타이틀 UITextView로 바꿔야함
     private lazy var policyLabel: UILabel = {
         let text = "acknowledge that you have read our Privacy Policy."
-        let privacyRange =  NSRange(location: 34, length: 14)
+        let privacyRange =  NSRange(location: 34, length: 15)
         
         // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)
-
         let policyURL = URL(string: Constant.Web.policy)!
 
-        
         attributedString.addAttribute(.link, value: policyURL, range: privacyRange)
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
@@ -178,11 +174,9 @@ class SignInView: UIView {
         makeUI()
     }
 
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 
     func setUp() {
         emailTextField.delegate = self
@@ -235,7 +229,7 @@ class SignInView: UIView {
             textFieldStackView.topAnchor.constraint(equalTo: signInLabel.bottomAnchor, constant: 20),
             textFieldStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             textFieldStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            textFieldStackView.heightAnchor.constraint(equalToConstant: textViewHeight*2 + 12)
+            textFieldStackView.heightAnchor.constraint(equalToConstant: ContentHeight.textViewHeight*2 + 12)
         ])
         
         addSubview(forgotButton)
@@ -254,7 +248,7 @@ class SignInView: UIView {
             signInButton.topAnchor.constraint(equalTo: forgotButton.bottomAnchor, constant: 12),
             signInButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             signInButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            signInButton.heightAnchor.constraint(equalToConstant: buttonHeight)
+            signInButton.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight)
         ])
         
     }

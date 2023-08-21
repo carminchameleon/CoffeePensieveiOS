@@ -8,9 +8,9 @@
 import UIKit
 import FirebaseAuth
 
-class ForgotPasswordViewController: UIViewController {
-    var forgotPasswordView = ForgotPasswordView()
-    let networkManager = AuthNetworkManager.shared
+final class ForgotPasswordViewController: UIViewController {
+    private let forgotPasswordView = ForgotPasswordView()
+    private let networkManager = AuthNetworkManager.shared
     
     override func loadView() {
         view = forgotPasswordView
@@ -19,10 +19,9 @@ class ForgotPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addTargets()
-        
     }
     
-    func addTargets() {
+    private func addTargets() {
         forgotPasswordView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchDown)
         forgotPasswordView.continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchDown)
         forgotPasswordView.emailTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)

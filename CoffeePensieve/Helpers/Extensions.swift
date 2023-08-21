@@ -17,7 +17,7 @@ extension UIImage {
     }
 }
 
-extension UIButton{
+extension UIButton {
     func setImageTintColor(_ color: UIColor) {
         let tintedImage = self.imageView?.image?.withRenderingMode(.alwaysTemplate)
         self.setImage(tintedImage, for: .normal)
@@ -55,6 +55,17 @@ extension UITextField {
             imageView.tintColor = UIColor.redColor400
         }
     }
-    
-
 }
+
+
+extension UIView {
+    func fadeTransition(_ duration:CFTimeInterval) {
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name:
+            CAMediaTimingFunctionName.easeInEaseOut)
+        animation.type = CATransitionType.fade
+        animation.duration = duration
+        layer.add(animation, forKey: CATransitionType.fade.rawValue)
+    }
+}
+
