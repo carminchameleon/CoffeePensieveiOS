@@ -46,7 +46,6 @@ class TrackerViewController: UIViewController {
     // MARK: - set title style
     func configureTitle() {
         navigationItem.title = "Tracker"
-        
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = .primaryColor500

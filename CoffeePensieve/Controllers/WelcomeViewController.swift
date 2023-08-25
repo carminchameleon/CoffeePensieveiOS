@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class WelcomeViewController: UIViewController {
+class WelcomeViewController: UIViewController {
     
-    private var pageViewController: UIPageViewController?
-    private let pageControl = UIPageControl()
-    private var pages = [UIViewController]()
-    private var initialPage = 0
+    var pageViewController: UIPageViewController?
+    let pageControl = UIPageControl()
+    var pages = [UIViewController]()
+    var initialPage = 0
     
-    private let appNameLabel: UILabel = {
+    let appNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Coffee\nPensieve"
         label.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
@@ -24,7 +24,7 @@ final class WelcomeViewController: UIViewController {
         return label
     }()
     
-    private let startButton: UIButton = {
+    let startButton: UIButton = {
         let button = UIButton(type:.custom)
         button.setTitle("Get Started", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -48,7 +48,7 @@ final class WelcomeViewController: UIViewController {
 // MARK: - Default Settings
 extension WelcomeViewController {
     
-    private func setUp() {
+    func setUp() {
         pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
  
         pageViewController?.dataSource = self
@@ -73,7 +73,7 @@ extension WelcomeViewController {
         pageViewController?.didMove(toParent: self)
     }
     
-    private func style() {
+    func style() {
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.currentPageIndicatorTintColor = UIColor.primaryColor200
         pageControl.pageIndicatorTintColor = UIColor.primaryColor100
@@ -81,31 +81,34 @@ extension WelcomeViewController {
         pageControl.currentPage = initialPage
     }
     
-    private func setLayout() {
+    func setLayout() {
         
-
         view.addSubview(appNameLabel)
+        view.addSubview(pageControl)
+        view.addSubview(startButton)
+        
         appNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        startButton.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             appNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             appNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
-        view.addSubview(pageControl)
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             pageControl.topAnchor.constraint(equalTo: startButton.topAnchor, constant: -48 ),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-
-        view.addSubview(startButton)
-        startButton.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
             startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36),
             startButton.heightAnchor.constraint(equalToConstant: 48)
         ])
+        
+        
     }
 }
 

@@ -5,7 +5,7 @@
 //  Created by Eunji Hwang on 2023/05/03.
 //
 
-import Foundation
+import UIKit
 import FirebaseFirestoreSwift
 
 // coffee model
@@ -21,4 +21,8 @@ struct Drink {
     let drinkId: Int
     let name: String
     let image: String
+    
+    var drinkImage: UIImage? {
+        return UIImage(named: image)
+    }
 }

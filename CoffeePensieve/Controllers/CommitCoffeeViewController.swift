@@ -6,15 +6,14 @@
 //
 
 import UIKit
-class CommitCoffeeViewController: UIViewController {
+final class CommitCoffeeViewController: UIViewController {
 
     let dataManager = DataManager.shared
     
     var hotDrinks: [Drink] = []
     var coldDrinks: [Drink] = []
-    
+
     let coffeeView = CommitCoffeeView()
-    
     var isHotDrink = true
     var selectedDrink: Int? 
     
@@ -24,14 +23,18 @@ class CommitCoffeeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
+        view.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = .primaryColor500
         addTargets()
         readyData()
         setCollection()
     }
 
-
-
+    override func viewWillAppear(_ animated: Bool) {
+        setUI()
+    }
+    
+    // MARK: - seperate hot and cold drinks list
     func readyData() {
         let drinkList = dataManager.getDrinkListFromAPI()
         drinkList.forEach { drink in
@@ -41,15 +44,11 @@ class CommitCoffeeViewController: UIViewController {
                 coldDrinks.append(drink)
             }
         }
-        
     }
 
-    
     func setUI() {
-        view.backgroundColor = .white
         tabBarController?.tabBar.isHidden = true
         navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.tintColor = .primaryColor500
     }
     
     func addTargets() {
@@ -58,11 +57,9 @@ class CommitCoffeeViewController: UIViewController {
     }
     
     func setCollection() {
-        // 셀 등록
         coffeeView.collectionView.delegate = self
         coffeeView.collectionView.dataSource = self
         coffeeView.collectionView.register(CommitCoffeeCollectionViewCell.self, forCellWithReuseIdentifier: CellId.commitCoffeeCell.rawValue)
-
     }
     
     @objc func controllerChanged() {
@@ -70,15 +67,14 @@ class CommitCoffeeViewController: UIViewController {
         selectedDrink = nil
         coffeeView.selectedDrink.text = ""
         coffeeView.collectionView.reloadData()
+        coffeeView.continueButton.isEnabled = false
     }
     
     @objc func continueButtonTapped() {
         let moodVC = CommitMoodViewController()
         moodVC.selectedDrink = selectedDrink
         navigationController?.pushViewController(moodVC, animated: false)
-    
     }
-
 }
 
 extension CommitCoffeeViewController: UICollectionViewDataSource {
@@ -93,7 +89,7 @@ extension CommitCoffeeViewController: UICollectionViewDataSource {
         let data = drinks[indexPath.item]
 
         cell.titleLabel.text = data.name
-        cell.imageView.image = UIImage(named: data.image)        
+        cell.imageView.image = data.drinkImage
         
         // 음료수가 선택 되었다면
         if let selectedDrink, selectedDrink == data.drinkId {
@@ -131,7 +127,6 @@ extension CommitCoffeeViewController: UICollectionViewDelegateFlowLayout {
         self.selectedDrink = selectedData.drinkId
         coffeeView.selectedDrink.text = "\(tempMode) / \(drinkName)"
         coffeeView.collectionView.reloadData()
-        coffeeView.continueButton.setTitleColor(UIColor.primaryColor500, for: .normal)
         coffeeView.continueButton.isEnabled = true
     }
 }

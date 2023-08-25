@@ -178,7 +178,7 @@ final class AuthStartPointView: UIView {
             stackView.topAnchor.constraint(equalTo: signUpLabel.bottomAnchor, constant: 36),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            stackView.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight * 3 + 24)
+            stackView.heightAnchor.constraint(equalToConstant: ContentHeight.authButtonHeight * 3 + 24)
         ])
         
         addSubview(infoLabel)
@@ -198,7 +198,7 @@ final class AuthStartPointView: UIView {
         addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            loginButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32),
+            loginButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             loginButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             loginButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
             loginButton.heightAnchor.constraint(equalToConstant: 48)

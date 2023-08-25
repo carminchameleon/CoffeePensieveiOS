@@ -43,19 +43,8 @@ class CommitMoodView: UIView {
         return cv
         
     }()
-    
-    let continueButton: UIButton = {
-        let button = UIButton(type:.custom)
-        button.setTitle("Continue", for: .normal)
-        button.titleLabel?.font = FontStyle.body
-        button.setTitleColor(UIColor.primaryColor300, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 6
-        button.isEnabled = false
-        return button
-    }()
 
+    let continueButton = CustomButton(isEnabled: false, title: "Continue")
     
     override init(frame: CGRect) {
         super.init(frame: frame)

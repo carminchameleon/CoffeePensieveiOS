@@ -63,7 +63,6 @@ extension CommitMoodViewController: UICollectionViewDataSource {
     
     // 몇개 띄울 것인지
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return moods.count
     }
     
@@ -109,7 +108,7 @@ extension CommitMoodViewController: UICollectionViewDelegateFlowLayout {
         selectedMood = indexPath.row
         moodView.collectionView.reloadData()
         moodView.selectedMood.text = "\(mood.image) \(mood.name.uppercased())"
-        moodView.continueButton.setTitleColor(UIColor.primaryColor500, for: .normal)
+//        moodView.continueButton.setTitleColor(UIColor.primaryColor500, for: .normal)
         moodView.continueButton.isEnabled = true
     }
     

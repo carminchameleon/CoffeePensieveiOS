@@ -248,7 +248,7 @@ final class SignInView: UIView {
             signInButton.topAnchor.constraint(equalTo: forgotButton.bottomAnchor, constant: 12),
             signInButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             signInButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            signInButton.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight)
+            signInButton.heightAnchor.constraint(equalToConstant: ContentHeight.authButtonHeight)
         ])
         
     }

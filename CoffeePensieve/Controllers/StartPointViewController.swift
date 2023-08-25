@@ -14,8 +14,8 @@ import SafariServices
 
 final class StartPointViewController: UIViewController {
     
-    private var isFirst = true
-    private let startPointView = AuthStartPointView()
+    var isFirst = true
+    let startPointView = AuthStartPointView()
     fileprivate var currentNonce: String?
         
     override func loadView() {
@@ -38,7 +38,7 @@ final class StartPointViewController: UIViewController {
         }
     }
     
-    private func addTargets() {
+    func addTargets() {
         startPointView.emailButton.addTarget(self, action: #selector(emailButtonTapped), for: .touchUpInside)
         startPointView.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         startPointView.googleButton.addTarget(self, action: #selector(googleButtonTapped), for: .touchUpInside)

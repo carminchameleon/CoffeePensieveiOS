@@ -33,6 +33,7 @@
 		F05011652A179D2600AD0A49 /* RecordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05011642A179D2600AD0A49 /* RecordListViewController.swift */; };
 		F05011672A17AB5000AD0A49 /* RecordListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05011662A17AB5000AD0A49 /* RecordListCollectionViewCell.swift */; };
 		F0745FF42A9373A100E85B02 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0745FF32A9373A100E85B02 /* Theme.swift */; };
+		F08FB2B62A9721ED00295A86 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08FB2B52A9721ED00295A86 /* CustomButton.swift */; };
 		F09E02C429FA955D0008C259 /* AuthData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E02C229FA955D0008C259 /* AuthData+CoreDataClass.swift */; };
 		F09E02C529FA955D0008C259 /* AuthData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E02C329FA955D0008C259 /* AuthData+CoreDataProperties.swift */; };
 		F09E02C729FAA5D30008C259 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F09E02C629FAA5D10008C259 /* GoogleService-Info.plist */; };
@@ -144,6 +145,7 @@
 		F05011642A179D2600AD0A49 /* RecordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListViewController.swift; sourceTree = "<group>"; };
 		F05011662A17AB5000AD0A49 /* RecordListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0745FF32A9373A100E85B02 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		F08FB2B52A9721ED00295A86 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		F09E02C229FA955D0008C259 /* AuthData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F09E02C329FA955D0008C259 /* AuthData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F09E02C629FAA5D10008C259 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -243,6 +245,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F08FB2B42A9721E000295A86 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F08FB2B52A9721ED00295A86 /* CustomButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		F09E02DF29FCE3800008C259 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +396,7 @@
 		F0CC3FDC29DEA47D00BD5B51 /* CoffeePensieve */ = {
 			isa = PBXGroup;
 			children = (
+				F08FB2B42A9721E000295A86 /* Components */,
 				F09E02DF29FCE3800008C259 /* Helpers */,
 				F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */,
 				F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */,
@@ -566,6 +577,7 @@
 				F0F8A89229E8E3DE00838F35 /* SignUpView.swift in Sources */,
 				F0F8A89829E9606500838F35 /* SignInViewController.swift in Sources */,
 				F09F60F92A0279B7004F2462 /* CoffeeModel.swift in Sources */,
+				F08FB2B62A9721ED00295A86 /* CustomButton.swift in Sources */,
 				F09F60F32A0122D8004F2462 /* CommitCoffeeViewController.swift in Sources */,
 				F05011672A17AB5000AD0A49 /* RecordListCollectionViewCell.swift in Sources */,
 				F0CC3FE829DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld in Sources */,

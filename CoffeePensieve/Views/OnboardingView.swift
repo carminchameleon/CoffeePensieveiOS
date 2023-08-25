@@ -62,7 +62,6 @@ class OnboardingView: UIView {
     private func makeUI() {
         backgroundColor = .primaryColor25
 
-
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

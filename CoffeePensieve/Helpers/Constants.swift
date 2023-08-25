@@ -56,6 +56,7 @@ struct Constant {
 struct ContentHeight {
     static let textViewHeight: CGFloat = 48
     static let buttonHeight: CGFloat = 56
+    static let authButtonHeight: CGFloat = 50
 }
 
 // MARK: - Cell Id

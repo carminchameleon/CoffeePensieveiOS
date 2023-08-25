@@ -156,7 +156,7 @@ final class ForgotPasswordView: UIView {
             continueButton.topAnchor.constraint(equalTo: emailTextFieldView.bottomAnchor, constant: 12),
             continueButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             continueButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            continueButton.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight)
+            continueButton.heightAnchor.constraint(equalToConstant: ContentHeight.authButtonHeight)
         ])
     }
 }

@@ -105,8 +105,6 @@ class DocketView: UIView {
     
     
     let memoView: UITextView = {
-
-        
         let textView = UITextView()
         textView.contentInsetAdjustmentBehavior = .automatic
         textView.textAlignment = .left
@@ -241,14 +239,14 @@ class DocketView: UIView {
             detailTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             detailTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
-        
-        addSubview(detailView)
-        detailView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-            detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-        ])
-           
+//
+//        addSubview(detailView)
+//        detailView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+//            detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+//        ])
+//
     }
     
 }

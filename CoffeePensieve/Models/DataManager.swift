@@ -39,16 +39,18 @@ final class DataManager {
     private var yearlyCommits:[Commit] = []
     private var allCommits:[Commit] = []
 
+    // MARK: - 음료, 무드, 태그 리스트
     func getDrinkListFromAPI() -> [Drink] {
         return drinkList
     }
+    
     func getMoodListFromAPI() -> [Mood] {
         return moodList
     }
     func getTagListFromAPI() -> [Tag] {
         return tagList
     }
-    
+
     // MARK: - 음료 등록
     typealias CommitCompletion = (Result<Date,NetworkError>) -> Void
     func uploadDrinkCommit(drinkId: Int, moodId: Int, tagIds: [Int], memo: String, completion: @escaping CommitCompletion ) {
@@ -56,7 +58,7 @@ final class DataManager {
             completion(.failure(.uidError))
             return
         }
-        
+
         let currentTime = Date()
         let commitData: [String: Any] = [
             Constant.FStore.uidField: uid,
@@ -103,6 +105,7 @@ final class DataManager {
             }
         }
     }
+    
     func getCommitCount() -> Int {
         return commitCount
     }
@@ -187,6 +190,7 @@ final class DataManager {
     // today에 해당하는 데이터 -> todayCommits에 저장
     // calculateGuideLineData -> 현재 유저의 설정 + today commit 숫자 합쳐서 guideline을 만든다.
     func fetchTodayCommits(completion: @escaping(Result<Void,NetworkError>) -> Void) {
+        print(#function)
         trackerManager.fetchTodayCommits { result in
             switch result {
             case .success(let data):
@@ -201,14 +205,17 @@ final class DataManager {
     }
     
     func getTodayCommits() -> [Commit] {
+        print(#function)
         return todayCommits
     }
     func getNumberOfTodayCommit() -> Int {
+        print(#function)
         return todayCommits.count
     }
     
     // MARK: - TRACKER - Caffeine Guideline
     func calculateGuidelineData() {
+        print(#function)
         if let profile = userProfile {
             let data = Guideline(limitTime: profile.limitTime, limitCup: profile.cups, currentCup: todayCommits.count)
             self.guideline = data

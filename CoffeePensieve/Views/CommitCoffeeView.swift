@@ -54,20 +54,9 @@ class CommitCoffeeView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         return cv
-        
     }()
     
-    let continueButton: UIButton = {
-        let button = UIButton(type:.custom)
-        button.setTitle("Continue", for: .normal)
-        button.titleLabel?.font = FontStyle.body
-        button.setTitleColor(UIColor.primaryColor300, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 6
-        button.isEnabled = false
-        return button
-    }()
+    let continueButton = CustomButton(isEnabled: false, title: "Continue")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,15 +71,13 @@ class CommitCoffeeView: UIView {
     func makeUI() {
 
         self.addSubview(progressBar)
-        progressBar.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(questionLabel)
-        questionLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         self.addSubview(selectedDrink)
-        selectedDrink.translatesAutoresizingMaskIntoConstraints = false
-        
-        
         self.addSubview(tempController)
+        
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
+        questionLabel.translatesAutoresizingMaskIntoConstraints = false
+        selectedDrink.translatesAutoresizingMaskIntoConstraints = false
         tempController.translatesAutoresizingMaskIntoConstraints = false
         
         

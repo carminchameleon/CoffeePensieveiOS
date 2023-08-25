@@ -24,12 +24,17 @@ class DocketViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         setNavigationBar()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCommitData()
-        updateDetail()
     }
 
+    override func viewDidLayoutSubviews() {
+        updateDetail()
+    }
+    
+    
     override func viewWillLayoutSubviews() {
         docketView.setGradient3Color(color1: .blueGradient100, color2: .blueGradient200, color3: .blueGradient300)
     }
@@ -53,9 +58,7 @@ class DocketViewController: UIViewController {
     }
 
     func updateCommitData() {
-
         guard let commit = commit else { return }
-
         // drink
         let tempMode = commit.drink.isIced ? "🧊ICED" : "🔥HOT"
         docketView.coffeeImage.image = UIImage(named: commit.drink.image)
@@ -75,36 +78,52 @@ class DocketViewController: UIViewController {
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
-    
+
     func updateDetail() {
         guard let memo = commit?.memo else { return }
-        let width = docketView.frame.width - 48
-        
         if memo.isEmpty {
             docketView.detailTitle.isHidden = true
             return
         }
-
+        let width = docketView.frame.width - 48
         let font =  UIFont.italicSystemFont(ofSize: 17)
-        let height =  Common.heightForView(text: memo, font: font, width: width)
-        if height > 500 {
-            docketView.addSubview(docketView.memoView)
-            docketView.memoView.translatesAutoresizingMaskIntoConstraints = false
-            docketView.memoView.text = memo
-            NSLayoutConstraint.activate([
-                docketView.memoView.topAnchor.constraint(equalTo: docketView.detailTitle.bottomAnchor, constant: 12),
-                docketView.memoView.leadingAnchor.constraint(equalTo: docketView.leadingAnchor, constant: 24),
-                docketView.memoView.trailingAnchor.constraint(equalTo: docketView.trailingAnchor, constant: -24),
-                docketView.memoView.bottomAnchor.constraint(equalTo: docketView.safeAreaLayoutGuide.bottomAnchor, constant: -12),
-        ])
+        let memoTextHeight =  Common.heightForView(text: memo, font: font, width: width)
+        
+        let emptySpaceHeight = docketView.frame.height - docketView.detailTitle.frame.maxY - 24
+        
+        if memoTextHeight > emptySpaceHeight {
+            setMemoView(memo)
         } else {
-            docketView.detailView.text = memo
-            docketView.addSubview(docketView.detailView)
-            docketView.detailView.topAnchor.constraint(equalTo: docketView.detailTitle.bottomAnchor, constant: 12).isActive = true
-
+            setDetailView(memo)
         }
     }
     
+    func setMemoView(_ memo: String) {
+        docketView.addSubview(docketView.memoView)
+        docketView.memoView.translatesAutoresizingMaskIntoConstraints = false
+        docketView.memoView.text = memo
+        
+        NSLayoutConstraint.activate([
+            docketView.memoView.topAnchor.constraint(equalTo: docketView.detailTitle.bottomAnchor, constant: 12),
+            docketView.memoView.leadingAnchor.constraint(equalTo: docketView.leadingAnchor, constant: 24),
+            docketView.memoView.trailingAnchor.constraint(equalTo: docketView.trailingAnchor, constant: -24),
+            docketView.memoView.bottomAnchor.constraint(equalTo: docketView.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+        ])
+    }
+    
+    func setDetailView(_ memo: String) {
+        docketView.addSubview(docketView.detailView)
+        docketView.detailView.translatesAutoresizingMaskIntoConstraints = false
+        docketView.detailView.text = memo
+        
+        NSLayoutConstraint.activate([
+            docketView.detailView.leadingAnchor.constraint(equalTo: docketView.leadingAnchor, constant: 24),
+            docketView.detailView.trailingAnchor.constraint(equalTo: docketView.trailingAnchor, constant: -24),
+            docketView.detailView.topAnchor.constraint(equalTo: docketView.detailTitle.bottomAnchor, constant: 12)
+
+        ])
+    }
+
     init(commit: CommitDetail?) {
         super.init(nibName: nil, bundle: nil)
         self.commit = commit
