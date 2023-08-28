@@ -69,7 +69,6 @@ class CommitLoadingViewController: UIViewController {
                 strongSelf.moveToResultView(time)
             
             case .failure(let error):
-                
                 var errorMessage = "Failed to upload data. If the problem repeats, please contact us."
                 switch error {
                 case .uidError:
@@ -79,7 +78,6 @@ class CommitLoadingViewController: UIViewController {
                 case .dataError:
                     break
                 }
-                
                 AlertManager.showTextAlert(on: strongSelf, title: "Sorry", message: errorMessage) {
                     strongSelf.navigationController?.popToRootViewController(animated: true)
                 }
@@ -90,7 +88,6 @@ class CommitLoadingViewController: UIViewController {
     func updateImage() {
         let todayCount = commitManager.todayCommitCount
         var memoryNumber = 0
-        
         switch todayCount {
         case 0:
             memoryNumber = 0
@@ -113,11 +110,6 @@ class CommitLoadingViewController: UIViewController {
     func moveToResultView(_ time: Date) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
             let resultVC = CommitResultViewController()
-//            resultVC.drinkId = self.selectedDrink!
-//            resultVC.tagIds = self.selectedTags
-//            resultVC.memo = self.memo
-//            resultVC.moodId = self.selectedMood!
-//            resultVC.createdAt = time
             resultVC.data = CommitResultDetail(drinkId: self.selectedDrink!, moodId: self.selectedMood!, tagIds: self.selectedTags, memo: self.memo, createdAt: time)
             self.navigationController?.pushViewController(resultVC, animated: true)            
         }
@@ -129,7 +121,6 @@ class CommitLoadingViewController: UIViewController {
             self.loadingLabel.alpha = 1
         }
     }
-    
     
     func setUI() {
         self.imageView.alpha = 0

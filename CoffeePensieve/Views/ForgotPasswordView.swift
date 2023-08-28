@@ -32,8 +32,7 @@ final class ForgotPasswordView: UIView {
         label.textAlignment = .center
         return label
     }()
-    
-    
+
     // MARK: - 이메일 입력 안내 멘트
     private let infoLabel: UILabel = {
         let label = UILabel()
@@ -73,6 +72,7 @@ final class ForgotPasswordView: UIView {
     }()
     
     // MARK: - 다음 동작 버튼
+    let submitButton = CustomButton(isEnabled: false, title: "Submit")
     let continueButton: UIButton = {
         let button = UIButton(type:.custom)
         button.setTitle("Submit", for: .normal)
@@ -150,13 +150,13 @@ final class ForgotPasswordView: UIView {
             emailTextFieldView.heightAnchor.constraint(equalToConstant: ContentHeight.textViewHeight)
         ])
         
-        addSubview(continueButton)
-        continueButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(submitButton)
+        submitButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            continueButton.topAnchor.constraint(equalTo: emailTextFieldView.bottomAnchor, constant: 12),
-            continueButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
-            continueButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            continueButton.heightAnchor.constraint(equalToConstant: ContentHeight.authButtonHeight)
+            submitButton.topAnchor.constraint(equalTo: emailTextFieldView.bottomAnchor, constant: 12),
+            submitButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
+            submitButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
+            submitButton.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight)
         ])
     }
 }

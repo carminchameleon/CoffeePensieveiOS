@@ -10,8 +10,6 @@ import Firebase
 import FirebaseFirestoreSwift
 
 final class TrackerNetworkManager {
-    
-
     static let shared = TrackerNetworkManager()
     private init() {}
 
@@ -33,35 +31,36 @@ final class TrackerNetworkManager {
         return data
     }
 
-    // MARK: - fetch TODAY commits
-    func fetchTodayCommits(completion: @escaping CommitCompletion) {
 
+    func fetchTodayDrinksFromDB() async throws -> [Commit] {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
-            completion(.failure(.uidError))
-            return
+            throw NetworkError.uidError
         }
+
         let userId = uid as! String
         let docRef = db.collection(Constant.FStore.commitCollection)
-        
         let calendar = Calendar.current
         let now = Date()
         let midnightToday = calendar.startOfDay(for: now)
-        docRef
-            .whereField("uid", isEqualTo: userId)
-            .whereField("createdAt", isGreaterThan: Timestamp(date: midnightToday))
-            .getDocuments { (querySnapshot, error) in
-                if let _ = error {
-                    completion(.failure(.databaseError))
-                } else {
-                    var commits: [Commit] = []
-                    for document in querySnapshot!.documents {
-                        guard let commit = self.formatCommitData(document: document) else { return }
-                        commits.append(commit)
-                    }
-                    completion(.success(commits))
+
+        do {
+            let querySnapshot = try await docRef.whereField("uid", isEqualTo: userId)
+                .whereField("createdAt", isGreaterThan: Timestamp(date: midnightToday))
+                .getDocuments()
+            
+            var commits: [Commit] = []
+            
+            for document in querySnapshot.documents {
+                if let commit = formatCommitData(document: document) {
+                    commits.append(commit)
                 }
             }
+            return commits
+        } catch {
+            throw NetworkError.databaseError
+        }
     }
+    
     
     // MARK: - fetch All commits
     func fetchAllCommits(completion: @escaping CommitCompletion) {
@@ -88,6 +87,7 @@ final class TrackerNetworkManager {
                 }
             }
     }
+    // MARK: - Commit Count 가져오기
     
     // 지금까지 전체 Commit 횟수 가져오기
     func fetchNumberOfAllCommits() async throws -> Int {
@@ -98,8 +98,6 @@ final class TrackerNetworkManager {
         let userId = uid as! String
         let query = db.collection(Constant.FStore.commitCollection).whereField("uid", isEqualTo: userId)
         let countQuery = query.count
-        
-        
         do {
             let snapshot = try await countQuery.getAggregation(source: .server)
             let count = Int(truncating: snapshot.count)
@@ -107,11 +105,7 @@ final class TrackerNetworkManager {
         } catch {
             throw NetworkError.databaseError
         }
-        
     }
-    
-
-    
     
     // MARK: - fetch Number of weekly Commits
     func fetchNumberOfWeeklyCommits() async throws -> Int {
@@ -159,6 +153,7 @@ final class TrackerNetworkManager {
                 throw NetworkError.databaseError
             }
         }
+    
     // MARK: - fetch Number of Yearly Commits
     func fetchNumberOfYearlyCommits() async throws -> Int {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
@@ -180,9 +175,8 @@ final class TrackerNetworkManager {
             } catch {
                 throw NetworkError.databaseError
             }
-        }
+    }
 
-    
     // MARK: - fetch specific duration's commits
     func fetchDurationCommit(start: Date, finish: Date, completion: @escaping CommitCompletion) {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
@@ -196,7 +190,6 @@ final class TrackerNetworkManager {
             .whereField("uid", isEqualTo: userId)
             .whereField("createdAt", isGreaterThan: Timestamp(date: start))
             .whereField("createdAt", isLessThan: Timestamp(date: finish))
-
             .getDocuments { (querySnapshot, error) in
                 if let _ = error {
                     completion(.failure(.databaseError))

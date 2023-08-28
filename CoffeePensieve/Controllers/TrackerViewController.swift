@@ -7,9 +7,10 @@
 
 import UIKit
 
-class TrackerViewController: UIViewController {
+final class TrackerViewController: UIViewController {
     
     let dataManager = DataManager.shared
+    let trackerManager = TrackerNetworkManager.shared
     
     var isTodayLoading = true
     var isGuidelineLoading = true
@@ -17,7 +18,11 @@ class TrackerViewController: UIViewController {
     
     var todayCommits: [Commit] = []
     var guideline: Guideline?
-    var record: [Summary] = [Summary(title: "All your coffee memories", number: 0),Summary(title: "This Week", number: 0),Summary(title: "This Month", number: 0),Summary(title: "This Year", number: 0)]
+    var record: [Summary] = [Summary(title: "All your coffee memories", number: 0),
+                             Summary(title: "This Week", number: 0),
+                             Summary(title: "This Month", number: 0),
+                             Summary(title: "This Year", number: 0)]
+    
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -26,21 +31,56 @@ class TrackerViewController: UIViewController {
         return tableView
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureTableView()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.fetchTodayData()
-        self.fetchRecordData()
         self.configureTitle()
-        
+        // fetch Datas
+        self.fetchRecordData()
+        self.fetchTodayAndGuideData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureTableView()
+    func configureTableView() {
+        setTableViewConstraint()
+        setTableViewDelegates()
+        setTableViewRegister()
+    }
+    
+    func setTableViewConstraint() {
+        view.addSubview(tableView)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = 120
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+    
+    func setTableViewDelegates() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    func setTableViewRegister() {
+        tableView.register(TrackerLoadingTableViewCell.self, forCellReuseIdentifier: CellId.trackerLoadingCell.rawValue)
+        tableView.register(TrackerTodayTableViewCell.self, forCellReuseIdentifier: CellId.trackerTodayCell.rawValue)
+        tableView.register(TrackerGuidelineTableViewCell.self, forCellReuseIdentifier: CellId.trackerGuidlineCell.rawValue)
+        tableView.register(TrackerRecordTableViewCell.self, forCellReuseIdentifier: CellId.trackerRecordCell.rawValue)
+        // header
+        tableView.register(TrackerTodayHeaderView.self, forHeaderFooterViewReuseIdentifier: CellId.trackerTodayHeader.rawValue)
+        tableView.register(TrackerGuidelineHeaderView.self, forHeaderFooterViewReuseIdentifier: CellId.trackerGuideHeader.rawValue)
     }
     
     // MARK: - set title style
@@ -59,124 +99,51 @@ class TrackerViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.pushViewController(coffeeVC, animated: true)
     }
-    
-    func configureTableView() {
-        view.addSubview(tableView)
-        setTableViewDelegates()
-        setTableViewConstraint()
-        setTableViewRegister()
-    }
-    
-    func setTableViewDelegates() {
-        tableView.rowHeight = 120
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-    
-    func setTableViewConstraint() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
-    }
-    
-    func setTableViewRegister() {
-        tableView.register(TrackerLoadingTableViewCell.self, forCellReuseIdentifier: CellId.trackerLoadingCell.rawValue)
-        tableView.register(TrackerTodayTableViewCell.self, forCellReuseIdentifier: CellId.trackerTodayCell.rawValue)
-        tableView.register(TrackerGuidelineTableViewCell.self, forCellReuseIdentifier: CellId.trackerGuidlineCell.rawValue)
-        tableView.register(TrackerRecordTableViewCell.self, forCellReuseIdentifier: CellId.trackerRecordCell.rawValue)
-        
-        // header
-        tableView.register(TrackerTodayHeaderView.self, forHeaderFooterViewReuseIdentifier: CellId.trackerTodayHeader.rawValue)
-        tableView.register(TrackerGuidelineHeaderView.self, forHeaderFooterViewReuseIdentifier: CellId.trackerGuideHeader.rawValue)
 
-    }
-    
-    func fetchTodayData() {
+    func fetchTodayAndGuideData() {
         // 오늘의 커피 데이터 -> 가이드 라인 계산 이루어져야 함
-        dataManager.fetchTodayCommits {[weak self] result in
-            guard let weakSelf = self else { return }
-            switch result {
-            case .success:
-                weakSelf.todayCommits = weakSelf.dataManager.getTodayCommits()
-                weakSelf.guideline = weakSelf.dataManager.getGuidlineData()
-                weakSelf.isTodayLoading = false
-                weakSelf.isGuidelineLoading = false
+        Task {[weak self] in
+            guard let self = self else { return }
+            do {
+                let commits = try await self.trackerManager.fetchTodayDrinksFromDB()
+                let userProfile = self.dataManager.getProfileFromUserDefault()
+                guard let profile = userProfile else { return }
+              
+                self.todayCommits = commits.reversed()
+                self.guideline = Guideline(limitTime: profile.limitTime, limitCup: profile.cups, currentCup: commits.count)
+                
+                self.isTodayLoading = false
+                self.isGuidelineLoading = false
                 
                 DispatchQueue.main.async {
-                    weakSelf.tableView.reloadData()
+                    self.tableView.reloadData()
                 }
-            case .failure:
-                weakSelf.showFailAlert()
+            } catch {
+                AlertManager.showTextAlert(on: self, title: "Sorry", message: "Failed to load today's memory") {
+                    self.dismiss(animated: true)
+                }
             }
-        }
-
-    }
-    
-    func showFailAlert() {
-        let failAlert = UIAlertController(title: "Something's wrong", message: "Please check your internet connection and try again", preferredStyle: .alert)
-        let okayAction = UIAlertAction(title: "Okay", style: .default) { action in
-            self.dismiss(animated: true)
-        }
-        failAlert.addAction(okayAction)
-        DispatchQueue.main.async {
-            self.present(failAlert, animated: true, completion: nil)
         }
     }
     
     // Record 부분에 들어갈 데이터
     func fetchRecordData() {
-        dataManager.getTrackerRecord {[weak self] result in
-            guard let weakSelf = self else { return }
-            switch result {
-            case .success:
-                weakSelf.isRecordLoading = false
-                weakSelf.record = weakSelf.dataManager.getSummaryData()
+        Task {[weak self] in
+            guard let self = self else { return }
+            do {
+                self.record = try await self.dataManager.getTrackerRecords()
+                self.isRecordLoading = false
                 DispatchQueue.main.async {
-                    weakSelf.tableView.reloadData()
+                    self.tableView.reloadData()
                 }
-            case .failure:
-                weakSelf.showFailAlert()
+            } catch {
+                AlertManager.showTextAlert(on: self, title: "Sorry", message: "Failed to load record Data") {
+                    self.dismiss(animated: true)
+                }
             }
         }
     }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        switch section {
-        case 0:
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerTodayHeader.rawValue) as! TrackerTodayHeaderView
-            headerView.titleLabel.text = "Today's Memory"
-            headerView.button.isHidden = true
-            return headerView
-        case 1:
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerGuideHeader.rawValue) as! TrackerGuidelineHeaderView
-            headerView.button.isHidden = false
-            headerView.titleLabel.text = "Caffeine Guideline"
-            headerView.button.setTitle("Edit", for: .normal)
-            headerView.button.setTitleColor(.primaryColor200, for: .normal)
-            headerView.button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-            return headerView
-        case 2:
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerTodayHeader.rawValue) as! TrackerTodayHeaderView
-            headerView.titleLabel.text = "Record"
-            headerView.button.isHidden = false
-            headerView.button.setTitle("Show More", for: .normal)
-            headerView.button.addTarget(self, action: #selector(showMoreButtonTapped), for: .touchUpInside)
-            return headerView
-        default:
-            return nil
-        }
-        
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
-    
+
     @objc func showMoreButtonTapped() {
         let calendarVC = CalendarViewController()
         navigationController?.pushViewController(calendarVC, animated: true)
@@ -190,10 +157,50 @@ class TrackerViewController: UIViewController {
 
 
 extension TrackerViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - Header Section
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch section {
+        
+        case 0:
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerTodayHeader.rawValue) as! TrackerTodayHeaderView
+            headerView.button.isHidden = true
+            headerView.titleLabel.text = "Today's Memory"
+            return headerView
+        
+        case 1:
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerGuideHeader.rawValue) as! TrackerGuidelineHeaderView
+            headerView.button.isHidden = false
+            headerView.titleLabel.text = "Caffeine Guideline"
+            headerView.button.setTitle("Edit", for: .normal)
+            headerView.button.setTitleColor(.primaryColor200, for: .normal)
+            headerView.button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+            return headerView
+            
+        case 2:
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerTodayHeader.rawValue) as! TrackerTodayHeaderView
+            headerView.button.isHidden = false
+            headerView.titleLabel.text = "Record"
+            headerView.button.setTitle("Show More", for: .normal)
+            headerView.button.addTarget(self, action: #selector(showMoreButtonTapped), for: .touchUpInside)
+            return headerView
+        
+        default:
+            return nil
+        }
+    }
+    
+    
+    // MARK: - Section Height
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    // MARK: - Section 몇 개인지
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-
+    // MARK: - 각 section에 해당하는 Row의 수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0 :
@@ -206,8 +213,8 @@ extension TrackerViewController: UITableViewDelegate, UITableViewDataSource {
             return 0
         }
     }
-
     
+    // MARK: - row 선택했을 때
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
@@ -228,6 +235,7 @@ extension TrackerViewController: UITableViewDelegate, UITableViewDataSource {
             break
         }
     }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
@@ -269,6 +277,7 @@ extension TrackerViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.guideline = self.guideline
                 return cell
             }
+            
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CellId.trackerRecordCell.rawValue, for: indexPath) as! TrackerRecordTableViewCell
                  cell.summary = self.record[indexPath.row]

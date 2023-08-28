@@ -44,43 +44,35 @@ class CommitMoodViewController: UIViewController {
         moodView.collectionView.delegate = self
         moodView.collectionView.dataSource = self
         moodView.collectionView.register(CommitMoodCollectionViewCell.self, forCellWithReuseIdentifier: CellId.commitMoodCell.rawValue)
-
     }
     
-  
-
     @objc func continueButtonTapped() {
         let tagVC = CommitTagViewController()
         tagVC.selectedMood = selectedMood
         tagVC.selectedDrink = selectedDrink
         navigationController?.pushViewController(tagVC, animated: false)
     }
-
 }
 
 extension CommitMoodViewController: UICollectionViewDataSource {
-    
-    
-    // 몇개 띄울 것인지
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return moods.count
     }
     
-    
-    // 셀 구성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = moodView.collectionView.dequeueReusableCell(withReuseIdentifier: CellId.commitMoodCell.rawValue, for: indexPath) as! CommitMoodCollectionViewCell
         let data = moods[indexPath.row]
+        
         cell.layer.borderWidth = 2
         cell.layer.borderColor = #colorLiteral(red: 0.1058823529, green: 0.3019607843, blue: 1, alpha: 1)
         cell.clipsToBounds = true
         cell.layer.cornerRadius = 18
         cell.iconLabel.text = data.image
         cell.titleLabel.text = data.name
-        
-        
         cell.iconLabel.font = cell.iconLabel.font.withSize(self.view.frame.height * relativeFontConstant)
         cell.titleLabel.font = cell.titleLabel.font.withSize(self.view.frame.height * relativeFontConstant2)
+      
         if selectedMood != nil, selectedMood! == indexPath.row {
             cell.backgroundColor = .primaryColor100
             cell.titleLabel.textColor = .primaryColor500
@@ -108,7 +100,6 @@ extension CommitMoodViewController: UICollectionViewDelegateFlowLayout {
         selectedMood = indexPath.row
         moodView.collectionView.reloadData()
         moodView.selectedMood.text = "\(mood.image) \(mood.name.uppercased())"
-//        moodView.continueButton.setTitleColor(UIColor.primaryColor500, for: .normal)
         moodView.continueButton.isEnabled = true
     }
     

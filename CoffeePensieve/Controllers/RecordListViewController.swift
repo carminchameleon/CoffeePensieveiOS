@@ -47,7 +47,6 @@ class RecordListViewController: UIViewController {
         setNavigation()
         setUI()
         setCollection()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

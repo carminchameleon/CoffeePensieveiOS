@@ -34,13 +34,10 @@ class CustomButton: UIButton {
             if isEnabled {
                 backgroundColor = UIColor.primaryColor500
                 setTitleColor(UIColor.primaryColor25, for: .normal)
-
             } else {
                 backgroundColor =  UIColor.primaryColor25
                 setTitleColor(UIColor.primaryColor300, for: .normal)
             }
         }
     }
-    
-
 }

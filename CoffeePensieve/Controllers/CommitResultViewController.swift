@@ -34,25 +34,20 @@ final class CommitResultViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        print("View Did Layout Subviews")
         updateMemoData()
     }
-    
     
     @objc func closeTapped() {
         navigationController?.popToRootViewController(animated: true)
     }
-    
         
     func setUI() {
         resultView.backgroundColor = .white
         navigationItem.title = "Memory"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.tintColor = .white
-
         navigationItem.setHidesBackButton(true, animated: true)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeTapped))
-//        updateMemoData()
         updateUIWithData()
     }
 
@@ -64,7 +59,6 @@ final class CommitResultViewController: UIViewController {
         resultView.moodLabel.text = data?.moodNameString
         resultView.moodImage.text = data?.moodImageString
         resultView.tags.text = data?.tagString
-
     }
 
     func updateMemoData() {
@@ -74,13 +68,13 @@ final class CommitResultViewController: UIViewController {
             return
         }
         // get memo text height
-        let width = resultView.frame.width - 48 // 양 옆의 넓이
+        let width = resultView.frame.width - 48
         let font =  UIFont.italicSystemFont(ofSize: 17)
         let memoTextHeight =  Common.heightForView(text: memo, font: font, width: width)
         let emptySpaceHeight = resultView.frame.height - resultView.detailTitle.frame.maxY - 24
         
         if memoTextHeight > emptySpaceHeight {
-           setMemoView(memo)
+            setMemoView(memo)
         } else {
             setDetailView(memo)
         }

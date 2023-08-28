@@ -106,17 +106,7 @@ final class SignInView: UIView {
     
     
     // MARK: - 로그인
-    let signInButton: UIButton = {
-        let button = UIButton(type:.custom)
-        button.setTitle("Log In", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.setTitleColor(UIColor.primaryColor300, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 6
-        button.isEnabled = false
-        return button
-    }()
+    let signInButton = CustomButton(isEnabled: false, title: "Log In")
     
     lazy var textFieldStackView: UIStackView = {
         let st = UIStackView(arrangedSubviews: [emailTextFieldView, passwordTextFieldView])
@@ -248,7 +238,7 @@ final class SignInView: UIView {
             signInButton.topAnchor.constraint(equalTo: forgotButton.bottomAnchor, constant: 12),
             signInButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             signInButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            signInButton.heightAnchor.constraint(equalToConstant: ContentHeight.authButtonHeight)
+            signInButton.heightAnchor.constraint(equalToConstant: ContentHeight.buttonHeight)
         ])
         
     }

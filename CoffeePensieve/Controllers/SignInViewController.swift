@@ -68,11 +68,11 @@ final class SignInViewController: UIViewController {
         
         if Common.isValidEmail(email) && password != "" {
             signInView.signInButton.isEnabled = true
-            signInView.signInButton.setTitleColor(UIColor.primaryColor500, for: .normal)
+//            signInView.signInButton.setTitleColor(UIColor.primaryColor500, for: .normal)
 
         } else {
             signInView.signInButton.isEnabled = false
-            signInView.signInButton.setTitleColor(UIColor.primaryColor300, for: .normal)
+//            signInView.signInButton.setTitleColor(UIColor.primaryColor300, for: .normal)
         }
     }
 }

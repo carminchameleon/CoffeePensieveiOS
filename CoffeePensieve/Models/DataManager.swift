@@ -137,7 +137,9 @@ final class DataManager {
         Common.setUserDefaults(userProfile.reminder, forKey: .reminder)
     }
     
+    // userDefault에서 가져온 데이터를 Profile에 저장
     func setProfileFromUserDefault() {
+        print("userDefault에서 가져온 데이터를 Profile에 저장")
         guard let name = Common.getUserDefaultsObject(forKey: .name) as? String else { return }
         guard let email = Common.getUserDefaultsObject(forKey: .email) as? String else { return }
         guard let cups = Common.getUserDefaultsObject(forKey: .cups) as? Int else { return }
@@ -149,6 +151,21 @@ final class DataManager {
        // 어떤 값도 optional이 아니라면?
         let profile = UserProfile(name: name, cups: cups, email: email, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, reminder: reminder)
         self.userProfile = profile
+    }
+    
+    func getProfileFromUserDefault() -> UserProfile? {
+        print("userDefault에서 가져온 데이터를 리턴")
+        guard let name = Common.getUserDefaultsObject(forKey: .name) as? String else { return nil }
+        guard let email = Common.getUserDefaultsObject(forKey: .email) as? String else { return nil }
+        guard let cups = Common.getUserDefaultsObject(forKey: .cups) as? Int else { return nil }
+        guard let nightTime = Common.getUserDefaultsObject(forKey: .nightTime) as? String else { return nil }
+        guard let morningTime = Common.getUserDefaultsObject(forKey: .morningTime) as? String else { return nil }
+        guard let limitTime = Common.getUserDefaultsObject(forKey: .limitTime) as? String else { return nil }
+        guard let reminder = Common.getUserDefaultsObject(forKey: .reminder) as? Bool else { return nil }
+        
+       // 어떤 값도 optional이 아니라면?
+        let profile = UserProfile(name: name, cups: cups, email: email, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, reminder: reminder)
+        return profile
     }
     
     func getUserData() -> UserProfile? {
@@ -185,73 +202,25 @@ final class DataManager {
         }
     }
 
-    // MARK: - TRACKER - Today's memory
-    // 오늘 날짜에 해당하는 commit을 api에서 패치
-    // today에 해당하는 데이터 -> todayCommits에 저장
-    // calculateGuideLineData -> 현재 유저의 설정 + today commit 숫자 합쳐서 guideline을 만든다.
-    func fetchTodayCommits(completion: @escaping(Result<Void,NetworkError>) -> Void) {
-        print(#function)
-        trackerManager.fetchTodayCommits { result in
-            switch result {
-            case .success(let data):
-                self.todayCommits = data
-                self.calculateGuidelineData()
-                completion(.success(()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-            
-        }
-    }
-    
-    func getTodayCommits() -> [Commit] {
-        print(#function)
-        return todayCommits
-    }
-    func getNumberOfTodayCommit() -> Int {
-        print(#function)
-        return todayCommits.count
-    }
-    
-    // MARK: - TRACKER - Caffeine Guideline
-    func calculateGuidelineData() {
-        print(#function)
-        if let profile = userProfile {
-            let data = Guideline(limitTime: profile.limitTime, limitCup: profile.cups, currentCup: todayCommits.count)
-            self.guideline = data
-        }
-    }
-    
-    func getGuidlineData() -> Guideline? {
-        return self.guideline
-    }
-
+  
     // MARK: - TRACKER - Record
-    func getTrackerRecord(completion: @escaping(Result<Void,NetworkError>)->Void) {
-        Task {
-            do {
-                let all = try await trackerManager.fetchNumberOfAllCommits()
-                let weekly = try await trackerManager.fetchNumberOfWeeklyCommits()
-                let monthly = try await trackerManager.fetchNumberOfMonthlyCommits()
-                let yearly = try await trackerManager.fetchNumberOfYearlyCommits()
+    func getTrackerRecords() async throws-> [Summary] {
+        do {
+            let all = try await trackerManager.fetchNumberOfAllCommits()
+            let weekly = try await trackerManager.fetchNumberOfWeeklyCommits()
+            let monthly = try await trackerManager.fetchNumberOfMonthlyCommits()
+            let yearly = try await trackerManager.fetchNumberOfYearlyCommits()
 
-                let data = [
-                    Summary(title: "All your coffee memories", number: all),
-                    Summary(title: "This Week", number: weekly),
-                    Summary(title: "This Month", number: monthly),
-                    Summary(title: "This Year", number: yearly),
-                ]
-                
-                self.recordSummary = data
-                completion(.success(()))
-            } catch {
-                completion(.failure(.dataError))
-            }
+            let data = [
+                Summary(title: "All your coffee memories", number: all),
+                Summary(title: "This Week", number: weekly),
+                Summary(title: "This Month", number: monthly),
+                Summary(title: "This Year", number: yearly),
+            ]
+            return data
+        } catch {
+            throw NetworkError.databaseError
         }
-    }
-    
-    func getSummaryData() -> [Summary] {
-        return self.recordSummary
     }
 
   // MARK: - 전체 commit 내용 가져오기 (Tracker - List에서)

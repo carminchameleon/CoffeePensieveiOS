@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TrackerGuidelineTableViewCell: UITableViewCell {
+final class TrackerGuidelineTableViewCell: UITableViewCell {
 
     var guideline: Guideline? {
         didSet {
@@ -104,7 +104,6 @@ class TrackerGuidelineTableViewCell: UITableViewCell {
     
     lazy var cupStackView: UIStackView = {
         let st = UIStackView(arrangedSubviews: [currentCupNumber, leftCupNumber])
-//        st.spacing = 12
         st.axis = .horizontal
         st.alignment = .fill
         st.distribution = .fill
@@ -150,7 +149,6 @@ class TrackerGuidelineTableViewCell: UITableViewCell {
 
     lazy var timeStackView: UIStackView = {
         let st = UIStackView(arrangedSubviews: [currentTimeNumber, leftTimeNumber])
-//        st.spacing = 12
         st.axis = .horizontal
         st.alignment = .fill
         st.distribution = .fill

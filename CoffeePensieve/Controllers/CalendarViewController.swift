@@ -10,11 +10,11 @@ import UIKit
 
 final class CalendarViewController: UIViewController {
 
-    let dataManager = DataManager.shared
-    var monthlyCommitCounting: [Int: Int]?
     let monthlyRecordView = MonthlyRecordView()
+    let dataManager = DataManager.shared
+
+    var monthlyCommitCounting: [Int: Int]?
     var isInitSetting = true
-    
     var visibleDate: DateComponents? {
         didSet {
             if !isInitSetting, oldValue != visibleDate {
@@ -27,22 +27,13 @@ final class CalendarViewController: UIViewController {
         view = monthlyRecordView
     }
     
-    override func viewWillLayoutSubviews() {
-        NSLayoutConstraint.activate([
-            monthlyRecordView.calendar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            monthlyRecordView.calendar.trailingAnchor .constraint(equalTo: view.trailingAnchor, constant: 0),
-            monthlyRecordView.calendar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-        ])
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigation()
         getCurrentCalendar()
         monthlyRecordView.calendar.delegate = self
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !isInitSetting {
@@ -50,6 +41,13 @@ final class CalendarViewController: UIViewController {
         }
     }
     
+    override func viewWillLayoutSubviews() {
+        NSLayoutConstraint.activate([
+            monthlyRecordView.calendar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            monthlyRecordView.calendar.trailingAnchor .constraint(equalTo: view.trailingAnchor, constant: 0),
+            monthlyRecordView.calendar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
+        ])
+    }
 
     func setNavigation() {
         navigationItem.title = "Monthly"
@@ -59,9 +57,9 @@ final class CalendarViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
-    
     // 오늘의 날짜 구하기 -> 구한걸로 패치해오기
     func getCurrentCalendar() {
+        print("Get Current Calendar")
         let today = Date()
         let calendar = Calendar.current
         
@@ -75,7 +73,6 @@ final class CalendarViewController: UIViewController {
             switch result {
             case .success:
                 let data = strongSelf.dataManager.getMonthlySortedCommits()!
-                
                 let countingData = strongSelf.countDailyCommit(data)
                 strongSelf.monthlyCommitCounting = countingData
                 
@@ -142,11 +139,10 @@ extension CalendarViewController: UICalendarViewDelegate {
         // 현재 보여지는 Cell을 데코레이션 할 것
         visibleDate = calendarView.visibleDateComponents
         isInitSetting = false
+        print(visibleDate)
         guard let day = dateComponents.day else {
             return nil
         }
-        
-        
         
         guard let monthlyData = self.monthlyCommitCounting else { return nil }
         if let counting = monthlyData[day] {
@@ -161,7 +157,6 @@ extension CalendarViewController: UICalendarViewDelegate {
     
     // 새로 바뀐 Month로 데이터를  fetch 해옴
     func updateCurrentCoffeeCommit() {
-        
         guard let visibleDate = visibleDate else { return }
         guard let firstDayOfMonth = visibleDate.date else { return }
         // 마지막 날짜 얻기 (해당 달 + 1 , 다음달의 0번째 날 : 그 전 달의 마지막 날)

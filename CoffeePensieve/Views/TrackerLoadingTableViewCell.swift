@@ -49,7 +49,6 @@ class TrackerLoadingTableViewCell: UITableViewCell {
     func setConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-
             stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
             stackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 0),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),

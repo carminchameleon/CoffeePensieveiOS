@@ -23,13 +23,8 @@ final class SignUpView: UIView {
     
     // MARK: - 각 필드 상태에 따라 버튼 상태 업데이트
     private func changeButtonStatus(_ isEnable: Bool) {
-        if isEnable {
-            signUpButton.isEnabled = true
-            signUpButton.setTitleColor(UIColor.primaryColor500, for: .normal)
-        } else {
-            signUpButton.isEnabled = false
-            signUpButton.setTitleColor(UIColor.primaryColor300, for: .normal)
-        }
+        print("updated")
+        signUpButton.isEnabled = isEnable
     }
     
     // MARK: - 뒤로가기 버튼
@@ -110,18 +105,19 @@ final class SignUpView: UIView {
     }()
     
     // MARK: - 회원가입 버튼
-    let signUpButton: UIButton = {
-        let button = UIButton(type:.custom)
-        button.setTitle("Continue", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.setTitleColor(UIColor.primaryColor300, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 6
-        // 테스트 용으로 수정
-        button.isEnabled = true
-        return button
-    }()
+    let signUpButton = CustomButton(isEnabled: false, title: "Continue")
+//    let signUpButton: UIButton = {
+//        let button = UIButton(type:.custom)
+//        button.setTitle("Continue", for: .normal)
+//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+//        button.setTitleColor(UIColor.primaryColor300, for: .normal)
+//        button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
+//        button.clipsToBounds = true
+//        button.layer.cornerRadius = 6
+//        // 테스트 용으로 수정
+//        button.isEnabled = true
+//        return button
+//    }()
     
     let infoLabel: UILabel = {
         let text = "By tapping Continue, You agree to our Terms and"

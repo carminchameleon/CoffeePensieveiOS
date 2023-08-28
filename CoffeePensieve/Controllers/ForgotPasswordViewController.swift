@@ -23,7 +23,7 @@ final class ForgotPasswordViewController: UIViewController {
     
     private func addTargets() {
         forgotPasswordView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchDown)
-        forgotPasswordView.continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchDown)
+        forgotPasswordView.submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchDown)
         forgotPasswordView.emailTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
     }
 
@@ -31,26 +31,19 @@ final class ForgotPasswordViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc private func continueButtonTapped() {
+    @objc private func submitButtonTapped() {
         guard let email = forgotPasswordView.emailTextField.text else { return }
         networkManager.forgotPassword(email: email) {[weak self] result in
             guard let strongSelf = self else { return }
-
             switch result {
             case .success(let successMessage):
-                let successAlert = UIAlertController(title: successMessage, message: "You will receive a password reset email shortly", preferredStyle: .alert)
-                let okayAction = UIAlertAction(title: "Okay", style: .default) { action in
+                AlertManager.showTextAlert(on: strongSelf, title: successMessage, message: "You will receive a password reset email shortly") {
                     strongSelf.dismiss(animated: true)
                 }
-                successAlert.addAction(okayAction)
-                strongSelf.present(successAlert, animated: true, completion: nil)
             case .failure(let error):
-                let failAlert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
-               let okayAction = UIAlertAction(title: "Okay", style: .default) {action in
-                   strongSelf.dismiss(animated: true)
-               }
-               failAlert.addAction(okayAction)
-               strongSelf.present(failAlert, animated: true, completion: nil)
+                AlertManager.showTextAlert(on: strongSelf, title: "Sorry", message: error.localizedDescription) {
+                    strongSelf.dismiss(animated: true)
+                }
             }
         }
     }
@@ -64,13 +57,10 @@ final class ForgotPasswordViewController: UIViewController {
 
         if Common.isValidEmail(email) {
             forgotPasswordView.emailTextField.setupRightSideImage(imageViewName: "checkmark.circle.fill", passed: true)
-            forgotPasswordView.continueButton.isEnabled = true
-            forgotPasswordView.continueButton.setTitleColor(UIColor.primaryColor500, for: .normal)
-
+            forgotPasswordView.submitButton.isEnabled = true
         } else {
             forgotPasswordView.emailTextField.setupRightSideImage(imageViewName: "xmark.circle.fill", passed: false)
-            forgotPasswordView.continueButton.isEnabled = false
-            forgotPasswordView.continueButton.setTitleColor(UIColor.primaryColor300, for: .normal)
+            forgotPasswordView.submitButton.isEnabled = false
         }
     }
 
