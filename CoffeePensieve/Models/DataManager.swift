@@ -139,7 +139,6 @@ final class DataManager {
     
     // userDefault에서 가져온 데이터를 Profile에 저장
     func setProfileFromUserDefault() {
-        print("userDefault에서 가져온 데이터를 Profile에 저장")
         guard let name = Common.getUserDefaultsObject(forKey: .name) as? String else { return }
         guard let email = Common.getUserDefaultsObject(forKey: .email) as? String else { return }
         guard let cups = Common.getUserDefaultsObject(forKey: .cups) as? Int else { return }
@@ -154,7 +153,6 @@ final class DataManager {
     }
     
     func getProfileFromUserDefault() -> UserProfile? {
-        print("userDefault에서 가져온 데이터를 리턴")
         guard let name = Common.getUserDefaultsObject(forKey: .name) as? String else { return nil }
         guard let email = Common.getUserDefaultsObject(forKey: .email) as? String else { return nil }
         guard let cups = Common.getUserDefaultsObject(forKey: .cups) as? Int else { return nil }
@@ -239,18 +237,17 @@ final class DataManager {
     
     // 현재의 AllCommit 변수에서 데이터를 가져와서 원하는 데이터 형식으로 바꿔서 리턴
     func getAllCommits() -> [CommitDetail] {
+        
         var detailCommitList: [CommitDetail] = []
         allCommits.forEach { commit in
-            if let commitDetail = getCommitDetailInfo(commit: commit) {
-                detailCommitList.append(commitDetail)
-            }
+                detailCommitList.append(getCommitDetailInfo(commit: commit))
         }
         return detailCommitList
     }
     
 
     
-    // MARK: - Record Calendar 뷰
+    // MARK: 일정 기간의 Commit 리스트 가져오기
     func getMonthlyDurationCommit(start: Date, finish: Date, completion: @escaping (Result<Void,NetworkError>) -> Void) {
         trackerManager.fetchDurationCommit(start: start, finish: finish) { result in
             switch result {
@@ -264,8 +261,14 @@ final class DataManager {
             }
         }
     }
-    
+
     // MARK: - 커밋 리스트가 있을 때 그걸 날짜별로 돌아가면서 정렬  [1: [commits...]]
+    /**
+     - Description: 기본 커밋 리스트를 날짜별로 [day: [commits]] 정렬
+     - Parameters:
+       - commitList: 날짜 리스트
+     - Returns: 날짜별로 정렬된 리스트
+     **/
     typealias SortedDailyCommit = [Int: [Commit]]
     func sortCommitList(_ commitList: [Commit]) -> SortedDailyCommit {
         var sortedData: [Int: [Commit]] = [:]
@@ -284,10 +287,9 @@ final class DataManager {
         return sortedData
     }
     
-    
+    // [2023-08-29 14:00:00 +0000: [commit, commit...]
     typealias SortedDailyDetailedCommit = [Date: [CommitDetail]]
     func sortDetailedCommitwithCreatedAt(_ commitList: [CommitDetail]) -> SortedDailyDetailedCommit {
-    
         var groupedCommitDetails = [Date: [CommitDetail]]()
         for commitDetail in commitList {
             let date = Calendar.current.startOfDay(for: commitDetail.createdAt)
@@ -303,11 +305,14 @@ final class DataManager {
 
 
     // MARK: - 날짜별로 묶여있는 리스트를 카운팅. 몇일에 몇개의 커밋인지 계산
+    //
     func countDailyCommit(_ data: SortedDailyCommit) -> [Int: Int] {
+        
         var countingData: [Int: Int] = [:]
         data.forEach { (key: Int, value: [Commit]) in
             countingData[key] = value.count
         }
+        
         return countingData
     }
     
@@ -316,29 +321,33 @@ final class DataManager {
     }
     
     func getMonthlySortedCommitCounting() -> [Int: Int]? {
+
         guard let monthlyData = self.monthlySortedCommits else { return nil }
         return self.countDailyCommit(monthlyData)
     }
     
     // commit 있을 때 그 commit의 해당 데이터들을 묶어줘서 CommitDetail로 만들어주는
-    func getCommitDetailInfo(commit: Commit) -> CommitDetail? {
-        if !drinkList.isEmpty, !moodList.isEmpty, !tagList.isEmpty {
-            let drink = drinkList.filter { $0.drinkId == commit.drinkId }[0]
-            let mood = moodList.filter { $0.moodId == commit.moodId }[0]
-            var tags: [Tag] = []
-            commit.tagIds.forEach { tagId in
-                let findedTag = tagList.filter { $0.tagId == tagId}
-                if !findedTag.isEmpty {
-                    tags.append(findedTag[0])
-                }
+    func getCommitDetailInfo(commit: Commit) -> CommitDetail {
+        let drink = Common.drinkList.filter { $0.drinkId == commit.drinkId }[0]
+        let mood = Common.moodList.filter { $0.moodId == commit.moodId }[0]
+        var tags: [Tag] = []
+        
+        commit.tagIds.forEach { tagId in
+            let findedTag = Common.tagList.filter { $0.tagId == tagId}
+            if !findedTag.isEmpty {
+                tags.append(findedTag[0])
             }
-            let commitDatil = CommitDetail(id: commit.id, uid: commit.uid, drink: drink, mood: mood, tagList: tags, memo: commit.memo, createdAt: commit.createdAt)
-            return commitDatil
-        } else {
-            return nil
         }
+
+        let commitDatil = CommitDetail(id: commit.id,
+                                       uid: commit.uid,
+                                       drink: drink,
+                                       mood: mood,
+                                       tagList: tags,
+                                       memo: commit.memo,
+                                       createdAt: commit.createdAt)
+        return commitDatil
     }
-    
     
     func getTopDrinkList(commitList: [Commit]) {
         var drinkCount: [Int: Int] = [:]

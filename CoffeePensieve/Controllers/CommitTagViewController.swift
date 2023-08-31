@@ -68,12 +68,7 @@ class CommitTagViewController: UIViewController {
         loadingVC.selectedTags = selectedTags
         loadingVC.memo = tagView.memoView.text == "add a note..." ? "" : tagView.memoView.text
         navigationController?.pushViewController(loadingVC, animated: true)
-    }
-
-    @objc func backButtonTapped() {
-        print("Back Button Tapped")
-    }
-    
+    }    
 }
 
 extension CommitTagViewController: UICollectionViewDataSource {

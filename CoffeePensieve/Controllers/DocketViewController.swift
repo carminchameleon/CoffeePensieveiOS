@@ -6,16 +6,19 @@
 //
 
 import UIKit
+@objc protocol DocketControlDelegate {
+    @objc func isDeleted()
+}
 
 class DocketViewController: UIViewController {
     
     let docketView = DocketView()
     let dataManager = DataManager.shared
+    weak var delegate : DocketControlDelegate?
     
     override func loadView() {
         view = docketView
     }
-
     // ViewController 오픈할 때
     // Commit 데이터 자체를 넣어줄 것임
     
@@ -155,6 +158,7 @@ class DocketViewController: UIViewController {
                 switch result {
                 case .success:
                     strongSelf.navigationController?.popViewController(animated: true)
+                    strongSelf.delegate?.isDeleted()
                 case .failure:
                     let alert = UIAlertController(title: "Sorry", message: "Failed to delete your memory from pensive", preferredStyle: .alert)
                 let okay = UIAlertAction(title: "Okay", style: .default) { action in

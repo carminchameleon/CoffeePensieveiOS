@@ -23,7 +23,6 @@ final class SignUpView: UIView {
     
     // MARK: - 각 필드 상태에 따라 버튼 상태 업데이트
     private func changeButtonStatus(_ isEnable: Bool) {
-        print("updated")
         signUpButton.isEnabled = isEnable
     }
     

@@ -86,7 +86,6 @@ struct CommitResultDetail {
     }
     
     var tagString: String {
-        print(tagIds)
         var tagText = ""
         let allTagList = Common.tagList
         tagIds.forEach { tagId in
@@ -94,7 +93,6 @@ struct CommitResultDetail {
             if !findedTag.isEmpty {
                 let tag = findedTag[0].name
                 tagText.append("#\(tag) ")
-                print(tagText)
             }
         }
         return tagText

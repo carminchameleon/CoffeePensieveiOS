@@ -42,7 +42,7 @@ class PreferenceViewController: UIViewController {
     }
     
     func checkNotificationStatus() {
-        notiCenter.getNotificationSettings { (settings) in
+        notiCenter.getNotificationSettings {(settings) in
            // 시스템 세팅
                if settings.authorizationStatus == .authorized {
                    // 기본 상태
@@ -67,7 +67,6 @@ class PreferenceViewController: UIViewController {
         configureTableView()
         addTargets()
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
-
     }
     
     func setUserData() {

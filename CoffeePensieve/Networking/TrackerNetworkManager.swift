@@ -10,6 +10,7 @@ import Firebase
 import FirebaseFirestoreSwift
 
 final class TrackerNetworkManager {
+    
     static let shared = TrackerNetworkManager()
     private init() {}
 
@@ -87,8 +88,48 @@ final class TrackerNetworkManager {
                 }
             }
     }
-    // MARK: - Commit Count 가져오기
+
     
+    typealias RecordResult = (data: [Commit], snapshot: DocumentSnapshot?)
+    func fetchAllCommitsWithOffset(size: Int, lastDocument: DocumentSnapshot?) async throws -> RecordResult {
+        do {
+            guard let uid = Common.getUserDefaultsObject(forKey: .userId) else { throw NetworkError.uidError }
+            let userId = uid as! String
+            
+            let query = getQueryWithLastSnapShot(userId: userId, size: size, lastDocument: lastDocument)
+            
+            let querySnapshot = try await query.getDocuments()
+            var commits: [Commit] = []
+            
+            querySnapshot.documents.forEach { document in
+                if let commit = formatCommitData(document: document) {
+                    commits.append(commit)
+                }
+            }
+            return (commits, querySnapshot.documents.last)
+            
+        } catch {
+            throw NetworkError.databaseError
+        }
+    }
+    
+    func getQueryWithLastSnapShot(userId: String, size: Int, lastDocument: DocumentSnapshot?) -> Query {
+        let docRef = db.collection(Constant.FStore.commitCollection)
+        if let lastDoc = lastDocument {
+            return docRef.whereField("uid", isEqualTo: userId)
+                                        .order(by: "createdAt", descending: true)
+                                        .start(afterDocument: lastDoc)
+                                        .limit(to: size)
+        } else {
+           return docRef.whereField("uid", isEqualTo: userId)
+                                        .order(by: "createdAt", descending: true)
+                                        .limit(to: size)
+
+        }
+    }
+    
+    
+    // MARK: - Commit Count 가져오기
     // 지금까지 전체 Commit 횟수 가져오기
     func fetchNumberOfAllCommits() async throws -> Int {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
@@ -202,6 +243,34 @@ final class TrackerNetworkManager {
                     completion(.success(commits))
                 }
             }
+    }
+    
+    // MARK: - 특정 기간의 commit list 조회
+    func fetchDurationCommitList(start: Date, finish: Date) async throws -> [Commit] {
+        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+            throw NetworkError.uidError
+        }
+        
+        let userId = uid as! String
+        let docRef = db.collection(Constant.FStore.commitCollection)
+        
+        do {
+            let querySnapshot = try await docRef
+                .whereField("uid", isEqualTo: userId)
+                .whereField("createdAt", isGreaterThan: Timestamp(date: start))
+                .whereField("createdAt", isLessThan: Timestamp(date: finish))
+                .getDocuments()
+            
+            var commits: [Commit] = []
+            querySnapshot.documents.forEach { document in
+                if let commit = self.formatCommitData(document: document) {
+                    commits.append(commit)
+                }
+            }
+            return commits
+        } catch {
+            throw NetworkError.databaseError
+        }
     }
     
     

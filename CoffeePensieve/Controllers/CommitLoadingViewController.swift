@@ -67,7 +67,8 @@ class CommitLoadingViewController: UIViewController {
             switch result {
             case .success(let time):
                 strongSelf.moveToResultView(time)
-            
+                // 새로운 커밋 생성 여부
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "NewCommitMade"), object: true)
             case .failure(let error):
                 var errorMessage = "Failed to upload data. If the problem repeats, please contact us."
                 switch error {
