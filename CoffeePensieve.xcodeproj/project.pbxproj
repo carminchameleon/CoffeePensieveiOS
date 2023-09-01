@@ -10,7 +10,6 @@
 		F00B4F4D2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F4C2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift */; };
 		F00B4F4F2A29F31D00D94FF2 /* RecordEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F4E2A29F31D00D94FF2 /* RecordEmptyView.swift */; };
 		F00B4F512A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F502A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift */; };
-		F00B4F532A2C4C7F00D94FF2 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F522A2C4C7E00D94FF2 /* AccountSettingViewController.swift */; };
 		F00B4F552A2C5FE200D94FF2 /* AccountDeleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */; };
 		F00D78062A249C5800262B95 /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00D78052A249C5800262B95 /* NickNameViewController.swift */; };
 		F010D1522A47CBCC00E4CD0E /* RecordLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F010D1512A47CBCC00E4CD0E /* RecordLoadingView.swift */; };
@@ -122,7 +121,6 @@
 		F00B4F4C2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F00B4F4E2A29F31D00D94FF2 /* RecordEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmptyView.swift; sourceTree = "<group>"; };
 		F00B4F502A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerGuidelineHeaderView.swift; sourceTree = "<group>"; };
-		F00B4F522A2C4C7E00D94FF2 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeleteViewController.swift; sourceTree = "<group>"; };
 		F00D78052A249C5800262B95 /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
 		F010D1512A47CBCC00E4CD0E /* RecordLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordLoadingView.swift; sourceTree = "<group>"; };
@@ -365,7 +363,6 @@
 				F0D6460C2A23251C00BEB4C8 /* CupModalViewController.swift */,
 				F0D6460E2A23256B00BEB4C8 /* TimeModalViewController.swift */,
 				F00D78052A249C5800262B95 /* NickNameViewController.swift */,
-				F00B4F522A2C4C7E00D94FF2 /* AccountSettingViewController.swift */,
 				F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */,
 				F0DF062E2A3AF607001016DF /* ViewController.swift */,
 			);
@@ -538,7 +535,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0F8A8AC29EBE62400838F35 /* FirstProfileRoutineViewController.swift in Sources */,
-				F00B4F532A2C4C7F00D94FF2 /* AccountSettingViewController.swift in Sources */,
 				F05011632A17666000AD0A49 /* CalendarCell.swift in Sources */,
 				F09F61032A052403004F2462 /* CommitTagViewController.swift in Sources */,
 				F01413732A120C3800A0DB99 /* TrackerRecordTableViewCell.swift in Sources */,

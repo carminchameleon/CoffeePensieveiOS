@@ -10,7 +10,6 @@ import Firebase
 import SafariServices
 
 class ProfileViewController: UIViewController {
-
     let dataManager = DataManager.shared
     let authManager = AuthNetworkManager.shared
     
@@ -103,8 +102,8 @@ class ProfileViewController: UIViewController {
     }
 
     func profileTapped() {
-        let accountVC = AccountSettingViewController()
-        self.navigationController?.pushViewController(accountVC, animated: true)
+        let nickNameVC = NickNameViewController()
+        self.navigationController?.pushViewController(nickNameVC, animated: true)
     }
 
     func preferenceTapped() {
@@ -142,8 +141,6 @@ class ProfileViewController: UIViewController {
     func logOutTapped(){
         authManager.signOut()
     }
-
-    
 }
 
 extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {

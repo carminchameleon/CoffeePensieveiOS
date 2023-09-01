@@ -185,7 +185,7 @@ final class DataManager {
         }
     }
     
-    
+    // 이름 업데이트 하는 부분
     func updateUserProfile(name: String, completion: @escaping(Result<Void, NetworkError>) -> Void) {
         authManager.updateUserProfile(name: name) {[weak self] result in
             guard let weakSelf = self else { return }

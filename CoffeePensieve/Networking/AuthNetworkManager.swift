@@ -150,7 +150,42 @@ final class AuthNetworkManager {
             
         }
     }
+    
+    // MARK: - REFCTORING - 수정된 유저 프로필 DB에 업데이트하기
+    func updatePreference(data: UserPreference) async throws -> Void {
+        do {
+            guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+                throw NetworkError.uidError
+            }
+            let userId = uid as! String
+            
+            let docRef = db.collection(Constant.FStore.userCollection).document(userId)
+            let data: [String : Any] = [
+                Constant.FStore.cupsField: data.cups,
+                Constant.FStore.morningTimeField: data.morningTime,
+                Constant.FStore.nightTimeField: data.nightTime,
+                Constant.FStore.limitTimeField: data.limitTime,
+                Constant.FStore.reminderField: data.reminder]
+            try await docRef.updateData(data)
+        } catch {
+            throw NetworkError.databaseError
+        }
+    }
+    
+    func getUpdatedUserData() async throws -> UserProfile {
+        do {
+            guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+                throw NetworkError.uidError
+            }
+            let userId = uid as! String
+            let docRef = db.collection(Constant.FStore.userCollection).document(userId)
+            let userData = try await docRef.getDocument(as: UserProfile.self)
+            return userData
+        } catch {
+            throw NetworkError.databaseError
+        }
 
+    }
     
     // MARK: - update user profile - Name
     func updateUserProfile(name: String, completion: @escaping ProfileCompletion) {
@@ -174,6 +209,22 @@ final class AuthNetworkManager {
             
         }
     }
+    
+    // MARK: - 유저 이름 업데이트
+    func updateUserName(name: String) async throws -> Void {
+        do {
+            guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+                throw NetworkError.uidError
+            }
+            let userId = uid as! String
+            let docRef = db.collection(Constant.FStore.userCollection).document(userId)
+            let data: [String : Any] = [Constant.FStore.nameField: name]
+            try await docRef.updateData(data)
+        } catch {
+            throw NetworkError.databaseError
+        }
+    }
+    
     
     func getUserProfileFromRef(docRef: DocumentReference, onSuccess: @escaping ((UserProfile) -> Void)) {
         docRef.getDocument(as: UserProfile.self) { result in

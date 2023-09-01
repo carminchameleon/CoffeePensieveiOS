@@ -82,8 +82,6 @@ enum CellId: String {
     
     case ProfileCell
     
-    case AccountSettingCell
-    
     case PreferenceNameCell
     case PreferenceCupCell
     case PreferenceTimeCell
