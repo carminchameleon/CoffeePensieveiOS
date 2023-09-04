@@ -12,6 +12,8 @@ class CommitViewController: UIViewController {
     
     let dataManager = DataManager.shared
     let commitManager = CommitNetworkManager.shared
+    let authManager = AuthNetworkManager.shared
+    
     
     let commitView = CommitMainView()
     var userName: String = ""
@@ -79,16 +81,18 @@ class CommitViewController: UIViewController {
             self.updateName()
         } else {
             // api에서 데이터 가져와서 UserDefault에 저장
-            dataManager.getUserProfileFromAPI {[weak self] result in
-                switch result {
-                case .success:
-                    self?.updateName()
-                case .failure:
-                    // DB에 없는 경우 - 소셜 로그인으로 가입해서 유저 프로필이 없는 경우
+            Task {[weak self] in
+                guard let self = self else { return }
+                do {
+                    let profile = try await self.authManager.getUpdatedUserData()
+                    self.authManager.saveProfiletoUserDefaults(userProfile: profile)
+                    self.updateName()
+                } catch {
                     let profileVC = FirstProfileGreetingViewController()
                     profileVC.isSocial = true
-                    self?.navigationController?.pushViewController(profileVC, animated: true)
+                    self.navigationController?.pushViewController(profileVC, animated: true)
                 }
+               
             }
         }
     }
@@ -118,7 +122,7 @@ class CommitViewController: UIViewController {
         }
     }
     
-    func updateName(){
+    func updateName() {
         guard let name = Common.getUserDefaultsObject(forKey: .name) as? String else { return }
         let greetingSentence = "\(greeting) \(name)"
         commitView.greetingLabel.text = greetingSentence

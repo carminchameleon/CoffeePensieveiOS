@@ -131,6 +131,7 @@ final class RecordListViewController: UIViewController {
         return self.changeForCollectionView(data: sortedList)
     }
     
+    // 콜렉션뷰에 필요한 header과 section 리스트로 변환
     func changeForCollectionView(data: SortedDailyDetailedCommit) -> RecordCollectionData {
         
         let sortedGroupedCommitDetails = data.sorted { $0.key > $1.key }

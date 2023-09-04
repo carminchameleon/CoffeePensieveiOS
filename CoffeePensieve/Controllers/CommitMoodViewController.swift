@@ -11,7 +11,7 @@ class CommitMoodViewController: UIViewController {
 
     let dataManager = DataManager.shared
     
-    var moods: [Mood] = []
+    var moods: [Mood] = Common.moodList
     let moodView = CommitMoodView()
     var selectedMood: Int?
     var selectedDrink: Int? 
@@ -26,14 +26,7 @@ class CommitMoodViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addTargets()
-        setMoodData()
         setCollection()
-        
-    }
-    
-    func setMoodData() {
-        let moodList = dataManager.getMoodListFromAPI()
-        moods = moodList
     }
     
     func addTargets() {

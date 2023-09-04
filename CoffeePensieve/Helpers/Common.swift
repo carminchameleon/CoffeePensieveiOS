@@ -30,7 +30,6 @@ class Common {
         return passwordPred.evaluate(with: password)
     }
     
-    
     enum UserDefaultsKey: String {
         case userId
         case name
@@ -46,13 +45,13 @@ class Common {
     // forKey 넣으면 해당되는 값을 반환
     static func getUserDefaultsObject(forKey defaultsKey: UserDefaultsKey) -> Any? {
         let userDefaults = UserDefaults.standard
-        
         if let object = userDefaults.object(forKey: defaultsKey.rawValue) {
             return object
         } else {
             return nil
         }
     }
+    
     //  설정하기
     static func setUserDefaults(_ value: Any?, forKey defaultsKey: UserDefaultsKey) {
         let userDefaults = UserDefaults.standard
@@ -63,14 +62,12 @@ class Common {
         let userDefaults = UserDefaults.standard
         userDefaults.removeObject(forKey: defaultskey.rawValue)
     }
-    
     static func removeAllUserDefaultObject() {
         let keys = Array(UserDefaults.standard.dictionaryRepresentation().keys)
         for key in keys {
             UserDefaults.standard.removeObject(forKey: key)
         }
     }
-    
     
     static func changeDateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
@@ -157,8 +154,6 @@ class Common {
             "Hope you have a chance to unwind \nand recharge before the day is over.",
             "May your evening be as wonderful as you are."
         ]
-        
-        
         let nowDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH"
@@ -258,5 +253,4 @@ class Common {
                                     Tag(tagId: 5, name: "Chilling"),
                                     Tag(tagId: 6, name: "Lunch"),
                                     Tag(tagId: 7, name: "Dinner")]
-    
 }

@@ -36,7 +36,7 @@ final class CommitCoffeeViewController: UIViewController {
     
     // MARK: - seperate hot and cold drinks list
     func readyData() {
-        let drinkList = dataManager.getDrinkListFromAPI()
+        let drinkList = Common.drinkList
         drinkList.forEach { drink in
             if drink.isIced == false {
                 hotDrinks.append(drink)

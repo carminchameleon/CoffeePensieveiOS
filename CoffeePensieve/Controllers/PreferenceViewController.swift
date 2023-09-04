@@ -53,7 +53,7 @@ class PreferenceViewController: UIViewController {
     }
 
     func setUserData() {
-        guard let user = dataManager.getProfileFromUserDefault() else { return }
+        guard let user = authManager.getProfileFromUserDefault() else { return }
         cups = user.cups
         reminder = user.reminder
         // sectionList에 채우고 있던 것
@@ -168,7 +168,7 @@ class PreferenceViewController: UIViewController {
             do {
                 try await self.authManager.updatePreference(data: userData)
                 let newProfile = try await self.authManager.getUpdatedUserData()
-                dataManager.saveProfiletoUserDefaults(userProfile: newProfile)
+                authManager.saveProfiletoUserDefaults(userProfile: newProfile)
                 if reminder {
                     Common.setNotification(type: .morning, timeString: morningTime)
                     Common.setNotification(type: .night, timeString: nightTime)

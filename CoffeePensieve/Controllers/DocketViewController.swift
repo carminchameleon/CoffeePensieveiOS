@@ -13,14 +13,13 @@ import UIKit
 class DocketViewController: UIViewController {
     
     let docketView = DocketView()
-    let dataManager = DataManager.shared
+    let commitManager = CommitNetworkManager.shared
+    
     weak var delegate : DocketControlDelegate?
     
     override func loadView() {
         view = docketView
     }
-    // ViewController 오픈할 때
-    // Commit 데이터 자체를 넣어줄 것임
     
     var commit: CommitDetail?
     
@@ -146,27 +145,24 @@ class DocketViewController: UIViewController {
         alert.addAction(cancel)
         alert.addAction(okay)
         self.present(alert, animated: true, completion: nil)
-        }
+    }
         
         
-        func deleteData() {
-            guard let commit = self.commit else { return }
-            let id = commit.id
-            
-            self.dataManager.deleteCommit(id: id) {[weak self] result in
-                guard let strongSelf = self else { return }
-                switch result {
-                case .success:
-                    strongSelf.navigationController?.popViewController(animated: true)
-                    strongSelf.delegate?.isDeleted()
-                case .failure:
-                    let alert = UIAlertController(title: "Sorry", message: "Failed to delete your memory from pensive", preferredStyle: .alert)
-                let okay = UIAlertAction(title: "Okay", style: .default) { action in
-                        strongSelf.navigationController?.popViewController(animated: true)
-                    }
-                    alert.addAction(okay)
-                    strongSelf.present(alert, animated: true, completion: nil)
+    func deleteData() {
+        guard let commit = self.commit else { return }
+        let id = commit.id
+        
+        Task {[weak self] in
+            guard let self = self else { return }
+            do {
+                try await self.commitManager.deleteDrink(id: id)
+                self.navigationController?.popViewController(animated: true)
+                self.delegate?.isDeleted()
+            } catch {
+                AlertManager.showTextAlert(on: self, title: "Sorry", message: "Failed to delete your memory.") {
+                    self.navigationController?.popViewController(animated: true)
                 }
+            }
         }
     }
 }

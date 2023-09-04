@@ -11,7 +11,7 @@ class CommitTagViewController: UIViewController {
 
     let dataManager = DataManager.shared
 
-    var tags: [Tag] = []
+    var tags: [Tag] = Common.tagList
     let tagView = CommitTagView()
     var memo: String? = ""
     
@@ -28,15 +28,8 @@ class CommitTagViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        setTagData()
         setCollection()
     }
-    
-    func setTagData() {
-        let tagList = dataManager.getTagListFromAPI()
-        tags = tagList
-    }
-    
 
     func setUI() {
         view.backgroundColor = .white

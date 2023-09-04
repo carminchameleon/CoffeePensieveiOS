@@ -11,6 +11,7 @@ final class TrackerViewController: UIViewController {
     
     let dataManager = DataManager.shared
     let trackerManager = TrackerNetworkManager.shared
+    let authManager = AuthNetworkManager.shared
     
     var isTodayLoading = true
     var isGuidelineLoading = true
@@ -105,8 +106,8 @@ final class TrackerViewController: UIViewController {
         Task {[weak self] in
             guard let self = self else { return }
             do {
-                let commits = try await self.trackerManager.fetchTodayDrinksFromDB()
-                let userProfile = self.dataManager.getProfileFromUserDefault()
+                let commits = try await trackerManager.fetchTodayDrinks()
+                let userProfile = authManager.getProfileFromUserDefault()
                 guard let profile = userProfile else { return }
               
                 self.todayCommits = commits.reversed()
@@ -131,7 +132,7 @@ final class TrackerViewController: UIViewController {
         Task {[weak self] in
             guard let self = self else { return }
             do {
-                self.record = try await self.dataManager.getTrackerRecords()
+                self.record = try await self.trackerManager.getTrackerRecords()
                 self.isRecordLoading = false
                 DispatchQueue.main.async {
                     self.tableView.reloadData()

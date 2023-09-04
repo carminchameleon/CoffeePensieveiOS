@@ -22,7 +22,7 @@ final class TrackerTodayTableViewCell: UITableViewCell {
                 return
             }
             // drink
-            let drinkList = dataManager.getDrinkListFromAPI()
+            let drinkList = Common.drinkList
             let selectedDrink = drinkList.filter { $0.drinkId == commit.drinkId }
             if !selectedDrink.isEmpty {
                 let drink = selectedDrink[0]
@@ -36,7 +36,7 @@ final class TrackerTodayTableViewCell: UITableViewCell {
         
             // tag
             var tagText = ""
-            let allTagList = dataManager.getTagListFromAPI()
+            let allTagList = Common.tagList
             commit.tagIds.forEach { tagId in
                 let findedTag = allTagList.filter { $0.tagId == tagId}
                 if !findedTag.isEmpty {
@@ -47,7 +47,7 @@ final class TrackerTodayTableViewCell: UITableViewCell {
             tagLabel.text = tagText
                 
             // mood
-            let moodList = dataManager.getMoodListFromAPI()
+            let moodList = Common.moodList
             let mood = moodList.filter { $0.moodId == commit.moodId }[0]
             let moodImage = mood.image
             moodLabel.text = moodImage

@@ -1,5 +1,5 @@
 //
-//  NetworkingManager.swift
+//  AuthNetworkManager.swift
 //  CoffeePensieve
 //
 //  Created by Eunji Hwang on 2023/04/29.
@@ -23,7 +23,7 @@ final class AuthNetworkManager {
     
     let db = Firestore.firestore()
     
-    // MARK: - create new user
+    // MARK: - 새로운 유저 생성
     func signUp(_ userData: SignUpForm, onError: @escaping (_ error: Error) -> Void) {
         Auth.auth().createUser(withEmail: userData.email, password: userData.password) { authResult, error in
             if let error = error {
@@ -35,20 +35,19 @@ final class AuthNetworkManager {
             let uid = authData.user.uid
             let uploadData = UploadForm(uid: uid, email: userData.email, name: userData.name, cups: userData.cups, morningTime: userData.morningTime, nightTime: userData.nightTime, limitTime: userData.limitTime, reminder: userData.reminder)
             
-                self.uploadUserProfile(userData: uploadData) { error in
+            self.uploadUserProfile(userData: uploadData) { error in
                     onError(error)
             }
         }
     }
     
-    // MARK: - user profile upload to DB ( 생성 하는 것 )
+    // MARK: - 유저 콜렉션 DB에 유저 프로필 생성
     func uploadUserProfile(userData: UploadForm,  onError: @escaping (_ error: Error) -> Void) {
         let uid = userData.uid
         let userData: [String: Any] = [
             Constant.FStore.emailField: userData.email,
             Constant.FStore.nameField:userData.name,
             Constant.FStore.cupsField: userData.cups,
-            
             Constant.FStore.morningTimeField: userData.morningTime,
             Constant.FStore.nightTimeField: userData.nightTime,
             Constant.FStore.limitTimeField: userData.limitTime,
@@ -62,7 +61,7 @@ final class AuthNetworkManager {
         }
     }
     
-    // MARK: - email sign in
+    // MARK: - 이메일 로그인
     func signIn(email: String, password: String, onError: @escaping (_ error: Error) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
@@ -71,17 +70,16 @@ final class AuthNetworkManager {
         }
     }
     
-    // MARK: - email sign Out
+    // MARK: - 로그아웃
     func signOut() {
         let firebaseAuth = Auth.auth()
         do {
-          try firebaseAuth.signOut()
+            try firebaseAuth.signOut()
             Common.removeAllUserDefaultObject()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError.localizedDescription)
         }
     }
-    
     
     // MARK: - forgot password
     typealias ForgotPasswordCompletion = (Result<String, Error>) -> Void
@@ -94,63 +92,7 @@ final class AuthNetworkManager {
             completion(.success("Okay"))
         }
     }
-    
-    // MARK: - get user profile
-    typealias ProfileCompletion = (Result<UserProfile, NetworkError>) -> Void
-    // MARK: - get user profile
-    
-    // 데이터를 Firestore에서 가져온다.
-    func getUserProfile(completion: @escaping ProfileCompletion) {
-        // 유저 uid
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
-            completion(.failure(.uidError))
-            return
-        }
         
-        let userId = uid as! String
-        let docRef = db.collection(Constant.FStore.userCollection).document(userId)
-        docRef.getDocument(as: UserProfile.self) { result in
-            switch result {
-            case .success(let userProfile):
-                completion(.success(userProfile))
-            case .failure:
-                completion(.failure(.dataError))
-            }
-        }
-    }
-
-    // MARK: - update user profile - Preference ( update 이후, user profile을 다시 조회 )
-    // update 성공 -> 유저 데이터 업데이트 해줘야 함 - 다른 곳에서 사용하기 때문에
-    func updateUserPreference(data: UserPreference, completion: @escaping ProfileCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
-            completion(.failure(.uidError))
-            return
-        }
-        let userId = uid as! String
-        let docRef = db.collection(Constant.FStore.userCollection).document(userId)
-        docRef.updateData([
-            Constant.FStore.cupsField: data.cups,
-            Constant.FStore.morningTimeField: data.morningTime,
-            Constant.FStore.nightTimeField: data.nightTime,
-            Constant.FStore.limitTimeField: data.limitTime,
-            Constant.FStore.reminderField: data.reminder
-        ]) { err in
-            if let _ = err {
-                completion(.failure(.databaseError))
-            } else {
-                docRef.getDocument(as: UserProfile.self) { result in
-                    switch result {
-                    case .success(let userProfile):
-                        completion(.success(userProfile))
-                    case .failure:
-                        break
-                    }
-                }
-            }
-            
-        }
-    }
-    
     // MARK: - REFCTORING - 수정된 유저 프로필 DB에 업데이트하기
     func updatePreference(data: UserPreference) async throws -> Void {
         do {
@@ -158,7 +100,6 @@ final class AuthNetworkManager {
                 throw NetworkError.uidError
             }
             let userId = uid as! String
-            
             let docRef = db.collection(Constant.FStore.userCollection).document(userId)
             let data: [String : Any] = [
                 Constant.FStore.cupsField: data.cups,
@@ -174,39 +115,12 @@ final class AuthNetworkManager {
     
     func getUpdatedUserData() async throws -> UserProfile {
         do {
-            guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
-                throw NetworkError.uidError
-            }
-            let userId = uid as! String
+            guard let userId = Auth.auth().currentUser?.uid else { throw NetworkError.uidError }
             let docRef = db.collection(Constant.FStore.userCollection).document(userId)
             let userData = try await docRef.getDocument(as: UserProfile.self)
             return userData
         } catch {
             throw NetworkError.databaseError
-        }
-
-    }
-    
-    // MARK: - update user profile - Name
-    func updateUserProfile(name: String, completion: @escaping ProfileCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
-            completion(.failure(.uidError))
-            return
-        }
-
-        let userId = uid as! String
-        let docRef = db.collection(Constant.FStore.userCollection).document(userId)
-        docRef.updateData([
-            Constant.FStore.nameField: name,
-        ]) { err in
-            if let _ = err {
-                completion(.failure(.databaseError))
-            } else {
-                self.getUserProfileFromRef(docRef: docRef) { userProfile in
-                    completion(.success(userProfile))
-                }
-            }
-            
         }
     }
     
@@ -225,17 +139,32 @@ final class AuthNetworkManager {
         }
     }
     
-    
-    func getUserProfileFromRef(docRef: DocumentReference, onSuccess: @escaping ((UserProfile) -> Void)) {
-        docRef.getDocument(as: UserProfile.self) { result in
-            switch result {
-            case .success(let userProfile):
-                onSuccess(userProfile)
-            case .failure:
-                break
-            }
-        }
+    // MARK: ============== 유저 데이터 가져오고 저장하는 부분 ===============
+    // MARK: - api에서 받은 데이터를 userDefault에 저장한다. (사용중)
+    func saveProfiletoUserDefaults(userProfile: UserProfile) {
+        Common.setUserDefaults(userProfile.name, forKey: .name)
+        Common.setUserDefaults(userProfile.email, forKey: .email)
+        Common.setUserDefaults(userProfile.cups, forKey: .cups)
+        Common.setUserDefaults(userProfile.morningTime, forKey: .morningTime)
+        Common.setUserDefaults(userProfile.nightTime, forKey: .nightTime)
+        Common.setUserDefaults(userProfile.limitTime, forKey: .limitTime)
+        Common.setUserDefaults(userProfile.reminder, forKey: .reminder)
     }
+    
+    func getProfileFromUserDefault() -> UserProfile? {
+        guard let name = Common.getUserDefaultsObject(forKey: .name) as? String else { return nil }
+        guard let email = Common.getUserDefaultsObject(forKey: .email) as? String else { return nil }
+        guard let cups = Common.getUserDefaultsObject(forKey: .cups) as? Int else { return nil }
+        guard let nightTime = Common.getUserDefaultsObject(forKey: .nightTime) as? String else { return nil }
+        guard let morningTime = Common.getUserDefaultsObject(forKey: .morningTime) as? String else { return nil }
+        guard let limitTime = Common.getUserDefaultsObject(forKey: .limitTime) as? String else { return nil }
+        guard let reminder = Common.getUserDefaultsObject(forKey: .reminder) as? Bool else { return nil }
+        
+       // 어떤 값도 optional이 아니라면?
+        let profile = UserProfile(name: name, cups: cups, email: email, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, reminder: reminder)
+        return profile
+    }
+    
     
     // MARK: - 계정 삭제
     func deleteAccount(onError: @escaping ((_ error: NetworkError)->Void)) {
@@ -248,7 +177,6 @@ final class AuthNetworkManager {
         
         let user = firebaseAuth.currentUser
         let userId = uid as! String
-        
         db.collection(Constant.FStore.userCollection).document(userId).delete() { error in
             if let _ = error {
                 onError(.dataError)
@@ -260,7 +188,7 @@ final class AuthNetworkManager {
                 onError(.databaseError)
             }
         }
-
+        
         do {
           try firebaseAuth.signOut()
             Common.removeAllUserDefaultObject()
@@ -268,29 +196,5 @@ final class AuthNetworkManager {
             print("Error signing out: %@", signOutError)
         }
     }
-    
-    // 지금까지 전체 Commit 횟수 가져오기
-    typealias CommitNumberCompletion = (Result<Int, NetworkError>) -> Void
-    func getNumberOfCommits(completion: @escaping CommitNumberCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
-            completion(.failure(.uidError))
-            return
-        }
-        let userId = uid as! String
-        let query = db.collection(Constant.FStore.commitCollection).whereField("uid", isEqualTo: userId)
-        let countQuery = query.count
-        
-        Task {
-            do {
-                let snapshot = try await countQuery.getAggregation(source: .server)
-                let count = Int(truncating: snapshot.count)
-                completion(.success(count))
-            } catch {
-                completion(.failure(.databaseError))
-            }
-        }
-    }
-    
-
     
 }

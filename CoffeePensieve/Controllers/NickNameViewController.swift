@@ -56,7 +56,7 @@ class NickNameViewController: UIViewController {
             do {
                 try await self.authManager.updateUserName(name: name)
                 let newProfile = try await self.authManager.getUpdatedUserData()
-                dataManager.saveProfiletoUserDefaults(userProfile: newProfile)
+                authManager.saveProfiletoUserDefaults(userProfile: newProfile)
                 self.navigationController?.popViewController(animated: true)
             } catch {
                 AlertManager.showTextAlert(on: self, title: "Sorry", message: "Fail to update your name.\n Please try again later.") {
@@ -88,7 +88,7 @@ class NickNameViewController: UIViewController {
         guard let defaultName = Common.getUserDefaultsObject(forKey: .name) as? String else { return }
         name = defaultName
         currentName = defaultName
-
+        
         DispatchQueue.main.async {
             self.nameTextField.text = defaultName
             self.limitLabel.text = "\(defaultName.count) / 20"

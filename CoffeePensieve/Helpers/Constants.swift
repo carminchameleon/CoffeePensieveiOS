@@ -41,7 +41,7 @@ struct Constant {
     
     struct NotificatonMessage {
         static let morningMessage = Message(greeting: "How did you sleep last night", message: "Let's start a new day with a cup of morning coffee.")
-        static let nightMessage = Message(greeting: "It's almost time to go to sleep", message: "Take a moment to reflect on your day and preserve your memories in a fancy way")
+        static let nightMessage = Message(greeting: "It's almost time to go to sleep", message: "Take a moment to reflect on your day and preserve your memories in a fancy way.")
         static let limitMessage = Message(greeting: "How's your day going so far", message: "Your coffee time is almost up. If you haven't had your coffee yet, now is the perfect time!")
 
         struct Message {
@@ -50,7 +50,6 @@ struct Constant {
         }
     }
 }
-
 
 // MARK: - Contents height for calculation
 struct ContentHeight {
@@ -64,7 +63,6 @@ enum CellId: String {
     case commitCoffeeCell
     case commitMoodCell
     case commitTagCell
-    
     case trackerTodayCell
     case trackerGuidlineCell
     case trackerRecordCell
@@ -72,16 +70,12 @@ enum CellId: String {
     case trackerGuideLoadingCell
     case trackerRecordLoadingCell
     case trackerRecordEmptyCell
-    
     case trackerTodayHeader
     case trackerRecordHeader
     case trackerGuideHeader
-    
     case RecordListCell
     case RecordHeaderCell
-    
     case ProfileCell
-    
     case PreferenceNameCell
     case PreferenceCupCell
     case PreferenceTimeCell
