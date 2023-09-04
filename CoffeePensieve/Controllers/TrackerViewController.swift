@@ -9,7 +9,6 @@ import UIKit
 
 final class TrackerViewController: UIViewController {
     
-    let dataManager = DataManager.shared
     let trackerManager = TrackerNetworkManager.shared
     let authManager = AuthNetworkManager.shared
     
@@ -222,7 +221,7 @@ extension TrackerViewController: UITableViewDelegate, UITableViewDataSource {
             // today 데이터가 있다면
             if !todayCommits.isEmpty {
                 let commit = todayCommits[indexPath.row]
-                let commitDetail = dataManager.getCommitDetailInfo(commit: commit)
+                let commitDetail = Common.getCommitDetailInfo(commit: commit)
                 let docketVC = DocketViewController(commit: commitDetail)
                 navigationController?.pushViewController(docketVC, animated: true)
             } else {

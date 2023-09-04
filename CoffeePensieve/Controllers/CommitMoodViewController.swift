@@ -8,10 +8,8 @@
 import UIKit
 
 class CommitMoodViewController: UIViewController {
-
-    let dataManager = DataManager.shared
     
-    var moods: [Mood] = Common.moodList
+    var moods: [Mood] = Constant.moodList
     let moodView = CommitMoodView()
     var selectedMood: Int?
     var selectedDrink: Int? 

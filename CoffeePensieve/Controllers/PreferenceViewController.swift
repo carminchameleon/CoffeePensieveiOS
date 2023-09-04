@@ -8,11 +8,11 @@
 import UIKit
 import UserNotifications
 
-class PreferenceViewController: UIViewController {
+final class PreferenceViewController: UIViewController {
     var preferenceView = PreferenceView()
-    var dataManager = DataManager.shared
     var authManager = AuthNetworkManager.shared
-    let notiCenter = DataManager.sharedNotiCenter
+    let notiCenter = LocalNotification.sharedNotiCenter
+
     // 유저 핸드폰에서 허락 해놓았는지
     var systemNotiSetting = true
     // 유저가 설정한 preference
@@ -170,11 +170,11 @@ class PreferenceViewController: UIViewController {
                 let newProfile = try await self.authManager.getUpdatedUserData()
                 authManager.saveProfiletoUserDefaults(userProfile: newProfile)
                 if reminder {
-                    Common.setNotification(type: .morning, timeString: morningTime)
-                    Common.setNotification(type: .night, timeString: nightTime)
-                    Common.setNotification(type: .limit, timeString: limitTime)
+                    LocalNotification.setNotification(type: .morning, timeString: morningTime)
+                    LocalNotification.setNotification(type: .night, timeString: nightTime)
+                    LocalNotification.setNotification(type: .limit, timeString: limitTime)
                 } else {
-                    Common.removeNotification()
+                    LocalNotification.removeNotification()
                 }
                 self.navigationController?.popViewController(animated: true)
             } catch {

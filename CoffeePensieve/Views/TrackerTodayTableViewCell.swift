@@ -9,7 +9,6 @@ import UIKit
 
 final class TrackerTodayTableViewCell: UITableViewCell {
     
-    let dataManager = DataManager.shared
     var commit: Commit? {
         didSet {
             guard let commit = commit else {
@@ -22,7 +21,7 @@ final class TrackerTodayTableViewCell: UITableViewCell {
                 return
             }
             // drink
-            let drinkList = Common.drinkList
+            let drinkList = Constant.drinkList
             let selectedDrink = drinkList.filter { $0.drinkId == commit.drinkId }
             if !selectedDrink.isEmpty {
                 let drink = selectedDrink[0]
@@ -36,7 +35,7 @@ final class TrackerTodayTableViewCell: UITableViewCell {
         
             // tag
             var tagText = ""
-            let allTagList = Common.tagList
+            let allTagList = Constant.tagList
             commit.tagIds.forEach { tagId in
                 let findedTag = allTagList.filter { $0.tagId == tagId}
                 if !findedTag.isEmpty {
@@ -47,7 +46,7 @@ final class TrackerTodayTableViewCell: UITableViewCell {
             tagLabel.text = tagText
                 
             // mood
-            let moodList = Common.moodList
+            let moodList = Constant.moodList
             let mood = moodList.filter { $0.moodId == commit.moodId }[0]
             let moodImage = mood.image
             moodLabel.text = moodImage

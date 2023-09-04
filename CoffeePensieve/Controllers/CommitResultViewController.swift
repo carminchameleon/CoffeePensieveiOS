@@ -10,7 +10,6 @@ import UIKit
 final class CommitResultViewController: UIViewController {
     
     let resultView = CommitResultView()
-    let dataManager = DataManager.shared
     
     var data: CommitResultDetail?
     

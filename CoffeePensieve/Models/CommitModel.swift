@@ -56,7 +56,7 @@ struct CommitResultDetail {
     
     var drinkLabelString: String {
         var result = ""
-        let selectedDrink = Common.drinkList.filter { $0.drinkId == drinkId }
+        let selectedDrink = Constant.drinkList.filter { $0.drinkId == drinkId }
         if !selectedDrink.isEmpty {
             let drink = selectedDrink[0]
             let tempMode = drink.isIced ? "🧊ICED" : "🔥HOT"
@@ -66,7 +66,7 @@ struct CommitResultDetail {
     }
     
     var drinkImage: UIImage? {
-        let selectedDrink = Common.drinkList.filter { $0.drinkId == drinkId }
+        let selectedDrink = Constant.drinkList.filter { $0.drinkId == drinkId }
         if !selectedDrink.isEmpty {
             let drink = selectedDrink[0]
             return UIImage(named: drink.image)
@@ -76,18 +76,18 @@ struct CommitResultDetail {
     }
     
     var moodNameString: String {
-        let mood = Common.moodList.filter { $0.moodId == moodId }[0]
+        let mood = Constant.moodList.filter { $0.moodId == moodId }[0]
         return mood.name
     }
     
     var moodImageString: String {
-        let mood = Common.moodList.filter { $0.moodId == moodId }[0]
+        let mood = Constant.moodList.filter { $0.moodId == moodId }[0]
         return mood.image
     }
     
     var tagString: String {
         var tagText = ""
-        let allTagList = Common.tagList
+        let allTagList = Constant.tagList
         tagIds.forEach { tagId in
             let findedTag = allTagList.filter { $0.tagId == tagId }
             if !findedTag.isEmpty {

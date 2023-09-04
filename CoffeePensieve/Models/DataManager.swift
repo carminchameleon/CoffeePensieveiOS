@@ -9,10 +9,8 @@ import Foundation
 import Firebase
 // 모든 데이터를 관리하는 매니저
 final class DataManager {
-    static let sharedNotiCenter = UNUserNotificationCenter.current()
     static let shared = DataManager()
     
-    // TODO: - 다른 곳으로 이동 필요
     // record list view에 들어가는 데이터 변환 함수
     // [2023-08-29 14:00:00 +0000: [commit, commit...]
     typealias SortedDailyDetailedCommit = [Date: [CommitDetail]]
@@ -33,12 +31,12 @@ final class DataManager {
     // TODO: - 다른 곳으로 이동 필요
     // commit 있을 때 그 commit의 해당 데이터들을 묶어줘서 CommitDetail로 만들어주는
     func getCommitDetailInfo(commit: Commit) -> CommitDetail {
-        let drink = Common.drinkList.filter { $0.drinkId == commit.drinkId }[0]
-        let mood = Common.moodList.filter { $0.moodId == commit.moodId }[0]
+        let drink = Constant.drinkList.filter { $0.drinkId == commit.drinkId }[0]
+        let mood = Constant.moodList.filter { $0.moodId == commit.moodId }[0]
         var tags: [Tag] = []
         
         commit.tagIds.forEach { tagId in
-            let findedTag = Common.tagList.filter { $0.tagId == tagId}
+            let findedTag = Constant.tagList.filter { $0.tagId == tagId}
             if !findedTag.isEmpty {
                 tags.append(findedTag[0])
             }
@@ -67,7 +65,7 @@ final class DataManager {
         let sortedData =  drinkCount.sorted { $0.value > $1.value }
         var index = 0
         let drinkData = sortedData.map { (key: Int, value: Int) in
-            let drink = Common.drinkList.filter { $0.drinkId == key }[0]
+            let drink = Constant.drinkList.filter { $0.drinkId == key }[0]
             index = index + 1
             return DrinkRanking(ranking: index, drink: drink, number: value)
         }

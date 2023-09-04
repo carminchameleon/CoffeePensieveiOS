@@ -9,9 +9,7 @@ import UIKit
 
 class CommitTagViewController: UIViewController {
 
-    let dataManager = DataManager.shared
-
-    var tags: [Tag] = Common.tagList
+    var tags: [Tag] = Constant.tagList
     let tagView = CommitTagView()
     var memo: String? = ""
     

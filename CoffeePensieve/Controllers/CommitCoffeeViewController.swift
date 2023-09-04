@@ -7,8 +7,6 @@
 
 import UIKit
 final class CommitCoffeeViewController: UIViewController {
-
-    let dataManager = DataManager.shared
     
     var hotDrinks: [Drink] = []
     var coldDrinks: [Drink] = []
@@ -36,7 +34,7 @@ final class CommitCoffeeViewController: UIViewController {
     
     // MARK: - seperate hot and cold drinks list
     func readyData() {
-        let drinkList = Common.drinkList
+        let drinkList = Constant.drinkList
         drinkList.forEach { drink in
             if drink.isIced == false {
                 hotDrinks.append(drink)

@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 
 final class RecordListViewController: UIViewController {
-    let dataManager = DataManager.shared
+
     let trackerManager = TrackerNetworkManager.shared
     
     typealias RecordCollectionData = (dates: [Date], commits: [[CommitDetail]])
@@ -125,9 +125,9 @@ final class RecordListViewController: UIViewController {
     
     func updateDateForm(commitList: [Commit]) -> RecordCollectionData {
         // 간단한 정보로 온 commit을 디테일로 바꿔줌
-        let convertedCommitList = commitList.map { self.dataManager.getCommitDetailInfo(commit: $0) }
+        let convertedCommitList = commitList.map { Common.getCommitDetailInfo(commit: $0) }
         // 날짜별로 sorting
-        let sortedList = self.dataManager.sortDetailedCommitwithCreatedAt(convertedCommitList)
+        let sortedList = Common.sortDetailedCommitwithCreatedAt(convertedCommitList)
         return self.changeForCollectionView(data: sortedList)
     }
     

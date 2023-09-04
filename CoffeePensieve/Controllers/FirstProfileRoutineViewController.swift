@@ -12,7 +12,7 @@ final class FirstProfileRoutineViewController: UIViewController {
 
     private let routineView = FirstProfileRoutineView()
     let networkManager = AuthNetworkManager.shared
-    let notiCenter = DataManager.sharedNotiCenter
+    let notiCenter = LocalNotification.sharedNotiCenter
 
     var name = ""
     var limitTime = "17:00"
@@ -154,9 +154,9 @@ final class FirstProfileRoutineViewController: UIViewController {
         }
         
         if reminder {
-            Common.setNotification(type: .morning, timeString: morningTime)
-            Common.setNotification(type: .night, timeString: nightTime)
-            Common.setNotification(type: .limit, timeString: limitTime)
+            LocalNotification.setNotification(type: .morning, timeString: morningTime)
+            LocalNotification.setNotification(type: .night, timeString: nightTime)
+            LocalNotification.setNotification(type: .limit, timeString: limitTime)
         }
     }
     

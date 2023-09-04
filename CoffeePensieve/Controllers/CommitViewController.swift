@@ -10,7 +10,6 @@ import Firebase
 
 class CommitViewController: UIViewController {
     
-    let dataManager = DataManager.shared
     let commitManager = CommitNetworkManager.shared
     let authManager = AuthNetworkManager.shared
     
@@ -159,7 +158,4 @@ class CommitViewController: UIViewController {
         let sentence = "Would you like to add your \(formattedNumber) memory?"
         commitView.suggestionLabel.text = sentence
     }
-    
-
-    
 }

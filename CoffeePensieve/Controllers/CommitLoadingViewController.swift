@@ -9,7 +9,6 @@ import UIKit
 
 class CommitLoadingViewController: UIViewController {
 
-    let dataManager = DataManager.shared
     let commitManager = CommitNetworkManager.shared
     
     var selectedDrink: Int?

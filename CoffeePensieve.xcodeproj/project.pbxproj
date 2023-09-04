@@ -20,7 +20,6 @@
 		F01413732A120C3800A0DB99 /* TrackerRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01413722A120C3800A0DB99 /* TrackerRecordTableViewCell.swift */; };
 		F028276B2A05FD1100213B94 /* CommitLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028276A2A05FD1100213B94 /* CommitLoadingViewController.swift */; };
 		F028276D2A0615B300213B94 /* CommitNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028276C2A0615B300213B94 /* CommitNetworkManager.swift */; };
-		F028276F2A06291200213B94 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028276E2A06291200213B94 /* DataManager.swift */; };
 		F02827712A073BCE00213B94 /* CommitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02827702A073BCD00213B94 /* CommitModel.swift */; };
 		F02827732A075FF300213B94 /* CommitResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02827722A075FF300213B94 /* CommitResultViewController.swift */; };
 		F0300A8F2A936263009F8AF8 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0300A8E2A936263009F8AF8 /* AlertManager.swift */; };
@@ -78,6 +77,7 @@
 		F0CC3FE829DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FE629DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld */; };
 		F0CC3FEA29DEA48000BD5B51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FE929DEA48000BD5B51 /* Assets.xcassets */; };
 		F0CC3FED29DEA48000BD5B51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FEB29DEA48000BD5B51 /* LaunchScreen.storyboard */; };
+		F0CC58522AA5D624009FA536 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC58512AA5D624009FA536 /* LocalNotification.swift */; };
 		F0D645FB2A1CC89F00BEB4C8 /* ProfileMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D645FA2A1CC89F00BEB4C8 /* ProfileMenuModel.swift */; };
 		F0D645FD2A1CE56500BEB4C8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D645FC2A1CE56500BEB4C8 /* ProfileViewController.swift */; };
 		F0D645FF2A205BC100BEB4C8 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D645FE2A205BC100BEB4C8 /* ProfileTableViewCell.swift */; };
@@ -131,7 +131,6 @@
 		F01413722A120C3800A0DB99 /* TrackerRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecordTableViewCell.swift; sourceTree = "<group>"; };
 		F028276A2A05FD1100213B94 /* CommitLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitLoadingViewController.swift; sourceTree = "<group>"; };
 		F028276C2A0615B300213B94 /* CommitNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitNetworkManager.swift; sourceTree = "<group>"; };
-		F028276E2A06291200213B94 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F02827702A073BCD00213B94 /* CommitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitModel.swift; sourceTree = "<group>"; };
 		F02827722A075FF300213B94 /* CommitResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitResultViewController.swift; sourceTree = "<group>"; };
 		F0300A8E2A936263009F8AF8 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
@@ -180,6 +179,7 @@
 		F0CC3FE929DEA48000BD5B51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0CC3FEC29DEA48000BD5B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F0CC3FEE29DEA48000BD5B51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0CC58512AA5D624009FA536 /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		F0D645FA2A1CC89F00BEB4C8 /* ProfileMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMenuModel.swift; sourceTree = "<group>"; };
 		F0D645FC2A1CE56500BEB4C8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F0D645FE2A205BC100BEB4C8 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -259,6 +259,7 @@
 				F0DF062A2A372E5B001016DF /* Extensions.swift */,
 				F0300A8E2A936263009F8AF8 /* AlertManager.swift */,
 				F0745FF32A9373A100E85B02 /* Theme.swift */,
+				F0CC58512AA5D624009FA536 /* LocalNotification.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -280,7 +281,6 @@
 				F09F60F82A0279B7004F2462 /* CoffeeModel.swift */,
 				F09F60FE2A049090004F2462 /* MoodModel.swift */,
 				F09F61062A05269E004F2462 /* TagModel.swift */,
-				F028276E2A06291200213B94 /* DataManager.swift */,
 				F02827702A073BCD00213B94 /* CommitModel.swift */,
 				F01413662A1098F400A0DB99 /* GuidelineModel.swift */,
 				F014136E2A120ACE00A0DB99 /* SummaryModel.swift */,
@@ -538,6 +538,7 @@
 				F05011632A17666000AD0A49 /* CalendarCell.swift in Sources */,
 				F09F61032A052403004F2462 /* CommitTagViewController.swift in Sources */,
 				F01413732A120C3800A0DB99 /* TrackerRecordTableViewCell.swift in Sources */,
+				F0CC58522AA5D624009FA536 /* LocalNotification.swift in Sources */,
 				F09E02E229FCE39E0008C259 /* Constants.swift in Sources */,
 				F0CC3FE229DEA47D00BD5B51 /* NetworkViewController.swift in Sources */,
 				F0D645FD2A1CE56500BEB4C8 /* ProfileViewController.swift in Sources */,
@@ -601,7 +602,6 @@
 				F0EC72C72A0F1A1900DC24D0 /* TrackerTodayTableViewCell.swift in Sources */,
 				F0F8A8A629EB9CCE00838F35 /* FirstProfileGreetingViewController.swift in Sources */,
 				F00D78062A249C5800262B95 /* NickNameViewController.swift in Sources */,
-				F028276F2A06291200213B94 /* DataManager.swift in Sources */,
 				F09F60F129FF8B32004F2462 /* CommitMainView.swift in Sources */,
 				F0745FF42A9373A100E85B02 /* Theme.swift in Sources */,
 				F0CC3FE029DEA47D00BD5B51 /* SceneDelegate.swift in Sources */,

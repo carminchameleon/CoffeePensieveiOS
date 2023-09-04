@@ -9,8 +9,8 @@ import UIKit
 import Firebase
 import SafariServices
 
-class ProfileViewController: UIViewController {
-    let dataManager = DataManager.shared
+final class ProfileViewController: UIViewController {
+
     let authManager = AuthNetworkManager.shared
     
     let menuList = [

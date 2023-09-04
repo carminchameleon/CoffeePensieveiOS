@@ -7,9 +7,8 @@
 
 import UIKit
 
-class NickNameViewController: UIViewController {
+final class NickNameViewController: UIViewController {
     
-    let dataManager = DataManager.shared
     let authManager = AuthNetworkManager.shared
     
     var name: String = ""
