@@ -8,83 +8,63 @@
 import UIKit
 import UserNotifications
 
-class PreferenceViewController: UIViewController {
+final class PreferenceViewController: UIViewController {
     var preferenceView = PreferenceView()
-    var dataManager = DataManager.shared
-    let notiCenter = DataManager.sharedNotiCenter
-    
+    var authManager = AuthNetworkManager.shared
+    let notiCenter = LocalNotification.sharedNotiCenter
+
+    // 유저 핸드폰에서 허락 해놓았는지
     var systemNotiSetting = true
-    var reminder = true    
+    // 유저가 설정한 preference
+    var reminder = true
     
     var cups = 3
-    var sectionList: [Preference] = []
+    var sectionList = [
+        Preference(sectionTitle: "Caffeine Limit", rowList: [
+            PreferenceCell(title: "Cups", icon: "cup.and.saucer", data: "3 Cups"),
+            PreferenceCell(title: "Time", icon: "deskclock", data: "17:00")
+        ]),
+        Preference(sectionTitle: "Your Daily Routine", rowList: [
+            PreferenceCell(title: "Wake Up", icon: "sun.max", data: "7:00"),
+            PreferenceCell(title: "Go To Sleep", icon: "bed.double", data: "22:00")
+        ])
+    ]
     
     override func loadView() {
         view = preferenceView
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addTargets()
+        addNotification()
+        configureTableView()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUserData()
         configureTitle()
         checkNotificationStatus()
     }
 
-    @objc func willEnterForeground() {
-        checkNotificationStatus()
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
-    
-    func configureTitle() {
-        navigationItem.title = "Preference"
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.navigationBar.tintColor = .lightGray
-        tabBarController?.tabBar.isHidden = false
-    }
-    
-    func checkNotificationStatus() {
-        notiCenter.getNotificationSettings { (settings) in
-           // 시스템 세팅
-               if settings.authorizationStatus == .authorized {
-                   // 기본 상태
-                   self.systemNotiSetting = true
-                   DispatchQueue.main.async {
-                       // 허용되어 있는 상태라면, 내가 사전에 reminder 설정해 놓은 것으로 보여줘야 한다.
-                       self.preferenceView.switchButton.isOn = self.reminder
-                   }
-               } else {
-                   self.systemNotiSetting = false
-                   DispatchQueue.main.async {
-                       self.preferenceView.switchButton.isOn = false
-                   }
-               }
-           }
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUserData()
-        configureTableView()
-        addTargets()
-        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
 
-    }
-    
     func setUserData() {
-        guard let user = self.dataManager.getUserData() else { return }
+        guard let user = authManager.getProfileFromUserDefault() else { return }
         cups = user.cups
         reminder = user.reminder
-        sectionList = [
-            Preference(sectionTitle: "Caffeine Limit", rowList: [
-                PreferenceCell(title: "Cups", icon: "cup.and.saucer", data: "\(self.cups) Cups"),
-                PreferenceCell(title: "Time", icon: "deskclock", data: user.limitTime)
-            ]),
-            Preference(sectionTitle: "Your Daily Routine", rowList: [
-                PreferenceCell(title: "Wake Up", icon: "sun.max", data: user.morningTime),
-                PreferenceCell(title: "Go To Sleep", icon: "bed.double", data: user.nightTime)
-            ])
-        ]
-        self.preferenceView.tableView.reloadData()
+        // sectionList에 채우고 있던 것
+        sectionList[0].rowList[0].data = "\(user.cups) Cups"
+        sectionList[0].rowList[1].data = user.limitTime
+        sectionList[1].rowList[0].data = user.morningTime
+        sectionList[1].rowList[1].data = user.nightTime
+   
+        DispatchQueue.main.async {
+            self.preferenceView.tableView.reloadData()
+        }
     }
 
     func addTargets() {
@@ -92,14 +72,49 @@ class PreferenceViewController: UIViewController {
         preferenceView.setButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
     }
     
+    func configureTableView() {
+        preferenceView.tableView.delegate = self
+        preferenceView.tableView.dataSource = self
+        preferenceView.tableView.register(PreferenceTimeTableViewCell.self, forCellReuseIdentifier: CellId.PreferenceTimeCell.rawValue)
+        preferenceView.tableView.register(PreferenceCupTableViewCell.self, forCellReuseIdentifier: CellId.PreferenceCupCell.rawValue)
+        preferenceView.tableView.rowHeight = 50
+    }
+    
+    func addNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(checkNotificationStatus), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    func configureTitle() {
+        navigationItem.title = "Preference"
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.tintColor = .primaryColor500
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    @objc func checkNotificationStatus() {
+        notiCenter.getNotificationSettings {(settings) in
+            // 시스템 세팅
+            let isNotificationAutorized = settings.authorizationStatus == .authorized
+            self.systemNotiSetting = isNotificationAutorized
+                if isNotificationAutorized {
+                    // 허용되어 있는 상태라면, 내가 사전에 reminder 설정해 놓은 것으로 보여줘야 한다.
+                    DispatchQueue.main.async { self.preferenceView.switchButton.isOn = self.reminder }
+                } else {
+                    DispatchQueue.main.async { self.preferenceView.switchButton.isOn = false }
+                }
+        }
+    }
+    
+
     
     @objc func switchValueChanged() {
-//        case 1
+        // case 1
         // 1. System 이 false로 되어 있어서 현재 상태가 false로 되어 있는데, true로 바꾸려고 한다면
         // 2. 설정 팝업 보여주고
             // 2-1. Setting
             // 2-2. Not not -> Toggle을 다시 false로 바꿔야 함
-       // case 2
+        // case 2
         // 1.. System 이 true로 되어 있는 상태에서
         // true인데 false로 바꿀 경우 그냥 그렇게 바꾸기
         // false인데 true로 바꿀 경우 그냥 바꾸기
@@ -119,58 +134,56 @@ class PreferenceViewController: UIViewController {
     
     // system 설정 팝업 띄우는 함수
     func showSystemSettingAlert() {
-        let enableAlert = UIAlertController(title: "You've disabled notification", message: "To enable reminder, go to Setting > Notifications", preferredStyle: .alert)
-             let settingAction = UIAlertAction(title: "Setting", style: .default) {action in
-                 self.openAppNotificationSettings()
-             }
-             let laterAction = UIAlertAction(title: "Not now", style: .destructive)
-             enableAlert.addAction(settingAction)
-             enableAlert.addAction(laterAction)
-
-             self.present(enableAlert, animated: true, completion: nil)
+        let enableAlert = UIAlertController(title: "You've disabled notification", message: "To enable reminder,\ngo to Setting > Notifications", preferredStyle: .alert)
+            let settingAction = UIAlertAction(title: "Setting", style: .default) {action in
+                self.openAppNotificationSettings()
+            }
+            let laterAction = UIAlertAction(title: "Not now", style: .destructive)
+            
+            enableAlert.addAction(laterAction)
+            enableAlert.addAction(settingAction)
+        self.present(enableAlert, animated: true, completion: nil)
     }
     
     func openAppNotificationSettings() {
             guard let url = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
-            
             UIApplication.shared.open(url, options: [:]) { (success) in
-                if success {
-                    print("알림 설정 화면으로 이동되었습니다.")
-                }
+                if success { print("알림 설정 화면으로 이동되었습니다.") }
             }
-        }
-    
+    }
     
     @objc func saveButtonTapped() {
-        
         let limitTime = sectionList[0].rowList[1].data
         let morningTime = sectionList[1].rowList[0].data
         let nightTime = sectionList[1].rowList[1].data
-        let userData = UserPreference(cups: cups, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, reminder: reminder)
-        
-        dataManager.updateUserPreference(data: userData) {[weak self] result in
-            guard let strongSelf = self else { return }
-            switch result {
-            case .success:
-                strongSelf.navigationController?.popViewController(animated: true)
-            case .failure:
-                let failAlert = UIAlertController(title: "Sorry", message: "Fail to update your preference.\n Please try again later", preferredStyle: .alert)
-                let okayAction = UIAlertAction(title: "Okay", style: .default) {action in
-                    strongSelf.navigationController?.popViewController(animated: true)
+        let userData = UserPreference(cups: cups,
+                                      morningTime: morningTime,
+                                      nightTime: nightTime,
+                                      limitTime: limitTime,
+                                      reminder: reminder)
+        Task {[weak self] in
+            guard let self = self else { return }
+            do {
+                try await self.authManager.updatePreference(data: userData)
+                let newProfile = try await self.authManager.getUpdatedUserData()
+                authManager.saveProfiletoUserDefaults(userProfile: newProfile)
+                if reminder {
+                    LocalNotification.setNotification(type: .morning, timeString: morningTime)
+                    LocalNotification.setNotification(type: .night, timeString: nightTime)
+                    LocalNotification.setNotification(type: .limit, timeString: limitTime)
+                } else {
+                    LocalNotification.removeNotification()
                 }
-                failAlert.addAction(okayAction)
-                strongSelf.present(failAlert, animated: true, completion: nil)
+                self.navigationController?.popViewController(animated: true)
+            } catch {
+                AlertManager.showTextAlert(on: self,
+                                           title: "Sorry",
+                                           message: "Fail to update your preference.\n Please try again later.") {
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
-        }
-        
-        if reminder {
-            Common.setNotification(type: .morning, timeString: morningTime)
-            Common.setNotification(type: .night, timeString: nightTime)
-            Common.setNotification(type: .limit, timeString: limitTime)
-        } else {
-            Common.removeNotification()
         }
     }
     
@@ -205,7 +218,6 @@ class PreferenceViewController: UIViewController {
             title = Constant.NotificatonMessage.limitMessage.greeting
             body = Constant.NotificatonMessage.limitMessage.message
         }
-        
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
@@ -221,17 +233,6 @@ class PreferenceViewController: UIViewController {
         }
     }
     
-    
-
-
-    func configureTableView() {
-        preferenceView.tableView.delegate = self
-        preferenceView.tableView.dataSource = self
-
-        preferenceView.tableView.register(PreferenceTimeTableViewCell.self, forCellReuseIdentifier: CellId.PreferenceTimeCell.rawValue)
-        preferenceView.tableView.register(PreferenceCupTableViewCell.self, forCellReuseIdentifier: CellId.PreferenceCupCell.rawValue)
-        preferenceView.tableView.rowHeight = 50
-    }
     
 }
 
@@ -258,11 +259,9 @@ extension PreferenceViewController : UITableViewDelegate, UITableViewDataSource 
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
         let sectionIndex = indexPath.section
         let rowIndex = indexPath.row
         let rowData = sectionList[sectionIndex].rowList[rowIndex]
-
         if sectionIndex == 0 && rowIndex == 0  {
             let cell = tableView.dequeueReusableCell(withIdentifier: CellId.PreferenceCupCell.rawValue, for: indexPath) as! PreferenceCupTableViewCell
             cell.model = rowData
@@ -272,13 +271,11 @@ extension PreferenceViewController : UITableViewDelegate, UITableViewDataSource 
             cell.model = rowData
             return cell
         }
-        
     }
 
 
     // 셀이 선택 되었을 때 진행
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let sectionIndex = indexPath.section
         let rowIndex = indexPath.row
         let data = sectionList[sectionIndex].rowList[rowIndex].data
@@ -296,7 +293,6 @@ extension PreferenceViewController : UITableViewDelegate, UITableViewDataSource 
                 resizeModalController(modalVC: timeModalVC)
                 present(timeModalVC, animated: true, completion: nil)
             }
-            
         } else if sectionIndex == 1 {
             let type: PreferenceTime = rowIndex == 0 ? .morning : .night
             let timeModalVC = TimeModalViewController(type: type, time: data)
@@ -339,6 +335,7 @@ extension PreferenceViewController : TimeControlDelegate {
         case .night:
             sectionList[1].rowList[1].data = time
         }
+        
         DispatchQueue.main.async {
             self.preferenceView.tableView.reloadData()
         }

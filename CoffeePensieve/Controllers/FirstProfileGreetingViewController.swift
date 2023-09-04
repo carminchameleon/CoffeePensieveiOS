@@ -7,9 +7,9 @@
 
 import UIKit
 
-class FirstProfileGreetingViewController: UIViewController {
+final class FirstProfileGreetingViewController: UIViewController {
 
-    let greetingView = FirstProfileGreetingView()
+    private let greetingView = FirstProfileGreetingView()
     var email:String = ""
     var password: String = ""
     var isSocial = false
@@ -24,12 +24,11 @@ class FirstProfileGreetingViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
     }
     
-    func addTargets(){
+    private func addTargets(){
         greetingView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchDown)
     }
     
-    
-    @objc func nextButtonTapped() {
+    @objc private func nextButtonTapped() {
         let routineVC = FirstProfileRoutineViewController()
         routineVC.email = email
         routineVC.password = password

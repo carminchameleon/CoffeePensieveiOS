@@ -10,8 +10,8 @@ import FirebaseAuth
 
 final class SignInViewController: UIViewController {
     
-    let signInView = SignInView()
-    let networkManager = AuthNetworkManager.shared
+    private let signInView = SignInView()
+    private let networkManager = AuthNetworkManager.shared
     
     override func loadView() {
         view = signInView
@@ -62,18 +62,17 @@ final class SignInViewController: UIViewController {
         signInView.emailTextField.becomeFirstResponder()
     }
     
-    
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         guard let password = signInView.passwordTextField.text else { return }
         guard let email = signInView.emailTextField.text else { return }
         
         if Common.isValidEmail(email) && password != "" {
             signInView.signInButton.isEnabled = true
-            signInView.signInButton.setTitleColor(UIColor.primaryColor500, for: .normal)
+//            signInView.signInButton.setTitleColor(UIColor.primaryColor500, for: .normal)
 
         } else {
             signInView.signInButton.isEnabled = false
-            signInView.signInButton.setTitleColor(UIColor.primaryColor300, for: .normal)
+//            signInView.signInButton.setTitleColor(UIColor.primaryColor300, for: .normal)
         }
     }
 }

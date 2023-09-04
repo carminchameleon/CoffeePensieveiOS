@@ -9,7 +9,7 @@ import UIKit
 
 class CommitLoadingViewController: UIViewController {
 
-    let dataManager = DataManager.shared
+    let commitManager = CommitNetworkManager.shared
     
     var selectedDrink: Int?
     var selectedMood: Int?
@@ -17,7 +17,6 @@ class CommitLoadingViewController: UIViewController {
     
     var tags: [Int]?
     var memo: String = ""
-
     
     var imageView: UIImageView = {
         let imageName = "Memory-2"
@@ -49,6 +48,7 @@ class CommitLoadingViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        updateImage()
         uploadData()
         fadeInAnimation()
     }
@@ -58,9 +58,35 @@ class CommitLoadingViewController: UIViewController {
         setUI()
     }
     
+    // commitData를 업로드
     func uploadData() {
+        commitManager.uploadTodayDrink(drinkId: selectedDrink!, moodId: selectedMood!, tagIds: selectedTags, memo: memo) {[weak self] result in
+            guard let strongSelf = self else { return }
+            
+            switch result {
+            case .success(let time):
+                strongSelf.moveToResultView(time)
+                // 새로운 커밋 생성 여부
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "NewCommitMade"), object: true)
+            case .failure(let error):
+                var errorMessage = "Failed to upload data. If the problem repeats, please contact us."
+                switch error {
+                case .uidError:
+                    errorMessage = "Fail to upload data, Please log out and log in again"
+                case .databaseError:
+                    errorMessage = "Failed to link DB. If the problem repeats, please contact us."
+                case .dataError:
+                    break
+                }
+                AlertManager.showTextAlert(on: strongSelf, title: "Sorry", message: errorMessage) {
+                    strongSelf.navigationController?.popToRootViewController(animated: true)
+                }
+            }
+        }
+    }
 
-        let todayCount = dataManager.getNumberOfTodayCommit()
+    func updateImage() {
+        let todayCount = commitManager.todayCommitCount
         var memoryNumber = 0
         switch todayCount {
         case 0:
@@ -79,46 +105,12 @@ class CommitLoadingViewController: UIViewController {
             self.imageView.image = UIImage(named: "Memory-\(memoryNumber)")
         }, completion: nil)
         
-        dataManager.uploadDrinkCommit(drinkId: selectedDrink!, moodId: selectedMood!, tagIds: selectedTags, memo: memo) {[weak self] result in
-            guard let strongSelf = self else { return }
-
-            switch result {
-            case .success(let time):
-                strongSelf.moveToResultView(time)
-
-            case .failure(let error):
-                var errorMessage = "Failed to upload data. If the problem repeats, please contact us."
-                switch error {
-                case .uidError:
-                    errorMessage = "Fail to upload data, Please log out and log in again"
-                case .databaseError:
-                    errorMessage = "Failed to link DB. If the problem repeats, please contact us."
-                case .dataError:
-                    break
-                }
-
-                let failAlert = UIAlertController(title: "Please try again", message: errorMessage, preferredStyle: .alert)
-                let okayAction = UIAlertAction(title: "Okay", style: .default) {action in
-                    strongSelf.navigationController?.popToRootViewController(animated: true)
-                }
-                failAlert.addAction(okayAction)
-                DispatchQueue.main.async {
-                    strongSelf.present(failAlert, animated: true, completion: nil)
-                }
-
-            }
-        }
     }
-
     
     func moveToResultView(_ time: Date) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
             let resultVC = CommitResultViewController()
-            resultVC.drinkId = self.selectedDrink!
-            resultVC.tagIds = self.selectedTags
-            resultVC.memo = self.memo
-            resultVC.moodId = self.selectedMood!
-            resultVC.createdAt = time
+            resultVC.data = CommitResultDetail(drinkId: self.selectedDrink!, moodId: self.selectedMood!, tagIds: self.selectedTags, memo: self.memo, createdAt: time)
             self.navigationController?.pushViewController(resultVC, animated: true)            
         }
     }
@@ -130,13 +122,12 @@ class CommitLoadingViewController: UIViewController {
         }
     }
     
-    
     func setUI() {
         self.imageView.alpha = 0
         self.loadingLabel.alpha = 0
         navigationItem.setHidesBackButton(true, animated: true)
-        
         view.backgroundColor = .white
+        
         view.addSubview(imageView)
         view.addSubview(loadingLabel)
         view.addSubview(cheeringLabel)

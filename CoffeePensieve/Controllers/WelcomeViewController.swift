@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class WelcomeViewController: UIViewController {
+class WelcomeViewController: UIViewController {
     
-    private var pageViewController: UIPageViewController?
-    private let pageControl = UIPageControl()
-    private var pages = [UIViewController]()
-    private var initialPage = 0
+    var pageViewController: UIPageViewController?
+    let pageControl = UIPageControl()
+    var pages = [UIViewController]()
+    var initialPage = 0
     
-    private let appNameLabel: UILabel = {
+    let appNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Coffee\nPensieve"
         label.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
@@ -24,7 +24,7 @@ final class WelcomeViewController: UIViewController {
         return label
     }()
     
-    private lazy var startButton: UIButton = {
+    let startButton: UIButton = {
         let button = UIButton(type:.custom)
         button.setTitle("Get Started", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -48,7 +48,7 @@ final class WelcomeViewController: UIViewController {
 // MARK: - Default Settings
 extension WelcomeViewController {
     
-    private func setUp() {
+    func setUp() {
         pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
  
         pageViewController?.dataSource = self
@@ -57,8 +57,7 @@ extension WelcomeViewController {
         //인디케이터 부분 눌렸을 때
         pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
     
-        // MARK: - ENUM 으로 만들어 넣을 것
-        let firstPage = OnboardingViewController(imageName: "Cloud 1", mainText: "Make Your Coffee Tracker", subText: "how many cups of coffee do you drink a day? \n What made you need a coffee? \n Keep your coffee moment.")
+        let firstPage = OnboardingViewController(imageName: "Cloud 1", mainText: "Make Your Coffee Tracker", subText: "How many cups of coffee do you drink a day? \n What made you need a coffee? \n Keep your coffee moment.")
         let secondPage = OnboardingViewController(imageName: "Cloud 3", mainText: "Check Your Feeling And Mood", subText: "How are you really doing? \n Even while drinking coffee, \nlook back on your feeling and mood.")
         let thirdPage = OnboardingViewController(imageName: "Cloud 4", mainText: "Anytime, Anywhere", subText: "Whether it's a cafe, an office, or a home.\n When you get a coffee,\n Always I’m here.")
         
@@ -74,7 +73,7 @@ extension WelcomeViewController {
         pageViewController?.didMove(toParent: self)
     }
     
-    private func style() {
+    func style() {
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.currentPageIndicatorTintColor = UIColor.primaryColor200
         pageControl.pageIndicatorTintColor = UIColor.primaryColor100
@@ -82,7 +81,7 @@ extension WelcomeViewController {
         pageControl.currentPage = initialPage
     }
     
-    private func setLayout() {
+    func setLayout() {
         
         view.addSubview(appNameLabel)
         view.addSubview(pageControl)
@@ -108,8 +107,6 @@ extension WelcomeViewController {
             startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36),
             startButton.heightAnchor.constraint(equalToConstant: 48)
         ])
-        
-    
         
         
     }

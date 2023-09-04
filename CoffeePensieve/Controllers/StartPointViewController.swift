@@ -12,11 +12,10 @@ import AuthenticationServices
 import CryptoKit
 import SafariServices
 
-class StartPointViewController: UIViewController {
+final class StartPointViewController: UIViewController {
     
     var isFirst = true
-    
-    private let startPointView = AuthStartPointView()
+    let startPointView = AuthStartPointView()
     fileprivate var currentNonce: String?
         
     override func loadView() {
@@ -55,23 +54,21 @@ class StartPointViewController: UIViewController {
     }
     
     
-    
-    @objc func loginButtonTapped() {
+    @objc private func loginButtonTapped() {
         let logInVC = SignInViewController()
         logInVC.modalPresentationStyle = .fullScreen
         present(logInVC, animated: true)
     }
     
-    @objc func emailButtonTapped() {
+    @objc private func emailButtonTapped() {
         let signUpVC = SignUpViewController()
         signUpVC.modalPresentationStyle = .fullScreen
         present(signUpVC, animated: true)
     }
     
-    @objc func googleButtonTapped() {
+    @objc private func googleButtonTapped() {
         // 파이어베이스에 대한 clientID 받기
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-        
         
         // Create Google Sign In configuration object.
         let config = GIDConfiguration(clientID: clientID)
@@ -82,12 +79,7 @@ class StartPointViewController: UIViewController {
             
             if let error = error {
                 print("Google Sign In Error -", error.localizedDescription)
-                let alert = UIAlertController(title: "Sorry", message: error.localizedDescription, preferredStyle: .alert)
-                let tryAgain = UIAlertAction(title: "Okay", style: .default) { action in
-                    self.dismiss(animated: true)
-                }
-                alert.addAction(tryAgain)
-                self.present(alert, animated: true, completion: nil)
+                return
             }
             
             // 유저, userToken 받기
@@ -116,7 +108,7 @@ class StartPointViewController: UIViewController {
         
     }
     
-    @objc func appleButtonTapped() {
+    @objc private func appleButtonTapped() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.email]
@@ -129,16 +121,16 @@ class StartPointViewController: UIViewController {
         authorizationController.performRequests()
     }
     
-    @objc func termsLabelTapped() {
+    @objc private func termsLabelTapped() {
         showSafariView(url: Constant.Web.terms)
     }
     
-    @objc func policyLabelTapped() {
+    @objc private func policyLabelTapped() {
         showSafariView(url: Constant.Web.policy)
 
     }
     
-    func showSafariView(url: String) {
+    private func showSafariView(url: String) {
         let newsUrl = NSURL(string: url)
         let newsSafariView: SFSafariViewController = SFSafariViewController(url: newsUrl! as URL)
         self.present(newsSafariView, animated: true, completion: nil)

@@ -9,9 +9,8 @@ import UIKit
 import Firebase
 import SafariServices
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
 
-    let dataManager = DataManager.shared
     let authManager = AuthNetworkManager.shared
     
     let menuList = [
@@ -36,31 +35,11 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureTitle()
-        getRecentUserData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
-    }
-    
-    func getRecentUserData(){
-        if Common.getUserDefaultsObject(forKey: .name) == nil {
-            dataManager.getUserProfileFromAPI {[weak self] result in
-                guard let strongSelf = self else { return }
-                switch result {
-                case .success:
-                    return
-                case .failure:
-                    let failAlert = UIAlertController(title: "Sorry", message: "Fail to get your profile.\n Please try again later", preferredStyle: .alert)
-                   let okayAction = UIAlertAction(title: "Okay", style: .default)
-                   failAlert.addAction(okayAction)
-                   strongSelf.present(failAlert, animated: true, completion: nil)
-                }
-            }
-
-        }
-        
     }
     
     func configureTitle() {
@@ -103,8 +82,8 @@ class ProfileViewController: UIViewController {
     }
 
     func profileTapped() {
-        let accountVC = AccountSettingViewController()
-        self.navigationController?.pushViewController(accountVC, animated: true)
+        let nickNameVC = NickNameViewController()
+        self.navigationController?.pushViewController(nickNameVC, animated: true)
     }
 
     func preferenceTapped() {
@@ -142,8 +121,6 @@ class ProfileViewController: UIViewController {
     func logOutTapped(){
         authManager.signOut()
     }
-
-    
 }
 
 extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {

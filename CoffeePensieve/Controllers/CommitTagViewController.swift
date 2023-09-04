@@ -9,9 +9,7 @@ import UIKit
 
 class CommitTagViewController: UIViewController {
 
-    let dataManager = DataManager.shared
-
-    var tags: [Tag] = []
+    var tags: [Tag] = Constant.tagList
     let tagView = CommitTagView()
     var memo: String? = ""
     
@@ -19,7 +17,8 @@ class CommitTagViewController: UIViewController {
     var selectedMood: Int?
     var selectedTags: [Int] = [] 
     var isInit = true
-    
+    var isMemoView = true
+
     override func loadView() {
         view = tagView
     }
@@ -27,15 +26,8 @@ class CommitTagViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        setTagData()
         setCollection()
     }
-    
-    func setTagData() {
-        let tagList = dataManager.getTagListFromAPI()
-        tags = tagList
-    }
-    
 
     func setUI() {
         view.backgroundColor = .white
@@ -67,8 +59,7 @@ class CommitTagViewController: UIViewController {
         loadingVC.selectedTags = selectedTags
         loadingVC.memo = tagView.memoView.text == "add a note..." ? "" : tagView.memoView.text
         navigationController?.pushViewController(loadingVC, animated: true)
-    }
-
+    }    
 }
 
 extension CommitTagViewController: UICollectionViewDataSource {
@@ -111,7 +102,7 @@ extension CommitTagViewController: UICollectionViewDelegateFlowLayout {
         let tag = tags[indexPath.row]
         if selectedTags.isEmpty {
             selectedTags.append(indexPath.row)
-            tagView.selectedTag.text = "\(tag.name)"
+            tagView.selectedTag.text = "#\(tag.name)"
             controlTagView(isActive: true)
         } else if let index = selectedTags.firstIndex(of: indexPath.row) {
             selectedTags.remove(at: index)
@@ -119,7 +110,7 @@ extension CommitTagViewController: UICollectionViewDelegateFlowLayout {
                 tagView.selectedTag.text = ""
                 controlTagView(isActive: false)
             } else {
-                tagView.selectedTag.text = tags[selectedTags[0]].name
+                tagView.selectedTag.text = "#\(tags[selectedTags[0]].name)"
                 controlTagView(isActive: true)
             }
         } else {
@@ -131,7 +122,7 @@ extension CommitTagViewController: UICollectionViewDelegateFlowLayout {
             } else {
                 selectedTags.append(indexPath.row)
                 let currentTag = tagView.selectedTag.text!
-                tagView.selectedTag.text = "\(currentTag) & \(tag.name)"
+                tagView.selectedTag.text = "\(currentTag)  #\(tag.name)"
                 controlTagView(isActive: true)
             }
         }
@@ -149,6 +140,9 @@ extension CommitTagViewController: UICollectionViewDelegateFlowLayout {
 }
 extension CommitTagViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
+        if selectedTags.isEmpty {
+            tagView.selectedTag.text = "Remember to choose your tags!✨"
+        }
         if textView.textColor == UIColor.lightGray {
             textView.text = ""
             textView.textColor = .black
@@ -156,6 +150,10 @@ extension CommitTagViewController: UITextViewDelegate {
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
+        if selectedTags.isEmpty {
+            tagView.selectedTag.text = ""
+        }
+        
         if textView.text.isEmpty {
             textView.text = "add a note..."
             textView.textColor = UIColor.lightGray

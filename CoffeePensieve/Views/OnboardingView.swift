@@ -20,7 +20,7 @@ class OnboardingView: UIView {
     
     let mainTitle : UILabel = {
         let label = UILabel()
-        label.text = "Create an account to \n make your coffee tracker"
+        label.text = "Create an account to \n make your coffee tracker."
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.textColor = .black
         label.numberOfLines = 2
@@ -31,7 +31,7 @@ class OnboardingView: UIView {
     
     let subTitle : UILabel = {
         let label = UILabel()
-        label.text = "how many cups of coffee do you drink a day? \n What made you need a coffee? \n Keep your coffee moment."
+        label.text = "How many cups of coffee do you drink a day? \n What made you need a coffee? \n Keep your coffee moment."
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .black
         label.numberOfLines = 3
@@ -63,18 +63,16 @@ class OnboardingView: UIView {
         backgroundColor = .primaryColor25
 
         addSubview(imageView)
-        addSubview(stackView)
-
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50),
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.66),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
         ])
-        
+
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),

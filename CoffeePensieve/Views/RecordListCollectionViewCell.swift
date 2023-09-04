@@ -24,7 +24,6 @@ class RecordListCollectionViewCell: UICollectionViewCell {
     
     let drinkImage: UIImageView = {
         let view = UIImageView()
-//        view.image = UIImage(named: "Drink_Americano")
         view.frame = CGRect(x: 0, y: 0, width: 36, height: 52)
         view.contentMode = .scaleToFill
         view.layer.cornerRadius = 10

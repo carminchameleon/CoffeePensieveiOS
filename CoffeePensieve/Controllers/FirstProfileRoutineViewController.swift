@@ -8,11 +8,11 @@
 import UIKit
 import Firebase
 
-class FirstProfileRoutineViewController: UIViewController {
+final class FirstProfileRoutineViewController: UIViewController {
 
-    let routineView = FirstProfileRoutineView()
+    private let routineView = FirstProfileRoutineView()
     let networkManager = AuthNetworkManager.shared
-    let notiCenter = DataManager.sharedNotiCenter
+    let notiCenter = LocalNotification.sharedNotiCenter
 
     var name = ""
     var limitTime = "17:00"
@@ -36,7 +36,7 @@ class FirstProfileRoutineViewController: UIViewController {
     }
     
     
-    func setUp() {
+    private func setUp() {
         routineView.cupCountLabel.text = String(cups)
         routineView.cupStepper.value = Double(cups)
         initTimePicker(time: morningTime, picker: routineView.morningTimePicker)
@@ -44,24 +44,8 @@ class FirstProfileRoutineViewController: UIViewController {
         initTimePicker(time: limitTime, picker: routineView.limitTimePicker)
         routineView.nameTextField.becomeFirstResponder()
     }
-    
-    func initTimePicker(time: String, picker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        if let date = dateFormatter.date(from: time) {
-            picker.date = date
-        }
-    }
 
-    func checkNotificationStatus() {
-        notiCenter.getNotificationSettings { (settings) in
-            self.reminder = settings.authorizationStatus == .authorized
-       }
-    }
-    
-    
-    
-    func addTargets() {
+    private func addTargets() {
         routineView.morningTimePicker.addTarget(self, action: #selector(morningTimePickerValueChanged), for: .valueChanged)
         routineView.nightTimePicker.addTarget(self, action: #selector(nightTimePickerValueChanged), for: .valueChanged)
         routineView.limitTimePicker.addTarget(self, action: #selector(limitPickerValueChanged), for: .valueChanged)
@@ -69,31 +53,45 @@ class FirstProfileRoutineViewController: UIViewController {
         routineView.nameTextField.addTarget(self, action: #selector(nameValueChanged(_:)), for: .editingChanged)
         routineView.submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchDown)
     }
+
     
-    
+    private func initTimePicker(time: String, picker: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        if let date = dateFormatter.date(from: time) {
+            picker.date = date
+        }
+    }
+
+    private func checkNotificationStatus() {
+        notiCenter.getNotificationSettings { (settings) in
+            self.reminder = settings.authorizationStatus == .authorized
+       }
+    }
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             self.view.endEditing(true)
     }
     
-    @objc func morningTimePickerValueChanged() {
+    @objc private func morningTimePickerValueChanged() {
         morningTime = Common.getTimeToString(date: routineView.morningTimePicker.date)
     }
     
-    @objc func nightTimePickerValueChanged() {
+    @objc private func nightTimePickerValueChanged() {
         nightTime = Common.getTimeToString(date: routineView.nightTimePicker.date)
     }
     
-    @objc func limitPickerValueChanged() {
+    @objc private func limitPickerValueChanged() {
         limitTime = Common.getTimeToString(date: routineView.limitTimePicker.date)
     }
     
-    @objc func stepperValueChanged(_ sender: UIStepper) {
+    @objc private func stepperValueChanged(_ sender: UIStepper) {
         let cup = Int(sender.value)
         routineView.cupCountLabel.text = String(cup)
         cups = cup
     }
     
-    @objc func nameValueChanged(_ sender: UITextField) {
+    @objc private func nameValueChanged(_ sender: UITextField) {
         if sender.text?.first == " " {
             sender.text = ""
                return
@@ -106,13 +104,14 @@ class FirstProfileRoutineViewController: UIViewController {
             routineView.submitButton.isEnabled = false
             routineView.submitButton.setImageTintColor(.primaryColor200)
         }
+        
         self.name = userName
         if userName.count > 20 {
             routineView.nameTextField.resignFirstResponder()
         }
     }
     
-    @objc func submitButtonTapped() {
+    @objc private func submitButtonTapped() {
         let userData = SignUpForm(email: email, password: password, name: name, cups: cups, morningTime: morningTime, nightTime: nightTime, limitTime: limitTime, reminder: reminder)
         self.routineView.submitButton.isEnabled = false
         if isSocial {
@@ -139,6 +138,7 @@ class FirstProfileRoutineViewController: UIViewController {
             }
             let completeVC = FirstProfileCompleteViewController()
             self.navigationController?.pushViewController(completeVC, animated: true)
+            
         } else {
             networkManager.signUp(userData) {[weak self] error in
                 guard let weakSelf = self else { return }
@@ -154,9 +154,9 @@ class FirstProfileRoutineViewController: UIViewController {
         }
         
         if reminder {
-            Common.setNotification(type: .morning, timeString: morningTime)
-            Common.setNotification(type: .night, timeString: nightTime)
-            Common.setNotification(type: .limit, timeString: limitTime)
+            LocalNotification.setNotification(type: .morning, timeString: morningTime)
+            LocalNotification.setNotification(type: .night, timeString: nightTime)
+            LocalNotification.setNotification(type: .limit, timeString: limitTime)
         }
     }
     

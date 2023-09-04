@@ -48,16 +48,7 @@ class CommitMainView: UIView {
     }()
     
     // MARK: - 다음 동작 버튼
-    let addButton: UIButton = {
-        let button = UIButton(type:.custom)
-        button.setTitle("Add Coffee Memory", for: .normal)
-        button.titleLabel?.font = FontStyle.body
-        button.setTitleColor(UIColor.primaryColor500, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 6
-        return button
-    }()
+    let addButton = CustomButton(isEnabled: true, title: "Add Today's Coffee")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,7 +58,6 @@ class CommitMainView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
     
     func setUI() {
 

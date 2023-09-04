@@ -12,7 +12,7 @@ import SafariServices
 
 final class SignUpViewController: UIViewController {
         
-    let signUpView = SignUpView()
+    private let signUpView = SignUpView()
 
     override func loadView() {
         view = signUpView
@@ -23,7 +23,7 @@ final class SignUpViewController: UIViewController {
         addTargets()
     }
     
-    func addTargets() {
+    private func addTargets() {
         signUpView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         signUpView.emailTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         signUpView.passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)

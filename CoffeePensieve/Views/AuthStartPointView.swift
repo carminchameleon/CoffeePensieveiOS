@@ -9,10 +9,8 @@ import UIKit
 import GoogleSignIn
 import AuthenticationServices
 
-class AuthStartPointView: UIView {
-    
-    private let buttonHeight: CGFloat = 48
-    
+final class AuthStartPointView: UIView {
+
     // MARK: - 앱 이름
     let appNameLabel: UILabel = {
         let label = UILabel()
@@ -25,7 +23,7 @@ class AuthStartPointView: UIView {
     }()
     
     // MARK: - 회원가입 안내 타이틀
-    private lazy var signUpLabel: UILabel = {
+    let signUpLabel: UILabel = {
         var label = UILabel()
         label.text = "Create an account to \n make your coffee tracker"
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -35,8 +33,8 @@ class AuthStartPointView: UIView {
         return label
     }()
     
-    // MARK: - 회원가입 안내 타이틀
-    lazy var emailButton: UIButton = {
+    // MARK: - Email Sign up
+    let emailButton: UIButton = {
         var filled = UIButton.Configuration.filled()
         filled.title = "Continue with Email "
         filled.buttonSize = .medium
@@ -55,8 +53,8 @@ class AuthStartPointView: UIView {
     }()
     
     
-    // MARK: - 회원가입 안내 타이틀
-    lazy var googleButton: UIButton = {
+    // MARK: - Google Login Button
+    let googleButton: UIButton = {
         var button = UIButton()
         let image = UIImage(named: "GoogleIcon")?.resized(toWidth: 20)
         button.setImage(image, for: .normal)
@@ -71,8 +69,8 @@ class AuthStartPointView: UIView {
     }()
     
     
-    // MARK: - 회원가입 안내 타이틀
-    lazy var appleButton: UIButton = {
+    // MARK: - Apple Login Button
+    let appleButton: UIButton = {
         var filled = UIButton.Configuration.filled()
         filled.title = "Continue with Apple "
         filled.buttonSize = .medium
@@ -99,14 +97,11 @@ class AuthStartPointView: UIView {
         return st
     }()
     
-    lazy var infoLabel: UILabel = {
+    let infoLabel: UILabel = {
         let text = "By tapping Continue, You agree to our Terms and"
         let termRange = NSRange(location: 38, length: 5)
-        
-        // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)
         let termURL = URL(string: Constant.Web.terms)!
-
         attributedString.addAttribute(.link, value: termURL, range: termRange)
         
         let label = UILabel()
@@ -119,15 +114,13 @@ class AuthStartPointView: UIView {
     }()
     
     
-    lazy var policyLabel: UILabel = {
+    let policyLabel: UILabel = {
         let text = "acknowledge that you have read our Privacy Policy."
-        let privacyRange =  NSRange(location: 34, length: 14)
-        
-        // NSAttributedString 생성
+        let privacyRange =  NSRange(location: 34, length: 15)
         let attributedString = NSMutableAttributedString(string: text)
         let policyURL = URL(string: Constant.Web.policy)!
-        
         attributedString.addAttribute(.link, value: policyURL, range: privacyRange)
+        
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .black
@@ -139,7 +132,7 @@ class AuthStartPointView: UIView {
     
     
     // MARK: - 로그인 버튼
-    lazy var loginButton: UIButton = {
+    let loginButton: UIButton = {
         let text = "Have an account? Log in"
         let range = NSRange(location: 17, length: 6)
         let attributedString = NSMutableAttributedString(string: text)
@@ -165,49 +158,47 @@ class AuthStartPointView: UIView {
         backgroundColor = .white
         
         addSubview(appNameLabel)
-        addSubview(signUpLabel)
-        addSubview(stackView)
-        addSubview(infoLabel)
-        addSubview(policyLabel)
-
-        addSubview(loginButton)
-        
         appNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        infoLabel.translatesAutoresizingMaskIntoConstraints = false
-        policyLabel.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             appNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
             appNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
+        addSubview(signUpLabel)
+        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             signUpLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             signUpLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -30),
             signUpLabel.heightAnchor.constraint(equalToConstant: 60)
         ])
         
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: signUpLabel.bottomAnchor, constant: 36),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            stackView.heightAnchor.constraint(equalToConstant: buttonHeight * 3 + 24)
+            stackView.heightAnchor.constraint(equalToConstant: ContentHeight.authButtonHeight * 3 + 24)
         ])
-    
+        
+        addSubview(infoLabel)
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 24),
             infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
+        
+        addSubview(policyLabel)
+        policyLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             policyLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 0),
             policyLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
         
+        addSubview(loginButton)
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            loginButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32),
+            loginButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             loginButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             loginButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
             loginButton.heightAnchor.constraint(equalToConstant: 48)

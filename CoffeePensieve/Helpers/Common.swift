@@ -7,17 +7,15 @@
 
 import UIKit
 
-class Common {
-
-    static let notiCenter = DataManager.sharedNotiCenter
-
+final class Common {
+    
     // 이메일 검증 로직
     static func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
-
+    
     // 비밀번호 검증 로직
     /*
      최소 8자리 이상 /
@@ -29,7 +27,6 @@ class Common {
         let passwordPred = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
         return passwordPred.evaluate(with: password)
     }
-    
     
     enum UserDefaultsKey: String {
         case userId
@@ -46,13 +43,13 @@ class Common {
     // forKey 넣으면 해당되는 값을 반환
     static func getUserDefaultsObject(forKey defaultsKey: UserDefaultsKey) -> Any? {
         let userDefaults = UserDefaults.standard
-        
         if let object = userDefaults.object(forKey: defaultsKey.rawValue) {
             return object
         } else {
             return nil
         }
     }
+    
     //  설정하기
     static func setUserDefaults(_ value: Any?, forKey defaultsKey: UserDefaultsKey) {
         let userDefaults = UserDefaults.standard
@@ -63,14 +60,12 @@ class Common {
         let userDefaults = UserDefaults.standard
         userDefaults.removeObject(forKey: defaultskey.rawValue)
     }
-    
     static func removeAllUserDefaultObject() {
         let keys = Array(UserDefaults.standard.dictionaryRepresentation().keys)
         for key in keys {
             UserDefaults.standard.removeObject(forKey: key)
         }
     }
-    
     
     static func changeDateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
@@ -80,7 +75,7 @@ class Common {
         return dateString
     }
     
-    static func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+    static func heightForView(text: String, font: UIFont, width: CGFloat) -> CGFloat{
         let label: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -115,148 +110,80 @@ class Common {
     
     
     static func getGreetingSentenceByTime() -> String? {
-        let morningGreeting:[String] = [
-            "I hope you had a good night’s sleep",
-            "I hope you woke up feeling refreshed",
-            "I hope you had sweet dreams",
-            "The world is waiting for you.",
-            "sleepyhead! Let's conquer the day together.",
-            "Sending positive vibes your way.",
-            "May your morning be as wonderful as you are.",
-            "Here's to a new day full of endless possibilities.",
-        ]
-        
-        let afternoonGreeting = [
-            "I hope you end your day on a high note",
-            "How has your day been so far?",
-            "Wishing you a great afternoon ahead.",
-            "May your day be filled with\n productivity and success.",
-            "May your day be filled with\n joy and productivity.",
-            "how's your day going?\n Hope it's been great so far.",
-            "Keep up the good workn you're doing great!",
-            "May your morning be as wonderful as you are.",
-            "May the rest of your day be \nas awesome as you are.",
-            "Wishing you a peaceful and \nstress-free afternoon.",
-            "Remember to take a break and \nenjoy the little things in life."
-        ]
-        
-        let eveningGreeting = [
-            "I hope your evening is filled\n with laughter and joy",
-            "I hope you have a restful and rejuvenating night",
-            "I hope you have a delicious dinner \nand a wonderful evening",
-            "Sleep well and sweet dreams",
-            "I hope you wake up feeling refreshed\n and ready for a new day",
-            "I wish you a peaceful and restful night",
-            "Wishing you a relaxing and enjoyable evening.",
-            "May your night be filled \nwith peace and tranquility.",
-            "Hope you had a good day and\n are looking forward to a great evening.",
-            "Take a deep breath and let go\n of any stress from the day.",
-            "May your evening be filled with\n laughter and good company.",
-            "Remember to take some time for yourself\n and do something you enjoy.",
-            "Wishing you a night full of \nsweet dreams and happy thoughts.",
-            "Hope you have a chance to unwind \nand recharge before the day is over.",
-            "May your evening be as wonderful as you are."
-        ]
-        
-        
         let nowDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH"
-        let date = dateFormatter.string(from: nowDate)// 현재 시간의 Date를 format에 맞춰 string으로 반환
+        let date = dateFormatter.string(from: nowDate)
         let currentTime = Int(date)!
+        
         switch currentTime {
         case 0...12 :
-            return morningGreeting.randomElement()
+            return Constant.morningGreeting
         case 12...17 :
-            return afternoonGreeting.randomElement()
+            return Constant.afternoonGreeting
         default:
-            return eveningGreeting.randomElement()
+            return Constant.eveningGreeting
         }
     }
     
     
-    static func setNotification(type: PreferenceTime, timeString: String) {
-        self.notiCenter.removeAllDeliveredNotifications()
-        // 요청 시간 처리
-        let component = timeString.components(separatedBy: ":")
-        let hour = Int(component[0]) ?? 0
-        let minute = Int(component[1]) ?? 0
-        let calendar = Calendar.current
-        var dateComponents = DateComponents(calendar: calendar, timeZone: TimeZone.current)
-        dateComponents.hour = hour
-        dateComponents.minute = minute
-        
-        let isDaily = true
-        
-        var title = ""
-        var body = ""
-        // 각 타입에 맞는 텍스트 등록
-        switch type {
-        case .morning:
-            title = Constant.NotificatonMessage.morningMessage.greeting
-            body = Constant.NotificatonMessage.morningMessage.message
-        case .night:
-            title = Constant.NotificatonMessage.nightMessage.greeting
-            body = Constant.NotificatonMessage.nightMessage.message
-        case .limit:
-            title = Constant.NotificatonMessage.limitMessage.greeting
-            body = Constant.NotificatonMessage.limitMessage.message
-        }
-        
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
-        content.sound = .default
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: isDaily)
-        let request = UNNotificationRequest(identifier: type.rawValue, content: content, trigger: trigger)
-        
-        notiCenter.add(request) {(error) in
-            if let error = error {
-                print("Local Push Alert setting Fail", error.localizedDescription)
+    // record list view에 들어가는 데이터 변환 함수
+    // [2023-08-29 14:00:00 +0000: [commit, commit...]
+    typealias SortedDailyDetailedCommit = [Date: [CommitDetail]]
+    static func sortDetailedCommitwithCreatedAt(_ commitList: [CommitDetail]) -> SortedDailyDetailedCommit {
+        var groupedCommitDetails = [Date: [CommitDetail]]()
+        for commitDetail in commitList {
+            let date = Calendar.current.startOfDay(for: commitDetail.createdAt)
+            if var group = groupedCommitDetails[date] {
+                group.append(commitDetail)
+                groupedCommitDetails[date] = group
+            } else {
+                groupedCommitDetails[date] = [commitDetail]
             }
         }
+        return groupedCommitDetails
     }
     
-    static func removeNotification(){
-        notiCenter.removePendingNotificationRequests(withIdentifiers: [PreferenceTime.morning.rawValue,
-                                                                       PreferenceTime.night.rawValue,
-                                                                       PreferenceTime.limit.rawValue ])
+    // commit 있을 때 그 commit의 해당 데이터들을 묶어줘서 CommitDetail로 만들어주는
+    static func getCommitDetailInfo(commit: Commit) -> CommitDetail {
+        let drink = Constant.drinkList.filter { $0.drinkId == commit.drinkId }[0]
+        let mood = Constant.moodList.filter { $0.moodId == commit.moodId }[0]
+        var tags: [Tag] = []
+        
+        commit.tagIds.forEach { tagId in
+            let findedTag = Constant.tagList.filter { $0.tagId == tagId}
+            if !findedTag.isEmpty {
+                tags.append(findedTag[0])
+            }
+        }
+
+        let commitDatil = CommitDetail(id: commit.id,
+                                       uid: commit.uid,
+                                       drink: drink,
+                                       mood: mood,
+                                       tagList: tags,
+                                       memo: commit.memo,
+                                       createdAt: commit.createdAt)
+        return commitDatil
     }
     
-    static let drinkList: [Drink] = [
-                                    Drink(isIced: false, drinkId: 0, name: "Americano", image: "Drink_Americano"),
-                                    Drink(isIced: false, drinkId: 1, name: "Latte", image: "Drink_Latte"),
-                                    Drink(isIced: false, drinkId: 2, name: "Cappuccino", image: "Drink_Cappuccino"),
-                                    Drink(isIced: false, drinkId: 3, name: "Flatwhite", image: "Drink_Flatwhite"),
-                                    Drink(isIced: false, drinkId: 4, name: "Mocha", image: "Drink_Mocha"),
-                                    Drink(isIced: false, drinkId: 5, name: "Filter", image: "Drink_Filter"),
-                                    Drink(isIced: true, drinkId: 50, name: "Americano", image: "Drink_IcedAmericano"),
-                                    Drink(isIced: true, drinkId: 51, name: "Latte", image: "Drink_IcedLatte"),
-                                    Drink(isIced: true, drinkId: 52, name: "Mocha", image: "Drink_IcedMocha"),
-                                    Drink(isIced: true, drinkId: 53, name: "Cold brew", image: "Drink_Coldbrew"),
-                                    Drink(isIced: false, drinkId: 6, name: "Espresso", image: "Drink_Espresso"),
-                                    Drink(isIced: false, drinkId: 7, name: "Macchiato", image: "Drink_Macchiato")]
-
-    static let moodList: [Mood] = [
-                                    Mood(moodId: 0, name: "Happy", image: "😊"),
-                                    Mood(moodId: 1, name: "Excited", image: "🥳"),
-                                    Mood(moodId: 2, name: "Grateful", image: "🥰"),
-                                    Mood(moodId: 3, name: "Relaxed", image: "😌"),
-                                    Mood(moodId: 4, name: "Tired", image: "🫠"),
-                                    Mood(moodId: 5, name: "Anxious", image: "🥺"),
-                                    Mood(moodId: 6, name: "Angry",image: "🤬"),
-                                    Mood(moodId: 7, name: "Sad", image: "😥"),
-                                    Mood(moodId: 8, name: "Stressed", image: "🤯")]
-
-    static let tagList: [Tag] = [
-                                    Tag(tagId: 0, name: "Refreshing"),
-                                    Tag(tagId: 1, name: "Morning"),
-                                    Tag(tagId: 2, name: "Concentrating"),
-                                    Tag(tagId: 3, name: "Socializing"),
-                                    Tag(tagId: 4, name: "Working out"),
-                                    Tag(tagId: 5, name: "Chilling"),
-                                    Tag(tagId: 6, name: "Lunch"),
-                                    Tag(tagId: 7, name: "Dinner")]
-    
+    // 제일 많이 마신 음료수 뽑기
+    static func getTopDrinkList(commitList: [Commit]) {
+        var drinkCount: [Int: Int] = [:]
+        commitList.forEach { commit in
+            if let number  = drinkCount[commit.drinkId] {
+                drinkCount[commit.drinkId] = number + 1
+            } else {
+                drinkCount[commit.drinkId] = 1
+            }
+        }
+        let sortedData =  drinkCount.sorted { $0.value > $1.value }
+        var index = 0
+        let drinkData = sortedData.map { (key: Int, value: Int) in
+            let drink = Constant.drinkList.filter { $0.drinkId == key }[0]
+            index = index + 1
+            return DrinkRanking(ranking: index, drink: drink, number: value)
+        }
+        let _ = drinkData[0...2]
+    }
 }

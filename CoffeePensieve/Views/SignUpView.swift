@@ -8,44 +8,26 @@
 import UIKit
 
 final class SignUpView: UIView {
-
-    private let textViewHeight: CGFloat = 48
-    private let buttonHeight: CGFloat = 56
-    
     
     var isEmailPassed: Bool = false {
         willSet {
-            if newValue && isPasswordPassed {
-                changeButtonStatus(true)
-            } else {
-                changeButtonStatus(false)
-            }
+            changeButtonStatus(newValue && isPasswordPassed)
         }
     }
     
     var isPasswordPassed: Bool = false {
         willSet {
-            if newValue && isEmailPassed {
-                changeButtonStatus(true)
-            } else {
-                changeButtonStatus(false)
-            }
+            changeButtonStatus(newValue && isEmailPassed)
         }
     }
     
     // MARK: - 각 필드 상태에 따라 버튼 상태 업데이트
     private func changeButtonStatus(_ isEnable: Bool) {
-        if isEnable {
-            signUpButton.isEnabled = true
-            signUpButton.setTitleColor(UIColor.primaryColor500, for: .normal)
-        } else {
-            signUpButton.isEnabled = false
-            signUpButton.setTitleColor(UIColor.primaryColor300, for: .normal)
-        }
+        signUpButton.isEnabled = isEnable
     }
     
     // MARK: - 뒤로가기 버튼
-    lazy var backButton: UIButton = {
+    let backButton: UIButton = {
         let button = UIButton(type:.custom)
         let iconImage = UIImage(systemName: "chevron.backward.circle")
         let resizedImage = iconImage?.resized(toWidth: 36) // 아이콘 사이즈 설정
@@ -55,7 +37,7 @@ final class SignUpView: UIView {
     }()
     
     // MARK: - 회원가입 안내 타이틀
-    private lazy var signUpLabel: UILabel = {
+    private let signUpLabel: UILabel = {
         var label = UILabel()
         label.text = "Create an account to \n make your coffee tracker"
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -78,7 +60,7 @@ final class SignUpView: UIView {
     }()
     
     //MARK: - 이메일 입력 필드
-    lazy var emailTextField: UITextField = {
+    let emailTextField: UITextField = {
         var tf = UITextField()
         tf.frame.size.height = 36
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -105,7 +87,7 @@ final class SignUpView: UIView {
     }()
     
     // MARK: - 비밀번호 입력 필드
-    lazy var passwordTextField: UITextField = {
+    let passwordTextField: UITextField = {
         var tf = UITextField()
         tf.frame.size.height = 36
         tf.font = UIFont.systemFont(ofSize: 14)
@@ -122,20 +104,21 @@ final class SignUpView: UIView {
     }()
     
     // MARK: - 회원가입 버튼
-    let signUpButton: UIButton = {
-        let button = UIButton(type:.custom)
-        button.setTitle("Continue", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.setTitleColor(UIColor.primaryColor300, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 6
-        // 테스트 용으로 수정
-        button.isEnabled = true
-        return button
-    }()
+    let signUpButton = CustomButton(isEnabled: false, title: "Continue")
+//    let signUpButton: UIButton = {
+//        let button = UIButton(type:.custom)
+//        button.setTitle("Continue", for: .normal)
+//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+//        button.setTitleColor(UIColor.primaryColor300, for: .normal)
+//        button.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9607843137, blue: 1, alpha: 1)
+//        button.clipsToBounds = true
+//        button.layer.cornerRadius = 6
+//        // 테스트 용으로 수정
+//        button.isEnabled = true
+//        return button
+//    }()
     
-    lazy var infoLabel: UILabel = {
+    let infoLabel: UILabel = {
         let text = "By tapping Continue, You agree to our Terms and"
         let termRange = NSRange(location: 38, length: 5)
         
@@ -155,9 +138,9 @@ final class SignUpView: UIView {
     }()
     
     
-    lazy var policyLabel: UILabel = {
+    var policyLabel: UILabel = {
         let text = "acknowledge that you have read our Privacy Policy."
-        let privacyRange =  NSRange(location: 34, length: 14)
+        let privacyRange =  NSRange(location: 34, length: 15)
         
         // NSAttributedString 생성
         let attributedString = NSMutableAttributedString(string: text)
@@ -257,7 +240,7 @@ final class SignUpView: UIView {
             stackView.topAnchor.constraint(equalTo: signUpLabel.bottomAnchor, constant: 20),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            stackView.heightAnchor.constraint(equalToConstant: textViewHeight*2 + 12)
+            stackView.heightAnchor.constraint(equalToConstant: ContentHeight.textViewHeight*2 + 12)
         ])
         
         NSLayoutConstraint.activate([
@@ -279,7 +262,6 @@ final class SignUpView: UIView {
 
         emailTextField.rightViewMode = .never
         passwordTextField.rightViewMode = .never
-       
     }
     
     // MARK: - 바깥쪽 누르면 키보드 내려가는 것

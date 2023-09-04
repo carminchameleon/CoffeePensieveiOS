@@ -8,7 +8,6 @@
 import UIKit
 
 class CommitResultView: UIView {
-
     
     let createdAtLabel: UILabel = {
         let label = UILabel()
@@ -18,31 +17,7 @@ class CommitResultView: UIView {
         label.textColor = .primaryColor25
         return label
     }()
-    
-    lazy var firstLine: UIView = {
-        let lineView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 1))
-        lineView.backgroundColor = .white
-        return lineView
-    }()
 
-    lazy var secondLine: UIView = {
-        let lineView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 1))
-        lineView.backgroundColor = .white
-        return lineView
-    }()
-
-    lazy var userInfoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Your Coffee Memory"
-        label.font = FontStyle.headline
-        label.textColor = .white
-        label.textAlignment = .center
-        label.addSubview(firstLine)
-        label.addSubview(secondLine)
-        return label
-    }()
-    
-    
     let coffeeLabel: UILabel = {
         let label = UILabel()
         label.text = "Coffee"
@@ -75,7 +50,7 @@ class CommitResultView: UIView {
     }()
     
     lazy var drinkStack: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [coffeeImage, drinkLabel ])
+        let st = UIStackView(arrangedSubviews: [coffeeImage, drinkLabel])
         st.spacing = 8
         st.axis = .vertical
         st.alignment = .center
@@ -187,7 +162,26 @@ class CommitResultView: UIView {
     
     func makeUI() {
         addSubview(createdAtLabel)
+        addSubview(coffeeLabel)
+        addSubview(drinkStack)
+        addSubview(moodTitle)
+        addSubview(moodStack)
+        addSubview(tagTitle)
+        addSubview(tags)
+        addSubview(detailTitle)
+
+
         createdAtLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        coffeeLabel.translatesAutoresizingMaskIntoConstraints = false
+        drinkStack.translatesAutoresizingMaskIntoConstraints = false
+        coffeeImage.translatesAutoresizingMaskIntoConstraints = false
+        moodTitle.translatesAutoresizingMaskIntoConstraints = false
+        moodStack.translatesAutoresizingMaskIntoConstraints = false
+        tagTitle.translatesAutoresizingMaskIntoConstraints = false
+        tags.translatesAutoresizingMaskIntoConstraints = false
+        detailTitle.translatesAutoresizingMaskIntoConstraints = false
+
         
         NSLayoutConstraint.activate([
             createdAtLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 12),
@@ -195,46 +189,12 @@ class CommitResultView: UIView {
             createdAtLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        
-         addSubview(userInfoLabel)
-                 userInfoLabel.translatesAutoresizingMaskIntoConstraints = false
-                 NSLayoutConstraint.activate([
-                     userInfoLabel.topAnchor.constraint(equalTo: createdAtLabel.bottomAnchor, constant: 4),
-                     userInfoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-                     userInfoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-                     userInfoLabel.heightAnchor.constraint(equalToConstant: 64)
-                 ])
-
-         addSubview(firstLine)
-         firstLine.translatesAutoresizingMaskIntoConstraints = false
-                 NSLayoutConstraint.activate([
-                     firstLine.topAnchor.constraint(equalTo: userInfoLabel.topAnchor, constant: 1),
-                     firstLine.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor, constant: 0),
-                     firstLine.trailingAnchor.constraint(equalTo: userInfoLabel.trailingAnchor, constant: 0),
-                     firstLine.heightAnchor.constraint(equalToConstant: 1)
-                 ])
-
-         addSubview(secondLine)
-
-                 secondLine.translatesAutoresizingMaskIntoConstraints = false
-                 NSLayoutConstraint.activate([
-                     secondLine.topAnchor.constraint(equalTo: userInfoLabel.bottomAnchor, constant: 1),
-                     secondLine.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor, constant: 0),
-                     secondLine.trailingAnchor.constraint(equalTo: userInfoLabel.trailingAnchor, constant: 0),
-                     secondLine.heightAnchor.constraint(equalToConstant: 1)
-                 ])
-        
-        addSubview(coffeeLabel)
-        coffeeLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
-            coffeeLabel.topAnchor.constraint(equalTo: userInfoLabel.bottomAnchor, constant: 20),
+            coffeeLabel.topAnchor.constraint(equalTo: createdAtLabel.bottomAnchor, constant: 20),
             coffeeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             coffeeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        addSubview(drinkStack)
-        drinkStack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             drinkStack.topAnchor.constraint(equalTo: coffeeLabel.bottomAnchor, constant: 12),
             drinkStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
@@ -242,64 +202,43 @@ class CommitResultView: UIView {
             drinkStack.heightAnchor.constraint(equalToConstant: 108)
         ])
         
-        coffeeImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             coffeeImage.widthAnchor.constraint(equalToConstant: 49),
             coffeeImage.heightAnchor.constraint(equalToConstant: 70),
         ])
         
-        addSubview(moodTitle)
-        moodTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             moodTitle.topAnchor.constraint(equalTo: drinkStack.bottomAnchor, constant: 20),
             moodTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             moodTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        addSubview(moodStack)
-        moodStack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             moodStack.topAnchor.constraint(equalTo: moodTitle.bottomAnchor, constant: 12),
             moodStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             moodStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
             moodStack.heightAnchor.constraint(equalToConstant: 98)
         ])
-     
         
-        
-        
-        
-        addSubview(tagTitle)
-        tagTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tagTitle.topAnchor.constraint(equalTo: moodStack.bottomAnchor, constant: 12),
             tagTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             tagTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        addSubview(tags)
-        tags.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tags.topAnchor.constraint(equalTo: tagTitle.bottomAnchor, constant: 12),
             tags.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             tags.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        
-        addSubview(detailTitle)
-        detailTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             detailTitle.topAnchor.constraint(equalTo: tags.bottomAnchor, constant: 20),
             detailTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             detailTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        addSubview(detailView)
-        detailView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-            detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-        ])
+
     }
     
 

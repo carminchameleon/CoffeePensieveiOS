@@ -6,30 +6,37 @@
 //
 
 import UIKit
+@objc protocol DocketControlDelegate {
+    @objc func isDeleted()
+}
 
 class DocketViewController: UIViewController {
     
     let docketView = DocketView()
-    let dataManager = DataManager.shared
+    let commitManager = CommitNetworkManager.shared
+    
+    weak var delegate : DocketControlDelegate?
     
     override func loadView() {
         view = docketView
     }
-
-    // ViewController 오픈할 때
-    // Commit 데이터 자체를 넣어줄 것임
     
     var commit: CommitDetail?
     
     override func viewWillAppear(_ animated: Bool) {
         setNavigationBar()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCommitData()
-        updateDetail()
     }
 
+    override func viewDidLayoutSubviews() {
+        updateDetail()
+    }
+    
+    
     override func viewWillLayoutSubviews() {
         docketView.setGradient3Color(color1: .blueGradient100, color2: .blueGradient200, color3: .blueGradient300)
     }
@@ -53,9 +60,7 @@ class DocketViewController: UIViewController {
     }
 
     func updateCommitData() {
-
         guard let commit = commit else { return }
-
         // drink
         let tempMode = commit.drink.isIced ? "🧊ICED" : "🔥HOT"
         docketView.coffeeImage.image = UIImage(named: commit.drink.image)
@@ -75,36 +80,52 @@ class DocketViewController: UIViewController {
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
-    
+
     func updateDetail() {
         guard let memo = commit?.memo else { return }
-        let width = docketView.frame.width - 48
-        
         if memo.isEmpty {
             docketView.detailTitle.isHidden = true
             return
         }
-
+        let width = docketView.frame.width - 48
         let font =  UIFont.italicSystemFont(ofSize: 17)
-        let height =  Common.heightForView(text: memo, font: font, width: width)
-        if height > 500 {
-            docketView.addSubview(docketView.memoView)
-            docketView.memoView.translatesAutoresizingMaskIntoConstraints = false
-            docketView.memoView.text = memo
-            NSLayoutConstraint.activate([
-                docketView.memoView.topAnchor.constraint(equalTo: docketView.detailTitle.bottomAnchor, constant: 12),
-                docketView.memoView.leadingAnchor.constraint(equalTo: docketView.leadingAnchor, constant: 24),
-                docketView.memoView.trailingAnchor.constraint(equalTo: docketView.trailingAnchor, constant: -24),
-                docketView.memoView.bottomAnchor.constraint(equalTo: docketView.safeAreaLayoutGuide.bottomAnchor, constant: -12),
-        ])
+        let memoTextHeight =  Common.heightForView(text: memo, font: font, width: width)
+        
+        let emptySpaceHeight = docketView.frame.height - docketView.detailTitle.frame.maxY - 24
+        
+        if memoTextHeight > emptySpaceHeight {
+            setMemoView(memo)
         } else {
-            docketView.detailView.text = memo
-            docketView.addSubview(docketView.detailView)
-            docketView.detailView.topAnchor.constraint(equalTo: docketView.detailTitle.bottomAnchor, constant: 12).isActive = true
-
+            setDetailView(memo)
         }
     }
     
+    func setMemoView(_ memo: String) {
+        docketView.addSubview(docketView.memoView)
+        docketView.memoView.translatesAutoresizingMaskIntoConstraints = false
+        docketView.memoView.text = memo
+        
+        NSLayoutConstraint.activate([
+            docketView.memoView.topAnchor.constraint(equalTo: docketView.detailTitle.bottomAnchor, constant: 12),
+            docketView.memoView.leadingAnchor.constraint(equalTo: docketView.leadingAnchor, constant: 24),
+            docketView.memoView.trailingAnchor.constraint(equalTo: docketView.trailingAnchor, constant: -24),
+            docketView.memoView.bottomAnchor.constraint(equalTo: docketView.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+        ])
+    }
+    
+    func setDetailView(_ memo: String) {
+        docketView.addSubview(docketView.detailView)
+        docketView.detailView.translatesAutoresizingMaskIntoConstraints = false
+        docketView.detailView.text = memo
+        
+        NSLayoutConstraint.activate([
+            docketView.detailView.leadingAnchor.constraint(equalTo: docketView.leadingAnchor, constant: 24),
+            docketView.detailView.trailingAnchor.constraint(equalTo: docketView.trailingAnchor, constant: -24),
+            docketView.detailView.topAnchor.constraint(equalTo: docketView.detailTitle.bottomAnchor, constant: 12)
+
+        ])
+    }
+
     init(commit: CommitDetail?) {
         super.init(nibName: nil, bundle: nil)
         self.commit = commit
@@ -124,26 +145,24 @@ class DocketViewController: UIViewController {
         alert.addAction(cancel)
         alert.addAction(okay)
         self.present(alert, animated: true, completion: nil)
-        }
+    }
         
         
-        func deleteData() {
-            guard let commit = self.commit else { return }
-            let id = commit.id
-            
-            self.dataManager.deleteCommit(id: id) {[weak self] result in
-                guard let strongSelf = self else { return }
-                switch result {
-                case .success:
-                    strongSelf.navigationController?.popViewController(animated: true)
-                case .failure:
-                    let alert = UIAlertController(title: "Sorry", message: "Failed to delete your memory from pensive", preferredStyle: .alert)
-                let okay = UIAlertAction(title: "Okay", style: .default) { action in
-                        strongSelf.navigationController?.popViewController(animated: true)
-                    }
-                    alert.addAction(okay)
-                    strongSelf.present(alert, animated: true, completion: nil)
+    func deleteData() {
+        guard let commit = self.commit else { return }
+        let id = commit.id
+        
+        Task {[weak self] in
+            guard let self = self else { return }
+            do {
+                try await self.commitManager.deleteDrink(id: id)
+                self.navigationController?.popViewController(animated: true)
+                self.delegate?.isDeleted()
+            } catch {
+                AlertManager.showTextAlert(on: self, title: "Sorry", message: "Failed to delete your memory.") {
+                    self.navigationController?.popViewController(animated: true)
                 }
+            }
         }
     }
 }

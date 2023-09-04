@@ -7,9 +7,10 @@
 
 import UIKit
 
-class NickNameViewController: UIViewController {
+final class NickNameViewController: UIViewController {
     
-    let dataManager = DataManager.shared
+    let authManager = AuthNetworkManager.shared
+    
     var name: String = ""
     var currentName: String = ""
     
@@ -49,18 +50,17 @@ class NickNameViewController: UIViewController {
     }()    
     
     @objc func okButtonTapped() {
-        dataManager.updateUserProfile(name: name) {[weak self] result in
-            guard let strongSelf = self else { return }
-            switch result {
-            case .success:
-                strongSelf.navigationController?.popViewController(animated: true)
-            case .failure:
-                let failAlert = UIAlertController(title: "Sorry", message: "Fail to update your profile.\n Please try again later", preferredStyle: .alert)
-               let okayAction = UIAlertAction(title: "Okay", style: .default) {action in
-                   strongSelf.navigationController?.popViewController(animated: true)
-               }
-               failAlert.addAction(okayAction)
-               strongSelf.present(failAlert, animated: true, completion: nil)
+        Task {[weak self] in
+            guard let self = self else { return }
+            do {
+                try await self.authManager.updateUserName(name: name)
+                let newProfile = try await self.authManager.getUpdatedUserData()
+                authManager.saveProfiletoUserDefaults(userProfile: newProfile)
+                self.navigationController?.popViewController(animated: true)
+            } catch {
+                AlertManager.showTextAlert(on: self, title: "Sorry", message: "Fail to update your name.\n Please try again later.") {
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
         }
     }
@@ -84,13 +84,13 @@ class NickNameViewController: UIViewController {
     }
     
     func getUserData() {
-        guard let data = dataManager.getUserData() else { return }
-        name = data.name
-        currentName = data.name
-        let count = data.name.count
+        guard let defaultName = Common.getUserDefaultsObject(forKey: .name) as? String else { return }
+        name = defaultName
+        currentName = defaultName
+        
         DispatchQueue.main.async {
-            self.nameTextField.text = self.name
-            self.limitLabel.text = "\(count) / 20"
+            self.nameTextField.text = defaultName
+            self.limitLabel.text = "\(defaultName.count) / 20"
         }
     }
     
@@ -99,40 +99,28 @@ class NickNameViewController: UIViewController {
     }
     
     @objc func nameValueChanged(_ textField: UITextField) {
-        
         if textField.text?.first == " " {
                textField.text = ""
                return
        }
-        
         guard let userName = textField.text else { return }
-    
         self.name = userName
         let count = userName.count
-        
-        if userName.count > 0, currentName != name {
-            navigationItem.rightBarButtonItem?.isEnabled = true
-        } else {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        }
+        navigationItem.rightBarButtonItem?.isEnabled = count > 0 && currentName != name
+
         DispatchQueue.main.async {
             self.limitLabel.text = "\(count) / 20"
         }
-        
-
-        
     }
     
     func setUI() {
         view.addSubview(nameLabel)
-        
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             nameLabel.heightAnchor.constraint(equalToConstant: 30)
-            
         ])
         
         view.addSubview(limitLabel)
@@ -144,8 +132,6 @@ class NickNameViewController: UIViewController {
             limitLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
         
-        
-        
         view.addSubview(nameTextField)
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -153,7 +139,6 @@ class NickNameViewController: UIViewController {
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             nameTextField.trailingAnchor.constraint(equalTo: limitLabel.leadingAnchor, constant: -4),
             nameTextField.heightAnchor.constraint(equalToConstant: 30)
-            
         ])
         
         view.addSubview(line)
@@ -164,14 +149,11 @@ class NickNameViewController: UIViewController {
             line.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             line.heightAnchor.constraint(equalToConstant: 1)
         ])
-        
-        
     }
     
 }
 
 extension NickNameViewController : UITextFieldDelegate {
-    
     // 엔터 눌렀을 대 넘어가는 것
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         nameTextField.resignFirstResponder()

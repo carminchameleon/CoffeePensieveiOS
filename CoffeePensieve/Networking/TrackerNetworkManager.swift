@@ -11,7 +11,6 @@ import FirebaseFirestoreSwift
 
 final class TrackerNetworkManager {
     
-
     static let shared = TrackerNetworkManager()
     private init() {}
 
@@ -32,64 +31,95 @@ final class TrackerNetworkManager {
         let data = Commit(id: id, uid: uid, drinkId: drinkId, moodId: moodId, tagIds: tagIds, memo: memo, createdAt: createdAt)
         return data
     }
-
-    // MARK: - fetch TODAY commits
-    func fetchTodayCommits(completion: @escaping CommitCompletion) {
-
+    
+    // MARK: - 오늘 마신 커피 리스트 가져오기
+    func fetchTodayDrinks() async throws -> [Commit] {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
-            completion(.failure(.uidError))
-            return
+            throw NetworkError.uidError
         }
+
         let userId = uid as! String
         let docRef = db.collection(Constant.FStore.commitCollection)
-        
         let calendar = Calendar.current
         let now = Date()
         let midnightToday = calendar.startOfDay(for: now)
-        docRef
-            .whereField("uid", isEqualTo: userId)
-            .whereField("createdAt", isGreaterThan: Timestamp(date: midnightToday))
-            .getDocuments { (querySnapshot, error) in
-                if let _ = error {
-                    completion(.failure(.databaseError))
-                } else {
-                    var commits: [Commit] = []
-                    for document in querySnapshot!.documents {
-                        guard let commit = self.formatCommitData(document: document) else { return }
-                        commits.append(commit)
-                    }
-                    completion(.success(commits))
+
+        do {
+            let querySnapshot = try await docRef.whereField("uid", isEqualTo: userId)
+                .whereField("createdAt", isGreaterThan: Timestamp(date: midnightToday))
+                .getDocuments()
+            
+            var commits: [Commit] = []
+            for document in querySnapshot.documents {
+                if let commit = formatCommitData(document: document) {
+                    commits.append(commit)
                 }
             }
-    }
-    
-    // MARK: - fetch All commits
-    func fetchAllCommits(completion: @escaping CommitCompletion) {
-        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
-            completion(.failure(.uidError))
-            return
+            return commits
+        } catch {
+            throw NetworkError.databaseError
         }
-        let userId = uid as! String
-        let docRef = db.collection(Constant.FStore.commitCollection)
-        
-        docRef
-            .whereField("uid", isEqualTo: userId)
-            .order(by: "createdAt", descending: true)
-            .getDocuments { (querySnapshot, error) in
-                if let _ = error {
-                    completion(.failure(.databaseError))
-                } else {
-                    var commits: [Commit] = []
-                    for document in querySnapshot!.documents {
-                        guard let commit = self.formatCommitData(document: document) else { return }
-                        commits.append(commit)
-                    }
-                    completion(.success(commits))
-                }
-            }
     }
     
-    // 지금까지 전체 Commit 횟수 가져오기
+    // MARK: - 전체 커밋 리스트 조회 ( 무한 스크롤 구현 )
+    typealias RecordResult = (data: [Commit], snapshot: DocumentSnapshot?)
+    func fetchAllCommitsWithOffset(size: Int, lastDocument: DocumentSnapshot?) async throws -> RecordResult {
+        do {
+            guard let uid = Common.getUserDefaultsObject(forKey: .userId) else { throw NetworkError.uidError }
+            let userId = uid as! String
+            let query = getQueryWithLastSnapShot(userId: userId, size: size, lastDocument: lastDocument)
+            let querySnapshot = try await query.getDocuments()
+            var commits: [Commit] = []
+            
+            querySnapshot.documents.forEach { document in
+                if let commit = formatCommitData(document: document) {
+                    commits.append(commit)
+                }
+            }
+            return (commits, querySnapshot.documents.last)
+        } catch {
+            throw NetworkError.databaseError
+        }
+    }
+    
+    // MARK: - 전체 커밋 리스트 쿼리 만들기
+    func getQueryWithLastSnapShot(userId: String, size: Int, lastDocument: DocumentSnapshot?) -> Query {
+        let docRef = db.collection(Constant.FStore.commitCollection)
+        if let lastDoc = lastDocument {
+            return docRef.whereField("uid", isEqualTo: userId)
+                                        .order(by: "createdAt", descending: true)
+                                        .start(afterDocument: lastDoc)
+                                        .limit(to: size)
+        } else {
+           return docRef.whereField("uid", isEqualTo: userId)
+                                        .order(by: "createdAt", descending: true)
+                                        .limit(to: size)
+        }
+    }
+    
+    
+    // MARK: - ============== Tracker - Guidline - duration ====================
+    // MARK: - TRACKER - Record
+    func getTrackerRecords() async throws-> [Summary] {
+        do {
+            let all = try await fetchNumberOfAllCommits()
+            let weekly = try await fetchNumberOfWeeklyCommits()
+            let monthly = try await fetchNumberOfMonthlyCommits()
+            let yearly = try await fetchNumberOfYearlyCommits()
+
+            let data = [
+                Summary(title: "All your coffee memories", number: all),
+                Summary(title: "This Week", number: weekly),
+                Summary(title: "This Month", number: monthly),
+                Summary(title: "This Year", number: yearly),
+            ]
+            return data
+        } catch {
+            throw NetworkError.databaseError
+        }
+    }
+    
+    // MARK: - 전체 커밋 횟수
     func fetchNumberOfAllCommits() async throws -> Int {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
             throw NetworkError.uidError
@@ -98,8 +128,6 @@ final class TrackerNetworkManager {
         let userId = uid as! String
         let query = db.collection(Constant.FStore.commitCollection).whereField("uid", isEqualTo: userId)
         let countQuery = query.count
-        
-        
         do {
             let snapshot = try await countQuery.getAggregation(source: .server)
             let count = Int(truncating: snapshot.count)
@@ -107,13 +135,9 @@ final class TrackerNetworkManager {
         } catch {
             throw NetworkError.databaseError
         }
-        
     }
     
-
-    
-    
-    // MARK: - fetch Number of weekly Commits
+    // MARK: - 주간 커밋 횟수
     func fetchNumberOfWeeklyCommits() async throws -> Int {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
             throw NetworkError.uidError
@@ -136,7 +160,7 @@ final class TrackerNetworkManager {
             }
     }
 
-    // MARK: - fetch Number of Monthly Commits
+    // MARK: - 달 커밋 횟수
     func fetchNumberOfMonthlyCommits() async throws -> Int {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
             throw NetworkError.uidError
@@ -159,7 +183,8 @@ final class TrackerNetworkManager {
                 throw NetworkError.databaseError
             }
         }
-    // MARK: - fetch Number of Yearly Commits
+    
+    // MARK: - 연간 커밋 횟수
     func fetchNumberOfYearlyCommits() async throws -> Int {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
             throw NetworkError.uidError
@@ -180,10 +205,9 @@ final class TrackerNetworkManager {
             } catch {
                 throw NetworkError.databaseError
             }
-        }
+    }
 
-    
-    // MARK: - fetch specific duration's commits
+    // MARK: - 특정 기간의 커밋 횟수 조회
     func fetchDurationCommit(start: Date, finish: Date, completion: @escaping CommitCompletion) {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
             completion(.failure(.uidError))
@@ -196,7 +220,6 @@ final class TrackerNetworkManager {
             .whereField("uid", isEqualTo: userId)
             .whereField("createdAt", isGreaterThan: Timestamp(date: start))
             .whereField("createdAt", isLessThan: Timestamp(date: finish))
-
             .getDocuments { (querySnapshot, error) in
                 if let _ = error {
                     completion(.failure(.databaseError))
@@ -211,8 +234,36 @@ final class TrackerNetworkManager {
             }
     }
     
+    // MARK: - 특정 기간의 commit list 조회
+    func fetchDurationCommitList(start: Date, finish: Date) async throws -> [Commit] {
+        guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {
+            throw NetworkError.uidError
+        }
+        
+        let userId = uid as! String
+        let docRef = db.collection(Constant.FStore.commitCollection)
+        
+        do {
+            let querySnapshot = try await docRef
+                .whereField("uid", isEqualTo: userId)
+                .whereField("createdAt", isGreaterThan: Timestamp(date: start))
+                .whereField("createdAt", isLessThan: Timestamp(date: finish))
+                .getDocuments()
+            
+            var commits: [Commit] = []
+            querySnapshot.documents.forEach { document in
+                if let commit = self.formatCommitData(document: document) {
+                    commits.append(commit)
+                }
+            }
+            return commits
+        } catch {
+            throw NetworkError.databaseError
+        }
+    }
     
-    // MARK: - NOT USING NOW
+    
+    // MARK: - ========================= NOT USING NOW =========================
     // MARK: - fetch Weekly commits
     func fetchWeeklyCommits(completion: @escaping CommitCompletion) {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {

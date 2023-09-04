@@ -105,8 +105,6 @@ class DocketView: UIView {
     
     
     let memoView: UITextView = {
-
-        
         let textView = UITextView()
         textView.contentInsetAdjustmentBehavior = .automatic
         textView.textAlignment = .left
@@ -120,7 +118,6 @@ class DocketView: UIView {
         textView.autocorrectionType = UITextAutocorrectionType.no
         textView.spellCheckingType = UITextSpellCheckingType.no
         textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 16)
-
         return textView
     }()
 
@@ -134,8 +131,6 @@ class DocketView: UIView {
       return label
     }()
 
-    
-    
     let tagTitle: UILabel = {
         let label = UILabel()
         label.text = "Tag"
@@ -153,8 +148,6 @@ class DocketView: UIView {
         return label
     }()
     
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         makeUI()
@@ -163,8 +156,6 @@ class DocketView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-
     
     func makeUI() {
         addSubview(createdAtLabel)
@@ -241,14 +232,14 @@ class DocketView: UIView {
             detailTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             detailTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
-        
-        addSubview(detailView)
-        detailView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-            detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-        ])
-           
+//
+//        addSubview(detailView)
+//        detailView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+//            detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+//        ])
+//
     }
     
 }
