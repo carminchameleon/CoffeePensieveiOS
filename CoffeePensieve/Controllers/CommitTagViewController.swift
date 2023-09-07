@@ -57,7 +57,8 @@ class CommitTagViewController: UIViewController {
         loadingVC.selectedDrink = selectedDrink
         loadingVC.selectedMood = selectedMood
         loadingVC.selectedTags = selectedTags
-        loadingVC.memo = tagView.memoView.text == "add a note..." ? "" : tagView.memoView.text
+        let trimmed = tagView.memoView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        loadingVC.memo = tagView.memoView.text == "add a note..." ? "" : trimmed
         navigationController?.pushViewController(loadingVC, animated: true)
     }    
 }
@@ -155,7 +156,7 @@ extension CommitTagViewController: UITextViewDelegate {
         }
         
         if textView.text.isEmpty {
-            textView.text = "add a note..."
+            textView.text = "Add a note..."
             textView.textColor = UIColor.lightGray
         }
     }

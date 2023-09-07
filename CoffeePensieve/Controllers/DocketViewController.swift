@@ -46,8 +46,7 @@ class DocketViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.tintColor = .primaryColor500
     }
-    
-    
+
     func setNavigationBar() {        
         navigationItem.title = "Memory"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -56,9 +55,36 @@ class DocketViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.tintColor = .white
         tabBarController?.tabBar.isHidden = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteButtonTapped))
+    
+        let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
+            self.deleteButtonTapped()
+        }
+        let editAction = UIAction(title: "Edit", image: UIImage(systemName: "pencil")) { _ in
+            self.editButtonTapped()
+        }
+        let shareAction = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { _ in
+            print("edit button tapped")
+        }
+        let menu = UIMenu(title: "Options", children: [ editAction, shareAction, deleteAction])
+     
+        let menuButon = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+        navigationItem.rightBarButtonItem = menuButon
     }
-
+    
+    
+    @objc func shareButtonTapped() {
+        print("share Button Tapped")
+    }
+    
+    func editButtonTapped() {
+        let commitManager = CommitNetworkManager.shared
+        let updateVM = UpdateViewModel(commitManager: commitManager, commitDetail: commit)
+        let updateVC = UINavigationController(rootViewController: UpdateViewController(viewModel: updateVM))
+        updateVC.modalPresentationStyle = .overFullScreen
+        present(updateVC, animated: true)
+    }
+    
+    
     func updateCommitData() {
         guard let commit = commit else { return }
         // drink

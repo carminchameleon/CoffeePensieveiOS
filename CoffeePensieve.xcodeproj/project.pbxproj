@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F009F96A2AA814B40062C286 /* DateModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F9692AA814B40062C286 /* DateModalViewController.swift */; };
+		F009F96E2AA85B600062C286 /* DrinkModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F96D2AA85B600062C286 /* DrinkModalViewController.swift */; };
+		F009F9702AA870F80062C286 /* MoodModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F96F2AA870F80062C286 /* MoodModalViewController.swift */; };
+		F009F9722AA873930062C286 /* ModalTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F9712AA873930062C286 /* ModalTextButton.swift */; };
+		F009F9762AA88E650062C286 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F9752AA88E650062C286 /* TagViewController.swift */; };
+		F009F9782AA891610062C286 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F9772AA891610062C286 /* TagViewModel.swift */; };
+		F009F97A2AA897670062C286 /* TagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F9792AA897660062C286 /* TagTableViewCell.swift */; };
+		F009F97C2AA94F9E0062C286 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F97B2AA94F9E0062C286 /* NoteTableViewCell.swift */; };
+		F009F9822AA962AE0062C286 /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F9812AA962AE0062C286 /* MemoViewController.swift */; };
 		F00B4F4D2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F4C2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift */; };
 		F00B4F4F2A29F31D00D94FF2 /* RecordEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F4E2A29F31D00D94FF2 /* RecordEmptyView.swift */; };
 		F00B4F512A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B4F502A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift */; };
@@ -70,6 +79,9 @@
 		F0AA67E229ED388500B135CE /* FirstProfileCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA67E129ED388500B135CE /* FirstProfileCompleteView.swift */; };
 		F0AA67E429ED38A000B135CE /* FirstProfileCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA67E329ED38A000B135CE /* FirstProfileCompleteViewController.swift */; };
 		F0B15C3129E2892900E4F9BC /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B15C3029E2892900E4F9BC /* colors.swift */; };
+		F0C600CA2AA6E70A009844B5 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C600C92AA6E70A009844B5 /* UpdateModel.swift */; };
+		F0C600CC2AA71653009844B5 /* UpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C600CB2AA71653009844B5 /* UpdateTableViewCell.swift */; };
+		F0C600CE2AA71ABC009844B5 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C600CD2AA71ABC009844B5 /* UpdateViewController.swift */; };
 		F0CC3FDE29DEA47D00BD5B51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */; };
 		F0CC3FE029DEA47D00BD5B51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */; };
 		F0CC3FE229DEA47D00BD5B51 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FE129DEA47D00BD5B51 /* NetworkViewController.swift */; };
@@ -78,6 +90,8 @@
 		F0CC3FEA29DEA48000BD5B51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FE929DEA48000BD5B51 /* Assets.xcassets */; };
 		F0CC3FED29DEA48000BD5B51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0CC3FEB29DEA48000BD5B51 /* LaunchScreen.storyboard */; };
 		F0CC58522AA5D624009FA536 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC58512AA5D624009FA536 /* LocalNotification.swift */; };
+		F0CC58572AA5FE16009FA536 /* UpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC58562AA5FE16009FA536 /* UpdateViewModel.swift */; };
+		F0CC58592AA5FE42009FA536 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC58582AA5FE41009FA536 /* UpdateView.swift */; };
 		F0D645FB2A1CC89F00BEB4C8 /* ProfileMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D645FA2A1CC89F00BEB4C8 /* ProfileMenuModel.swift */; };
 		F0D645FD2A1CE56500BEB4C8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D645FC2A1CE56500BEB4C8 /* ProfileViewController.swift */; };
 		F0D645FF2A205BC100BEB4C8 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D645FE2A205BC100BEB4C8 /* ProfileTableViewCell.swift */; };
@@ -118,6 +132,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F009F9692AA814B40062C286 /* DateModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModalViewController.swift; sourceTree = "<group>"; };
+		F009F96D2AA85B600062C286 /* DrinkModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkModalViewController.swift; sourceTree = "<group>"; };
+		F009F96F2AA870F80062C286 /* MoodModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodModalViewController.swift; sourceTree = "<group>"; };
+		F009F9712AA873930062C286 /* ModalTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTextButton.swift; sourceTree = "<group>"; };
+		F009F9752AA88E650062C286 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
+		F009F9772AA891610062C286 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
+		F009F9792AA897660062C286 /* TagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewCell.swift; sourceTree = "<group>"; };
+		F009F97B2AA94F9E0062C286 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
+		F009F9812AA962AE0062C286 /* MemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewController.swift; sourceTree = "<group>"; };
 		F00B4F4C2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F00B4F4E2A29F31D00D94FF2 /* RecordEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmptyView.swift; sourceTree = "<group>"; };
 		F00B4F502A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerGuidelineHeaderView.swift; sourceTree = "<group>"; };
@@ -170,6 +193,9 @@
 		F0AA67E129ED388500B135CE /* FirstProfileCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileCompleteView.swift; sourceTree = "<group>"; };
 		F0AA67E329ED38A000B135CE /* FirstProfileCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileCompleteViewController.swift; sourceTree = "<group>"; };
 		F0B15C3029E2892900E4F9BC /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
+		F0C600C92AA6E70A009844B5 /* UpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModel.swift; sourceTree = "<group>"; };
+		F0C600CB2AA71653009844B5 /* UpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTableViewCell.swift; sourceTree = "<group>"; };
+		F0C600CD2AA71ABC009844B5 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		F0CC3FDA29DEA47D00BD5B51 /* Coffee Pensieve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coffee Pensieve.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +206,8 @@
 		F0CC3FEC29DEA48000BD5B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F0CC3FEE29DEA48000BD5B51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0CC58512AA5D624009FA536 /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
+		F0CC58562AA5FE16009FA536 /* UpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewModel.swift; sourceTree = "<group>"; };
+		F0CC58582AA5FE41009FA536 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		F0D645FA2A1CC89F00BEB4C8 /* ProfileMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMenuModel.swift; sourceTree = "<group>"; };
 		F0D645FC2A1CE56500BEB4C8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F0D645FE2A205BC100BEB4C8 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -243,10 +271,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F009F97D2AA961FD0062C286 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F0CC58582AA5FE41009FA536 /* UpdateView.swift */,
+				F0C600CB2AA71653009844B5 /* UpdateTableViewCell.swift */,
+				F009F9792AA897660062C286 /* TagTableViewCell.swift */,
+				F009F97B2AA94F9E0062C286 /* NoteTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F009F97E2AA962050062C286 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F0CC58562AA5FE16009FA536 /* UpdateViewModel.swift */,
+				F009F9772AA891610062C286 /* TagViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F009F97F2AA962110062C286 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F0C600CD2AA71ABC009844B5 /* UpdateViewController.swift */,
+				F009F9692AA814B40062C286 /* DateModalViewController.swift */,
+				F009F96D2AA85B600062C286 /* DrinkModalViewController.swift */,
+				F009F96F2AA870F80062C286 /* MoodModalViewController.swift */,
+				F009F9752AA88E650062C286 /* TagViewController.swift */,
+				F009F9812AA962AE0062C286 /* MemoViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F009F9802AA962250062C286 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F0C600C92AA6E70A009844B5 /* UpdateModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		F08FB2B42A9721E000295A86 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				F08FB2B52A9721ED00295A86 /* CustomButton.swift */,
+				F009F9712AA873930062C286 /* ModalTextButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -254,6 +324,7 @@
 		F09E02DF29FCE3800008C259 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F0B15C3029E2892900E4F9BC /* colors.swift */,
 				F09E02E129FCE39E0008C259 /* Constants.swift */,
 				F09E02EB29FE5AC10008C259 /* Common.swift */,
 				F0DF062A2A372E5B001016DF /* Extensions.swift */,
@@ -365,6 +436,7 @@
 				F00D78052A249C5800262B95 /* NickNameViewController.swift */,
 				F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */,
 				F0DF062E2A3AF607001016DF /* ViewController.swift */,
+				F0CC58552AA5FD50009FA536 /* UpdateScreen */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -407,9 +479,19 @@
 				F0CC3FEB29DEA48000BD5B51 /* LaunchScreen.storyboard */,
 				F0CC3FEE29DEA48000BD5B51 /* Info.plist */,
 				F0CC3FE629DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld */,
-				F0B15C3029E2892900E4F9BC /* colors.swift */,
 			);
 			path = CoffeePensieve;
+			sourceTree = "<group>";
+		};
+		F0CC58552AA5FD50009FA536 /* UpdateScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F009F9802AA962250062C286 /* Models */,
+				F009F97D2AA961FD0062C286 /* Views */,
+				F009F97F2AA962110062C286 /* Controllers */,
+				F009F97E2AA962050062C286 /* ViewModels */,
+			);
+			path = UpdateScreen;
 			sourceTree = "<group>";
 		};
 		F0DF06302A3D831D001016DF /* Frameworks */ = {
@@ -536,6 +618,7 @@
 			files = (
 				F0F8A8AC29EBE62400838F35 /* FirstProfileRoutineViewController.swift in Sources */,
 				F05011632A17666000AD0A49 /* CalendarCell.swift in Sources */,
+				F009F9722AA873930062C286 /* ModalTextButton.swift in Sources */,
 				F09F61032A052403004F2462 /* CommitTagViewController.swift in Sources */,
 				F01413732A120C3800A0DB99 /* TrackerRecordTableViewCell.swift in Sources */,
 				F0CC58522AA5D624009FA536 /* LocalNotification.swift in Sources */,
@@ -557,17 +640,21 @@
 				F00B4F4D2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift in Sources */,
 				F014136D2A11023200A0DB99 /* TrackerGuidelineTableViewCell.swift in Sources */,
 				F09F60FB2A048D18004F2462 /* CommitMoodViewController.swift in Sources */,
+				F0C600CE2AA71ABC009844B5 /* UpdateViewController.swift in Sources */,
 				F0D6A1D629EE326800D8C9C8 /* CommitViewController.swift in Sources */,
 				F09E02C529FA955D0008C259 /* AuthData+CoreDataProperties.swift in Sources */,
+				F009F97C2AA94F9E0062C286 /* NoteTableViewCell.swift in Sources */,
 				F0D6460B2A21C90000BEB4C8 /* PreferenceCupTableViewCell.swift in Sources */,
 				F0D646092A20D6C500BEB4C8 /* PreferenceTimeTableViewCell.swift in Sources */,
 				F0DF062D2A3878BE001016DF /* NetworkCheck.swift in Sources */,
 				F09F61052A052428004F2462 /* CommitTagView.swift in Sources */,
+				F009F9822AA962AE0062C286 /* MemoViewController.swift in Sources */,
 				F0F6E49E29E1AC9B00C520CE /* StartPointViewController.swift in Sources */,
 				F09E02E429FCE3FC0008C259 /* AuthNetworkManager.swift in Sources */,
 				F09F60FF2A049090004F2462 /* MoodModel.swift in Sources */,
 				F0CC3FDE29DEA47D00BD5B51 /* AppDelegate.swift in Sources */,
 				F09E02E629FCF42D0008C259 /* UserProfile.swift in Sources */,
+				F0CC58592AA5FE42009FA536 /* UpdateView.swift in Sources */,
 				F03E39B22A14FC790042B491 /* DocketViewController.swift in Sources */,
 				F09F60FD2A048D35004F2462 /* CommitMoodView.swift in Sources */,
 				F09F61072A05269E004F2462 /* TagModel.swift in Sources */,
@@ -576,19 +663,24 @@
 				F09F60F92A0279B7004F2462 /* CoffeeModel.swift in Sources */,
 				F08FB2B62A9721ED00295A86 /* CustomButton.swift in Sources */,
 				F09F60F32A0122D8004F2462 /* CommitCoffeeViewController.swift in Sources */,
+				F009F97A2AA897670062C286 /* TagTableViewCell.swift in Sources */,
 				F05011672A17AB5000AD0A49 /* RecordListCollectionViewCell.swift in Sources */,
 				F0CC3FE829DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld in Sources */,
 				F0F8A89629E9604D00838F35 /* SignInView.swift in Sources */,
 				F0F8A89A29E9951800838F35 /* ForgotPasswordViewController.swift in Sources */,
 				F02827732A075FF300213B94 /* CommitResultViewController.swift in Sources */,
+				F009F96E2AA85B600062C286 /* DrinkModalViewController.swift in Sources */,
 				F03E39B02A13AB720042B491 /* CalendarViewController.swift in Sources */,
 				F00B4F552A2C5FE200D94FF2 /* AccountDeleteViewController.swift in Sources */,
 				F09E02DA29FB93080008C259 /* AppController.swift in Sources */,
 				F0D645FF2A205BC100BEB4C8 /* ProfileTableViewCell.swift in Sources */,
 				F0AA67E229ED388500B135CE /* FirstProfileCompleteView.swift in Sources */,
+				F0C600CA2AA6E70A009844B5 /* UpdateModel.swift in Sources */,
+				F009F9702AA870F80062C286 /* MoodModalViewController.swift in Sources */,
 				F0EC72C32A0E6A1A00DC24D0 /* TrackerViewController.swift in Sources */,
 				F05011652A179D2600AD0A49 /* RecordListViewController.swift in Sources */,
 				F0DF062B2A372E5B001016DF /* Extensions.swift in Sources */,
+				F0C600CC2AA71653009844B5 /* UpdateTableViewCell.swift in Sources */,
 				F0D646032A2087BB00BEB4C8 /* PreferenceTableViewCell.swift in Sources */,
 				F03E39AC2A1399810042B491 /* TrackerTodayHeaderView.swift in Sources */,
 				F028276B2A05FD1100213B94 /* CommitLoadingViewController.swift in Sources */,
@@ -600,9 +692,12 @@
 				F0300A8F2A936263009F8AF8 /* AlertManager.swift in Sources */,
 				F0F8A88E29E8D89500838F35 /* AuthStartPointView.swift in Sources */,
 				F0EC72C72A0F1A1900DC24D0 /* TrackerTodayTableViewCell.swift in Sources */,
+				F009F9762AA88E650062C286 /* TagViewController.swift in Sources */,
 				F0F8A8A629EB9CCE00838F35 /* FirstProfileGreetingViewController.swift in Sources */,
+				F0CC58572AA5FE16009FA536 /* UpdateViewModel.swift in Sources */,
 				F00D78062A249C5800262B95 /* NickNameViewController.swift in Sources */,
 				F09F60F129FF8B32004F2462 /* CommitMainView.swift in Sources */,
+				F009F96A2AA814B40062C286 /* DateModalViewController.swift in Sources */,
 				F0745FF42A9373A100E85B02 /* Theme.swift in Sources */,
 				F0CC3FE029DEA47D00BD5B51 /* SceneDelegate.swift in Sources */,
 				F0D6A1D429EE1B5700D8C9C8 /* WelcomeViewController.swift in Sources */,
@@ -613,6 +708,7 @@
 				F0D646072A20CF9600BEB4C8 /* PreferenceModel.swift in Sources */,
 				F0D645FB2A1CC89F00BEB4C8 /* ProfileMenuModel.swift in Sources */,
 				F0F8A8AA29EB9D6600838F35 /* FirstProfileGreetingView.swift in Sources */,
+				F009F9782AA891610062C286 /* TagViewModel.swift in Sources */,
 				F09F60F72A027174004F2462 /* CommitCoffeeCollectionViewCell.swift in Sources */,
 				F09E02EC29FE5AC10008C259 /* Common.swift in Sources */,
 				F0F8A89C29E9953D00838F35 /* ForgotPasswordView.swift in Sources */,

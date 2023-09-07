@@ -98,29 +98,6 @@ class FirstProfileRoutineView: UIView {
         label.textColor = .primaryColor400
         return label
     }()
-//
-//    //MARK: - 컵 입력
-//    lazy var cupTextField: UITextField = {
-//        var tf = UITextField()
-//        tf.frame.size.height = 36
-//        tf.font = UIFont.systemFont(ofSize: 18)
-//        tf.backgroundColor = .clear
-//        tf.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//        tf.keyboardType = .numberPad
-//        tf.autocapitalizationType = .none
-//        tf.autocorrectionType = .no
-//        tf.spellCheckingType = .no
-//        tf.textAlignment = .center
-//        tf.addSubview(cupUnderline)
-//
-//        return tf
-//    }()
-//
-//    lazy var cupUnderline: UIView = {
-//       let view = UIView()
-//        view.backgroundColor = .primaryColor400
-//        return view
-//    }()
     
     lazy var cupCountLabel: UILabel = {
         let label = UILabel()
@@ -350,18 +327,6 @@ class FirstProfileRoutineView: UIView {
             infoStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
             infoStackView.heightAnchor.constraint(equalToConstant: viewHeight*2 + padding)
         ])
-        
-        
-        
-//        cupUnderline.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            cupUnderline.heightAnchor.constraint(equalToConstant: 1),
-//            cupUnderline.widthAnchor.constraint(equalTo: cupTextField.widthAnchor, multiplier: 1 ),
-//            cupUnderline.leadingAnchor.constraint(equalTo: cupTextField.leadingAnchor),
-//            cupUnderline.bottomAnchor.constraint(equalTo: cupTextField.bottomAnchor)
-//        ])
-        
-        
         
         cupStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

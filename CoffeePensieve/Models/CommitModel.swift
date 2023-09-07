@@ -22,11 +22,11 @@ struct Commit: Codable {
 struct CommitDetail {
     var id: String
     var uid: String
-    let drink: Drink
-    let mood: Mood
-    let tagList: [Tag]
-    let memo: String
-    let createdAt: Date
+    var drink: Drink
+    var mood: Mood
+    var tagList: [Tag]
+    var memo: String
+    var createdAt: Date
 }
 
 struct CommitResultDetail {
