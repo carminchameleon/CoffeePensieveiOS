@@ -12,7 +12,7 @@ class NoteTableViewCell: UITableViewCell {
     var noteText: String = "" {
         didSet {
             if noteText.isEmpty {
-                noteLabel.text = "add a note..."
+                noteLabel.text = "Add your notes..."
                 noteLabel.textColor = .grayColor300
             } else {
                 noteLabel.text = noteText
@@ -20,10 +20,10 @@ class NoteTableViewCell: UITableViewCell {
             }
         }
     }
-    // 만약 노트가 없을 경우에
+
     let noteLabel: UILabel = {
         let label = UILabel()
-        label.font = FontStyle.callOut
+        label.font =  UIFont.italicSystemFont(ofSize: 17)
         label.textAlignment = .left
         label.numberOfLines = 3
         return label
@@ -31,7 +31,6 @@ class NoteTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -22,7 +22,7 @@ class UpdateTableViewCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = FontStyle.headline
+        label.font = FontStyle.subhead
         label.text = "Title"
         label.textAlignment = .left
         label.textColor = .black

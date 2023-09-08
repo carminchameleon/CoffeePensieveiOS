@@ -82,6 +82,8 @@
 		F0C600CA2AA6E70A009844B5 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C600C92AA6E70A009844B5 /* UpdateModel.swift */; };
 		F0C600CC2AA71653009844B5 /* UpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C600CB2AA71653009844B5 /* UpdateTableViewCell.swift */; };
 		F0C600CE2AA71ABC009844B5 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C600CD2AA71ABC009844B5 /* UpdateViewController.swift */; };
+		F0CA4D3F2AAAFB9600E761FD /* MoodSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA4D3E2AAAFB9600E761FD /* MoodSelectViewController.swift */; };
+		F0CA4D412AAB0BF100E761FD /* MoodSelectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA4D402AAB0BF100E761FD /* MoodSelectCollectionViewCell.swift */; };
 		F0CC3FDE29DEA47D00BD5B51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */; };
 		F0CC3FE029DEA47D00BD5B51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */; };
 		F0CC3FE229DEA47D00BD5B51 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FE129DEA47D00BD5B51 /* NetworkViewController.swift */; };
@@ -196,6 +198,8 @@
 		F0C600C92AA6E70A009844B5 /* UpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModel.swift; sourceTree = "<group>"; };
 		F0C600CB2AA71653009844B5 /* UpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTableViewCell.swift; sourceTree = "<group>"; };
 		F0C600CD2AA71ABC009844B5 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
+		F0CA4D3E2AAAFB9600E761FD /* MoodSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSelectViewController.swift; sourceTree = "<group>"; };
+		F0CA4D402AAB0BF100E761FD /* MoodSelectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSelectCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0CC3FDA29DEA47D00BD5B51 /* Coffee Pensieve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coffee Pensieve.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -276,6 +280,7 @@
 			children = (
 				F0CC58582AA5FE41009FA536 /* UpdateView.swift */,
 				F0C600CB2AA71653009844B5 /* UpdateTableViewCell.swift */,
+				F0CA4D402AAB0BF100E761FD /* MoodSelectCollectionViewCell.swift */,
 				F009F9792AA897660062C286 /* TagTableViewCell.swift */,
 				F009F97B2AA94F9E0062C286 /* NoteTableViewCell.swift */,
 			);
@@ -300,6 +305,7 @@
 				F009F96F2AA870F80062C286 /* MoodModalViewController.swift */,
 				F009F9752AA88E650062C286 /* TagViewController.swift */,
 				F009F9812AA962AE0062C286 /* MemoViewController.swift */,
+				F0CA4D3E2AAAFB9600E761FD /* MoodSelectViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -627,6 +633,7 @@
 				F0D645FD2A1CE56500BEB4C8 /* ProfileViewController.swift in Sources */,
 				F0A1A13E29E15FBB000F6277 /* OnboardingViewController.swift in Sources */,
 				F0E9AB9F2A1B83E200591161 /* RankingModel.swift in Sources */,
+				F0CA4D3F2AAAFB9600E761FD /* MoodSelectViewController.swift in Sources */,
 				F010D1522A47CBCC00E4CD0E /* RecordLoadingView.swift in Sources */,
 				F00B4F512A2A00AB00D94FF2 /* TrackerGuidelineHeaderView.swift in Sources */,
 				F01413672A1098F400A0DB99 /* GuidelineModel.swift in Sources */,
@@ -719,6 +726,7 @@
 				F0F8A89029E8DAE100838F35 /* OnboardingView.swift in Sources */,
 				F0D646012A207F6100BEB4C8 /* PreferenceViewController.swift in Sources */,
 				F014136F2A120ACE00A0DB99 /* SummaryModel.swift in Sources */,
+				F0CA4D412AAB0BF100E761FD /* MoodSelectCollectionViewCell.swift in Sources */,
 				F0AA67E429ED38A000B135CE /* FirstProfileCompleteViewController.swift in Sources */,
 				F0D646112A233E0A00BEB4C8 /* PreferenceView.swift in Sources */,
 			);

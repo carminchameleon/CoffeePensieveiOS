@@ -176,5 +176,7 @@ enum CellId: String {
     case updateHeaderCell
     case noteCell
     case tagCell
+    case createdAtCell
+    case moodCell
 }
 

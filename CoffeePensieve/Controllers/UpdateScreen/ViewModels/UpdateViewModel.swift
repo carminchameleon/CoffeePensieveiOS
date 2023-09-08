@@ -11,7 +11,6 @@ class UpdateViewModel {
     
     // TODO: - 의존성 주입
     let commitManager: CommitNetworkManager
-    // 데이터가 있을 경우 받은 데이터
     var commitDetail: CommitDetail?
     private var isCreatedMode: Bool = false
     
@@ -78,19 +77,18 @@ class UpdateViewModel {
         switch rowIndex {
         case 0:
             let dateModalVC = DateModalViewController(time: createdAt)
-            resizeModalController(modalVC: dateModalVC)
+            Common.resizeModalController(modalVC: dateModalVC)
             dateModalVC.delegate = self
             currentVC.present(dateModalVC, animated: true)
         case 1:
             let drinkModalVC = DrinkModalViewController(drinkId: drinkId)
-            resizeModalController(modalVC: drinkModalVC)
+            Common.resizeModalController(modalVC: drinkModalVC)
             drinkModalVC.delegate = self
             currentVC.present(drinkModalVC, animated: true)
         case 2:
-            let moodModalVC = MoodModalViewController(moodId: moodId)
-            resizeModalController(modalVC: moodModalVC)
+            let moodModalVC = MoodSelectViewController(moodId: moodId)
             moodModalVC.delegate = self
-            currentVC.present(moodModalVC, animated: true)
+            currentVC.navigationController?.pushViewController(moodModalVC, animated: true)
         case 3:
             let tagVM = TagViewModel()
             tagVM.selectedTagIdList = tagIds
@@ -108,14 +106,6 @@ class UpdateViewModel {
         memoVC.memo = memo
         memoVC.delegate = self
         currentVC.navigationController?.pushViewController(memoVC, animated: true)
-    }
-    
-    // 모달 사이즈 중간으로 맞추기
-    func resizeModalController(modalVC: UIViewController) {
-        if let sheet = modalVC.sheetPresentationController {
-            sheet.detents = [ .custom(identifier: .medium) { context in 0.4 * context.maximumDetentValue },
-                              .medium() ]
-        }
     }
 }
 

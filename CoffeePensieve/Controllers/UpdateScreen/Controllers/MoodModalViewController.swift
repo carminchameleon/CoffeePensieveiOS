@@ -20,6 +20,7 @@ class MoodModalViewController: UIViewController {
 
     let cancelButton = ModalTextButton(title: "Cancel")
     let doneButton = ModalTextButton(title: "Done")
+    
     let moodPicker: UIPickerView = {
         let picker = UIPickerView()
         return picker

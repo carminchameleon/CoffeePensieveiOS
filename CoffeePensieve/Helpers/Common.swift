@@ -128,6 +128,13 @@ final class Common {
         return result
     }
     
+    // 모달 사이즈 중간으로 맞추기
+    static func resizeModalController(modalVC: UIViewController, size: Double = 0.4) {
+        if let sheet = modalVC.sheetPresentationController {
+            sheet.detents = [ .custom(identifier: .medium) { context in size * context.maximumDetentValue },
+                              .medium() ]
+        }
+    }
     
     static func getGreetingSentenceByTime() -> String? {
         let nowDate = Date()

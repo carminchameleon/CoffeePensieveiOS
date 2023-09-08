@@ -19,6 +19,7 @@ class DrinkModalViewController: UIViewController {
         }
         return newList
     }
+    
     var selectedDrinkId = 0
     var delegate: DrinkControlDelegate?
 

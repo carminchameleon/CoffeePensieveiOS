@@ -98,7 +98,7 @@ extension UpdateViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerTodayHeader.rawValue) as! TrackerTodayHeaderView
-        headerView.titleLabel.font = FontStyle.headline
+        headerView.titleLabel.font = FontStyle.subhead
         headerView.titleLabel.textColor = .black
         headerView.button.isHidden = true
         headerView.titleLabel.text = section == 0 ? "" : "Your memo"
@@ -110,9 +110,8 @@ extension UpdateViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             let rowData = viewModel.drinkDetail[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: CellId.updateCell.rawValue, for: indexPath) as! UpdateTableViewCell
-            // TODO: - VM으로 바꿔서 넣어야 하는 것 나중에 작업
             cell.cellData = rowData
-            if rowData.title == "Tags" {
+            if rowData.title == "Tags" || rowData.title == "Feeling" {
                 cell.accessoryType = .disclosureIndicator
                 cell.cellTrailingMarginConstraint.constant = -40
             } else {
@@ -139,30 +138,3 @@ extension UpdateViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-
-class HeaderView: UITableViewHeaderFooterView {
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = FontStyle.title2
-        label.textColor = .primaryColor500
-        return label
-    }()
-
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        // 헤더 뷰 설정
-        contentView.addSubview(titleLabel)
-        contentView.backgroundColor = .white
-        
-        // 타이틀 레이블 설정
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-        ])
-    }
-
-   required init?(coder aDecoder: NSCoder) {
-       fatalError("init(coder:) has not been implemented")
-   }
-}
