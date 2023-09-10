@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol DateControlDelegate {
+protocol DateControlDelegate: AnyObject {
     func timeSelected(time: Date)
 }
 
 
 class DateModalViewController: UIViewController {
 
-    var delegate: DateControlDelegate?
+    weak var delegate: DateControlDelegate?
     var selectedDate:Date = Date()
     
     // MARK: - 취소 버튼
@@ -101,20 +101,23 @@ class DateModalViewController: UIViewController {
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         setButton.addTarget(self, action: #selector(setButtonTapped), for: .touchUpInside)
         timePicker.addTarget(self, action: #selector(timePickerValueChanged), for: .valueChanged)
+        timePicker.addTarget(self, action: #selector(handleDatePickerTap), for: .editingDidBegin)
     }
-    
+
     @objc func cancelButtonTapped() {
         dismiss(animated: true)
     }
     
     @objc func setButtonTapped() {
-        print("selected Date", selectedDate)
-        
         delegate?.timeSelected(time: selectedDate)
         dismiss(animated: true)
     }
     
     @objc func timePickerValueChanged() {
         selectedDate = timePicker.date
+    }
+    
+    @objc func handleDatePickerTap() {
+        timePicker.resignFirstResponder()
     }
 }

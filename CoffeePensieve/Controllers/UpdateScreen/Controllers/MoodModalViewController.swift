@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol MoodControlDelegate {
+protocol MoodControlDelegate: AnyObject {
     func moodSelected(mood: Mood)
 }
 
@@ -16,7 +16,7 @@ class MoodModalViewController: UIViewController {
 
     var moodList = Constant.moodList
     var selectedMoodId = 0
-    var delegate: MoodControlDelegate?
+    weak var delegate: MoodControlDelegate?
 
     let cancelButton = ModalTextButton(title: "Cancel")
     let doneButton = ModalTextButton(title: "Done")

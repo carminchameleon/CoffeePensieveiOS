@@ -14,7 +14,7 @@ enum PreferenceTime: String {
     case limit
 }
 
-protocol TimeControlDelegate {
+protocol TimeControlDelegate: AnyObject {
     func timeSelected(type: PreferenceTime, time: String)
 }
 
@@ -24,7 +24,7 @@ class TimeModalViewController: UIViewController {
     // 선택된 시간
     var selectedTime = "11:00"
     
-    var delegate: TimeControlDelegate?
+    weak var delegate: TimeControlDelegate?
     // MARK: - 취소 버튼
     let cancelButton: UIButton = {
         let button = UIButton(type:.custom)
@@ -112,6 +112,7 @@ class TimeModalViewController: UIViewController {
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         setButton.addTarget(self, action: #selector(setButtonTapped), for: .touchUpInside)
         timePicker.addTarget(self, action: #selector(timePickerValueChanged), for: .valueChanged)
+        timePicker.addTarget(self, action: #selector(handleDatePickerTap), for: .editingDidBegin)
     }
     
     @objc func cancelButtonTapped() {
@@ -126,5 +127,9 @@ class TimeModalViewController: UIViewController {
     
     @objc func timePickerValueChanged() {
         selectedTime = Common.getTimeToString(date: timePicker.date)
+    }
+    
+    @objc func handleDatePickerTap() {
+        timePicker.resignFirstResponder()
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol DrinkControlDelegate {
+protocol DrinkControlDelegate: AnyObject {
     func drinkSelected(drink: Drink)
 }
 
@@ -21,7 +21,7 @@ class DrinkModalViewController: UIViewController {
     }
     
     var selectedDrinkId = 0
-    var delegate: DrinkControlDelegate?
+    weak var delegate: DrinkControlDelegate?
 
     let cancelButton: UIButton = {
         let button = UIButton(type:.custom)
@@ -65,7 +65,12 @@ class DrinkModalViewController: UIViewController {
     func configureDrinkPicker() {
         drinkPicker.delegate = self
         drinkPicker.dataSource = self
-        drinkPicker.selectRow(selectedDrinkId, inComponent: 0, animated: true)
+        
+        guard let selectedDrinkIndex = drinkList.firstIndex(where: {drink in
+            drink.drinkId == selectedDrinkId
+        }) else { return }
+        print(selectedDrinkIndex)
+        drinkPicker.selectRow(selectedDrinkIndex, inComponent: 0, animated: true)
     }
     
     func addTargets() {

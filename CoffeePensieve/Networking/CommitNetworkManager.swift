@@ -43,6 +43,46 @@ final class CommitNetworkManager {
         }
     }
     
+    func uploadNewDrink(createdAt: Date, drinkId: Int, moodId: Int, tagIds: [Int], memo: String, completion: @escaping (Result<Void, NetworkError>) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(.failure(.uidError))
+            return
+        }
+        let data: [String: Any] = [
+            Constant.FStore.uidField: uid,
+            Constant.FStore.createdAtField: createdAt,
+            Constant.FStore.drinkField : drinkId,
+            Constant.FStore.moodField : moodId,
+            Constant.FStore.tagListField : tagIds,
+            Constant.FStore.memoField : memo,
+        ]
+        db.collection(Constant.FStore.commitCollection).addDocument(data: data) { error in
+            if let _ = error {
+                completion(.failure(.databaseError))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+    
+    
+    
+    func updateDrink(documentId: String, createdAt: Date, drinkId: Int, moodId: Int, tagIds: [Int], memo: String) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            throw NetworkError.uidError
+        }
+        let docRef = db.collection(Constant.FStore.commitCollection).document(documentId)
+        let data: [String: Any] = [
+            Constant.FStore.uidField: uid,
+            Constant.FStore.createdAtField: createdAt,
+            Constant.FStore.drinkField : drinkId,
+            Constant.FStore.moodField : moodId,
+            Constant.FStore.tagListField : tagIds,
+            Constant.FStore.memoField : memo,
+        ]
+        try await docRef.updateData(data)
+    }
+    
     // MARK: - Today's Commit Count
     func fetchTodayCommitCounts() async -> Result<Int, NetworkError> {
         guard let uid = Common.getUserDefaultsObject(forKey: .userId) else {

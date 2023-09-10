@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol MemoControlDelegate {
+protocol MemoControlDelegate: AnyObject {
     func memoEdited(memo: String)
 }
 class MemoViewController: UIViewController {
     
     var textViewHeightConstant: NSLayoutConstraint!
     var keyboardHeight: CGFloat = 0.0
-    var delegate: MemoControlDelegate?
+    weak var delegate: MemoControlDelegate?
     
     var memo: String = "" {
         didSet {

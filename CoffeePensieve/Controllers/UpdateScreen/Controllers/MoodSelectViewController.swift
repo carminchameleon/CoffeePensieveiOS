@@ -6,14 +6,11 @@
 //
 
 import UIKit
-//protocol MoodControlDelegate {
-//    func moodSelected(mood: Mood)
-//}
 
 class MoodSelectViewController: UIViewController {
     
     var moodList = Constant.moodList
-    var selectedMood: Int? = 0
+    var selectedMood: Int?
     var delegate: MoodControlDelegate?
     
     let relativeFontConstant: CGFloat = 0.048

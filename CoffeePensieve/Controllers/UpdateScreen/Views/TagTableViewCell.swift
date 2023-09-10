@@ -7,11 +7,7 @@
 
 import UIKit
 
-//protocol TagControlDelegate {
-//    func tagSelected(tag)
-//}
-
-class TagTableViewCell: UITableViewCell {
+final class TagTableViewCell: UITableViewCell {
 
     let dataLabel: UILabel = {
         let label = UILabel()

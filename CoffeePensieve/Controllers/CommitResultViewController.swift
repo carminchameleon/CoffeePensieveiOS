@@ -12,6 +12,7 @@ final class CommitResultViewController: UIViewController {
     let resultView = CommitResultView()
     
     var data: CommitResultDetail?
+    var isTrackerMode = false
     
     override func loadView() {
         view = resultView
@@ -47,7 +48,12 @@ final class CommitResultViewController: UIViewController {
     }
     
     @objc func closeTapped() {
-        navigationController?.popToRootViewController(animated: true)
+        if isTrackerMode {
+            dismiss(animated: true)
+        } else {
+            navigationController?.popToRootViewController(animated: true)
+        }
+
     }
 
     func updateUIWithData() {

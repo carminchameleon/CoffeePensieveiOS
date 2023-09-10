@@ -97,7 +97,7 @@ final class TrackerViewController: UIViewController {
         let commitManager = CommitNetworkManager.shared
         let updateVM = UpdateViewModel(commitManager: commitManager)
         let updateVC = UINavigationController(rootViewController: UpdateViewController(viewModel: updateVM))
-        updateVC.modalPresentationStyle = .overFullScreen
+        updateVC.modalPresentationStyle = .fullScreen
         self.present(updateVC, animated: true)
     }
 
@@ -224,7 +224,9 @@ extension TrackerViewController: UITableViewDelegate, UITableViewDataSource {
                 let docketVC = DocketViewController(commit: commitDetail)
                 navigationController?.pushViewController(docketVC, animated: true)
             } else {
-                addButtonTapped()
+                let coffeeVC = CommitCoffeeViewController()
+                navigationController?.navigationBar.prefersLargeTitles = false
+                navigationController?.pushViewController(coffeeVC, animated: true)
             }
         case 1:
             editButtonTapped()

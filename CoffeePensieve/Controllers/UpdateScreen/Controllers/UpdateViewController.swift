@@ -29,20 +29,26 @@ final class UpdateViewController: UIViewController {
         super.viewDidLoad()
         setNavigationBar()
         configureTable()
+        addCompletionHandlers()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
+
+    func addCompletionHandlers() {
         viewModel.onDrinkCompleted = {[weak self] sectionList in
             DispatchQueue.main.async {
-                self?.updateView.tableView.reloadSections([0], with: .automatic)
+                self?.updateView.tableView.reloadData()
             }
         }
-    }
-    
-  
-    override func viewWillAppear(_ animated: Bool) {
-        DispatchQueue.main.async {
-            self.updateView.tableView.reloadSections([1], with: .automatic)
+        
+        viewModel.onSubmitCompleted = {[weak self] isEnable in
+            DispatchQueue.main.async {
+                self?.navigationItem.rightBarButtonItem?.isEnabled = isEnable
+            }
+        }
+        
+        viewModel.onMemoCompleted = {[weak self] memo in
+            DispatchQueue.main.async {
+                self?.updateView.tableView.reloadData()
+            }
         }
     }
     
@@ -51,6 +57,7 @@ final class UpdateViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
         navigationController?.navigationBar.tintColor = .primaryColor500
+        navigationItem.rightBarButtonItem?.isEnabled = viewModel.submitAvailable
     }
     
     private func configureTable() {
@@ -67,7 +74,7 @@ final class UpdateViewController: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-        print("save Button Tapped")
+        viewModel.handleDoneButtonTapped(currentVC: self)
     }
 }
 

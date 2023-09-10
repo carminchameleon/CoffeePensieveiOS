@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol TagControlDelegate {
+protocol TagControlDelegate: AnyObject {
     func tagSelected(tagIds: [Int])
 }
 
@@ -15,7 +15,7 @@ final class TagViewController: UIViewController {
     let updateView = UpdateView()
     var viewModel: TagViewModel
     
-    var delegate: TagControlDelegate?
+    weak var delegate: TagControlDelegate?
     
     init(viewModel: TagViewModel) {
         self.viewModel = viewModel
@@ -75,6 +75,7 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.dataLabel.text = viewModel.getCellLabelText(index: indexPath.row)
         let isSelected = viewModel.getCellCheckStatus(index: indexPath.row)
+        cell.tintColor = .primaryColor500
         cell.accessoryType = isSelected ? .checkmark : .none
         return cell
     }
