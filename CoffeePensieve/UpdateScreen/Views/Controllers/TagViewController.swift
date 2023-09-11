@@ -60,7 +60,8 @@ final class TagViewController: UIViewController {
     }
     
     @objc func doneButtonTapped() {
-        delegate?.tagSelected(tagIds: viewModel.selectedTagIdList)
+        viewModel.handleDoneButtonTapped()
+//        delegate?.tagSelected(tagIds: viewModel.selectedTagIdList)
         navigationController?.popToRootViewController(animated: true)
     }
 }

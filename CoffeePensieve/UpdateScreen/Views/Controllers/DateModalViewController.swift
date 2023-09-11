@@ -11,13 +11,11 @@ protocol DateControlDelegate: AnyObject {
     func timeSelected(time: Date)
 }
 
-
 class DateModalViewController: UIViewController {
 
     weak var delegate: DateControlDelegate?
     var selectedDate:Date = Date()
-    
-    // MARK: - 취소 버튼
+
     let cancelButton: UIButton = {
         let button = UIButton(type:.custom)
         let iconImage = UIImage(systemName: "xmark")
@@ -49,9 +47,7 @@ class DateModalViewController: UIViewController {
     
     init(time: Date?) {
         super.init(nibName: nil, bundle: nil)
-    // time이 들어오거나 아니면 안들어오거나
         guard let time = time else { return }
-        // 들어오면 그 형식에 맞춰서 보여줘야 함.
         selectedDate = time
         timePicker.date = time
     }

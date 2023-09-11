@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		F009F96A2AA814B40062C286 /* DateModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F9692AA814B40062C286 /* DateModalViewController.swift */; };
 		F009F96E2AA85B600062C286 /* DrinkModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F96D2AA85B600062C286 /* DrinkModalViewController.swift */; };
-		F009F9702AA870F80062C286 /* MoodModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F96F2AA870F80062C286 /* MoodModalViewController.swift */; };
 		F009F9722AA873930062C286 /* ModalTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F9712AA873930062C286 /* ModalTextButton.swift */; };
 		F009F9762AA88E650062C286 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F9752AA88E650062C286 /* TagViewController.swift */; };
 		F009F9782AA891610062C286 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009F9772AA891610062C286 /* TagViewModel.swift */; };
@@ -78,12 +77,16 @@
 		F0A1A13E29E15FBB000F6277 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1A13D29E15FBB000F6277 /* OnboardingViewController.swift */; };
 		F0AA67E229ED388500B135CE /* FirstProfileCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA67E129ED388500B135CE /* FirstProfileCompleteView.swift */; };
 		F0AA67E429ED38A000B135CE /* FirstProfileCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA67E329ED38A000B135CE /* FirstProfileCompleteViewController.swift */; };
-		F0B15C3129E2892900E4F9BC /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B15C3029E2892900E4F9BC /* colors.swift */; };
+		F0B15C3129E2892900E4F9BC /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B15C3029E2892900E4F9BC /* Colors.swift */; };
 		F0C600CA2AA6E70A009844B5 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C600C92AA6E70A009844B5 /* UpdateModel.swift */; };
 		F0C600CC2AA71653009844B5 /* UpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C600CB2AA71653009844B5 /* UpdateTableViewCell.swift */; };
 		F0C600CE2AA71ABC009844B5 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C600CD2AA71ABC009844B5 /* UpdateViewController.swift */; };
 		F0CA4D3F2AAAFB9600E761FD /* MoodSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA4D3E2AAAFB9600E761FD /* MoodSelectViewController.swift */; };
 		F0CA4D412AAB0BF100E761FD /* MoodSelectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA4D402AAB0BF100E761FD /* MoodSelectCollectionViewCell.swift */; };
+		F0CA4D442AAEF57000E761FD /* DrinkModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA4D432AAEF57000E761FD /* DrinkModalViewModel.swift */; };
+		F0CA4D472AAEF62E00E761FD /* CustomObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA4D462AAEF62E00E761FD /* CustomObservable.swift */; };
+		F0CA4D4A2AAF010500E761FD /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA4D492AAF010500E761FD /* Protocols.swift */; };
+		F0CA4D4C2AAF24C100E761FD /* MoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA4D4B2AAF24C100E761FD /* MoodViewModel.swift */; };
 		F0CC3FDE29DEA47D00BD5B51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */; };
 		F0CC3FE029DEA47D00BD5B51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */; };
 		F0CC3FE229DEA47D00BD5B51 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC3FE129DEA47D00BD5B51 /* NetworkViewController.swift */; };
@@ -136,7 +139,6 @@
 /* Begin PBXFileReference section */
 		F009F9692AA814B40062C286 /* DateModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModalViewController.swift; sourceTree = "<group>"; };
 		F009F96D2AA85B600062C286 /* DrinkModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkModalViewController.swift; sourceTree = "<group>"; };
-		F009F96F2AA870F80062C286 /* MoodModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodModalViewController.swift; sourceTree = "<group>"; };
 		F009F9712AA873930062C286 /* ModalTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTextButton.swift; sourceTree = "<group>"; };
 		F009F9752AA88E650062C286 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		F009F9772AA891610062C286 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
@@ -194,12 +196,16 @@
 		F0A1A13D29E15FBB000F6277 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F0AA67E129ED388500B135CE /* FirstProfileCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileCompleteView.swift; sourceTree = "<group>"; };
 		F0AA67E329ED38A000B135CE /* FirstProfileCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProfileCompleteViewController.swift; sourceTree = "<group>"; };
-		F0B15C3029E2892900E4F9BC /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
+		F0B15C3029E2892900E4F9BC /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		F0C600C92AA6E70A009844B5 /* UpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModel.swift; sourceTree = "<group>"; };
 		F0C600CB2AA71653009844B5 /* UpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTableViewCell.swift; sourceTree = "<group>"; };
 		F0C600CD2AA71ABC009844B5 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		F0CA4D3E2AAAFB9600E761FD /* MoodSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSelectViewController.swift; sourceTree = "<group>"; };
 		F0CA4D402AAB0BF100E761FD /* MoodSelectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSelectCollectionViewCell.swift; sourceTree = "<group>"; };
+		F0CA4D432AAEF57000E761FD /* DrinkModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkModalViewModel.swift; sourceTree = "<group>"; };
+		F0CA4D462AAEF62E00E761FD /* CustomObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomObservable.swift; sourceTree = "<group>"; };
+		F0CA4D492AAF010500E761FD /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		F0CA4D4B2AAF24C100E761FD /* MoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodViewModel.swift; sourceTree = "<group>"; };
 		F0CC3FDA29DEA47D00BD5B51 /* Coffee Pensieve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coffee Pensieve.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -278,11 +284,9 @@
 		F009F97D2AA961FD0062C286 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F009F97F2AA962110062C286 /* Controllers */,
+				F0CA4D422AAEF4BD00E761FD /* Cells */,
 				F0CC58582AA5FE41009FA536 /* UpdateView.swift */,
-				F0C600CB2AA71653009844B5 /* UpdateTableViewCell.swift */,
-				F0CA4D402AAB0BF100E761FD /* MoodSelectCollectionViewCell.swift */,
-				F009F9792AA897660062C286 /* TagTableViewCell.swift */,
-				F009F97B2AA94F9E0062C286 /* NoteTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -291,6 +295,8 @@
 			isa = PBXGroup;
 			children = (
 				F0CC58562AA5FE16009FA536 /* UpdateViewModel.swift */,
+				F0CA4D432AAEF57000E761FD /* DrinkModalViewModel.swift */,
+				F0CA4D4B2AAF24C100E761FD /* MoodViewModel.swift */,
 				F009F9772AA891610062C286 /* TagViewModel.swift */,
 			);
 			path = ViewModels;
@@ -302,10 +308,9 @@
 				F0C600CD2AA71ABC009844B5 /* UpdateViewController.swift */,
 				F009F9692AA814B40062C286 /* DateModalViewController.swift */,
 				F009F96D2AA85B600062C286 /* DrinkModalViewController.swift */,
-				F009F96F2AA870F80062C286 /* MoodModalViewController.swift */,
+				F0CA4D3E2AAAFB9600E761FD /* MoodSelectViewController.swift */,
 				F009F9752AA88E650062C286 /* TagViewController.swift */,
 				F009F9812AA962AE0062C286 /* MemoViewController.swift */,
-				F0CA4D3E2AAAFB9600E761FD /* MoodSelectViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -330,13 +335,15 @@
 		F09E02DF29FCE3800008C259 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				F0B15C3029E2892900E4F9BC /* colors.swift */,
+				F0CA4D462AAEF62E00E761FD /* CustomObservable.swift */,
+				F0B15C3029E2892900E4F9BC /* Colors.swift */,
 				F09E02E129FCE39E0008C259 /* Constants.swift */,
 				F09E02EB29FE5AC10008C259 /* Common.swift */,
 				F0DF062A2A372E5B001016DF /* Extensions.swift */,
 				F0300A8E2A936263009F8AF8 /* AlertManager.swift */,
 				F0745FF32A9373A100E85B02 /* Theme.swift */,
 				F0CC58512AA5D624009FA536 /* LocalNotification.swift */,
+				F0CA4D492AAF010500E761FD /* Protocols.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -442,9 +449,29 @@
 				F00D78052A249C5800262B95 /* NickNameViewController.swift */,
 				F00B4F542A2C5FE200D94FF2 /* AccountDeleteViewController.swift */,
 				F0DF062E2A3AF607001016DF /* ViewController.swift */,
-				F0CC58552AA5FD50009FA536 /* UpdateScreen */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F0CA4D422AAEF4BD00E761FD /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F0C600CB2AA71653009844B5 /* UpdateTableViewCell.swift */,
+				F0CA4D402AAB0BF100E761FD /* MoodSelectCollectionViewCell.swift */,
+				F009F9792AA897660062C286 /* TagTableViewCell.swift */,
+				F009F97B2AA94F9E0062C286 /* NoteTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F0CA4D482AAEF9A600E761FD /* LifeCycle */ = {
+			isa = PBXGroup;
+			children = (
+				F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */,
+				F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */,
+				F09E02D929FB93080008C259 /* AppController.swift */,
+			);
+			path = LifeCycle;
 			sourceTree = "<group>";
 		};
 		F0CC3FD129DEA47C00BD5B51 = {
@@ -471,15 +498,14 @@
 		F0CC3FDC29DEA47D00BD5B51 /* CoffeePensieve */ = {
 			isa = PBXGroup;
 			children = (
+				F0CA4D482AAEF9A600E761FD /* LifeCycle */,
 				F08FB2B42A9721E000295A86 /* Components */,
 				F09E02DF29FCE3800008C259 /* Helpers */,
-				F0CC3FDD29DEA47D00BD5B51 /* AppDelegate.swift */,
-				F0CC3FDF29DEA47D00BD5B51 /* SceneDelegate.swift */,
-				F09E02D929FB93080008C259 /* AppController.swift */,
 				F09E02E029FCE3890008C259 /* Networking */,
 				F0B15C3229E5543D00E4F9BC /* Models */,
 				F0B15C3329E5544700E4F9BC /* Views */,
 				F0B15C3429E5545100E4F9BC /* Controllers */,
+				F0CC58552AA5FD50009FA536 /* UpdateScreen */,
 				F0CC3FE929DEA48000BD5B51 /* Assets.xcassets */,
 				F0CC3FE329DEA47D00BD5B51 /* Main.storyboard */,
 				F0CC3FEB29DEA48000BD5B51 /* LaunchScreen.storyboard */,
@@ -494,7 +520,6 @@
 			children = (
 				F009F9802AA962250062C286 /* Models */,
 				F009F97D2AA961FD0062C286 /* Views */,
-				F009F97F2AA962110062C286 /* Controllers */,
 				F009F97E2AA962050062C286 /* ViewModels */,
 			);
 			path = UpdateScreen;
@@ -641,11 +666,13 @@
 				F0D6460D2A23251C00BEB4C8 /* CupModalViewController.swift in Sources */,
 				F09E02C429FA955D0008C259 /* AuthData+CoreDataClass.swift in Sources */,
 				F0129FB82A124873008BF649 /* TrackerLoadingTableViewCell.swift in Sources */,
+				F0CA4D442AAEF57000E761FD /* DrinkModalViewModel.swift in Sources */,
 				F0F8A8AE29EBE64100838F35 /* FirstProfileRoutineView.swift in Sources */,
 				F0EC72C92A0F80E200DC24D0 /* TrackerNetworkManager.swift in Sources */,
 				F0D646052A20CC2B00BEB4C8 /* PreferenceHeaderView.swift in Sources */,
 				F00B4F4D2A29D21700D94FF2 /* RecordHeaderCollectionReusableView.swift in Sources */,
 				F014136D2A11023200A0DB99 /* TrackerGuidelineTableViewCell.swift in Sources */,
+				F0CA4D4A2AAF010500E761FD /* Protocols.swift in Sources */,
 				F09F60FB2A048D18004F2462 /* CommitMoodViewController.swift in Sources */,
 				F0C600CE2AA71ABC009844B5 /* UpdateViewController.swift in Sources */,
 				F0D6A1D629EE326800D8C9C8 /* CommitViewController.swift in Sources */,
@@ -683,7 +710,6 @@
 				F0D645FF2A205BC100BEB4C8 /* ProfileTableViewCell.swift in Sources */,
 				F0AA67E229ED388500B135CE /* FirstProfileCompleteView.swift in Sources */,
 				F0C600CA2AA6E70A009844B5 /* UpdateModel.swift in Sources */,
-				F009F9702AA870F80062C286 /* MoodModalViewController.swift in Sources */,
 				F0EC72C32A0E6A1A00DC24D0 /* TrackerViewController.swift in Sources */,
 				F05011652A179D2600AD0A49 /* RecordListViewController.swift in Sources */,
 				F0DF062B2A372E5B001016DF /* Extensions.swift in Sources */,
@@ -707,8 +733,10 @@
 				F009F96A2AA814B40062C286 /* DateModalViewController.swift in Sources */,
 				F0745FF42A9373A100E85B02 /* Theme.swift in Sources */,
 				F0CC3FE029DEA47D00BD5B51 /* SceneDelegate.swift in Sources */,
+				F0CA4D472AAEF62E00E761FD /* CustomObservable.swift in Sources */,
 				F0D6A1D429EE1B5700D8C9C8 /* WelcomeViewController.swift in Sources */,
-				F0B15C3129E2892900E4F9BC /* colors.swift in Sources */,
+				F0B15C3129E2892900E4F9BC /* Colors.swift in Sources */,
+				F0CA4D4C2AAF24C100E761FD /* MoodViewModel.swift in Sources */,
 				F0DF062F2A3AF608001016DF /* ViewController.swift in Sources */,
 				F0A1A13C29E15D86000F6277 /* SignUpViewController.swift in Sources */,
 				F0FD3A792A32ADE10023B643 /* MonthlyRecordView.swift in Sources */,

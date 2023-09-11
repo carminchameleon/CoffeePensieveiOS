@@ -11,9 +11,8 @@ protocol CommitUpdateDelegate: AnyObject {
     func updateCommit(newData: CommitDetail?)
 }
 
-class UpdateViewModel {
+final class UpdateViewModel {
     
-    // TODO: - 의존성 주입
     let commitManager: CommitNetworkManager
     var commitDetail: CommitDetail?
     private var isCreatedMode: Bool = false
@@ -75,9 +74,9 @@ class UpdateViewModel {
     func updateSectionListWithData() {
         let initData = commitDetail!
         let drinkDetail  = [UpdateCell(title: "When", data: getCreatedAtString(initData.createdAt)),
-                       UpdateCell(title: "Coffee", data: Common.getDrinkText(initData.drink)),
-                       UpdateCell(title: "Feeling", data: Common.getMoodText(initData.mood)),
-                       UpdateCell(title: "Tags", data: Common.getTagText(initData.tagList))]
+                            UpdateCell(title: "Coffee", data: Common.getDrinkText(initData.drink)),
+                            UpdateCell(title: "Feeling", data: Common.getMoodText(initData.mood)),
+                            UpdateCell(title: "Tags", data: Common.getTagText(initData.tagList))]
     
         self.createdAt = initData.createdAt
         self.drinkId = initData.drink.drinkId
@@ -96,7 +95,7 @@ class UpdateViewModel {
     var naviagtionTitle: String {
         return isCreatedMode ? "Add memory" : "Edit memory"
     }
-
+    
     func getCreatedAtString(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "En")
@@ -104,7 +103,6 @@ class UpdateViewModel {
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
-    
     
     func handleSelectedRow(rowIndex: Int, currentVC: UIViewController) {
         switch rowIndex {
@@ -114,16 +112,21 @@ class UpdateViewModel {
             dateModalVC.delegate = self
             currentVC.present(dateModalVC, animated: true)
         case 1:
-            let drinkModalVC = DrinkModalViewController(drinkId: drinkId)
+            let drinkViewModel = DrinkModalViewModel(drinkId: drinkId, selectEventHandler: updateDrinkData)
+            let drinkModalVC = DrinkModalViewController(viewModel: drinkViewModel)
             Common.resizeModalController(modalVC: drinkModalVC)
-            drinkModalVC.delegate = self
             currentVC.present(drinkModalVC, animated: true)
         case 2:
-            let moodModalVC = MoodSelectViewController(moodId: moodId)
-            moodModalVC.delegate = self
+            let moodViewModel = MoodViewModel(moodSelectionHandler: updateMoodData)
+            moodViewModel.selectedMood = moodId
+            let moodModalVC = MoodSelectViewController(viewModel: moodViewModel)
             currentVC.navigationController?.pushViewController(moodModalVC, animated: true)
         case 3:
-            let tagVM = TagViewModel()
+            // VC에서 어떤 함수를 실행했고, 그 함수 실행에 대한 결과를 내가 받아와야 할때
+            // VC에서 output을 만들면 나도 그 output을 이렇게 반영할거야.
+            // 내가 그 output을 이렇게 처리해야해.
+            let tagVM = TagViewModel(tagSelectionHandler: tagSelecting)
+            // tagView모델이 자신의 어떤 태그가 탭 되었는지를 알 수 있는
             tagVM.selectedTagIdList = tagIds
             let tagVC = TagViewController(viewModel: tagVM)
             tagVC.delegate = self
@@ -133,6 +136,27 @@ class UpdateViewModel {
         }
     }
     
+    func tagSelecting(tagIds: [Int]) {
+        var selectedTags: [Tag] = []
+        tagIds.forEach { tag in
+            let tag = Constant.tagList.filter { $0.tagId == tag }[0]
+            selectedTags.append(tag)
+        }
+        self.tagIds = tagIds
+        let tagText = Common.getTagText(selectedTags)
+        drinkDetail[3].data = tagText
+    }
+    
+    func updateDrinkData(drink: Drink) {
+        drinkId = drink.drinkId
+        drinkDetail[1].data = Common.getDrinkText(drink)
+    }
+    
+    func updateMoodData(mood: Mood) {
+        moodId = mood.moodId
+        drinkDetail[2].data = Common.getMoodText(mood)
+
+    }
     // note 뷰로 넘어가도록 해야 함
     func handleSelectedNote(currentVC: UIViewController) {
         let memoVC = MemoViewController()
@@ -142,7 +166,6 @@ class UpdateViewModel {
     }
     
     func handleDoneButtonTapped(currentVC: UIViewController) {
-        
         if isCreatedMode {
             createNewCommit(currentVC: currentVC)
         } else {
@@ -167,6 +190,7 @@ class UpdateViewModel {
             }
         }
     }
+    
     func updateNewCommit(currentVC: UIViewController) async {
         do {
             try await updateCommit()
@@ -202,24 +226,10 @@ class UpdateViewModel {
     }
 }
 
-
 extension UpdateViewModel: DateControlDelegate {
     func timeSelected(time: Date) {
         createdAt = time
         drinkDetail[0].data = getCreatedAtString(time)
-    }
-}
-
-extension UpdateViewModel: DrinkControlDelegate {
-    func drinkSelected(drink: Drink) {
-        drinkId = drink.drinkId
-        drinkDetail[1].data = Common.getDrinkText(drink)
-    }
-}
-extension UpdateViewModel: MoodControlDelegate {
-    func moodSelected(mood: Mood) {
-        moodId = mood.moodId
-        drinkDetail[2].data = Common.getMoodText(mood)
     }
 }
 

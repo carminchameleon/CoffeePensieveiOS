@@ -60,8 +60,8 @@ final class LocalNotification {
     
     static func removeNotification(){
         sharedNotiCenter.removePendingNotificationRequests(withIdentifiers: [PreferenceTime.morning.rawValue,
-                                                                       PreferenceTime.night.rawValue,
-                                                                       PreferenceTime.limit.rawValue ])
+                                                                             PreferenceTime.night.rawValue,
+                                                                             PreferenceTime.limit.rawValue])
     }
 
 }

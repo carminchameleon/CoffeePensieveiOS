@@ -7,27 +7,29 @@
 
 import UIKit
 
-// view를 만드는데 필요한 데이터 - tableView 뿌릴 list
-// 선택된 데이터를 표시
-// 선택된 cell에 대한 응답
-
-class TagViewModel {
+final class TagViewModel {
     
     var selectedTagIdList: [Int] = []
-
+ 
+    // 태그가 선택되었을 때, 그것을 처리할 함수
+    let selectedTagHandler: (([Int]) -> Void)
+    
+    // 그 함수에 대한 초기화 - viewModel에서 진행
+    init(tagSelectionHandler: @escaping (([Int])-> Void)) {
+        self.selectedTagHandler = tagSelectionHandler
+    }
+    
     let rowList = Constant.tagList.map { tag in
         return tag.name
     }
     
-    var onRowCompleted: (Int) -> Void = { _ in}
-
+    var onRowCompleted: (Int) -> Void = { _ in }
     
     var numberOfRowsInSection: Int {
         return rowList.count
     }
     
     func handleSelectedRow(index: Int, currentVC: UIViewController) {
-        // deselect
         if let index =  selectedTagIdList.firstIndex(of: index) {
             selectedTagIdList.remove(at: index)
         } else {
@@ -40,7 +42,6 @@ class TagViewModel {
         onRowCompleted(index)
     }
     
-    // MARK: - cell 관련 데이터 표시
     func getCellLabelText(index: Int) -> String {
         return rowList[index]
     }
@@ -49,4 +50,8 @@ class TagViewModel {
         return selectedTagIdList.contains(index)
     }
     
+    // 선택되었을 때 처리할 함수
+    func handleDoneButtonTapped() {
+        selectedTagHandler(selectedTagIdList)
+    }
 }
