@@ -8,7 +8,7 @@
 import UIKit
 
 final class UpdateViewController: UIViewController {
-
+    
     private let updateView = UpdateView()
     let viewModel: UpdateViewModel
     
@@ -39,13 +39,19 @@ final class UpdateViewController: UIViewController {
             }
         }
         
-        viewModel.onSubmitCompleted = {[weak self] isEnable in
+//        viewModel.onSubmitCompleted = {[weak self] isEnable in
+//            DispatchQueue.main.async {
+//                self?.navigationItem.rightBarButtonItem?.isEnabled = isEnable
+//            }
+//        }
+        
+        viewModel.submitAvailable.addObserver { [weak self] isEnable in
             DispatchQueue.main.async {
                 self?.navigationItem.rightBarButtonItem?.isEnabled = isEnable
             }
         }
         
-        viewModel.onMemoCompleted = {[weak self] memo in
+        viewModel.memo.addObserver {[weak self] memo in
             DispatchQueue.main.async {
                 self?.updateView.tableView.reloadData()
             }
@@ -57,7 +63,7 @@ final class UpdateViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
         navigationController?.navigationBar.tintColor = .primaryColor500
-        navigationItem.rightBarButtonItem?.isEnabled = viewModel.submitAvailable
+        navigationItem.rightBarButtonItem?.isEnabled = viewModel.submitAvailable.value
     }
     
     private func configureTable() {
@@ -78,7 +84,6 @@ final class UpdateViewController: UIViewController {
     }
 }
 
-
 extension UpdateViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -86,10 +91,10 @@ extension UpdateViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cellWidth = tableView.frame.size.width - 12 - 40
-        let memoHeight = Common.heightForView(text: viewModel.memo, font: FontStyle.callOut, width: cellWidth)
+        let memoHeight = Common.heightForView(text: viewModel.memo.value, font: FontStyle.callOut, width: cellWidth)
         let number = min(60, memoHeight)
         if indexPath.section == 1 {
-            return viewModel.memo.isEmpty ? 40 : number + 20
+            return viewModel.memo.value.isEmpty ? 40 : number + 20
         } else {
             return 40
         }
@@ -113,27 +118,45 @@ extension UpdateViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let rowData = viewModel.drinkDetail[indexPath.row]
         switch indexPath.section {
         case 0:
-            let rowData = viewModel.drinkDetail[indexPath.row]
-            let cell = tableView.dequeueReusableCell(withIdentifier: CellId.updateCell.rawValue, for: indexPath) as! UpdateTableViewCell
-            cell.cellData = rowData
             if rowData.title == "Tags" || rowData.title == "Feeling" {
-                cell.accessoryType = .disclosureIndicator
-                cell.cellTrailingMarginConstraint.constant = -40
+                return getPageCell(tableView: tableView, indexPath: indexPath)
             } else {
-                cell.accessoryType = .none
-                cell.cellTrailingMarginConstraint.constant = -12
+                return getModalCell(tableView: tableView, indexPath: indexPath)
             }
-            return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: CellId.noteCell.rawValue, for: indexPath) as! NoteTableViewCell
-            cell.accessoryType = .disclosureIndicator
-            cell.noteText = viewModel.memo
-            return cell
+            return getMemoCell(tableView: tableView, indexPath: indexPath)
         default:
         fatalError("Invalid section")
+
         }
+    }
+    
+    func getModalCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        let rowData = viewModel.drinkDetail[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellId.updateCell.rawValue, for: indexPath) as! UpdateTableViewCell
+        cell.cellData = rowData
+        cell.accessoryType = .none
+        cell.cellTrailingMarginConstraint.constant = -12
+        return cell
+    }
+    
+    func getPageCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        let rowData = viewModel.drinkDetail[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellId.updateCell.rawValue, for: indexPath) as! UpdateTableViewCell
+        cell.cellData = rowData
+        cell.accessoryType = .disclosureIndicator
+        cell.cellTrailingMarginConstraint.constant = -40
+        return cell
+    }
+    
+    func getMemoCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellId.noteCell.rawValue, for: indexPath) as! NoteTableViewCell
+        cell.accessoryType = .disclosureIndicator
+        cell.noteText = viewModel.memo.value
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

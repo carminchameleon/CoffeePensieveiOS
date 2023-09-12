@@ -111,7 +111,7 @@ final class Common {
     // MARK: - 음료 텍스트로 보여주는 것
     static func getDrinkText(_ drink: Drink) -> String {
         let drinkName = drink.name.uppercased()
-        let tempMode = drink.isIced ? "🧊ICED" : "🔥HOT"
+        let tempMode = drink.isIced ? "ICED" : "HOT"
         return "\(tempMode) \(drinkName)"
     }
     

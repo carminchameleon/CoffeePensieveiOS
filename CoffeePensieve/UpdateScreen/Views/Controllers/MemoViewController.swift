@@ -12,8 +12,7 @@ protocol MemoControlDelegate: AnyObject {
 }
 class MemoViewController: UIViewController {
     
-    var textViewHeightConstant: NSLayoutConstraint!
-    var keyboardHeight: CGFloat = 0.0
+    let placeholderText = "Add your notes..."
     weak var delegate: MemoControlDelegate?
     
     var memo: String = "" {
@@ -39,11 +38,11 @@ class MemoViewController: UIViewController {
         return stackView
     }()
     
-    let textField : UITextView = {
+    lazy var textField : UITextView = {
         let textField = UITextView()
         textField.backgroundColor = .white
         textField.textColor = .lightGray
-        textField.text = "Add your notes..."
+        textField.text = placeholderText
         textField.isScrollEnabled = true
         textField.layer.cornerRadius = 12
         textField.font =  UIFont.italicSystemFont(ofSize: 17)
@@ -51,13 +50,13 @@ class MemoViewController: UIViewController {
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.spellCheckingType = UITextSpellCheckingType.no
         return textField
-        
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
         setNavigation()
+        setupAutolayout()
+        setBackgroundColor()
         textField.delegate = self
     }
 
@@ -74,42 +73,7 @@ class MemoViewController: UIViewController {
         delegate?.memoEdited(memo: textField.text)
         navigationController?.popToRootViewController(animated: true)
     }
-    
-    
-    func setUI() {
-        view.backgroundColor = .systemGroupedBackground
-        view.addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-
-        scrollView.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
-        
-        textViewHeightConstant = textField.heightAnchor.constraint(equalToConstant: 400)
-        stackView.addArrangedSubview(textField)
-        
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 0),
-            textField.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.9),
-            textField.heightAnchor.constraint(equalToConstant: 480)
-        ])
-    }
 }
-
 
 extension MemoViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -118,12 +82,48 @@ extension MemoViewController: UITextViewDelegate {
             textField.textColor = .black
         }
     }
-    
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         if textField.text.isEmpty {
-            textField.text = "Add your notes..."
+            textField.text = placeholderText
             textField.textColor = UIColor.lightGray
         }
+    }
+}
+
+extension MemoViewController: AutoLayoutable {
+    
+    func setBackgroundColor() {
+        view.backgroundColor = .systemGroupedBackground
+    }
+    
+    func setupAutolayout() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(stackView)
+        stackView.addArrangedSubview(textField)
+        
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+        
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 0),
+            textField.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.9),
+            textField.heightAnchor.constraint(equalToConstant: 480)
+        ])
     }
 }

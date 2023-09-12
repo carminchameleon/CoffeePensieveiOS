@@ -23,23 +23,25 @@ final class TagViewModel {
         return tag.name
     }
     
-    var onRowCompleted: (Int) -> Void = { _ in }
-    
     var numberOfRowsInSection: Int {
         return rowList.count
     }
     
     func handleSelectedRow(index: Int, currentVC: UIViewController) {
+        // 이미 선택되어 있는 경우
         if let index =  selectedTagIdList.firstIndex(of: index) {
+            // 기존 리스트에서 삭제
             selectedTagIdList.remove(at: index)
         } else {
+            // 새롭게 추가된 선택인데, 2개를 넘을 경우: 제한 문구를 띄운다.
             if selectedTagIdList.count == 2 {
                 AlertManager.showTextAlert(on: currentVC, title: "Tags limit", message: "You can select up to two.")
                 return
             }
             selectedTagIdList.append(index)
         }
-        onRowCompleted(index)
+        // 1. updateViewModel에 새롭게 업데이트된 tag리스트를 전달한다.
+        selectedTagHandler(selectedTagIdList)
     }
     
     func getCellLabelText(index: Int) -> String {
@@ -48,10 +50,5 @@ final class TagViewModel {
     
     func getCellCheckStatus(index: Int) -> Bool {
         return selectedTagIdList.contains(index)
-    }
-    
-    // 선택되었을 때 처리할 함수
-    func handleDoneButtonTapped() {
-        selectedTagHandler(selectedTagIdList)
     }
 }

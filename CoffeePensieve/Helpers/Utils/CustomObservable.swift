@@ -11,18 +11,17 @@ class Observable<T> {
         
     var value: T {
         didSet {
-            observerCallback?(value)
+            observer?(value)
         }
     }
     
-    var observerCallback: ((T) -> Void)?
+    var observer: ((T) -> Void)?
 
-    
     init(_ value: T) {
         self.value = value
     }
     
-    func subscribe(callback: @escaping (T)->Void) {
-        self.observerCallback = callback
+    func addObserver(callback: @escaping (T)->Void) {
+        self.observer = callback
     }
 }

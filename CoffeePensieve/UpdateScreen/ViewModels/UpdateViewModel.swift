@@ -13,6 +13,8 @@ protocol CommitUpdateDelegate: AnyObject {
 
 final class UpdateViewModel {
     
+    let placeholderText = "Add your notes..."
+
     let commitManager: CommitNetworkManager
     var commitDetail: CommitDetail?
     private var isCreatedMode: Bool = false
@@ -22,30 +24,26 @@ final class UpdateViewModel {
     var drinkId: Int?
     var moodId: Int?
     var tagIds: [Int] = []
-    var memo = "" {
-        didSet {
-            if memo != oldValue {
-                onMemoCompleted(memo)
-            }
-        }
-    }
-    var drinkDetail: [UpdateCell] = [UpdateCell(title: "When", data: ""),
+    
+    var memo = Observable("")
+    var submitAvailable = Observable(false)
+    var drinkDetail: [UpdateCell] = [UpdateCell(title: "Date", data: ""),
                                      UpdateCell(title: "Coffee", data: ""),
                                      UpdateCell(title: "Feeling", data: ""),
                                      UpdateCell(title: "Tags", data: "")] {
         didSet {
             onDrinkCompleted(drinkDetail)
-            submitAvailable = isSubmitPossible(drinkDetail)
+            submitAvailable.value = isSubmitPossible(drinkDetail)
         }
     }
-    
-    var submitAvailable = false {
-        didSet {
-            if submitAvailable != oldValue {
-                onSubmitCompleted(submitAvailable)
-            }
-        }
-    }
+//
+//    var submitAvailable = false {
+//        didSet {
+//            if submitAvailable != oldValue {
+//                onSubmitCompleted(submitAvailable)
+//            }
+//        }
+//    }
     
     func isSubmitPossible(_ cellList: [UpdateCell]) -> Bool {
         var count = 0
@@ -56,7 +54,6 @@ final class UpdateViewModel {
         }
         return count == 0
     }
-
  
     init(commitManager: CommitNetworkManager, commitDetail: CommitDetail? = nil) {
         self.commitManager = commitManager
@@ -67,7 +64,7 @@ final class UpdateViewModel {
         if commitDetail != nil {
             updateSectionListWithData()
             // 데이터가 다 있는 상황이면 저장 가능
-            submitAvailable = true
+            submitAvailable.value = true
         }
     }
     
@@ -84,7 +81,7 @@ final class UpdateViewModel {
         self.tagIds = initData.tagList.map({ tag in
             return tag.tagId
         })
-        self.memo = initData.memo
+        self.memo.value = initData.memo
         self.drinkDetail = drinkDetail
     }
     
@@ -129,7 +126,6 @@ final class UpdateViewModel {
             // tagView모델이 자신의 어떤 태그가 탭 되었는지를 알 수 있는
             tagVM.selectedTagIdList = tagIds
             let tagVC = TagViewController(viewModel: tagVM)
-            tagVC.delegate = self
             currentVC.navigationController?.pushViewController(tagVC, animated: true)
         default:
             return
@@ -160,7 +156,7 @@ final class UpdateViewModel {
     // note 뷰로 넘어가도록 해야 함
     func handleSelectedNote(currentVC: UIViewController) {
         let memoVC = MemoViewController()
-        memoVC.memo = memo
+        memoVC.memo = memo.value
         memoVC.delegate = self
         currentVC.navigationController?.pushViewController(memoVC, animated: true)
     }
@@ -177,7 +173,7 @@ final class UpdateViewModel {
     }
     
     func createNewCommit(currentVC: UIViewController) {
-        commitManager.uploadNewDrink(createdAt: createdAt!, drinkId: drinkId!,moodId: moodId!, tagIds: tagIds, memo: memo) { result in
+        commitManager.uploadNewDrink(createdAt: createdAt!, drinkId: drinkId!,moodId: moodId!, tagIds: tagIds, memo: memo.value) { result in
             switch result {
             case .success:
                 DispatchQueue.main.async {
@@ -209,19 +205,19 @@ final class UpdateViewModel {
     func moveToResultVC(currentVC: UIViewController) {
         let resultVC = CommitResultViewController()
         resultVC.isTrackerMode = true
-        resultVC.data = CommitResultDetail(drinkId: drinkId!, moodId: moodId!, tagIds: tagIds, memo: memo, createdAt: createdAt!)
+        resultVC.data = CommitResultDetail(drinkId: drinkId!, moodId: moodId!, tagIds: tagIds, memo: memo.value, createdAt: createdAt!)
         currentVC.navigationController?.pushViewController(resultVC, animated: true)
     }
     
     func updateCommit() async throws {
         guard let pastDetail = commitDetail else { return }
-        try await commitManager.updateDrink(documentId: pastDetail.id, createdAt: createdAt!, drinkId: drinkId!, moodId: moodId!, tagIds: tagIds, memo: memo)
+        try await commitManager.updateDrink(documentId: pastDetail.id, createdAt: createdAt!, drinkId: drinkId!, moodId: moodId!, tagIds: tagIds, memo: memo.value)
         let drink = Constant.drinkList.filter { $0.drinkId == drinkId! }[0]
         let mood = Constant.moodList.filter { $0.moodId == moodId!}[0]
         let tags = tagIds.map { tagId in
             return Constant.tagList.filter { $0.tagId == tagId}[0]
         }
-        let newCommit = CommitDetail(id: pastDetail.id, uid: pastDetail.uid, drink: drink, mood: mood, tagList: tags, memo: memo, createdAt: createdAt!)
+        let newCommit = CommitDetail(id: pastDetail.id, uid: pastDetail.uid, drink: drink, mood: mood, tagList: tags, memo: memo.value, createdAt: createdAt!)
         self.delegate?.updateCommit(newData: newCommit)
     }
 }
@@ -233,25 +229,11 @@ extension UpdateViewModel: DateControlDelegate {
     }
 }
 
-extension UpdateViewModel: TagControlDelegate {
-    func tagSelected(tagIds: [Int]) {
-        var selectedTags: [Tag] = []
-        tagIds.forEach { tag in
-            let tag = Constant.tagList.filter { $0.tagId == tag }[0]
-            selectedTags.append(tag)
-        }
-        self.tagIds = tagIds
-        let tagText = Common.getTagText(selectedTags)
-        drinkDetail[3].data = tagText
-    }
-}
-
 extension UpdateViewModel: MemoControlDelegate {
     func memoEdited(memo: String) {
-        if memo == "Add your notes..." {
-            return
+        if memo != placeholderText {
+            let trimmed = memo.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.memo.value = trimmed
         }
-        let trimmed = memo.trimmingCharacters(in: .whitespacesAndNewlines)
-        self.memo = trimmed
     }
 }

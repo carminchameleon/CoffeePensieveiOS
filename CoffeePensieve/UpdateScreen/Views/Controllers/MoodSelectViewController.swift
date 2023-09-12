@@ -67,8 +67,6 @@ extension MoodSelectViewController: UICollectionViewDelegate, UICollectionViewDa
     }
 }
 
-
-
 extension MoodSelectViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

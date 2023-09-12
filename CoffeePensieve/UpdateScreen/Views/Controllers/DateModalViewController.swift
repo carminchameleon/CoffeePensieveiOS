@@ -48,6 +48,7 @@ class DateModalViewController: UIViewController {
     init(time: Date?) {
         super.init(nibName: nil, bundle: nil)
         guard let time = time else { return }
+        print(time)
         selectedDate = time
         timePicker.date = time
     }
@@ -58,13 +59,44 @@ class DateModalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
+        setBackgroundColor()
+        setupAutolayout()
         addTargets()
     }
     
-    func setUI() {
-        view.backgroundColor = .primaryColor25
+    func addTargets() {
         
+        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        setButton.addTarget(self, action: #selector(setButtonTapped), for: .touchUpInside)
+        timePicker.addTarget(self, action: #selector(timePickerValueChanged), for: .valueChanged)
+        timePicker.addTarget(self, action: #selector(handleDatePickerTap), for: .editingDidBegin)
+    }
+
+    @objc func cancelButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    @objc func setButtonTapped() {
+        delegate?.timeSelected(time: selectedDate)
+        dismiss(animated: true)
+    }
+    
+    @objc func timePickerValueChanged() {
+        selectedDate = timePicker.date
+    }
+    
+    @objc func handleDatePickerTap() {
+        timePicker.resignFirstResponder()
+    }
+}
+
+extension DateModalViewController: AutoLayoutable {
+    
+    func setBackgroundColor() {
+        view.backgroundColor = .primaryColor25
+    }
+    
+    func setupAutolayout() {
         view.addSubview(cancelButton)
         view.addSubview(timePicker)
         view.addSubview(setButton)
@@ -91,29 +123,5 @@ class DateModalViewController: UIViewController {
             setButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             setButton.heightAnchor.constraint(equalToConstant: 56),
         ])
-    }
-    
-    func addTargets() {
-        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
-        setButton.addTarget(self, action: #selector(setButtonTapped), for: .touchUpInside)
-        timePicker.addTarget(self, action: #selector(timePickerValueChanged), for: .valueChanged)
-        timePicker.addTarget(self, action: #selector(handleDatePickerTap), for: .editingDidBegin)
-    }
-
-    @objc func cancelButtonTapped() {
-        dismiss(animated: true)
-    }
-    
-    @objc func setButtonTapped() {
-        delegate?.timeSelected(time: selectedDate)
-        dismiss(animated: true)
-    }
-    
-    @objc func timePickerValueChanged() {
-        selectedDate = timePicker.date
-    }
-    
-    @objc func handleDatePickerTap() {
-        timePicker.resignFirstResponder()
     }
 }
