@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DateControlDelegate: AnyObject {
-    func timeSelected(time: Date)
+    func didSelectTime(time: Date)
 }
 
 class DateModalViewController: UIViewController {
@@ -48,7 +48,6 @@ class DateModalViewController: UIViewController {
     init(time: Date?) {
         super.init(nibName: nil, bundle: nil)
         guard let time = time else { return }
-        print(time)
         selectedDate = time
         timePicker.date = time
     }
@@ -63,9 +62,8 @@ class DateModalViewController: UIViewController {
         setupAutolayout()
         addTargets()
     }
-    
+
     func addTargets() {
-        
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         setButton.addTarget(self, action: #selector(setButtonTapped), for: .touchUpInside)
         timePicker.addTarget(self, action: #selector(timePickerValueChanged), for: .valueChanged)
@@ -77,7 +75,7 @@ class DateModalViewController: UIViewController {
     }
     
     @objc func setButtonTapped() {
-        delegate?.timeSelected(time: selectedDate)
+        delegate?.didSelectTime(time: selectedDate)
         dismiss(animated: true)
     }
     

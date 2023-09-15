@@ -22,6 +22,18 @@ struct UserProfile: Codable {
     var reminder: Bool
 }
 
+// MARK: - Section Heading
+// TODO: - add To do
+///
+/**
+ - Description: 숫자 단위 요약
+ - Parameters:
+ - a: 더할 첫 번째 정수
+ - b: 더할 두 번째 정수
+ - Returns: 두 정수의 합
+ - Example
+ formatNumber(1204) // 1,204
+ **/
 
 struct UserPreference {
     let cups: Int

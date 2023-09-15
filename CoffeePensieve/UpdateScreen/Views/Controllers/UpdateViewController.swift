@@ -33,17 +33,12 @@ final class UpdateViewController: UIViewController {
     }
 
     func addCompletionHandlers() {
+        
         viewModel.onDrinkCompleted = {[weak self] sectionList in
             DispatchQueue.main.async {
                 self?.updateView.tableView.reloadData()
             }
         }
-        
-//        viewModel.onSubmitCompleted = {[weak self] isEnable in
-//            DispatchQueue.main.async {
-//                self?.navigationItem.rightBarButtonItem?.isEnabled = isEnable
-//            }
-//        }
         
         viewModel.submitAvailable.addObserver { [weak self] isEnable in
             DispatchQueue.main.async {
@@ -118,7 +113,7 @@ extension UpdateViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let rowData = viewModel.drinkDetail[indexPath.row]
+        let rowData = viewModel.getRowData(index: indexPath.row)
         switch indexPath.section {
         case 0:
             if rowData.title == "Tags" || rowData.title == "Feeling" {
@@ -135,7 +130,7 @@ extension UpdateViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func getModalCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let rowData = viewModel.drinkDetail[indexPath.row]
+        let rowData = viewModel.getRowData(index: indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: CellId.updateCell.rawValue, for: indexPath) as! UpdateTableViewCell
         cell.cellData = rowData
         cell.accessoryType = .none
@@ -144,7 +139,7 @@ extension UpdateViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func getPageCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let rowData = viewModel.drinkDetail[indexPath.row]
+        let rowData = viewModel.getRowData(index: indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: CellId.updateCell.rawValue, for: indexPath) as! UpdateTableViewCell
         cell.cellData = rowData
         cell.accessoryType = .disclosureIndicator

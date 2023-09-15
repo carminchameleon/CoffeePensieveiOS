@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DrinkModalViewController: UIViewController {
+final class DrinkModalViewController: UIViewController {
     
     var viewModel: DrinkModalViewModel
     

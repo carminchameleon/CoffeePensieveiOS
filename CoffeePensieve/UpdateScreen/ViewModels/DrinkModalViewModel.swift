@@ -15,12 +15,9 @@ final class DrinkModalViewModel {
     var selectedDrinkId = 0
     var selectedDrinkHandler: (Drink) -> Void
 
-    init(drinkId: Int?, selectEventHandler: @escaping ((Drink) -> Void)) {
+    init(selectEventHandler: @escaping ((Drink) -> Void)) {
         // 드링크가 선택되어 있을 수도 있고 안되어있을 수도 있음
         // 선택되어 있다면, selectedDrink 값에 넣어줘야 함.
-        if let id = drinkId {
-            selectedDrinkId = id
-        }
         selectedDrinkHandler = selectEventHandler
     }
     

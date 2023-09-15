@@ -94,8 +94,7 @@ final class TrackerViewController: UIViewController {
     }
     
     @objc func addButtonTapped() {
-        let commitManager = CommitNetworkManager.shared
-        let updateVM = UpdateViewModel(commitManager: commitManager)
+        let updateVM = UpdateViewModel()
         let updateVC = UINavigationController(rootViewController: UpdateViewController(viewModel: updateVM))
         updateVC.modalPresentationStyle = .fullScreen
         self.present(updateVC, animated: true)

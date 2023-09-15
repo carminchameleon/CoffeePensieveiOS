@@ -10,7 +10,6 @@ import UIKit
 class UpdateTableViewCell: UITableViewCell {
     
     var cellTrailingMarginConstraint: NSLayoutConstraint!
-
     var cellData: UpdateCell? = nil {
         didSet {
             if let cellData = cellData {

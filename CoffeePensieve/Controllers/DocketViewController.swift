@@ -69,8 +69,7 @@ class DocketViewController: UIViewController {
     }
     
     func editButtonTapped() {
-        let commitManager = CommitNetworkManager.shared
-        let updateVM = UpdateViewModel(commitManager: commitManager, commitDetail: commit)
+        let updateVM = UpdateViewModel(commitDetail: commit)
         let updateVC = UINavigationController(rootViewController: UpdateViewController(viewModel: updateVM))
         updateVC.modalPresentationStyle = .overFullScreen
         updateVM.delegate = self

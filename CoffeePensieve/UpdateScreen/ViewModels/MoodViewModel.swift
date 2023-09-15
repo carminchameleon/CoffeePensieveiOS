@@ -11,11 +11,7 @@ final class MoodViewModel {
     
     var moodList = Constant.moodList
     var selectedMood: Int?
-    let selectedMoodHandler: ((Mood) -> Void)
-
-    init(moodSelectionHandler: @escaping ((Mood) -> Void)) {
-        self.selectedMoodHandler = moodSelectionHandler
-    }
+    var moodSelectionHandler: (Mood) -> Void = { _ in }
     
     var numberOfItemsInSection: Int {
         return moodList.count
@@ -32,6 +28,6 @@ final class MoodViewModel {
     func handleMoodSelected(index: Int) {
         selectedMood = index
         let mood = moodList.filter { $0.moodId == selectedMood }[0]
-        selectedMoodHandler(mood)
+        moodSelectionHandler(mood)
     }
 }
