@@ -490,7 +490,6 @@
 			children = (
 				F09E02EA29FE41140008C259 /* CoffeePensieve.entitlements */,
 				F09E02C629FAA5D10008C259 /* GoogleService-Info.plist */,
-				F0CC3FEE29DEA48000BD5B51 /* Info.plist */,
 				F09E02C229FA955D0008C259 /* AuthData+CoreDataClass.swift */,
 				F09E02C329FA955D0008C259 /* AuthData+CoreDataProperties.swift */,
 				F0CC3FDC29DEA47D00BD5B51 /* CoffeePensieve */,
@@ -520,6 +519,7 @@
 				F0CC58552AA5FD50009FA536 /* UpdateScreen */,
 				F0CC3FE929DEA48000BD5B51 /* Assets.xcassets */,
 				F0CC3FE329DEA47D00BD5B51 /* Main.storyboard */,
+				F0CC3FEE29DEA48000BD5B51 /* Info.plist */,
 				F0CC3FEB29DEA48000BD5B51 /* LaunchScreen.storyboard */,
 				F0CC3FE629DEA47D00BD5B51 /* CoffeePensieve.xcdatamodeld */,
 			);
