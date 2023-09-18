@@ -63,6 +63,8 @@ class OnboardingView: UIView {
         backgroundColor = .primaryColor25
 
         addSubview(imageView)
+        addSubview(stackView)
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50),
@@ -71,7 +73,7 @@ class OnboardingView: UIView {
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
         ])
 
-        addSubview(stackView)
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
