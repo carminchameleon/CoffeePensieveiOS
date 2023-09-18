@@ -161,6 +161,14 @@ class DocketView: UIView {
     
     func makeUI() {
         addSubview(createdAtLabel)
+        addSubview(coffeeLabel)
+        addSubview(drinkStack)
+        addSubview(moodTitle)
+        addSubview(moodStack)
+        addSubview(tagTitle)
+        addSubview(tags)
+        addSubview(detailTitle)
+
         createdAtLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -169,7 +177,7 @@ class DocketView: UIView {
             createdAtLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        addSubview(coffeeLabel)
+
         coffeeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -178,7 +186,6 @@ class DocketView: UIView {
             coffeeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        addSubview(drinkStack)
         drinkStack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             drinkStack.topAnchor.constraint(equalTo: coffeeLabel.bottomAnchor, constant: 12),
@@ -193,7 +200,6 @@ class DocketView: UIView {
             coffeeImage.heightAnchor.constraint(equalToConstant: 70),
         ])
         
-        addSubview(moodTitle)
         moodTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             moodTitle.topAnchor.constraint(equalTo: drinkStack.bottomAnchor, constant: 20),
@@ -201,7 +207,6 @@ class DocketView: UIView {
             moodTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        addSubview(moodStack)
         moodStack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             moodStack.topAnchor.constraint(equalTo: moodTitle.bottomAnchor, constant: 12),
@@ -211,7 +216,6 @@ class DocketView: UIView {
         ])
      
         
-        addSubview(tagTitle)
         tagTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tagTitle.topAnchor.constraint(equalTo: moodStack.bottomAnchor, constant: 12),
@@ -219,7 +223,6 @@ class DocketView: UIView {
             tagTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        addSubview(tags)
         tags.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tags.topAnchor.constraint(equalTo: tagTitle.bottomAnchor, constant: 12),
@@ -227,44 +230,14 @@ class DocketView: UIView {
             tags.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
         
-        addSubview(detailTitle)
         detailTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             detailTitle.topAnchor.constraint(equalTo: tags.bottomAnchor, constant: 20),
             detailTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             detailTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
-//
-//        addSubview(detailView)
-//        detailView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-//            detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-//        ])
-//
+
     }
     
 }
 
-//
-//extension UIView {
-//    func setGradient(color1:UIColor,color2:UIColor){
-//          let gradient: CAGradientLayer = CAGradientLayer()
-//          gradient.colors = [color1.cgColor,color2.cgColor]
-//          gradient.locations = [0.0 , 1.0]
-//          gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
-//          gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-//          gradient.frame = bounds
-//        layer.insertSublayer(gradient, at: 0)
-//      }
-//
-//    func setGradient3Color(color1:UIColor, color2:UIColor, color3:UIColor){
-//        let gradient: CAGradientLayer = CAGradientLayer()
-//        gradient.colors = [color1.cgColor,color2.cgColor,color3.cgColor]
-//        gradient.locations = [0.0 , 1.0]
-//        gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
-//        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-//        gradient.frame = bounds
-//      layer.insertSublayer(gradient, at: 0)
-//    }
-//}

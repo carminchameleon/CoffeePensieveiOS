@@ -33,9 +33,7 @@ final class RecordLoadingView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUI()
-        
-        
+        setUI()        
     }
     
     required init?(coder: NSCoder) {
@@ -43,21 +41,21 @@ final class RecordLoadingView: UIView {
     }
     
     func setUI(){
-        self.backgroundColor = .white
-        self.addSubview(self.backgroundView)
-        self.addSubview(self.activityIndicatorView)
+        backgroundColor = .white
+        addSubview(backgroundView)
+        addSubview(activityIndicatorView)
         
         
         NSLayoutConstraint.activate([
-             self.backgroundView.leftAnchor.constraint(equalTo: self.leftAnchor),
-             self.backgroundView.rightAnchor.constraint(equalTo: self.rightAnchor),
-             self.backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-             self.backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+             backgroundView.leftAnchor.constraint(equalTo: leftAnchor),
+             backgroundView.rightAnchor.constraint(equalTo: rightAnchor),
+             backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+             backgroundView.topAnchor.constraint(equalTo: topAnchor),
        ])
        
         NSLayoutConstraint.activate([
-             self.activityIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-             self.activityIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+             activityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor),
+             activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
        ])
     
     }

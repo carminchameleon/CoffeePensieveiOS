@@ -58,6 +58,10 @@ class PreferenceView: UIView {
     func makeUI() {
         backgroundColor = .white
         addSubview(tableView)
+        addSubview(setButton)
+        addSubview(notificationLabel)
+        addSubview(switchButton)
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor),
@@ -67,7 +71,6 @@ class PreferenceView: UIView {
         ])
 
         
-        addSubview(setButton)
         setButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             setButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -78),
@@ -76,7 +79,6 @@ class PreferenceView: UIView {
             setButton.heightAnchor.constraint(equalToConstant: 56)
         ])
         
-        addSubview(notificationLabel)
         notificationLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             notificationLabel.topAnchor.constraint(equalTo: setButton.topAnchor, constant: -42),
@@ -84,7 +86,6 @@ class PreferenceView: UIView {
             notificationLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
 
-        addSubview(switchButton)
         switchButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             switchButton.topAnchor.constraint(equalTo: setButton.topAnchor, constant: -42),

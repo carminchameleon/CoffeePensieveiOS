@@ -62,6 +62,11 @@ class CommitMainView: UIView {
     func setUI() {
 
         self.addSubview(greetingLabel)
+        self.addSubview(cheeringLabel)
+        self.addSubview(imageView)
+        self.addSubview(suggestionLabel)
+        self.addSubview(addButton)
+
         greetingLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             greetingLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 40),
@@ -69,7 +74,6 @@ class CommitMainView: UIView {
             greetingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
         ])
 
-        self.addSubview(cheeringLabel)
         cheeringLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             cheeringLabel.topAnchor.constraint(equalTo: greetingLabel.bottomAnchor, constant: 24),
@@ -77,7 +81,7 @@ class CommitMainView: UIView {
             cheeringLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
         ])
         
-        self.addSubview(imageView)
+
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -86,7 +90,6 @@ class CommitMainView: UIView {
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
         ])
 
-        self.addSubview(suggestionLabel)
         suggestionLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             suggestionLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -130),
@@ -94,8 +97,6 @@ class CommitMainView: UIView {
             suggestionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
         ])
 
-        
-        self.addSubview(addButton)
         addButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             addButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -88),

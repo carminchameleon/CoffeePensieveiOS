@@ -63,15 +63,10 @@ final class FirstProfileGreetingView: UIView {
         backgroundColor = .white
     
         addSubview(mainTitleLabel)
-        mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            mainTitleLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -120),
-            mainTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
-            mainTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
-            mainTitleLabel.heightAnchor.constraint(equalToConstant: 120)
-        ])
-        
         addSubview(imageView)
+        addSubview(subTitleLabel)
+        addSubview(nextButton)
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -79,8 +74,15 @@ final class FirstProfileGreetingView: UIView {
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
         ])
+    
+        mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mainTitleLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -120),
+            mainTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
+            mainTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36),
+            mainTitleLabel.heightAnchor.constraint(equalToConstant: 120)
+        ])
 
-        addSubview(subTitleLabel)
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             subTitleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
@@ -89,7 +91,6 @@ final class FirstProfileGreetingView: UIView {
             subTitleLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
         
-        addSubview(nextButton)
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             nextButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -80),

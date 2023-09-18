@@ -37,8 +37,9 @@ class CommitMoodCollectionViewCell: UICollectionViewCell {
     
     func makeUI() {
         addSubview(iconLabel)
-        iconLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
 
+        iconLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             iconLabel.topAnchor.constraint(equalTo: topAnchor),
             iconLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
@@ -47,9 +48,7 @@ class CommitMoodCollectionViewCell: UICollectionViewCell {
         ])
         
         
-        addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: iconLabel.bottomAnchor, constant: 0),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),

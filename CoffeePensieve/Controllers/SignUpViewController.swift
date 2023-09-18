@@ -76,7 +76,7 @@ final class SignUpViewController: UIViewController {
     @objc private func signUpButtonTapped() {
         guard let email = signUpView.emailTextField.text else { return }
         guard let password = signUpView.passwordTextField.text else { return }
-        
+        print(email, password)
         // 프로필 입력 작업으로 넘어가게 하기
         let profileVC = FirstProfileGreetingViewController()
         profileVC.email = email

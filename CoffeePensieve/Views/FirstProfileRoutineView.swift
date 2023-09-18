@@ -303,6 +303,11 @@ class FirstProfileRoutineView: UIView {
     
     func makeUI() {
         backgroundColor = .white
+        addSubview(infoStackView)
+        addSubview(limitStackView)
+        addSubview(routineStackView)
+        addSubview(submitButton)
+
         
         nameStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -319,7 +324,6 @@ class FirstProfileRoutineView: UIView {
         ])
         
         
-        addSubview(infoStackView)
         infoStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 40),
@@ -334,7 +338,6 @@ class FirstProfileRoutineView: UIView {
             cupStackView.trailingAnchor.constraint(equalTo: limitStackView.trailingAnchor, constant: 0),
         ])
         
-        addSubview(limitStackView)
         limitStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -344,7 +347,6 @@ class FirstProfileRoutineView: UIView {
             limitStackView.heightAnchor.constraint(equalToConstant: viewHeight*3 + padding*2)
         ])
         
-        addSubview(routineStackView)
         routineStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -354,7 +356,6 @@ class FirstProfileRoutineView: UIView {
             routineStackView.heightAnchor.constraint(equalToConstant: viewHeight*3 + padding*2)
         ])
         
-        addSubview(submitButton)
         submitButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             submitButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -80),
