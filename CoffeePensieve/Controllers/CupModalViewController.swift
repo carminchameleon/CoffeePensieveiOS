@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol CupControlDelegate {
+protocol CupControlDelegate: AnyObject {
     func cupSelected(number: Int)
 }
 
@@ -16,7 +16,7 @@ class CupModalViewController: UIViewController {
     let numbers = [1,2,3,4,5,6,7,8,9,10]
     var cups = 4
     
-    var delegate: CupControlDelegate?
+    weak var delegate: CupControlDelegate?
     
     // MARK: - 취소 버튼
     let cancelButton: UIButton = {

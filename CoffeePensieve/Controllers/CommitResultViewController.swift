@@ -12,6 +12,7 @@ final class CommitResultViewController: UIViewController {
     let resultView = CommitResultView()
     
     var data: CommitResultDetail?
+    var isTrackerMode = false
     
     override func loadView() {
         view = resultView
@@ -35,10 +36,6 @@ final class CommitResultViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         updateMemoData()
     }
-    
-    @objc func closeTapped() {
-        navigationController?.popToRootViewController(animated: true)
-    }
         
     func setUI() {
         resultView.backgroundColor = .white
@@ -49,8 +46,16 @@ final class CommitResultViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeTapped))
         updateUIWithData()
     }
-
     
+    @objc func closeTapped() {
+        if isTrackerMode {
+            dismiss(animated: true)
+        } else {
+            navigationController?.popToRootViewController(animated: true)
+        }
+
+    }
+
     func updateUIWithData() {
         resultView.createdAtLabel.text = data?.createdAtString
         resultView.drinkLabel.text = data?.drinkLabelString

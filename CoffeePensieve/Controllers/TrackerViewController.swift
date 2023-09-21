@@ -80,7 +80,6 @@ final class TrackerViewController: UIViewController {
         tableView.register(TrackerRecordTableViewCell.self, forCellReuseIdentifier: CellId.trackerRecordCell.rawValue)
         // header
         tableView.register(TrackerTodayHeaderView.self, forHeaderFooterViewReuseIdentifier: CellId.trackerTodayHeader.rawValue)
-        tableView.register(TrackerGuidelineHeaderView.self, forHeaderFooterViewReuseIdentifier: CellId.trackerGuideHeader.rawValue)
     }
     
     // MARK: - set title style
@@ -95,9 +94,10 @@ final class TrackerViewController: UIViewController {
     }
     
     @objc func addButtonTapped() {
-        let coffeeVC = CommitCoffeeViewController()
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.pushViewController(coffeeVC, animated: true)
+        let updateVM = UpdateViewModel()
+        let updateVC = UINavigationController(rootViewController: UpdateViewController(viewModel: updateVM))
+        updateVC.modalPresentationStyle = .fullScreen
+        self.present(updateVC, animated: true)
     }
 
     func fetchTodayAndGuideData() {
@@ -167,16 +167,14 @@ extension TrackerViewController: UITableViewDelegate, UITableViewDataSource {
             headerView.button.isHidden = true
             headerView.titleLabel.text = "Today's Memory"
             return headerView
-        
         case 1:
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerGuideHeader.rawValue) as! TrackerGuidelineHeaderView
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerTodayHeader.rawValue) as! TrackerTodayHeaderView
             headerView.button.isHidden = false
             headerView.titleLabel.text = "Caffeine Guideline"
             headerView.button.setTitle("Edit", for: .normal)
             headerView.button.setTitleColor(.primaryColor200, for: .normal)
             headerView.button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
             return headerView
-            
         case 2:
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.trackerTodayHeader.rawValue) as! TrackerTodayHeaderView
             headerView.button.isHidden = false
@@ -225,7 +223,9 @@ extension TrackerViewController: UITableViewDelegate, UITableViewDataSource {
                 let docketVC = DocketViewController(commit: commitDetail)
                 navigationController?.pushViewController(docketVC, animated: true)
             } else {
-                addButtonTapped()
+                let coffeeVC = CommitCoffeeViewController()
+                navigationController?.navigationBar.prefersLargeTitles = false
+                navigationController?.pushViewController(coffeeVC, animated: true)
             }
         case 1:
             editButtonTapped()

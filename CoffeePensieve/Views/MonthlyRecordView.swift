@@ -40,6 +40,7 @@ final class MonthlyRecordView: UIView {
     
     func makeUI(){
         addSubview(calendar)
+        
         calendar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             calendar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),

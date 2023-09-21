@@ -110,6 +110,12 @@ final class ForgotPasswordView: UIView {
 
         
         addSubview(backButton)
+        addSubview(mainLabel)
+        addSubview(infoLabel)
+        addSubview(emailTextFieldView)
+        addSubview(submitButton)
+
+
         backButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
@@ -117,7 +123,7 @@ final class ForgotPasswordView: UIView {
             backButton.heightAnchor.constraint(equalToConstant: 36),
         ])
         
-        addSubview(mainLabel)
+
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 80),
@@ -125,7 +131,7 @@ final class ForgotPasswordView: UIView {
             mainLabel.heightAnchor.constraint(equalToConstant: 60)
         ])
         
-        addSubview(infoLabel)
+
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 18),
@@ -133,7 +139,6 @@ final class ForgotPasswordView: UIView {
             infoLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
         
-        addSubview(emailTextFieldView)
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             emailTextField.topAnchor.constraint(equalTo: emailTextFieldView.topAnchor, constant: 0),
@@ -150,7 +155,6 @@ final class ForgotPasswordView: UIView {
             emailTextFieldView.heightAnchor.constraint(equalToConstant: ContentHeight.textViewHeight)
         ])
         
-        addSubview(submitButton)
         submitButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             submitButton.topAnchor.constraint(equalTo: emailTextFieldView.bottomAnchor, constant: 12),

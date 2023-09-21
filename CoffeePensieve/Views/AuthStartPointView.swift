@@ -158,13 +158,19 @@ final class AuthStartPointView: UIView {
         backgroundColor = .white
         
         addSubview(appNameLabel)
+        addSubview(signUpLabel)
+        addSubview(stackView)
+        addSubview(infoLabel)
+        addSubview(policyLabel)
+        addSubview(loginButton)
+
+        
         appNameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             appNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
             appNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
-        addSubview(signUpLabel)
         signUpLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             signUpLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -172,7 +178,7 @@ final class AuthStartPointView: UIView {
             signUpLabel.heightAnchor.constraint(equalToConstant: 60)
         ])
         
-        addSubview(stackView)
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: signUpLabel.bottomAnchor, constant: 36),
@@ -181,21 +187,18 @@ final class AuthStartPointView: UIView {
             stackView.heightAnchor.constraint(equalToConstant: ContentHeight.authButtonHeight * 3 + 24)
         ])
         
-        addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 24),
             infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
         
-        addSubview(policyLabel)
         policyLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             policyLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 0),
             policyLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
         
-        addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             loginButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),

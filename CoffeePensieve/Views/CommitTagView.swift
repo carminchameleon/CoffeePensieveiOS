@@ -65,7 +65,6 @@ class CommitTagView: UIView {
         textView.spellCheckingType = UITextSpellCheckingType.no
         textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.isEditable = true
-         
         return textView
     }()
     
@@ -89,6 +88,7 @@ class CommitTagView: UIView {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
             if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             collectionView.isHidden = true
@@ -117,7 +117,7 @@ class CommitTagView: UIView {
 
     
     func makeUI() {
-            self.addSubview(progressBar)
+            addSubview(progressBar)
             progressBar.translatesAutoresizingMaskIntoConstraints = false
 
             NSLayoutConstraint.activate([
@@ -128,7 +128,7 @@ class CommitTagView: UIView {
             ])
         
      
-            self.addSubview(questionLabel)
+            addSubview(questionLabel)
             questionLabel.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
@@ -138,7 +138,7 @@ class CommitTagView: UIView {
                 questionLabel.heightAnchor.constraint(equalToConstant: 20)
             ])
             
-            self.addSubview(selectedTag)
+            addSubview(selectedTag)
             selectedTag.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
@@ -149,7 +149,7 @@ class CommitTagView: UIView {
             ])
         
         
-            self.addSubview(collectionView)
+            addSubview(collectionView)
             collectionView.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
@@ -159,7 +159,7 @@ class CommitTagView: UIView {
                 collectionView.heightAnchor.constraint(equalToConstant: 240)
             ])
         
-            self.addSubview(memoView)
+            addSubview(memoView)
             memoView.translatesAutoresizingMaskIntoConstraints = false
                   
             memoViewTopConstraint = memoView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 0)

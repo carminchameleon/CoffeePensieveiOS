@@ -69,3 +69,40 @@ extension UIView {
     }
 }
 
+
+extension String {
+    func image(pointSize: CGFloat, backgroundColor: UIColor = .clear) -> UIImage {
+        let font = UIFont.systemFont(ofSize: pointSize)
+        let emojiSize = self.size(withAttributes: [.font: font])
+
+        return UIGraphicsImageRenderer(size: emojiSize).image { context in
+            backgroundColor.setFill()
+            context.fill(CGRect(origin: .zero, size: emojiSize))
+            self.draw(at: .zero, withAttributes: [.font: font])
+        }
+    }
+}
+
+
+
+extension UIView {
+    func setGradient(color1:UIColor,color2:UIColor){
+          let gradient: CAGradientLayer = CAGradientLayer()
+          gradient.colors = [color1.cgColor,color2.cgColor]
+          gradient.locations = [0.0 , 1.0]
+          gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+          gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+          gradient.frame = bounds
+        layer.insertSublayer(gradient, at: 0)
+      }
+    
+    func setGradient3Color(color1:UIColor, color2:UIColor, color3:UIColor){
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [color1.cgColor,color2.cgColor,color3.cgColor]
+        gradient.locations = [0.0 , 1.0]
+        gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
+        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+        gradient.frame = bounds
+      layer.insertSublayer(gradient, at: 0)
+    }
+}

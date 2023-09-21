@@ -28,10 +28,6 @@ class TrackerTodayHeaderView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        
-        // 헤더 뷰 설정
-        contentView.backgroundColor = .white
-        
         // 타이틀 레이블 설정
         contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([

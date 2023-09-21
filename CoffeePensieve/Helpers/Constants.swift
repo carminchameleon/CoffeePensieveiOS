@@ -171,5 +171,12 @@ enum CellId: String {
     case PreferenceNameCell
     case PreferenceCupCell
     case PreferenceTimeCell
+    
+    case updateCell
+    case updateHeaderCell
+    case noteCell
+    case tagCell
+    case createdAtCell
+    case moodCell
 }
 

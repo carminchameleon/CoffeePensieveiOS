@@ -24,7 +24,7 @@ class WelcomeViewController: UIViewController {
         return label
     }()
     
-    let startButton: UIButton = {
+    lazy var startButton: UIButton = {
         let button = UIButton(type:.custom)
         button.setTitle("Get Started", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)

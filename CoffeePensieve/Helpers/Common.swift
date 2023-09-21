@@ -108,6 +108,33 @@ final class Common {
         return formattedTime
     }
     
+    // MARK: - 음료 텍스트로 보여주는 것
+    static func getDrinkText(_ drink: Drink) -> String {
+        let drinkName = drink.name.uppercased()
+        let tempMode = drink.isIced ? "ICED" : "HOT"
+        return "\(tempMode) \(drinkName)"
+    }
+    
+    static func getMoodText(_ mood: Mood) -> String {
+        return "\(mood.image) \(mood.name.uppercased())"
+    }
+    
+    static func getTagText(_ tagList: [Tag]) -> String {
+        var result = ""
+        
+        tagList.forEach { tag in
+            result.append(contentsOf: "#\(tag.name) ")
+        }
+        return result
+    }
+    
+    // 모달 사이즈 중간으로 맞추기
+    static func resizeModalController(modalVC: UIViewController, size: Double = 0.4) {
+        if let sheet = modalVC.sheetPresentationController {
+            sheet.detents = [ .custom(identifier: .medium) { context in size * context.maximumDetentValue },
+                              .medium() ]
+        }
+    }
     
     static func getGreetingSentenceByTime() -> String? {
         let nowDate = Date()

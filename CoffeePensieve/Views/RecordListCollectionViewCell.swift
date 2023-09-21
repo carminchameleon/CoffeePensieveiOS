@@ -101,15 +101,18 @@ class RecordListCollectionViewCell: UICollectionViewCell {
     
     func makeUI() {
         addSubview(timeLabel)
+        addSubview(drinkImage)
+        addSubview(moodLabel)
+        addSubview(labelStack)
+        addSubview(memoLabel)
+
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             timeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             timeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             timeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
         ])
 
-        addSubview(drinkImage)
         drinkImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             drinkImage.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 8),
@@ -117,7 +120,7 @@ class RecordListCollectionViewCell: UICollectionViewCell {
             drinkImage.widthAnchor.constraint(equalToConstant: 40),
             drinkImage.heightAnchor.constraint(equalToConstant: 56),
         ])
-        addSubview(moodLabel)
+
         moodLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             moodLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 8),
@@ -125,7 +128,6 @@ class RecordListCollectionViewCell: UICollectionViewCell {
             moodLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             moodLabel.heightAnchor.constraint(equalToConstant: 56)
         ])
-        addSubview(labelStack)
         labelStack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             labelStack.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 11),
@@ -134,7 +136,6 @@ class RecordListCollectionViewCell: UICollectionViewCell {
             labelStack.heightAnchor.constraint(equalToConstant: 50)
         ])
         
-        addSubview(memoLabel)
         memoLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             memoLabel.topAnchor.constraint(equalTo: drinkImage.bottomAnchor, constant: 12),

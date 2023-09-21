@@ -87,7 +87,6 @@ class PreferenceTableViewCell: UITableViewCell {
             menuLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 12),
             menuLabel.heightAnchor.constraint(equalToConstant: 30),
             menuLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
-
         ])
 
         nameTextField.translatesAutoresizingMaskIntoConstraints = false

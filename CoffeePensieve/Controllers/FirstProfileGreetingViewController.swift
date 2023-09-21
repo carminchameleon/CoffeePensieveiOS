@@ -9,7 +9,7 @@ import UIKit
 
 final class FirstProfileGreetingViewController: UIViewController {
 
-    private let greetingView = FirstProfileGreetingView()
+    let greetingView = FirstProfileGreetingView()
     var email:String = ""
     var password: String = ""
     var isSocial = false

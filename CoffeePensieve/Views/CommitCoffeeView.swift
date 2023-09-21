@@ -74,7 +74,9 @@ class CommitCoffeeView: UIView {
         self.addSubview(questionLabel)
         self.addSubview(selectedDrink)
         self.addSubview(tempController)
-        
+        self.addSubview(collectionView)
+        self.addSubview(continueButton)
+
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         questionLabel.translatesAutoresizingMaskIntoConstraints = false
         selectedDrink.translatesAutoresizingMaskIntoConstraints = false
@@ -111,7 +113,6 @@ class CommitCoffeeView: UIView {
         ])
     
         
-        self.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -121,7 +122,6 @@ class CommitCoffeeView: UIView {
             collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1)
         ])
         
-        self.addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

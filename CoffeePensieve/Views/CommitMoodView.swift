@@ -57,9 +57,14 @@ class CommitMoodView: UIView {
     
     func makeUI() {
     
-        self.addSubview(progressBar)
-        progressBar.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(progressBar)
+        addSubview(questionLabel)
+        addSubview(selectedMood)
+        addSubview(collectionView)
+        addSubview(continueButton)
+
         
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             progressBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
             progressBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
@@ -68,9 +73,7 @@ class CommitMoodView: UIView {
         ])
     
  
-        self.addSubview(questionLabel)
         questionLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             questionLabel.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 24),
             questionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
@@ -78,9 +81,8 @@ class CommitMoodView: UIView {
             questionLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
         
-        self.addSubview(selectedMood)
+
         selectedMood.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             selectedMood.topAnchor.constraint(equalTo: questionLabel.bottomAnchor, constant: 20),
             selectedMood.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
@@ -88,10 +90,7 @@ class CommitMoodView: UIView {
             selectedMood.heightAnchor.constraint(equalToConstant: 20)
         ])
 
-        
-        self.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: selectedMood.bottomAnchor, constant: 32),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
@@ -99,9 +98,7 @@ class CommitMoodView: UIView {
             collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1)
         ])
      
-        self.addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             continueButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -76),
             continueButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),

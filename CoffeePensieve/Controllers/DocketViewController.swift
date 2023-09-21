@@ -6,8 +6,8 @@
 //
 
 import UIKit
-@objc protocol DocketControlDelegate {
-    @objc func isDeleted()
+protocol DocketControlDelegate: AnyObject {
+    func isDeleted()
 }
 
 class DocketViewController: UIViewController {
@@ -46,8 +46,7 @@ class DocketViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.tintColor = .primaryColor500
     }
-    
-    
+
     func setNavigationBar() {        
         navigationItem.title = "Memory"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -56,9 +55,28 @@ class DocketViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.tintColor = .white
         tabBarController?.tabBar.isHidden = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteButtonTapped))
+    
+        let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
+            self.deleteButtonTapped()
+        }
+        let editAction = UIAction(title: "Edit", image: UIImage(systemName: "pencil")) { _ in
+            self.editButtonTapped()
+        }
+        let menu = UIMenu(title: "Options", children: [ editAction, deleteAction])
+     
+        let menuButon = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+        navigationItem.rightBarButtonItem = menuButon
     }
-
+    
+    func editButtonTapped() {
+        let updateVM = UpdateViewModel(commitDetail: commit)
+        let updateVC = UINavigationController(rootViewController: UpdateViewController(viewModel: updateVM))
+        updateVC.modalPresentationStyle = .overFullScreen
+        updateVM.delegate = self
+        present(updateVC, animated: true)
+    }
+    
+    
     func updateCommitData() {
         guard let commit = commit else { return }
         // drink
@@ -86,6 +104,10 @@ class DocketViewController: UIViewController {
         if memo.isEmpty {
             docketView.detailTitle.isHidden = true
             return
+        } else {
+            docketView.detailTitle.isHidden = false
+            docketView.memoView.isHidden = true
+            docketView.detailView.isHidden = true
         }
         let width = docketView.frame.width - 48
         let font =  UIFont.italicSystemFont(ofSize: 17)
@@ -102,7 +124,7 @@ class DocketViewController: UIViewController {
     
     func setMemoView(_ memo: String) {
         docketView.addSubview(docketView.memoView)
-        docketView.memoView.translatesAutoresizingMaskIntoConstraints = false
+        docketView.memoView.isHidden = false
         docketView.memoView.text = memo
         
         NSLayoutConstraint.activate([
@@ -115,14 +137,13 @@ class DocketViewController: UIViewController {
     
     func setDetailView(_ memo: String) {
         docketView.addSubview(docketView.detailView)
-        docketView.detailView.translatesAutoresizingMaskIntoConstraints = false
+        docketView.detailView.isHidden = false
         docketView.detailView.text = memo
         
         NSLayoutConstraint.activate([
             docketView.detailView.leadingAnchor.constraint(equalTo: docketView.leadingAnchor, constant: 24),
             docketView.detailView.trailingAnchor.constraint(equalTo: docketView.trailingAnchor, constant: -24),
             docketView.detailView.topAnchor.constraint(equalTo: docketView.detailTitle.bottomAnchor, constant: 12)
-
         ])
     }
 
@@ -136,7 +157,8 @@ class DocketViewController: UIViewController {
     }
     
     @objc func deleteButtonTapped() {
-        let alert = UIAlertController(title: "Are You Sure?", message: "Deleting this memory will remove it from your coffee pensieve", preferredStyle: .alert)
+        let message = "Deleting this memory will remove it from your coffee pensieve"
+        let alert = UIAlertController(title: "Are You Sure?", message: message, preferredStyle: .alert)
         let okay = UIAlertAction(title: "Delete It", style: .destructive) { action in
             self.deleteData()
         }
@@ -163,6 +185,16 @@ class DocketViewController: UIViewController {
                     self.navigationController?.popViewController(animated: true)
                 }
             }
+        }
+    }
+}
+
+extension DocketViewController: CommitUpdateDelegate {
+    func updateCommit(newData: CommitDetail?) {
+        self.commit = newData
+        DispatchQueue.main.async {
+            self.updateCommitData()
+            self.updateDetail()
         }
     }
 }

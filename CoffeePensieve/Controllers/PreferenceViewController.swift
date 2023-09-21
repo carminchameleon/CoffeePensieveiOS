@@ -319,13 +319,11 @@ extension PreferenceViewController : CupControlDelegate {
         DispatchQueue.main.async {
             self.preferenceView.tableView.reloadData()
         }
-
     }
 }
 
 
 extension PreferenceViewController : TimeControlDelegate {
-    
     func timeSelected(type: PreferenceTime, time: String) {
         switch type {
         case .limit:

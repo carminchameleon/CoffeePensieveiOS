@@ -63,7 +63,6 @@ final class AppController {
     
 
     private func moveMain() {
-        
         let commitVC = UINavigationController(rootViewController: CommitViewController())
         let trackerVC = UINavigationController(rootViewController: TrackerViewController())
         let profileVC = UINavigationController(rootViewController: ProfileViewController())
