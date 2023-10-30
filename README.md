@@ -63,18 +63,26 @@ Track your coffee moments and capture your mood for a personalized journey of se
 
 ## Project Status
 - This project has been completed and launched on the app store. 
-- Released June 2023
+- Released Jun 26, 2023
+- Currently working on adding new features.
+
+### Version History
+- 🪡 Ver 1.0.2 (Sep 20, 2023)
+- Memory Editing and Past Record Adding feature.
+- DocketView Bug Fix
+- Apply infinite scroll to the coffee view and add detailed features for user convenience.
+- Implement new features using the MVVM pattern and perform refactoring for the service manager.
 
 ## Room for Improvement
-
-To do:
 - Monthly, weekly memory View
 - Calendar Detail View
 - Charts
+- Share
+- Widget
 
 ## Contact
 - You can check more information 👋🏻 https://www.coffeepensieve.com
-- Created by [@Eunji Carmen Hwang](https://www.coffeepensieve.com/help) - feel free to contact me!
+- Created by [@Eunji Carmen Hwang](eunjihwang1211@gmail.com) - feel free to contact me!
 
 
 <!-- Optional -->
