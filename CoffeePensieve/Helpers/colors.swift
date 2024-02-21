@@ -50,4 +50,13 @@ extension UIColor {
     static let blueGradient200 = UIColor.init(red: 38/255, green: 92/255, blue: 157/255, alpha: 1)
     static let blueGradient300 = UIColor.init(red: 63/255, green: 141/255, blue: 188/255, alpha: 1)
 
+    
+    // MARK: - pensieve
+    // silver
+    static let silverGradient100 = UIColor.init(red: 233/255, green: 239/255, blue: 246/255, alpha: 1)
+    static let silverGradient200 = UIColor.init(red: 218/255, green: 218/255, blue: 218/255, alpha: 1)
+    
+    // water
+    static let waterBlueGradient100 = UIColor.init(red: 26/255, green: 41/255, blue: 128/255, alpha: 1)
+    static let waterBlueGradient200 = UIColor.init(red: 38/255, green: 208/255, blue: 206/255, alpha: 1)
 }

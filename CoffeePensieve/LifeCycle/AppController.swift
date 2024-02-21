@@ -89,8 +89,13 @@ final class AppController {
     }
 
     private func moveWelcome(){
-        let startingVC = StartPointViewController()
-        rootViewController = UINavigationController(rootViewController: startingVC)
+        
+        let loadingVC = InteractiveLoadingViewController()
+        rootViewController = UINavigationController(rootViewController: loadingVC)
+        
+//        
+//        let startingVC = StartPointViewController()
+//        rootViewController = UINavigationController(rootViewController: startingVC)
     }
     
 }

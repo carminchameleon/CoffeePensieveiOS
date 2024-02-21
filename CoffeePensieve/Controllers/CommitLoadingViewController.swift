@@ -18,6 +18,9 @@ class CommitLoadingViewController: UIViewController {
     var tags: [Int]?
     var memo: String = ""
     
+    
+    
+    
     var imageView: UIImageView = {
         let imageName = "Memory-2"
         let loadingImage = UIImage(named: imageName)
@@ -158,4 +161,3 @@ class CommitLoadingViewController: UIViewController {
     }
 
 }
-
