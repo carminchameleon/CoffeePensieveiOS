@@ -102,7 +102,6 @@ class CommitResultView: UIView {
         return label
     }()
     
-    
     let memoView: UITextView = {
         let textView = UITextView()
         textView.contentInsetAdjustmentBehavior = .automatic

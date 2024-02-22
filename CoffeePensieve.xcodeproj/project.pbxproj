@@ -38,6 +38,7 @@
 		F05011632A17666000AD0A49 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05011622A17666000AD0A49 /* CalendarCell.swift */; };
 		F05011652A179D2600AD0A49 /* RecordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05011642A179D2600AD0A49 /* RecordListViewController.swift */; };
 		F05011672A17AB5000AD0A49 /* RecordListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05011662A17AB5000AD0A49 /* RecordListCollectionViewCell.swift */; };
+		F0668A512B874D6200DCABEE /* PensieveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0668A502B874D6200DCABEE /* PensieveView.swift */; };
 		F067DDD42AB017F600AE1FE8 /* BindingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F067DDD32AB017F600AE1FE8 /* BindingTextField.swift */; };
 		F0745FF42A9373A100E85B02 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0745FF32A9373A100E85B02 /* Theme.swift */; };
 		F08FB2B62A9721ED00295A86 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08FB2B52A9721ED00295A86 /* CustomButton.swift */; };
@@ -170,6 +171,7 @@
 		F05011622A17666000AD0A49 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		F05011642A179D2600AD0A49 /* RecordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListViewController.swift; sourceTree = "<group>"; };
 		F05011662A17AB5000AD0A49 /* RecordListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListCollectionViewCell.swift; sourceTree = "<group>"; };
+		F0668A502B874D6200DCABEE /* PensieveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PensieveView.swift; sourceTree = "<group>"; };
 		F067DDD32AB017F600AE1FE8 /* BindingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingTextField.swift; sourceTree = "<group>"; };
 		F0745FF32A9373A100E85B02 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		F08FB2B52A9721ED00295A86 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 			children = (
 				F08FB2B52A9721ED00295A86 /* CustomButton.swift */,
 				F009F9712AA873930062C286 /* ModalTextButton.swift */,
+				F0668A502B874D6200DCABEE /* PensieveView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -766,6 +769,7 @@
 				F09F61092A052979004F2462 /* CommitTagCollectionViewCell.swift in Sources */,
 				F0D6460F2A23256B00BEB4C8 /* TimeModalViewController.swift in Sources */,
 				F09F60F52A012D6A004F2462 /* CommitCoffeeView.swift in Sources */,
+				F0668A512B874D6200DCABEE /* PensieveView.swift in Sources */,
 				F0F8A89029E8DAE100838F35 /* OnboardingView.swift in Sources */,
 				F0D646012A207F6100BEB4C8 /* PreferenceViewController.swift in Sources */,
 				F014136F2A120ACE00A0DB99 /* SummaryModel.swift in Sources */,
